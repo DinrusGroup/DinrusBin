@@ -1,0 +1,71 @@
+/* Converted to D from gsl_fft_halfcomplex_float.h by htod
+ * and edited by daniel truemper <truemped.dsource <with> hence22.org>
+ */
+module auxc.gsl.gsl_fft_halfcomplex_float;
+/* fft/gsl_fft_halfcomplex_float.h
+ * 
+ * Copyright (C) 1996, 1997, 1998, 1999, 2000 Brian Gough
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
+import tango.stdc.stddef;
+
+public import auxc.gsl.gsl_math;
+
+public import auxc.gsl.gsl_complex;
+
+public import auxc.gsl.gsl_fft;
+
+public import auxc.gsl.gsl_fft_real_float;
+
+extern (C):
+int  gsl_fft_halfcomplex_float_radix2_backward(float *data, size_t stride, size_t n);
+
+int  gsl_fft_halfcomplex_float_radix2_inverse(float *data, size_t stride, size_t n);
+
+int  gsl_fft_halfcomplex_float_radix2_transform(float *data, size_t stride, size_t n);
+
+struct gsl_fft_halfcomplex_wavetable_float
+{
+    size_t n;
+    size_t nf;
+    size_t [64]factor;
+    gsl_complex_float *[64]twiddle;
+    gsl_complex_float *trig;
+};
+
+gsl_fft_halfcomplex_wavetable_float * gsl_fft_halfcomplex_wavetable_float_alloc(size_t n);
+
+void  gsl_fft_halfcomplex_wavetable_float_free(gsl_fft_halfcomplex_wavetable_float *wavetable);
+
+int  gsl_fft_halfcomplex_float_backward(float *data, size_t stride, size_t n, gsl_fft_halfcomplex_wavetable_float *wavetable, gsl_fft_real_workspace_float *work);
+
+int  gsl_fft_halfcomplex_float_inverse(float *data, size_t stride, size_t n, gsl_fft_halfcomplex_wavetable_float *wavetable, gsl_fft_real_workspace_float *work);
+
+int  gsl_fft_halfcomplex_float_transform(float *data, size_t stride, size_t n, gsl_fft_halfcomplex_wavetable_float *wavetable, gsl_fft_real_workspace_float *work);
+
+int  gsl_fft_halfcomplex_float_unpack(float *halfcomplex_coefficient, float *complex_coefficient, size_t stride, size_t n);
+
+int  gsl_fft_halfcomplex_float_radix2_unpack(float *halfcomplex_coefficient, float *complex_coefficient, size_t stride, size_t n);
+
+
+version (build) {
+    debug {
+        pragma(link, "auxc");
+    } else {
+        pragma(link, "auxc");
+    }
+}

@@ -1,0 +1,789 @@
+// Generated .IDL file (by the OLE/COM Object Viewer)
+// 
+// typelib filename: mscoree.tlb
+
+[
+  uuid(5477469E-83B1-11D2-8B49-00A0C9B7C9C4),
+  version(2.4),
+  helpstring("Common Language Runtime Execution Engine 2.4 Library")
+]
+library mscoree
+{
+    // TLib :     // TLib : OLE Automation : {00020430-0000-0000-C000-000000000046}
+    importlib("stdole2.tlb");
+
+    // Forward declare all types defined in this typelib
+    interface ICorSvcDependencies;
+    interface ICorSvcWorker;
+    interface ICorSvcWorker2;
+    interface ICorSvcSetPrivateAttributes;
+    interface ICorSvcRepository;
+    interface ICorSvcLogger;
+    interface ICorSvcPooledWorker;
+    interface ICorSvcBindToWorker;
+    interface ITypeName;
+    interface ITypeNameBuilder;
+    interface ITypeNameFactory;
+    interface IApartmentCallback;
+    interface IManagedObject;
+    interface ICatalogServices;
+    interface IMarshal;
+    interface IStream;
+    interface ISequentialStream;
+    interface ICorRuntimeHost;
+    interface ICorConfiguration;
+    interface IGCThreadControl;
+    interface IGCHostControl;
+    interface IDebuggerThreadControl;
+    interface IGCHost;
+    interface IValidator;
+    interface IVEHandler;
+    interface IDebuggerInfo;
+    interface ICLRRuntimeHost;
+    interface IHostControl;
+    interface ICLRControl;
+    interface ICLRValidator;
+
+    [
+      odl,
+      uuid(DDB34005-9BA3-4025-9554-F00A2DF5DBF5),
+      oleautomation
+    ]
+    interface ICorSvcDependencies : IUnknown {
+        HRESULT _stdcall GetAssemblyDependencies(
+                        [in] BSTR pAssemblyName, 
+                        [out] SAFEARRAY(BSTR)* pDependencies, 
+                        [out] unsigned long* assemblyNGenSetting, 
+                        [out] BSTR* pNativeImageIdentity, 
+                        [out] BSTR* pAssemblyDisplayName, 
+                        [out] SAFEARRAY(unsigned long)* pDependencyLoadSetting, 
+                        [out] SAFEARRAY(unsigned long)* pDependencyNGenSetting);
+    };
+
+    typedef [public]
+    __MIDL___MIDL_itf_mscoree_tlb_0001_0009_0001 OptimizationScenario;
+
+    typedef enum {
+        ScenarioDefault = 0,
+        ScenarioAll = 1,
+        ScenarioDebug = 2,
+        ScenarioProfile = 8,
+        ScenarioTuningDataCollection = 16,
+        ScenarioLegacy = 32,
+        ScenarioNgenLastRetry = 0x00010000
+    } __MIDL___MIDL_itf_mscoree_tlb_0001_0009_0001;
+
+    typedef [public]
+    __MIDL___MIDL_itf_mscoree_tlb_0001_0009_0002 PrivateOptimizationScenario;
+
+    typedef enum {
+        ScenarioEmitFixups = 0x00010000,
+        ScenarioProfileInfo = 0x00020000
+    } __MIDL___MIDL_itf_mscoree_tlb_0001_0009_0002;
+
+    typedef struct tag_SvcWorkerPriority {
+                
+unsigned long dwPriorityClass;
+    } _SvcWorkerPriority;
+
+    [
+      odl,
+      uuid(D1047BC2-67C0-400C-A94C-E64446A67FBE),
+      oleautomation
+    ]
+    interface ICorSvcWorker : IUnknown {
+        HRESULT _stdcall SetPriority([in] _SvcWorkerPriority priority);
+        HRESULT _stdcall OptimizeAssembly(
+                        [in] BSTR pAssemblyName, 
+                        [in] BSTR pApplicationName, 
+                        [in] OptimizationScenario scenario, 
+                        [in] SAFEARRAY(BSTR) loadAlwaysList, 
+                        [in] SAFEARRAY(BSTR) loadSometimesList, 
+                        [in] SAFEARRAY(BSTR) loadNeverList, 
+                        [out] BSTR* pNativeImageIdentity);
+        HRESULT _stdcall DeleteNativeImage(
+                        [in] BSTR pAssemblyName, 
+                        [in] BSTR pNativeImage);
+        HRESULT _stdcall DisplayNativeImages([in] BSTR pAssemblyName);
+        HRESULT _stdcall GetCorSvcDependencies(
+                        [in] BSTR pApplicationName, 
+                        [in] OptimizationScenario scenario, 
+                        [out] ICorSvcDependencies** pCorSvcDependencies);
+        HRESULT _stdcall Stop();
+    };
+
+    [
+      odl,
+      uuid(F3358A7D-0061-4776-880E-A2F21B9EF93E),
+      oleautomation
+    ]
+    interface ICorSvcWorker2 : ICorSvcWorker {
+        HRESULT _stdcall CreatePdb(
+                        [in] BSTR pAssemblyName, 
+                        [in] BSTR pAppBaseOrConfig, 
+                        [in] OptimizationScenario scenario, 
+                        [in] BSTR pNativeImagePath, 
+                        [in] BSTR pPdbPath);
+    };
+
+    typedef [public]
+    __MIDL___MIDL_itf_mscoree_tlb_0001_0011_0001 NGenPrivateAttributesFlags;
+
+    typedef enum {
+        DbgTypePdb = 1
+    } __MIDL___MIDL_itf_mscoree_tlb_0001_0011_0001;
+
+    typedef struct tag_NGenPrivateAttributes {
+                
+unsigned long Flags;
+                
+unsigned long ZapStats;
+                
+BSTR DbgDir;
+    } _NGenPrivateAttributes;
+
+    [
+      odl,
+      uuid(B18E0B40-C089-4350-8328-066C668BCCC2),
+      oleautomation
+    ]
+    interface ICorSvcSetPrivateAttributes : IUnknown {
+        HRESULT _stdcall SetNGenPrivateAttributes([in] _NGenPrivateAttributes ngenPrivateAttributes);
+    };
+
+    typedef [public]
+    __MIDL___MIDL_itf_mscoree_tlb_0001_0012_0001 RepositoryFlags;
+
+    typedef enum {
+        RepositoryDefault = 0,
+        MoveFromRepository = 1,
+        CopyToRepository = 2
+    } __MIDL___MIDL_itf_mscoree_tlb_0001_0012_0001;
+
+    [
+      odl,
+      uuid(D5346658-B5FD-4353-9647-07AD4783D5A0),
+      oleautomation
+    ]
+    interface ICorSvcRepository : IUnknown {
+        HRESULT _stdcall SetRepository(
+                        [in] BSTR pRepositoryDir, 
+                        [in] RepositoryFlags RepositoryFlags);
+    };
+
+    typedef enum {
+        LogLevel_Error = 0,
+        LogLevel_Warning = 1,
+        LogLevel_Success = 2,
+        LogLevel_Info = 3
+    } CorSvcLogLevel;
+
+    [
+      odl,
+      uuid(D189FF1A-E266-4F13-9637-4B9522279FFC),
+      oleautomation
+    ]
+    interface ICorSvcLogger : IUnknown {
+        HRESULT _stdcall Log(
+                        [in] CorSvcLogLevel logLevel, 
+                        [in] BSTR message);
+    };
+
+    [
+      odl,
+      uuid(0631E7E2-6046-4FDE-8B6D-A09B64FDA6F3),
+      oleautomation
+    ]
+    interface ICorSvcPooledWorker : IUnknown {
+        HRESULT _stdcall CanReuseProcess(
+                        [in] OptimizationScenario scenario, 
+                        [in] ICorSvcLogger* pCorSvcLogger, 
+                        [out] long* pCanContinue);
+    };
+
+    [
+      odl,
+      uuid(5C6FB596-4828-4ED5-B9DD-293DAD736FB5),
+      oleautomation
+    ]
+    interface ICorSvcBindToWorker : IUnknown {
+        HRESULT _stdcall BindToRuntimeWorker(
+                        [in] BSTR pRuntimeVersion, 
+                        [in] unsigned long ParentProcessID, 
+                        [in] BSTR pInterruptEventName, 
+                        [in] ICorSvcLogger* pCorSvcLogger, 
+                        [out] ICorSvcWorker** pCorSvcWorker);
+    };
+
+    [
+      odl,
+      uuid(B81FF171-20F3-11D2-8DCC-00A0C9B00522),
+      helpstring("Type name parser"),
+      oleautomation
+    ]
+    interface ITypeName : IUnknown {
+        HRESULT _stdcall GetNameCount([out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetNames(
+                        [in] unsigned long count, 
+                        [out] BSTR* rgbszNames, 
+                        [out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetTypeArgumentCount([out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetTypeArguments(
+                        [in] unsigned long count, 
+                        [out] ITypeName** rgpArguments, 
+                        [out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetModifierLength([out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetModifiers(
+                        [in] unsigned long count, 
+                        [out] unsigned long* rgModifiers, 
+                        [out, retval] unsigned long* pCount);
+        HRESULT _stdcall GetAssemblyName([out, retval] BSTR* rgbszAssemblyNames);
+    };
+
+    [
+      odl,
+      uuid(B81FF171-20F3-11D2-8DCC-00A0C9B00523),
+      helpstring("Type name builder"),
+      oleautomation
+    ]
+    interface ITypeNameBuilder : IUnknown {
+        HRESULT _stdcall OpenGenericArguments();
+        HRESULT _stdcall CloseGenericArguments();
+        HRESULT _stdcall OpenGenericArgument();
+        HRESULT _stdcall CloseGenericArgument();
+        HRESULT _stdcall AddName([in] LPWSTR szName);
+        HRESULT _stdcall AddPointer();
+        HRESULT _stdcall AddByRef();
+        HRESULT _stdcall AddSzArray();
+        HRESULT _stdcall AddArray([in] unsigned long rank);
+        HRESULT _stdcall AddAssemblySpec([in] LPWSTR szAssemblySpec);
+        HRESULT _stdcall ToString([out, retval] BSTR* pszStringRepresentation);
+        HRESULT _stdcall Clear();
+    };
+
+    [
+      odl,
+      uuid(B81FF171-20F3-11D2-8DCC-00A0C9B00521),
+      helpstring("Type name builder and parser factory"),
+      oleautomation
+    ]
+    interface ITypeNameFactory : IUnknown {
+        HRESULT _stdcall ParseTypeName(
+                        [in] LPWSTR szName, 
+                        [out] unsigned long* pError, 
+                        [out, retval] ITypeName** ppTypeName);
+        HRESULT _stdcall GetTypeNameBuilder([out, retval] ITypeNameBuilder** ppTypeBuilder);
+    };
+
+    [
+      odl,
+      uuid(178E5337-1528-4591-B1C9-1C6E484686D8),
+      helpstring("Apartment callback interface"),
+      oleautomation
+    ]
+    interface IApartmentCallback : IUnknown {
+        HRESULT _stdcall DoCallback(
+                        [in] ULONG_PTR pFunc, 
+                        [in] ULONG_PTR pData);
+    };
+
+    typedef [public    ,
+      custom(F914481D-9C62-4B43-9340-E9B2E6252E5F, 1)    
+]
+    unsigned long ULONG_PTR;
+
+    [
+      odl,
+      uuid(C3FCC19E-A970-11D2-8B5A-00A0C9B7C9C4),
+      helpstring("Managed Object Interface"),
+      oleautomation
+    ]
+    interface IManagedObject : IUnknown {
+        HRESULT _stdcall GetSerializedBuffer([out] BSTR* pBSTR);
+        HRESULT _stdcall GetObjectIdentity(
+                        [out] BSTR* pBSTRGUID, 
+                        [out] int* AppDomainID, 
+                        [out] int* pCCW);
+    };
+
+    [
+      odl,
+      uuid(04C6BE1E-1DB1-4058-AB7A-700CCCFBF254),
+      helpstring("ICatalogServices Interface"),
+      oleautomation
+    ]
+    interface ICatalogServices : IUnknown {
+        HRESULT _stdcall Autodone();
+        HRESULT _stdcall NotAutodone();
+    };
+
+    [
+      uuid(3F281000-E95A-11D2-886B-00C04F869F04),
+      helpstring("Com Call Wrapper Unmarshalling Class")
+    ]
+    coclass ComCallUnmarshal {
+        [default] interface IMarshal;
+    };
+
+    [
+      odl,
+      uuid(00000003-0000-0000-C000-000000000046)
+    ]
+    interface IMarshal : IUnknown {
+        HRESULT _stdcall GetUnmarshalClass(
+                        [in] GUID* riid, 
+                        [in] void* pv, 
+                        [in] unsigned long dwDestContext, 
+                        [in] void* pvDestContext, 
+                        [in] unsigned long mshlflags, 
+                        [out] GUID* pCid);
+        HRESULT _stdcall GetMarshalSizeMax(
+                        [in] GUID* riid, 
+                        [in] void* pv, 
+                        [in] unsigned long dwDestContext, 
+                        [in] void* pvDestContext, 
+                        [in] unsigned long mshlflags, 
+                        [out] unsigned long* pSize);
+        HRESULT _stdcall MarshalInterface(
+                        [in] IStream** pstm, 
+                        [in] GUID* riid, 
+                        [in] void* pv, 
+                        [in] unsigned long dwDestContext, 
+                        [in] void* pvDestContext, 
+                        [in] unsigned long mshlflags);
+        HRESULT _stdcall UnmarshalInterface(
+                        [in] IStream* pstm, 
+                        [in] GUID* riid, 
+                        [out] void** ppv);
+        HRESULT _stdcall ReleaseMarshalData([in] IStream* pstm);
+        HRESULT _stdcall DisconnectObject([in] unsigned long dwReserved);
+    };
+
+    [
+      odl,
+      uuid(0000000C-0000-0000-C000-000000000046)
+    ]
+    interface IStream : ISequentialStream {
+        HRESULT _stdcall Seek(
+                        [in] _LARGE_INTEGER dlibMove, 
+                        [in] unsigned long dwOrigin, 
+                        _ULARGE_INTEGER* plibNewPosition);
+        HRESULT _stdcall RemoteSeek(
+                        [in] _LARGE_INTEGER dlibMove, 
+                        [in] unsigned long dwOrigin, 
+                        [out] _ULARGE_INTEGER* plibNewPosition);
+        HRESULT _stdcall SetSize([in] _ULARGE_INTEGER libNewSize);
+        HRESULT _stdcall CopyTo(
+                        [in] IStream* pstm, 
+                        [in] _ULARGE_INTEGER cb, 
+                        _ULARGE_INTEGER* pcbRead, 
+                        _ULARGE_INTEGER* pcbWritten);
+        HRESULT _stdcall RemoteCopyTo(
+                        [in] IStream* pstm, 
+                        [in] _ULARGE_INTEGER cb, 
+                        [out] _ULARGE_INTEGER* pcbRead, 
+                        [out] _ULARGE_INTEGER* pcbWritten);
+        HRESULT _stdcall Commit([in] unsigned long grfCommitFlags);
+        HRESULT _stdcall Revert();
+        HRESULT _stdcall LockRegion(
+                        [in] _ULARGE_INTEGER libOffset, 
+                        [in] _ULARGE_INTEGER cb, 
+                        [in] unsigned long dwLockType);
+        HRESULT _stdcall UnlockRegion(
+                        [in] _ULARGE_INTEGER libOffset, 
+                        [in] _ULARGE_INTEGER cb, 
+                        [in] unsigned long dwLockType);
+        HRESULT _stdcall Stat(
+                        [out] tagSTATSTG* pstatstg, 
+                        [in] unsigned long grfStatFlag);
+        HRESULT _stdcall Clone([out] IStream** ppstm);
+    };
+
+    [
+      odl,
+      uuid(0C733A30-2A1C-11CE-ADE5-00AA0044773D)
+    ]
+    interface ISequentialStream : IUnknown {
+        HRESULT _stdcall Read(
+                        void* pv, 
+                        [in] unsigned long cb, 
+                        unsigned long* pcbRead);
+        HRESULT _stdcall RemoteRead(
+                        [out] unsigned char* pv, 
+                        [in] unsigned long cb, 
+                        [out] unsigned long* pcbRead);
+        HRESULT _stdcall Write(
+                        void* pv, 
+                        [in] unsigned long cb, 
+                        unsigned long* pcbWritten);
+        HRESULT _stdcall RemoteWrite(
+                        [in] unsigned char* pv, 
+                        [in] unsigned long cb, 
+                        [out] unsigned long* pcbWritten);
+    };
+
+    typedef struct tag_LARGE_INTEGER {
+                
+int64 QuadPart;
+    } _LARGE_INTEGER;
+
+    typedef struct tag_ULARGE_INTEGER {
+                
+uint64 QuadPart;
+    } _ULARGE_INTEGER;
+
+    typedef struct tagtagSTATSTG {
+                
+LPWSTR pwcsName;
+                
+unsigned long type;
+                
+_ULARGE_INTEGER cbSize;
+                
+_FILETIME mtime;
+                
+_FILETIME ctime;
+                
+_FILETIME atime;
+                
+unsigned long grfMode;
+                
+unsigned long grfLocksSupported;
+                
+GUID clsid;
+                
+unsigned long grfStateBits;
+                
+unsigned long reserved;
+    } tagSTATSTG;
+
+    typedef struct tag_FILETIME {
+                
+unsigned long dwLowDateTime;
+                
+unsigned long dwHighDateTime;
+    } _FILETIME;
+
+    [
+      uuid(45FB4600-E6E8-4928-B25E-50476FF79425),
+      helpstring("Com Call Wrapper Unmarshalling Class 4.0")
+    ]
+    coclass ComCallUnmarshalV4 {
+        [default] interface IMarshal;
+    };
+
+    [
+      uuid(CB2F6723-AB3A-11D2-9C40-00C04FA30A3E),
+      helpstring("Cor Runtime Hosting Class")
+    ]
+    coclass CorRuntimeHost {
+        [default] interface ICorRuntimeHost;
+        interface IGCHost;
+        interface ICorConfiguration;
+        interface IValidator;
+        interface IDebuggerInfo;
+    };
+
+    [
+      odl,
+      uuid(CB2F6722-AB3A-11D2-9C40-00C04FA30A3E),
+      version(1.0),
+      helpstring("Common Language Runtime Hosting Interface")
+    ]
+    interface ICorRuntimeHost : IUnknown {
+        HRESULT _stdcall CreateLogicalThreadState();
+        HRESULT _stdcall DeleteLogicalThreadState();
+        HRESULT _stdcall SwitchInLogicalThreadState([in] unsigned long* pFiberCookie);
+        HRESULT _stdcall SwitchOutLogicalThreadState([out] unsigned long** pFiberCookie);
+        HRESULT _stdcall LocksHeldByLogicalThread([out] unsigned long* pCount);
+        HRESULT _stdcall MapFile(
+                        [in] void* hFile, 
+                        [out] void** hMapAddress);
+        HRESULT _stdcall GetConfiguration([out] ICorConfiguration** pConfiguration);
+        HRESULT _stdcall Start();
+        HRESULT _stdcall Stop();
+        HRESULT _stdcall CreateDomain(
+                        [in] LPWSTR pwzFriendlyName, 
+                        [in] IUnknown* pIdentityArray, 
+                        [out] IUnknown** pAppDomain);
+        HRESULT _stdcall GetDefaultDomain([out] IUnknown** pAppDomain);
+        HRESULT _stdcall EnumDomains([out] void** hEnum);
+        HRESULT _stdcall NextDomain(
+                        [in] void* hEnum, 
+                        [out] IUnknown** pAppDomain);
+        HRESULT _stdcall CloseEnum([in] void* hEnum);
+        HRESULT _stdcall CreateDomainEx(
+                        [in] LPWSTR pwzFriendlyName, 
+                        [in] IUnknown* pSetup, 
+                        [in] IUnknown* pEvidence, 
+                        [out] IUnknown** pAppDomain);
+        HRESULT _stdcall CreateDomainSetup([out] IUnknown** pAppDomainSetup);
+        HRESULT _stdcall CreateEvidence([out] IUnknown** pEvidence);
+        HRESULT _stdcall UnloadDomain([in] IUnknown* pAppDomain);
+        HRESULT _stdcall CurrentDomain([out] IUnknown** pAppDomain);
+    };
+
+    [
+      odl,
+      uuid(5C2B07A5-1E98-11D3-872F-00C04F79ED0D),
+      version(1.0),
+      helpstring("Common Language Runtime Configuration Interface")
+    ]
+    interface ICorConfiguration : IUnknown {
+        HRESULT _stdcall SetGCThreadControl([in] IGCThreadControl* pGCThreadControl);
+        HRESULT _stdcall SetGCHostControl([in] IGCHostControl* pGCHostControl);
+        HRESULT _stdcall SetDebuggerThreadControl([in] IDebuggerThreadControl* pDebuggerThreadControl);
+        HRESULT _stdcall AddDebuggerSpecialThread([in] unsigned long dwSpecialThreadId);
+    };
+
+    [
+      odl,
+      uuid(F31D1788-C397-4725-87A5-6AF3472C2791),
+      version(1.0),
+      helpstring("Control over threads blocked in GC")
+    ]
+    interface IGCThreadControl : IUnknown {
+        HRESULT _stdcall ThreadIsBlockingForSuspension();
+        HRESULT _stdcall SuspensionStarting();
+        HRESULT _stdcall SuspensionEnding(unsigned long Generation);
+    };
+
+    [
+      odl,
+      uuid(5513D564-8374-4CB9-AED9-0083F4160A1D),
+      version(1.1),
+      helpstring("Request change in virtual memory for GC")
+    ]
+    interface IGCHostControl : IUnknown {
+        HRESULT _stdcall RequestVirtualMemLimit(
+                        [in] ULONG_PTR sztMaxVirtualMemMB, 
+                        [in, out] ULONG_PTR* psztNewMaxVirtualMemMB);
+    };
+
+    [
+      odl,
+      uuid(23D86786-0BB5-4774-8FB5-E3522ADD6246),
+      version(1.0),
+      helpstring("Control over threads blocked in debugging services")
+    ]
+    interface IDebuggerThreadControl : IUnknown {
+        HRESULT _stdcall ThreadIsBlockingForDebugger();
+        HRESULT _stdcall ReleaseAllRuntimeThreads();
+        HRESULT _stdcall StartBlockingForDebugger(unsigned long dwUnused);
+    };
+
+    [
+      odl,
+      uuid(FAC34F6E-0DCD-47B5-8021-531BC5ECCA63)
+    ]
+    interface IGCHost : IUnknown {
+        HRESULT _stdcall SetGCStartupLimits(
+                        [in] unsigned long SegmentSize, 
+                        [in] unsigned long MaxGen0Size);
+        HRESULT _stdcall Collect([in] long Generation);
+        HRESULT _stdcall GetStats([in, out] _COR_GC_STATS* pStats);
+        HRESULT _stdcall GetThreadStats(
+                        [in] unsigned long* pFiberCookie, 
+                        [in, out] _COR_GC_THREAD_STATS* pStats);
+        HRESULT _stdcall SetVirtualMemLimit([in] ULONG_PTR sztMaxVirtualMemMB);
+    };
+
+    typedef struct tag_COR_GC_STATS {
+                
+unsigned long Flags;
+                
+ULONG_PTR ExplicitGCCount;
+                
+ULONG_PTR GenCollectionsTaken[3];
+                
+ULONG_PTR CommittedKBytes;
+                
+ULONG_PTR ReservedKBytes;
+                
+ULONG_PTR Gen0HeapSizeKBytes;
+                
+ULONG_PTR Gen1HeapSizeKBytes;
+                
+ULONG_PTR Gen2HeapSizeKBytes;
+                
+ULONG_PTR LargeObjectHeapSizeKBytes;
+                
+ULONG_PTR KBytesPromotedFromGen0;
+                
+ULONG_PTR KBytesPromotedFromGen1;
+    } _COR_GC_STATS;
+
+    typedef struct tag_COR_GC_THREAD_STATS {
+                
+uint64 PerThreadAllocation;
+                
+unsigned long Flags;
+    } _COR_GC_THREAD_STATS;
+
+    [
+      odl,
+      uuid(63DF8730-DC81-4062-84A2-1FF943F59FAC)
+    ]
+    interface IValidator : IUnknown {
+        HRESULT _stdcall Validate(
+                        [in] IVEHandler* veh, 
+                        [in] IUnknown* pAppDomain, 
+                        [in] unsigned long ulFlags, 
+                        [in] unsigned long ulMaxError, 
+                        [in] unsigned long Token, 
+                        [in] LPWSTR fileName, 
+                        [in] unsigned char* pe, 
+                        [in] unsigned long ulSize);
+        HRESULT _stdcall FormatEventInfo(
+                        [in] HRESULT hVECode, 
+                        [in] tag_VerError Context, 
+                        [in, out] LPWSTR msg, 
+                        [in] unsigned long ulMaxLength, 
+                        [in] SAFEARRAY(VARIANT) psa);
+    };
+
+    [
+      odl,
+      uuid(856CA1B2-7DAB-11D3-ACEC-00C04F86C309)
+    ]
+    interface IVEHandler : IUnknown {
+        HRESULT _stdcall VEHandler(
+                        [in] HRESULT VECode, 
+                        [in] tag_VerError Context, 
+                        [in] SAFEARRAY(VARIANT) psa);
+        HRESULT _stdcall SetReporterFtn([in] int64 lFnPtr);
+    };
+
+    typedef struct tagtag_VerError {
+                
+unsigned long Flags;
+                
+unsigned long opcode;
+                
+unsigned long uOffset;
+                
+unsigned long Token;
+                
+unsigned long item1_flags;
+                
+int* item1_data;
+                
+unsigned long item2_flags;
+                
+int* item2_data;
+    } tag_VerError;
+
+    [
+      odl,
+      uuid(BF24142D-A47D-4D24-A66D-8C2141944E44),
+      version(1.0),
+      helpstring("Information on the state of the debugging services")
+    ]
+    interface IDebuggerInfo : IUnknown {
+        HRESULT _stdcall IsDebuggerAttached([out] long* pbAttached);
+    };
+
+    [
+      uuid(90F1A06E-7712-4762-86B5-7A5EBA6BDB02),
+      helpstring("CLR Runtime Hosting Class V2")
+    ]
+    coclass CLRRuntimeHost {
+        [default] interface ICLRRuntimeHost;
+        interface ICLRValidator;
+    };
+
+    [
+      odl,
+      uuid(90F1A06C-7712-4762-86B5-7A5EBA6BDB02),
+      version(1.0),
+      helpstring("Common Language Runtime Hosting Interface")
+    ]
+    interface ICLRRuntimeHost : IUnknown {
+        HRESULT _stdcall Start();
+        HRESULT _stdcall Stop();
+        HRESULT _stdcall SetHostControl([in] IHostControl* pHostControl);
+        HRESULT _stdcall GetCLRControl([out] ICLRControl** pCLRControl);
+        HRESULT _stdcall UnloadAppDomain(
+                        [in] unsigned long dwAppDomainID, 
+                        [in] long fWaitUntilDone);
+        HRESULT _stdcall __MIDL____MIDL_itf_mscoree_tlb_0000_00000000(void* cookie);
+        HRESULT _stdcall ExecuteInAppDomain(
+                        [in] unsigned long dwAppDomainID, 
+                        [in] ICLRRuntimeHost* pCallback, 
+                        [in] void* cookie);
+        HRESULT _stdcall GetCurrentAppDomainId([out] unsigned long* pdwAppDomainId);
+        HRESULT _stdcall ExecuteApplication(
+                        [in] LPWSTR pwzAppFullName, 
+                        [in] unsigned long dwManifestPaths, 
+                        [in] LPWSTR* ppwzManifestPaths, 
+                        [in] unsigned long dwActivationData, 
+                        [in] LPWSTR* ppwzActivationData, 
+                        [out] int* pReturnValue);
+        HRESULT _stdcall ExecuteInDefaultAppDomain(
+                        [in] LPWSTR pwzAssemblyPath, 
+                        [in] LPWSTR pwzTypeName, 
+                        [in] LPWSTR pwzMethodName, 
+                        [in] LPWSTR pwzArgument, 
+                        [out] unsigned long* pReturnValue);
+    };
+
+    [
+      odl,
+      uuid(02CA073C-7079-4860-880A-C2F7A449C991),
+      version(1.0),
+      helpstring("Common Language Runtime Host Control Interface")
+    ]
+    interface IHostControl : IUnknown {
+        HRESULT _stdcall GetHostManager(
+                        [in] GUID* riid, 
+                        [out] void** ppObject);
+        HRESULT _stdcall SetAppDomainManager(
+                        [in] unsigned long dwAppDomainID, 
+                        [in] IUnknown* pUnkAppDomainManager);
+    };
+
+    [
+      odl,
+      uuid(9065597E-D1A1-4FB2-B6BA-7E1FCE230F61),
+      version(1.0),
+      helpstring("Common Language Runtime Control Interface")
+    ]
+    interface ICLRControl : IUnknown {
+        HRESULT _stdcall GetCLRManager(
+                        [in] GUID* riid, 
+                        [out] void** ppObject);
+        HRESULT _stdcall SetAppDomainManagerType(
+                        [in] LPWSTR pwzAppDomainManagerAssembly, 
+                        [in] LPWSTR pwzAppDomainManagerType);
+    };
+
+    [
+      odl,
+      uuid(63DF8730-DC81-4062-84A2-1FF943F59FDD)
+    ]
+    interface ICLRValidator : IUnknown {
+        HRESULT _stdcall Validate(
+                        [in] IVEHandler* veh, 
+                        [in] unsigned long ulAppDomainId, 
+                        [in] unsigned long ulFlags, 
+                        [in] unsigned long ulMaxError, 
+                        [in] unsigned long Token, 
+                        [in] LPWSTR fileName, 
+                        [in] unsigned char* pe, 
+                        [in] unsigned long ulSize);
+        HRESULT _stdcall FormatEventInfo(
+                        [in] HRESULT hVECode, 
+                        [in] tag_VerError Context, 
+                        [in, out] LPWSTR msg, 
+                        [in] unsigned long ulMaxLength, 
+                        [in] SAFEARRAY(VARIANT) psa);
+    };
+
+    [
+      uuid(B81FF171-20F3-11D2-8DCC-00A0C9B00525),
+      helpstring("TypeName parser and builder")
+    ]
+    coclass TypeNameFactory {
+        [default] interface ITypeNameFactory;
+    };
+};

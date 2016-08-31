@@ -1,0 +1,98 @@
+flectioned zip http://svn.dsource.org/projects/flectioned/downloads/flectioned.zip flectioned.diff
+
+arclib-core svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc/
+arclib-blaze svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_blaze/
+arclib-gui svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_gui
+arclib-light svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_light/
+arclib-parcticle svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_particle/
+arclib-scenegraph svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_scenegraph/
+arclib-sprite svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_sprite
+arclib-camera svn http://svn.dsource.org/projects/arclib/trunk/arclib/arc_camera
+
+bcd.gen svn http://svn.dsource.org/projects/bcd/trunk/bcd.gen
+bintod zip http://www.dprogramming.com/bintod1.zip bintod.diff
+cashew svn http://svn.dsource.org/projects/cashew/trunk/
+dantfw svn http://svn.dsource.org/projects/dantfw/trunk/src src:dantfw.diff
+ddbi svn http://svn.dsource.org/projects/ddbi/trunk ddbi.diff
+
+dejavu svn http://svn.dsource.org/projects/tioport/trunk/dejavu
+derelict svn http://svn.dsource.org/projects/derelict/trunk
+derelictal svn http://svn.dsource.org/projects/derelict/trunk/DerelictAL
+derelictft svn http://svn.dsource.org/projects/derelict/trunk/DerelictFT
+derelictgl svn http://svn.dsource.org/projects/derelict/trunk/DerelictGL
+derelictglu svn http://svn.dsource.org/projects/derelict/trunk/DerelictGLU
+derelictil svn http://svn.dsource.org/projects/derelict/trunk/DerelictIL
+derelictilu svn http://svn.dsource.org/projects/derelict/trunk/DerelictILU
+derelictilut svn http://svn.dsource.org/projects/derelict/trunk/DerelictILUT
+derelictode svn http://svn.dsource.org/projects/derelict/trunk/DerelictODE
+derelictogg svn http://svn.dsource.org/projects/derelict/trunk/DerelictOgg
+derelictsdl svn http://svn.dsource.org/projects/derelict/trunk/DerelictSDL
+derelictsdlimage svn http://svn.dsource.org/projects/derelict/trunk/DerelictSDLImage
+derelictsdlmixer svn http://svn.dsource.org/projects/derelict/trunk/DerelictSDLMixer
+derelictsdlnet svn http://svn.dsource.org/projects/derelict/trunk/DerelictSDLNet
+derelictsdlttf svn http://svn.dsource.org/projects/derelict/trunk/DerelictSDLttf
+derelictvorbis svn http://svn.dsource.org/projects/derelict/trunk/DerelictVorbis
+derelictutil svn http://svn.dsource.org/projects/derelict/trunk/DerelictUtil
+#dil svn http://dil.googlecode.com/svn/trunk/
+dil.tar.bz2 tar.bz2 http://hg.sharesource.org/dil/archive/tip.tar.bz2
+dil.zip zip http://hg.sharesource.org/dil/archive/tip.zip
+dirclib zip http://www.dprogramming.com/dirclib06.zip dirclib.diff
+dlua svn http://dlua.googlecode.com/svn/trunk/
+dmd svn http://svn.dsource.org/projects/dsss/branches/dsss-dmd/trunk
+dool svn http://svn.dsource.org/projects/dool/trunk/src src:dool.diff
+doost svn http://svn.dsource.org/projects/doost/trunk trunk:doost.diff
+dsss-svn svn http://svn.dsource.org/projects/dsss/trunk
+dsss tar.bz2 http://svn.dsource.org/projects/dsss/downloads/0.75/dsss-0.75.tar.bz2
+dsss-test svn http://svn.dsource.org/projects/dsss/branches/test
+dstring zip http://www.dprogramming.com/dstring1.zip dstring.diff
+#duit svn http://svn.dsource.org/projects/dui/trunk/src src:duit.diff
+#libarchive tgz http://hg.dronehive.net/libarchive-d/archive/tip.tar.gz
+gdc-gcc-3.4 svn http://svn.dsource.org/projects/dsss/branches/dsss-gdc/3.4
+gdc-gcc-4.0 svn http://svn.dsource.org/projects/dsss/branches/dsss-gdc/4.0
+gdc-gcc-4.1 svn http://svn.dsource.org/projects/dsss/branches/dsss-gdc/4.1
+gtkd svn http://svn.dsource.org/projects/dui/trunk/gtkD/ gtkD:gtkd.diff
+
+leds svn http://svn.dsource.org/projects/leds/trunk/src src:leds.diff
+lindlibs svn http://lindlibs.googlecode.com/svn/trunk
+lodepng svn http://svn.dsource.org/projects/scrapple/trunk/lodepng
+mango svn http://svn.dsource.org/projects/mango/trunk trunk:mango.diff
+minid svn http://svn.dsource.org/projects/minid/trunk
+minwin svn http://svn.dsource.org/projects/minwin/trunk
+
+# start of 'other' set
+# end of 'other' set
+zlibstream svn http://svn.dsource.org/projects/dsss/branches/zlibstream/trunk
+scrapple-bignum svn http://svn.dsource.org/projects/scrapple/trunk/bignum
+scrapple-bind svn http://svn.dsource.org/projects/scrapple/trunk/bind
+scrapple-cgi svn http://svn.dsource.org/projects/scrapple/trunk/cgi
+scrapple-dparser svn http://svn.dsource.org/projects/scrapple/trunk/dparser
+scrapple-filesystem svn http://svn.dsource.org/projects/scrapple/trunk/filesystem
+scrapple-future svn http://svn.dsource.org/projects/scrapple/trunk/future
+scrapple-iterators svn http://svn.dsource.org/projects/scrapple/trunk/iterators
+scrapple-nntp svn http://svn.dsource.org/projects/scrapple/trunk/nntp
+scrapple-qd svn http://svn.dsource.org/projects/scrapple/trunk/qd
+scrapple-search svn http://svn.dsource.org/projects/scrapple/trunk/search
+scrapple-tinyjpeg svn http://svn.dsource.org/projects/scrapple/trunk/tinyjpeg
+scrapple-tools svn http://svn.dsource.org/projects/scrapple/trunk/tools
+
+splat zip http://www.dprogramming.com/splat07.zip splat.diff
+#sqlite3 tgz http://hg.dronehive.net/sqlite3-d/archive/tip.tar.gz
+std2 svn http://svn.dsource.org/projects/std2/trunk/std2
+
+#tango svn http://svn.dsource.org/projects/tango/trunk tango.diff
+tango svn http://svn.dsource.org/projects/dsss/other/tango
+wxd tgz http://superb-east.dl.sourceforge.net/sourceforge/wxd/wxd-0.10.tgz
+yage svn http://svn.dsource.org/projects/yage/trunk/src src:yage.diff
+
+jive tgz http://zygfryd.net/hg/jive/archive/tip.tar.gz
+rb2d svn http://rb2d.googlecode.com/svn/trunk/
+
+blaze svn http://svn.dsource.org/projects/blaze/branches/blaze1.0/blaze/
+blaze-demos svn http://svn.dsource.org/projects/blaze/branches/blaze1.0/blaze-demos/
+blaze-phobos svn http://svn.dsource.org/projects/blaze/branches/blazeRC1phobos/blaze/
+blaze-phobos-demos svn http://svn.dsource.org/projects/blaze/branches/blazeRC1phobos/blaze-demos/
+
+dwt-win tar.bz2 http://hg.dsource.org/projects/dwt-win/archive/tip.tar.bz2
+dwt-linux tar.bz2 http://hg.dsource.org/projects/dwt-linux/archive/tip.tar.bz2
+dwt-samples tar.bz2 http://hg.dsource.org/projects/dwt-samples/archive/tip.tar.bz2
+dwt-addons tar.bz2 http://hg.dsource.org/projects/dwt-addons/archive/tip.tar.bz2

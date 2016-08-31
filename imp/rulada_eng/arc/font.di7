@@ -1,0 +1,242 @@
+/******************************************************************************* 
+
+	Font class renders truetype fonts. 
+
+	Authors:       ArcLib team, see AUTHORS file 
+	Maintainer:    Clay Smith (clayasaurus at gmail dot com) 
+	License:       zlib/libpng license: $(LICENSE) 
+	Copyright:     ArcLib team 
+
+	Description:    
+		Font class renders truetype fonts. Based on Tom S.'s font rendering code.
+
+    Examples:
+    -------------------------------------------------------------------------------
+    import arc.font;
+
+	int main() 
+	{
+		// initializes input
+		arc.font.open();
+		
+		Font f = new Font("font.ttf", 12); 
+		
+		// while the user hasn't closed the window
+		while (true)
+		{
+			f.draw(cast(dchar[])"Text UTF32", Point(x,y), Color(r,g,b,a)); 
+			f.draw(cast(char[])"Text UTF16", Point(x,y), Color(r,g,b,a)); 
+		}
+
+		arc.font.close()
+	
+		return 0;
+	}
+    -------------------------------------------------------------------------------
+
+
+*******************************************************************************/
+
+module arc.font;
+
+import 
+	arc.math.point,
+	arc.math.size,
+	arc.math.arcfl,
+	arc.texture,
+	arc.draw.color,
+	arc.memory.routines,
+	arc.text.routines,
+	arc.window,
+	arc.internals.font.FontCache; 
+
+import 
+	std.utf,
+	std.string,
+	std.math,
+	std.path,
+	std.io,
+	std.file : fileRead = read;
+		
+import 
+	derelict.opengl.gl,
+	derelict.freetype.ft,
+	derelict.util.loader,
+	derelict.util.exception,
+	derelict.opengl.extension.ext.blend_color; 
+
+///
+struct Glyph 
+{
+	Point[2]	texCoords;
+	Texture		texture;
+	Size		size;
+	Point		offset;
+	Point		advance;
+	uint		ftIndex; 
+}
+
+///
+enum FontAntialiasing 
+{
+	None,		/// glyphs will be aliased
+	Grayscale,	/// should be best for CRTs
+	LCD_RGB,	/// optimal for most LCDs
+	LCD_BGR		/// some LCDs may have BGR subpixel layouts
+}
+
+///
+enum BlendingMode {
+	Alpha,
+	Subpixel,
+	None
+}
+
+
+///
+enum LCDFilter 
+{
+	Standard,	// this is standard FreeType's subpixel filter. Basically, a triangular kernel
+	Crisp,		// this one is a compromise between the default lcd filter, no filter and non-lcd aliased renderings
+	None		// doesn't do any subpixel filtering, will result in massive color fringes
+}
+
+/// initialize font
+void open(bool castInt_=true) ;
+
+/// close font
+void close();
+
+/// Font class 
+class Font
+{
+	/// load font with path and size 
+	this(char[] fontPath, int size)
+	{
+		nameStr = fontPath ~ .toString(size); 
+		
+		if (!(nameStr in fontList))
+		{
+			this.fontData = cast(ubyte[])fileRead(fontPath);		// we'll store the data in a buffer, because FreeType doesn't copy it.
+
+			FT_Open_Args args;
+			args.memory_base = this.fontData.ptr;
+			args.memory_size = this.fontData.length;
+			args.flags = FT_OPEN_MEMORY | FT_OPEN_PARAMS;
+			args.driver = null;
+			
+			// for debugging/testing/whatever reasons, we may want to see how the unpatented hinting behaves...
+			version (UnpatentedHinting) {
+				// ... if so, add the appropriate tag
+				FT_Parameter[1] params;
+				params[0].tag = FT_MAKE_TAG!('u', 'n', 'p', 'a');
+
+				args.num_params = params.length;
+				args.params = params.ptr;
+			}
+			
+			const int faceIdx = 0;
+			auto error = FT_Open_Face(ftLib, &args, faceIdx, &fontFace);
+			assert (0 == error);
+			
+			// this could use a better approach, but it seems to work for all TrueType fonts I've tested so far
+			error = FT_Set_Pixel_Sizes(fontFace, 0, size);
+			assert (0 == error);
+			
+			height_ = size;
+			lineSkip_ = FT_MulFix(fontFace.height, fontFace.size.metrics.y_scale) / 64;
+			setLineGap(0);
+			
+			lcdFilter = LCDFilter.Crisp;		// we'll be using the Crisp filter by default, but it can be changed on a per-Font basis.
+		}
+		/// just use font resource that has already been loaded 
+		else
+		{
+			this = fontList[nameStr]; 
+		}
+	}
+	
+	/// return width of last line in the text 
+	float getWidthLastLine(charType)(charType[] str);	
+	/// width in pixels, will return max width in multi line string as well 
+	float getWidth(charType)(charType[] string_);		
+	/// draw lines at location and color
+	void draw(char[][] lines, Point location, Color color);
+	/// draw lines at location and color
+	void draw(dchar[][] lines, Point location, Color color);
+	/// draw str at location and color using utf32
+	void draw(char[] str, Point location, Color color);
+	/// draw str at location and color using utf32
+	void draw(dchar[] str, Point location, Color color);
+	/// get height of font	
+	int getHeight() ;	
+	/// line skip amount between newlines 
+	int getLineSkip();	
+	///	Sets additional spacing between lines of text, as fractions of the font's height
+	void setLineGap(float frac) ;	
+	/// sets the subpixel filter
+	bool lcdFilter(LCDFilter f) ;
+	/// calculate index of freetype font
+	int calculateIndex(charType)(charType[] text, Point textpos, Point mousepos);
+	/// search index of font 
+	int searchIndex(charType)(charType[] text, int mouseX, int posX, int left, int right);
+	
+	private 
+	{
+		void layoutText(charType)(charType[] text, void delegate(int, charType, Point, inout Glyph) dg) ;
+		
+		enum PrintResult {
+			OK,
+			OUT_RIGHT,
+			OUT_LEFT,
+			OUT_DOWN,
+			OUT_UP
+		}
+
+		PrintResult print_(charType)(Point location, Color color, charType[] str);
+		PrintResult printWorker(charType)(Point location, Color color, charType[] str);		
+		uint getGlyph(dchar c, uint ftIndex) ;		
+		FT_Render_Mode renderMode() ;
+		Size renderGlyph(inout ubyte[] buffer, out Glyph glyph, uint ftIndex);		
+		uint cacheGlyph(dchar c, uint ftIndex) ;		
+		// are we using any lcd filter ?
+		bool isCrispLCDFilter() ;
+		
+		char[]		nameStr; 
+
+		uint				height_;
+		uint				lineSkip_;
+		uint				lineGap_;
+		LCDFilter		lcdFilter_ = LCDFilter.Standard;
+		
+		FT_Face		fontFace;
+		ubyte[]			fontData;
+		
+		uint[dchar]	glyphMap;
+		uint[128]		asciiGlyphMap = uint.max;
+		Glyph[]			glyphs;
+
+		public FontAntialiasing antialiasing = FontAntialiasing.LCD_RGB;
+	}
+}
+
+
+private void gammaCorrect(ubyte[] rgb, float factor);
+private ubyte crispFilter(ubyte[] data ...) ;
+bool continueIfMissing(char[] libName, char[] procName);
+void loadFtLib() ;
+	
+private
+{
+	Font[char[]] fontList; 
+	FT_Library ftLib=null;
+	bool castInt = false;
+}
+
+version (build) {
+    debug {
+        pragma(link, "arc");
+    } else {
+        pragma(link, "arc");
+    }
+}

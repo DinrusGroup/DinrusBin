@@ -1,0 +1,22 @@
+﻿module rt.core.c;
+
+public import rt.core.stdc.errno_;
+public import rt.core.stdc.fenv;
+public import rt.core.stdc.stddef;
+public import rt.core.stdc.complex_;
+public import rt.core.stdc.config;
+public import rt.core.stdc.float_;
+public import rt.core.stdc.limits;
+public import rt.core.stdc.locale;
+public import rt.core.stdc.math;
+public import rt.core.stdc.signal;
+public import rt.core.stdc.stdarg;
+public import rt.core.stdc.stdint;
+public import rt.core.stdc.stdio;
+public import rt.core.stdc.stdlib;
+public import rt.core.stdc.string;
+//public import rt.core.stdc.tgmath;
+public import rt.core.stdc.time;
+public import rt.core.stdc.wchar_;
+public import rt.core.stdc.wctype;
+public import rt.core.stdc.process;

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Language>
+   <Menu id="Main">
+      <Library>
+         <Library>&amp;Library</Library>
+         <New>&amp;New</New>
+         <Open>&amp;Open</Open>
+         <SaveLst>&amp;Save List File</SaveLst>
+         <Exit>&amp;Exit</Exit>
+         <Preferences>&amp;Preferences</Preferences>
+      </Library>
+      <Module>
+         <Module>&amp;Module</Module>
+         <AddModule>&amp;Add Module</AddModule>
+         <ExtractModule>&amp;Extract Module</ExtractModule>
+         <DeleteModule>&amp;Delete Module</DeleteModule>
+         <ViewDetails>&amp;View Details</ViewDetails>
+         <Find>&amp;Find</Find>
+         <FindNext>Find &amp;Next</FindNext>
+      </Module>
+      <Help>
+         <Help>&amp;Help</Help>
+         <CheckforUpdates>Check for &amp;Updates</CheckforUpdates>
+         <About>&amp;About</About>
+      </Help>
+   </Menu>
+   <Common>
+      <ModuleName>Module Name</ModuleName>
+      <Size>Size</Size>
+      <Path>Path</Path>
+      <Name>Name</Name>
+      <Format>Format</Format>
+      <PubSym>Public Symbols</PubSym>
+      <ExtSym>External Symbols</ExtSym>
+      <Filter>
+         <All>All supported files (*.lib;*.a;*.obj;*.o)</All>
+         <Lib>Library files (*.lib;*.a)</Lib>
+         <Obj>Object files (*.obj;*.o)</Obj>
+         <Lst>List Files (*.lst)</Lst>
+      </Filter>
+      <FindMod>Find Module</FindMod>
+      <Dialog>
+         <Ok>&amp;Ok</Ok>
+      </Dialog>
+   </Common>
+   <Form id="Main">
+      <ListView id="#02">
+         <Tooltip>Drag module here to see details</Tooltip>
+         <Group>
+            <Module>Module Info</Module>
+            <Public>Publics Symbols</Public>
+            <External>External Symbols</External>
+         </Group>
+      </ListView>
+   </Form>
+   <Dialog id="Open Library">
+      <Title>Open Library</Title>
+   </Dialog>
+   <Messages>
+      <ModuleNotFound>Next ocurrence of &quot;%module%&quot; not found.</ModuleNotFound>
+      <Title>
+         <Info>Info</Info>
+      </Title>
+   </Messages>
+   <Dialog id="Save List File">
+      <Title>Save List File</Title>
+   </Dialog>
+</Language>
+
