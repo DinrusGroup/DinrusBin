@@ -101,7 +101,7 @@ extern(D) class КомВОбъектДанных: ИОбъектДанных
 	проц установиДанные(Ткст фмт, бул можноПреобразовать, Данные объ);
 	final бул такойЖеОбъектДанных_ли(winapi.IDataObject объДанных);
 }
-/+
+
 extern(D) class DtoComDataObject: ВизКомОбъект, winapi.IDataObject 
 {
 	this(ИОбъектДанных объДанных);
@@ -120,4 +120,3 @@ extern(D) class DtoComDataObject: ВизКомОбъект, winapi.IDataObject
 	HRESULT EnumDAdvise(winapi.IEnumSTATDATA* ppenumAdvise);
 }
 
-+/

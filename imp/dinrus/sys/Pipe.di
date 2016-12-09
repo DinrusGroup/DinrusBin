@@ -39,7 +39,7 @@ class Пайп
     public this(бцел размерБуфера = ДефРазмерБуфера);
     version (Windows)
     {
-    package this(бцел размерБуфера, SECURITY_ATTRIBUTES *ба);
+    package this(бцел размерБуфера, БЕЗАТРЫ *ба);
 	}
     public Трубопровод сток();
     public Трубопровод источник();

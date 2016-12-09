@@ -195,7 +195,8 @@ BOOL _insertMenuItemW(HMENU hMenu, UINT uItem, BOOL fByPosition, LPMENUITEMINFOW
 Ткст regQueryValueString(HKEY hkey, Ткст valueName, LPDWORD lpType = пусто);
 HFONT createFontIndirect(inout ШрифтЛога шл);
 цел getLogFont(HFONT hf, inout ШрифтЛога шл);
-/+ Ошибка линковщика? Надо добавлять (_): например, _AddRef(), но в этом случае - несовпадение с интерфейсной декларацией.
+//Ошибка линковщика? Надо добавлять (_): например, _AddRef(), но в этом случае - несовпадение с интерфейсной декларацией.
+
 extern(Windows):
 
 class ВизКомОбъект: ComObject // package
@@ -249,4 +250,4 @@ class ИПотокПамяти: ВизКомОбъект, winapi.IStream
 	HRESULT Clone(winapi.IStream* ppstm);	
 	
 }
-+/
+

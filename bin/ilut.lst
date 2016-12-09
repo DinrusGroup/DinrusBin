@@ -1,0 +1,176 @@
+
+Publics by name		module
+_ilutConvertSliceToHBitmap       _ilutConvertSliceToHBitmap
+_ilutConvertToHBitmap            _ilutConvertToHBitmap
+_ilutDisable                     _ilutDisable
+_ilutEnable                      _ilutEnable
+_ilutFreePaddedData              _ilutFreePaddedData
+_ilutGetBmpInfo                  _ilutGetBmpInfo
+_ilutGetBoolean                  _ilutGetBoolean
+_ilutGetBooleanv                 _ilutGetBooleanv
+_ilutGetHPal                     _ilutGetHPal
+_ilutGetInteger                  _ilutGetInteger
+_ilutGetIntegerv                 _ilutGetIntegerv
+_ilutGetPaddedData               _ilutGetPaddedData
+_ilutGetString                   _ilutGetString
+_ilutGetWinClipboard             _ilutGetWinClipboard
+_ilutGLBindMipmaps               _ilutGLBindMipmaps
+_ilutGLBindTexImage              _ilutGLBindTexImage
+_ilutGLBuildMipmaps              _ilutGLBuildMipmaps
+_ilutGLLoadImage                 _ilutGLLoadImage
+_ilutGLSaveImage                 _ilutGLSaveImage
+_ilutGLScreen                    _ilutGLScreen
+_ilutGLScreenie                  _ilutGLScreenie
+_ilutGLSetTex                    _ilutGLSetTex
+_ilutGLSetTex2D                  _ilutGLSetTex2D
+_ilutGLSetTex3D                  _ilutGLSetTex3D
+_ilutGLSubTex                    _ilutGLSubTex
+_ilutGLSubTex2D                  _ilutGLSubTex2D
+_ilutGLSubTex3D                  _ilutGLSubTex3D
+_ilutGLTexImage                  _ilutGLTexImage
+_ilutInit                        _ilutInit
+_ilutIsDisabled                  _ilutIsDisabled
+_ilutIsEnabled                   _ilutIsEnabled
+_ilutLoadResource                _ilutLoadResource
+_ilutPopAttrib                   _ilutPopAttrib
+_ilutPushAttrib                  _ilutPushAttrib
+_ilutRenderer                    _ilutRenderer
+_ilutSetHBitmap                  _ilutSetHBitmap
+_ilutSetHPal                     _ilutSetHPal
+_ilutSetInteger                  _ilutSetInteger
+_ilutSetWinClipboard             _ilutSetWinClipboard
+_ilutWinLoadImage                _ilutWinLoadImage
+_ilutWinLoadUrl                  _ilutWinLoadUrl
+_ilutWinPrint                    _ilutWinPrint
+_ilutWinSaveImage                _ilutWinSaveImage
+
+
+Publics by module
+_ilutConvertSliceToHBitmap
+	_ilutConvertSliceToHBitmap      
+
+_ilutConvertToHBitmap
+	_ilutConvertToHBitmap           
+
+_ilutDisable
+	_ilutDisable                    
+
+_ilutEnable
+	_ilutEnable                     
+
+_ilutFreePaddedData
+	_ilutFreePaddedData             
+
+_ilutGetBmpInfo
+	_ilutGetBmpInfo                 
+
+_ilutGetBoolean
+	_ilutGetBoolean                 
+
+_ilutGetBooleanv
+	_ilutGetBooleanv                
+
+_ilutGetHPal
+	_ilutGetHPal                    
+
+_ilutGetInteger
+	_ilutGetInteger                 
+
+_ilutGetIntegerv
+	_ilutGetIntegerv                
+
+_ilutGetPaddedData
+	_ilutGetPaddedData              
+
+_ilutGetString
+	_ilutGetString                  
+
+_ilutGetWinClipboard
+	_ilutGetWinClipboard            
+
+_ilutGLBindMipmaps
+	_ilutGLBindMipmaps              
+
+_ilutGLBindTexImage
+	_ilutGLBindTexImage             
+
+_ilutGLBuildMipmaps
+	_ilutGLBuildMipmaps             
+
+_ilutGLLoadImage
+	_ilutGLLoadImage                
+
+_ilutGLSaveImage
+	_ilutGLSaveImage                
+
+_ilutGLScreen
+	_ilutGLScreen                   
+
+_ilutGLScreenie
+	_ilutGLScreenie                 
+
+_ilutGLSetTex
+	_ilutGLSetTex                   
+
+_ilutGLSetTex2D
+	_ilutGLSetTex2D                 
+
+_ilutGLSetTex3D
+	_ilutGLSetTex3D                 
+
+_ilutGLSubTex
+	_ilutGLSubTex                   
+
+_ilutGLSubTex2D
+	_ilutGLSubTex2D                 
+
+_ilutGLSubTex3D
+	_ilutGLSubTex3D                 
+
+_ilutGLTexImage
+	_ilutGLTexImage                 
+
+_ilutInit
+	_ilutInit                       
+
+_ilutIsDisabled
+	_ilutIsDisabled                 
+
+_ilutIsEnabled
+	_ilutIsEnabled                  
+
+_ilutLoadResource
+	_ilutLoadResource               
+
+_ilutPopAttrib
+	_ilutPopAttrib                  
+
+_ilutPushAttrib
+	_ilutPushAttrib                 
+
+_ilutRenderer
+	_ilutRenderer                   
+
+_ilutSetHBitmap
+	_ilutSetHBitmap                 
+
+_ilutSetHPal
+	_ilutSetHPal                    
+
+_ilutSetInteger
+	_ilutSetInteger                 
+
+_ilutSetWinClipboard
+	_ilutSetWinClipboard            
+
+_ilutWinLoadImage
+	_ilutWinLoadImage               
+
+_ilutWinLoadUrl
+	_ilutWinLoadUrl                 
+
+_ilutWinPrint
+	_ilutWinPrint                   
+
+_ilutWinSaveImage
+	_ilutWinSaveImage               

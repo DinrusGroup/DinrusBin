@@ -1,0 +1,204 @@
+
+Publics by name		module
+_iluAlienify                     _iluAlienify
+_iluBlurAvg                      _iluBlurAvg
+_iluBlurGaussian                 _iluBlurGaussian
+_iluBuildMipmaps                 _iluBuildMipmaps
+_iluColoursUsed                  _iluColoursUsed
+_iluCompareImage                 _iluCompareImage
+_iluContrast                     _iluContrast
+_iluConvolution                  _iluConvolution
+_iluCrop                         _iluCrop
+_iluDeleteImage                  _iluDeleteImage
+_iluEdgeDetectE                  _iluEdgeDetectE
+_iluEdgeDetectP                  _iluEdgeDetectP
+_iluEdgeDetectS                  _iluEdgeDetectS
+_iluEmboss                       _iluEmboss
+_iluEnlargeCanvas                _iluEnlargeCanvas
+_iluEnlargeImage                 _iluEnlargeImage
+_iluEqualize                     _iluEqualize
+_iluErrorString                  _iluErrorString
+_iluFlipImage                    _iluFlipImage
+_iluGammaCorrect                 _iluGammaCorrect
+_iluGenImage                     _iluGenImage
+_iluGetImageInfo                 _iluGetImageInfo
+_iluGetInteger                   _iluGetInteger
+_iluGetIntegerv                  _iluGetIntegerv
+_iluGetString                    _iluGetString
+_iluImageParameter               _iluImageParameter
+_iluInit                         _iluInit
+_iluInvertAlpha                  _iluInvertAlpha
+_iluLoadImage                    _iluLoadImage
+_iluMirror                       _iluMirror
+_iluNegative                     _iluNegative
+_iluNoisify                      _iluNoisify
+_iluPixelize                     _iluPixelize
+_iluRegionfv                     _iluRegionfv
+_iluRegioniv                     _iluRegioniv
+_iluReplaceColour                _iluReplaceColour
+_iluRotate                       _iluRotate
+_iluRotate3D                     _iluRotate3D
+_iluRotate3D_                    _iluRotate3D_
+_iluRotate_                      _iluRotate_
+_iluSaturate1f                   _iluSaturate1f
+_iluSaturate4f                   _iluSaturate4f
+_iluScale                        _iluScale
+_iluScale_                       _iluScale_
+_iluScaleAlpha                   _iluScaleAlpha
+_iluScaleColours                 _iluScaleColours
+_iluSetLanguage                  _iluSetLanguage
+_iluSharpen                      _iluSharpen
+_iluSwapColours                  _iluSwapColours
+_iluWave                         _iluWave
+
+
+Publics by module
+_iluAlienify
+	_iluAlienify                    
+
+_iluBlurAvg
+	_iluBlurAvg                     
+
+_iluBlurGaussian
+	_iluBlurGaussian                
+
+_iluBuildMipmaps
+	_iluBuildMipmaps                
+
+_iluColoursUsed
+	_iluColoursUsed                 
+
+_iluCompareImage
+	_iluCompareImage                
+
+_iluContrast
+	_iluContrast                    
+
+_iluConvolution
+	_iluConvolution                 
+
+_iluCrop
+	_iluCrop                        
+
+_iluDeleteImage
+	_iluDeleteImage                 
+
+_iluEdgeDetectE
+	_iluEdgeDetectE                 
+
+_iluEdgeDetectP
+	_iluEdgeDetectP                 
+
+_iluEdgeDetectS
+	_iluEdgeDetectS                 
+
+_iluEmboss
+	_iluEmboss                      
+
+_iluEnlargeCanvas
+	_iluEnlargeCanvas               
+
+_iluEnlargeImage
+	_iluEnlargeImage                
+
+_iluEqualize
+	_iluEqualize                    
+
+_iluErrorString
+	_iluErrorString                 
+
+_iluFlipImage
+	_iluFlipImage                   
+
+_iluGammaCorrect
+	_iluGammaCorrect                
+
+_iluGenImage
+	_iluGenImage                    
+
+_iluGetImageInfo
+	_iluGetImageInfo                
+
+_iluGetInteger
+	_iluGetInteger                  
+
+_iluGetIntegerv
+	_iluGetIntegerv                 
+
+_iluGetString
+	_iluGetString                   
+
+_iluImageParameter
+	_iluImageParameter              
+
+_iluInit
+	_iluInit                        
+
+_iluInvertAlpha
+	_iluInvertAlpha                 
+
+_iluLoadImage
+	_iluLoadImage                   
+
+_iluMirror
+	_iluMirror                      
+
+_iluNegative
+	_iluNegative                    
+
+_iluNoisify
+	_iluNoisify                     
+
+_iluPixelize
+	_iluPixelize                    
+
+_iluRegionfv
+	_iluRegionfv                    
+
+_iluRegioniv
+	_iluRegioniv                    
+
+_iluReplaceColour
+	_iluReplaceColour               
+
+_iluRotate
+	_iluRotate                      
+
+_iluRotate3D
+	_iluRotate3D                    
+
+_iluRotate3D_
+	_iluRotate3D_                   
+
+_iluRotate_
+	_iluRotate_                     
+
+_iluSaturate1f
+	_iluSaturate1f                  
+
+_iluSaturate4f
+	_iluSaturate4f                  
+
+_iluScale
+	_iluScale                       
+
+_iluScale_
+	_iluScale_                      
+
+_iluScaleAlpha
+	_iluScaleAlpha                  
+
+_iluScaleColours
+	_iluScaleColours                
+
+_iluSetLanguage
+	_iluSetLanguage                 
+
+_iluSharpen
+	_iluSharpen                     
+
+_iluSwapColours
+	_iluSwapColours                 
+
+_iluWave
+	_iluWave                        

@@ -4,7 +4,7 @@
  * Привязка аргументов к функции.
  *
  * References:
- *	$(LINK2 http://www.boost.org/libs/bind/bind.html, boost::bind)	
+ *	$(LINK2 http://www.boost.org/libs/привяжи/привяжи.html, boost::привяжи)	
  * Authors: Tomasz Stachowiak
  * Date: November 28, 2006
  * Macros:
@@ -31,7 +31,7 @@ struct ДинАрг(цел i) {
 
 
 /**
-	При передаче функции 'bind' будут обозначать динамические параметры: те, что не связаны статически.
+	При передаче функции 'привяжи' будут обозначать динамические параметры: те, что не связаны статически.
 	В boost'е они называются __1, __2, __3 и т.д. Здесь: __0, __1, __2, ...
 */
 const ДинАрг!(0) _0;
@@ -130,7 +130,7 @@ template _присвой(T, Y, бул копироватьСтатМас =да) 
 		
 		// ни один из элементом не является статическим массивом
 		проц _присвой(inout T a, inout Y b) {
-			static if (Индекс_у!(T, NumericTypes.тип) != -1 && Индекс_у!(Y, NumericTypes.тип) != -1) {
+			static if (Индекс_у!(T, ЧисловыеТипы.тип) != -1 && Индекс_у!(Y, ЧисловыеТипы.тип) != -1) {
 				a = cast(T)b;
 			} else {
 				a = b;
@@ -331,7 +331,7 @@ template СФункцСвязки() {
 	// meta
 	alias FAlias_													АлиасФ;
 	alias FT															ТипФункц;
-	alias AllBoundArgs_										ВсеСвязанныеАрги;		// all arguments given to bind() or привяжиАлиас()
+	alias AllBoundArgs_										ВсеСвязанныеАрги;		// all arguments given to привяжи() or привяжиАлиас()
 	
 	static if (!is(typeof(АлиасФ) == ПустойСлот)) {
 		alias Кортеж!(КортежТипаПараметр!(FT))				RealFuncParams;	// the parameters of the bound function
@@ -415,7 +415,7 @@ template СФункцСвязки() {
 				alias ДерефФункц!(ВсеСвязанныеАрги.тип[argI]).ВозврТип		ТипВозвратаФункц;
 				alias ДерефФункц!(ВсеСвязанныеАрги.тип[argI]).ДинПарамы	ДинПарамыФункц;
 				
-				// if ДинПарамыФункц contains an empty slot, e.g. as in the case  bind(&f, bind(&g, _1), _0)
+				// if ДинПарамыФункц contains an empty slot, e.g. as in the case  привяжи(&f, привяжи(&g, _1), _0)
 				// then we cannot just apply the динАрги кортеж to the nested/composed function because it will have ПустойСлот парамы
 				// while our динАрги кортеж will contain ordinary types
 				static if (СодержитТипПустойСлот!(ДинПарамыФункц)) {
@@ -586,12 +586,12 @@ version (BindUseStruct) {
 
 
 /**
-	bind() can curry or "bind" arguments of a function, producing a different function which requires less parameters,
+	привяжи() can curry or "привяжи" arguments of a function, producing a different function which requires less parameters,
 	or a different order of parameters. It also allows function composition.
 	
-	The syntax of a bind() вызови is:
+	The syntax of a привяжи() вызови is:
 	
-	bind(function or delegate pointer { , <b>argument</b> });
+	привяжи(function or delegate pointer { , <b>argument</b> });
 	
 	<b>argument</b> can be one of:
 	<ul>
@@ -605,9 +605,9 @@ version (BindUseStruct) {
 	
 	The resulting delegate accepts exactly as many parameters as many distinct dynamic arguments were used.
 ---
-- bind(&foo, _0, _1) // will yield a delegate accepting two parameters
-- bind(&foo, _1, _0) // will yield a delegate accepting two parameters
-- bind(&bar, _0, _1, _2, _0) // will yield a delegate accepting three parameters
+- привяжи(&foo, _0, _1) // will yield a delegate accepting two parameters
+- привяжи(&foo, _1, _0) // will yield a delegate accepting two parameters
+- привяжи(&bar, _0, _1, _2, _0) // will yield a delegate accepting three parameters
 ---
 	
 	<br />
@@ -618,17 +618,17 @@ version (BindUseStruct) {
 проц foo(цел a, дол b)
 
 // with:
-bind(&foo, _0, _0)
+привяжи(&foo, _0, _0)
 ---
 	will результат in a delegate accepting a single, optimal parameter тип. The best тип is computed
-	using std.typetuple.ПроизводныйВперёд, so in case of an цел and a дол, дол will be selected. Generally, bind will try to find
+	using std.typetuple.ПроизводныйВперёд, so in case of an цел and a дол, дол will be selected. Generally, привяжи will try to find
 	a тип that can be implicitly converted to all the other types a given dynamic parameter uses.
 		Note: in case of numeric types, an explicit, but transparent (to the user) cast will be performed
 	
 	<br />
 	Function composition works intuitively:
 ---
-bind(&f1, bind(&f2, _0))
+привяжи(&f1, привяжи(&f2, _0))
 ---
 	
 	which will yield a delegate, that takes the argument, calls f2, then uses the return значение of f2 to вызови f1. Mathematically
@@ -639,12 +639,12 @@ f1(f2(_0))
 	
 	When one function is composed multiple times, it will be called multiple times - Bind does no lazy evaluation, so
 ---
-bind(&f3, bind(&f4, _0), bind(&f4, _0))
+привяжи(&f3, привяжи(&f4, _0), привяжи(&f4, _0))
 ---
 	will produce a delegate, which, upon calling, will invoke f4 two times to evaluate the arguments for f3 and then вызови f3
 	
 	
-	One another feature that bind() supports is automatic кортеж expansion. It means that having functions:
+	One another feature that привяжи() supports is automatic кортеж expansion. It means that having functions:
 ---
 проц foo(цел a, цел b)
 Кортеж!(цел, цел) bar()
@@ -652,13 +652,13 @@ bind(&f3, bind(&f4, _0), bind(&f4, _0))
 	
 	Allows them to be bound by writing:
 ---
-bind(&foo, bind(&bar))
+привяжи(&foo, привяжи(&bar))
 // or
-bind(&foo, кортеж(23, 45))
+привяжи(&foo, кортеж(23, 45))
 ---
 */
-typeof(new СвязаннаяФункц!(FT, АлиасПусто, Кортеж!(СписокАргов))) bind(FT, СписокАргов...)(FT fp, СписокАргов args) {
-	auto рез = new ДерефФункц!(ВозврТип!(bind));
+typeof(new СвязаннаяФункц!(FT, АлиасПусто, Кортеж!(СписокАргов))) привяжи(FT, СписокАргов...)(FT fp, СписокАргов args) {
+	auto рез = new ДерефФункц!(ВозврТип!(привяжи));
 	рез.fp = fp;
 	извлекиСвязанныеАрги!(0, 0, СписокАргов)(рез.связанныеАрги, args);
 	return рез;
@@ -666,7 +666,7 @@ typeof(new СвязаннаяФункц!(FT, АлиасПусто, Кортеж!
 
 
 /**
-	привяжиАлиас() is similar to bind(), but it's more powerful. Use привяжиАлиас() rather than bind() where possible. <br/>
+	привяжиАлиас() is similar to привяжи(), but it's more powerful. Use привяжиАлиас() rather than привяжи() where possible. <br/>
 
 
 	The syntax is:
@@ -674,7 +674,7 @@ typeof(new СвязаннаяФункц!(FT, АлиасПусто, Кортеж!
 	привяжиАлиас!(Function)(argument, argument, argument, argument, ...);
 	
 	привяжиАлиас takes advantage of using aliases directly, thus being able to extract default values from functions and not forcing the user
-	to bind them. It doesn't, however mean that the resulting delegate can be called, omitting some of its parameters. It only means that these
+	to привяжи them. It doesn't, however mean that the resulting delegate can be called, omitting some of its parameters. It only means that these
 	arguments that have default values in the function provided to привяжиАлиас don't have to be bound explicitly.
 	
 	Additionally, привяжиАлиас takes care of functions with out/inout parameters, by converting them to pointers internally. A function like:
@@ -687,7 +687,7 @@ typeof(new СвязаннаяФункц!(FT, АлиасПусто, Кортеж!
 привяжиАлиас!(foo)(&x);
 ---
 	
-	Note: there is no bind-time check for reference nullness, there is however a вызови-time check on all references which can be disabled
+	Note: there is no привяжи-time check for reference nullness, there is however a вызови-time check on all references which can be disabled
 	by using version=BindNoNullCheck or compiling in release mode.
 */
 template привяжиАлиас(alias FT) {
@@ -720,7 +720,7 @@ template функцСвязки_ли(T) {
 
 
 // all numeric types as of dmd.175
-alias Кортеж!(байт, ббайт, крат, бкрат, цел, бцел, дол, бдол, /+cent, ucent, +/float, double, real, ifloat, idouble, ireal, cfloat, cdouble, creal) NumericTypes;
+alias Кортеж!(байт, ббайт, крат, бкрат, цел, бцел, дол, бдол, /+cent, ucent, +/float, double, real, ifloat, idouble, ireal, cfloat, cdouble, creal) ЧисловыеТипы;
 
 
 
@@ -834,7 +834,7 @@ template члоДинАргов(СвязанныеАрги) {
 
 /*
 	Used internally to mark a parameter which is a dummy placeholder
-	E.g. when using bind(&f, bind(&g, _1), _0), then the inner bound function will use an ПустойСлот for its 0-th parameter
+	E.g. when using привяжи(&f, привяжи(&g, _1), _0), then the inner bound function will use an ПустойСлот for its 0-th parameter
 */
 struct ПустойСлот {
 	ткст вТкст( ) {
@@ -876,7 +876,7 @@ template дайТипыДинАргов(ПарамыФункц, Связанны
 
 
 /*
-	Given a кортеж that bind() was called with, it will detect which types need to be stored in a СвязаннаяФункц object
+	Given a кортеж that привяжи() was called with, it will detect which types need to be stored in a СвязаннаяФункц object
 */
 template ИзвлечённыеСвязанныеАрги(СвязанныеАрги ...) {
 	static if (СвязанныеАрги.length == 0) {
@@ -896,7 +896,7 @@ template ИзвлечённыеСвязанныеАрги(СвязанныеАр
 
 
 /*
-	Given a кортеж that bind() was called with, it will copy all data that a СвязаннаяФункц object will store into an ИзвлечённыеСвязанныеАрги кортеж
+	Given a кортеж that привяжи() was called with, it will copy all data that a СвязаннаяФункц object will store into an ИзвлечённыеСвязанныеАрги кортеж
 */
 проц извлекиСвязанныеАрги(цел dst, цел src, СвязанныеАрги ...)(inout ИзвлечённыеСвязанныеАрги!(СвязанныеАрги) результат, СвязанныеАрги связанныеАрги) {
 	static if (dst < результат.length) {
@@ -938,7 +938,7 @@ template СодержитТипПустойСлот(СписокПараметр
 }
 
 
-// just something to be default in bind(). привяжиАлиас() will use real aliases.
+// just something to be default in привяжи(). привяжиАлиас() will use real aliases.
 const ПустойСлот АлиасПусто;
 
 

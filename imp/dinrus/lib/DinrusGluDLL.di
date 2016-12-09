@@ -419,8 +419,9 @@ struct GLUtesselator { } alias GLUtesselator Тесс, GLUtesselatorObj, GLUtria
 		//проц function(   ) функция_59; 
 
 	}
-
+/+
 void main()
 {
 Тесс* тес = глуНовыйТесс();
 }
++/
