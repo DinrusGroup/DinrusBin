@@ -1,0 +1,38 @@
+﻿[Language]
+Title=Svenska
+Translator=Göran Malmberg
+Informations=vitsoftware@gmail.com
+[Translation]
+1=Vit Registry Optimizer skapar ett ntt register och eliminerar alla strukturella misstag och fel.
+2=Registerstorle efter optimering:
+3=Skillnad i storlek:
+4=Jämförelsetablå
+5=Allmän info
+6=< Tillbaka
+7=Nästa >
+8=Avsluta
+9=Svärmar
+10=Storlk nu
+11=Storlek efter
+12=Avsluta
+13=Klicka på 'Nästa' för att analysera Ditt register 
+14=Klicka på 'Avsluta' för att ändra uppfttning
+15=Parametrarna tillämpas under dessa startande OS. För att tillämpa parametrar är det nödvändigt att omstarta datorn NU! För att omstarta PCn tryck på knappen 'Omstartt'. Om Du vill stänga programmet, då avbryts optimeringen!
+17=Var god, spara Ditt arbete i alla andra program NU och stäng dessa program
+18=Hela registerstorleken:
+19=Analyserar registret. Var god, vänta... 
+20=• Registeranalys
+21=• Parametertillämpning
+22=• PC Omstart
+23=Arbetet med programmet består av tre enkla steg:
+24=Omstarta
+25=Utför systemomstart nu!
+26=Programmet kanske fryser - det är normalt!
+27=Ej nog med plats på systemdisken! Frigör disken från onödiga filer.
+28=Analysen är klar! Ditt register har redan optimerats. Det behöver ej optimeras denna gång. Registerstorlek vid angivet ögonblick:
+29=Optimering av registerfilerna klar! Registerstorlek vid angivet ögonblick:
+30=Klicka på 'Avbryt' för att sluta Vit Registry Optimizer.
+
+
+
+

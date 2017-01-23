@@ -1,0 +1,38 @@
+[Language]
+Title=Slovak
+CharSet=238
+Translator=Lumir
+Informations=lumir@stonline.sk
+[Translation]
+1=Vit Registry Optimizer obnoví registre a opraví všetky chyby štruktúry registrov.
+2=Ve¾kos registrov po optimalizácii:
+3=Rozdiel ve¾kosti:
+4=Porovnanie
+5=Všeobecné informácie 
+6=< Spä
+7=Ïalej >
+8=Ukonèi
+9=Zväzky registrov
+10=Ve¾kos teraz
+11=Ve¾kos potom
+12=Dokonèi
+13=Kliknite na "Ïalej" pre analızu vašich registrov 
+14=Kliknite na "Dokonèi" pre vykonanie zmien
+15=Zmeny budú aplikované pri nasledujúcom spustení systému. Pre aplikovanie zmien je potrebné reštartova poèítaè TERAZ! Pre reštartovanie poèítaèa kliknite na "Reštart". Ak zatvoríte program, optimalizácia bude zrušená!
+17=Ulote si prácu v ostatnıch programoch a zatvorte tieto programy
+18=Celková ve¾kos registrov:
+19=Analıza registrov. Prosím, poèkajte... 
+20=• Analıza registrov
+21=• Aplikovanie zmien
+22=• Reštart poèítaèa
+23=Program pouíva tri jednoduché kroky:
+24=Reštart
+25=Reštartujte systém teraz!
+26=Program mono nebude reagova - to je normálne!
+27=Nie je dostatok miesta na systémovom zväzku! Vymate nepotrebné súbory.
+28=Analıza dokonèená! Registre u boli optimalizované. Nie je potrebná optimalizácia. Ve¾kos registrov teraz:
+29=Optimalizácia registrov dokonèená! Ve¾kos registrov teraz:
+30=Kliknite na "Ukonèi" pre ukonèenie Vit Registry Optimizer.
+
+
+

@@ -1,0 +1,37 @@
+[Language]
+Title=Czech
+Translator=Damned
+Informations=bartosfr@seznam.cz
+[Translation]
+1=Vit Registry Optimizer vytvoøí nový registr odstranìním všech strukturálních chyb a nedostatkù.
+2=Velikost registru po optimalizaci:
+3=Rozdíl velikosti:
+4=Srovnávací tabulka
+5=Základní informace 
+6=< Zpìt
+7=Dále >
+8=Konec
+9=Místo
+10=Velikost nyní
+11=Velikost poté
+12=Dokonèit
+13=Kliknutím na 'Dále' analyzujte Váš registr 
+14=Kliknutím na 'Dokonèit' proveïte zmìny
+15=Budou použity parametry pro stávající OS. Pro použití tìchto parametrù je nezbytné NYNÍ restartovat Váš poèítaè. Pro restart Vašeho PC stisknìte tlaèítko 'Restart'. Pokud program ukonèíte, optimalizace nebude dokonèena!
+17=Prosím, uložte si NYNÍ Vaši práci a ukonèete všechny spuštìné programy
+18=Celková velikost:
+19=Analyzuji registr. Prosím vyèkejte... 
+20=• Analýza registru
+21=• Použití parametrù
+22=• Restart PC
+23=Práce programu probìhne v následujících tøech krocích:
+24=Restart
+25=Nyní proveïte restart systému!
+26=Program chvíli nemusí reagovat - to je normální!
+27=Nedostatek místa na systémovém disku! Odstraòte nepotøebné soubory.
+28=Analýza je dokonèena! Váš registr již byl optimalizován. Nyní nevyžaduje optimalizaci. V tomto okamžiku je rozdíl velikosti:
+29=Optimalizace registru byla dokonèena! Nyní je velikost registru:
+30=Kliknetím na 'Konec' ukonèíte Vit Registry Optimizer.
+
+
+

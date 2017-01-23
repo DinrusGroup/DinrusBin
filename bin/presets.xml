@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<presets>
+  <device>
+    <id>10</id>
+    <name>Android</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=800:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 128K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>20</id>
+    <name>Android Tablet</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=1280:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 128K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>30</id>
+    <name>iPhone</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=960:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 160K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>40</id>
+    <name>iPad</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=1024:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 160K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>50</id>
+    <name>Windows</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=800:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 128K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>60</id>
+    <name>HD</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=1280:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 160K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>70</id>
+    <name>Full HD</name>
+    <params>-f mp4 -vcodec libx264 -vf "scale=1920:trunc(ow/a/2)*2" -acodec libvo_aacenc -ac 2 -ar 44100 -ab 160K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>80</id>
+    <name>iPod Nano</name>
+    <params>-f mp4 -vcodec mpeg4 -acodec libmp3lame -ab 128K -ar 44100 -vf "scale=320:-1" -b 400K -strict -1</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>90</id>
+    <name>iPod Touch</name>
+    <params>-f mp4 -vcodec mpeg4 -acodec libmp3lame -ab 128K -ar 44100 -s 480x360 -b 400K -strict -1</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>100</id>
+    <name>Blackberry</name>
+    <params>-f mp4 -vcodec mpeg4 -b 400K -r 24 -s 320x240 -acodec libvo_aacenc -ar 22050 -ac 2 -ab 48K</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>110</id>
+    <name>PSP</name>
+    <params>-f mp4 -r 30 -vcodec libx264 -s 368x208 -b 400K -acodec libvo_aacenc -ab 128K -ar 48000 -ac 2</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+  <device>
+    <id>120</id>
+    <name>PS3</name>
+    <params>-f mp4 -r 23.976 -vcodec libx264 -vf "scale=1280:trunc(ow/a/2)*2" -acodec libvo_aacenc -ab 384K -ar 48000 -ac 2</params>
+    <extension>mp4</extension>
+  </device>
+  <device>
+    <id>130</id>
+    <name>Xbox 360</name>
+    <params>-vcodec wmv2  -acodec wmav2 -b 1200K -ab 160K -r 25 -s 720x480</params>
+    <extension>wmv</extension>
+  </device>
+</presets>
