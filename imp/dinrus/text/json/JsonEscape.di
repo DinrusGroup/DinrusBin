@@ -20,7 +20,7 @@ private import Utf = text.convert.Utf;
 
 /******************************************************************************
 
-        Convert 'escaped' chars в_ нормаль ones. For example: \\ => \
+        Convert 'escaped' симвы в_ нормаль ones. For example: \\ => \
 
         The provопрed вывод буфер should be at least as дол as the 
         ввод ткст, or it will be allocated из_ the куча instead.
@@ -30,7 +30,7 @@ private import Utf = text.convert.Utf;
         
 ******************************************************************************/
 
-T[] unescape(T) (T[] ист, T[] приёмн = пусто)
+T[] убериИскейп(T) (T[] ист, T[] приёмн = пусто)
 {
         т_мера контент;
 
@@ -42,17 +42,17 @@ T[] unescape(T) (T[] ист, T[] приёмн = пусто)
                 контент += s.length;
         }
 
-        unescape (ист, &добавь);
+        убериИскейп (ист, &добавь);
         return приёмн [0 .. контент];
 }
 
 
 /******************************************************************************
 
-        Convert reserved chars в_ escaped ones. For example: \ => \\ 
+        Convert reserved симвы в_ escaped ones. For example: \ => \\ 
 
         Either a срез of the provопрed вывод буфер is returned, or the 
-        original контент, depending on whether there were reserved chars
+        original контент, depending on whether there were reserved симвы
         present or not. The вывод буфер will be expanded as necessary
         
 ******************************************************************************/
@@ -76,14 +76,14 @@ T[] escape(T) (T[] ист, T[] приёмн = пусто)
 
 /******************************************************************************
 
-        Convert 'escaped' chars в_ нормаль ones. For example: \\ => \
+        Convert 'escaped' симвы в_ нормаль ones. For example: \\ => \
 
         This variant does not require an interim workspace, и instead
         излейs directly via the provопрed delegate
               
 ******************************************************************************/
 
-проц unescape(T) (T[] ист, проц delegate(T[]) излей)
+проц убериИскейп(T) (T[] ист, проц delegate(T[]) излей)
 {
         цел delta;
         auto s = ист.ptr;
@@ -190,7 +190,7 @@ T[] escape(T) (T[] ист, T[] приёмн = пусто)
 
 /******************************************************************************
 
-        Convert reserved chars в_ escaped ones. For example: \ => \\ 
+        Convert reserved симвы в_ escaped ones. For example: \ => \\ 
 
         This variant does not require an interim workspace, и instead
         излейs directly via the provопрed delegate
@@ -263,19 +263,19 @@ debug (JsonEscape)
                 assert (escape ("abc/") == `abc\/`);
                 assert (escape ("\n\t\r\b\f") == `\n\t\r\b\f`);
 
-                unescape ("abc");
-                unescape ("abc\\u0020x", (ткст p){Стдвыв(p);});
-                assert (unescape ("abc") == "abc");
-                assert (unescape ("abc\\") == "abc\\");
-                assert (unescape ("abc\\t") == "abc\t");
-                assert (unescape ("abc\\tc") == "abc\tc");
-                assert (unescape ("\\t") == "\t");
-                assert (unescape ("\\tx") == "\tx");
-                assert (unescape ("\\r\\rx") == "\r\rx");
-                assert (unescape ("abc\\t\\n\\bc") == "abc\t\n\bc");
+                убериИскейп ("abc");
+                убериИскейп ("abc\\u0020x", (ткст p){Стдвыв(p);});
+                assert (убериИскейп ("abc") == "abc");
+                assert (убериИскейп ("abc\\") == "abc\\");
+                assert (убериИскейп ("abc\\t") == "abc\t");
+                assert (убериИскейп ("abc\\tc") == "abc\tc");
+                assert (убериИскейп ("\\t") == "\t");
+                assert (убериИскейп ("\\tx") == "\tx");
+                assert (убериИскейп ("\\r\\rx") == "\r\rx");
+                assert (убериИскейп ("abc\\t\\n\\bc") == "abc\t\n\bc");
 
-                assert (unescape ("abc\"\\n\\bc") == "abc\"\n\bc");
-                assert (unescape ("abc\\u002bx") == "abc+x");
+                assert (убериИскейп ("abc\"\\n\\bc") == "abc\"\n\bc");
+                assert (убериИскейп ("abc\\u002bx") == "abc+x");
         }
 
 }

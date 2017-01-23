@@ -68,7 +68,7 @@ public interface SeqView(T) : View!(T)
 
         /**
          * Report the индекс of leftmost occurrence of an элемент из_ a 
-         * given starting point, or -1 if there is no such индекс.
+         * given starting точка, or -1 if there is no such индекс.
          * @param элемент the элемент в_ look for
          * @param startingIndex the индекс в_ старт looking из_. The startingIndex
          * need not be a действителен индекс. If less than zero it is treated as 0.
@@ -88,7 +88,7 @@ public interface SeqView(T) : View!(T)
 
         /**
          * Report the индекс of righttmost occurrence of an элемент из_ a 
-         * given starting point, or -1 if there is no such индекс.
+         * given starting точка, or -1 if there is no such индекс.
          * @param элемент the элемент в_ look for
          * @param startingIndex the индекс в_ старт looking из_. The startingIndex
          * need not be a действителен индекс. If less than zero the результат

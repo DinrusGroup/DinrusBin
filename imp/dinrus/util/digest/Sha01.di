@@ -38,10 +38,10 @@ package abstract class Sha01 : MerkleDamgard
 
         /***********************************************************************
 
-                Initialize the cИПher
+                Initialize the cipher
 
                 Remarks:
-                Returns the cИПher состояние в_ it's начальное значение
+                Returns the cipher состояние в_ it's начальное значение
 
         ***********************************************************************/
 
@@ -59,7 +59,7 @@ package abstract class Sha01 : MerkleDamgard
                 the дайджест
 
                 Remarks:
-                Returns a дайджест of the текущ cИПher состояние, this may be the
+                Returns a дайджест of the текущ cipher состояние, this may be the
                 final дайджест, or a дайджест of the состояние between calls в_ обнови()
 
         ***********************************************************************/
@@ -96,7 +96,7 @@ package abstract class Sha01 : MerkleDamgard
 
                 Remarks:
                 Specifies the размер (in байты) of the паддинг which uses the
-                length of the данные which имеется been cИПhered, this паддинг is
+                length of the данные which имеется been ciphered, this паддинг is
                 carried out by the padLength метод. For SHA0 the добавьРазмер is 0.
 
         ***********************************************************************/
@@ -105,14 +105,14 @@ package abstract class Sha01 : MerkleDamgard
 
         /***********************************************************************
 
-                Pads the cИПher данные
+                Pads the cipher данные
 
                 Параметры:
-                данные = a срез of the cИПher буфер в_ заполни with паддинг
+                данные = a срез of the cipher буфер в_ заполни with паддинг
 
                 Remarks:
                 Fills the passed буфер срез with the appropriate паддинг for
-                the final вызов в_ трансформируй(). This паддинг will заполни the cИПher
+                the final вызов в_ трансформируй(). This паддинг will заполни the cipher
                 буфер up в_ размерБлока()-добавьРазмер().
 
         ***********************************************************************/
@@ -128,13 +128,13 @@ package abstract class Sha01 : MerkleDamgard
                 Performs the length паддинг
 
                 Параметры:
-                данные   = the срез of the cИПher буфер в_ заполни with паддинг
-                length = the length of the данные which имеется been cИПhered
+                данные   = the срез of the cipher буфер в_ заполни with паддинг
+                length = the length of the данные which имеется been ciphered
 
                 Remarks:
                 Fills the passed буфер срез with добавьРазмер() байты of паддинг
                 based on the length in байты of the ввод данные which имеется been
-                cИПhered.
+                ciphered.
 
         ***********************************************************************/
 

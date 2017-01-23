@@ -27,11 +27,11 @@ private import  util.collection.impl.CLCell,
 
 /**
  *
- * Linked Буфер implementation of Bags. The Bag consists of
+ * Linked Буфер implementation of Bags. The Рюкзак consists of
  * any число of buffers holding элементы, arranged in a список.
  * Each буфер holds an Массив of элементы. The размер of each
  * буфер is the значение of размЧанка that was текущ during the
- * operation that caused the Bag в_ grow. The размЧанка() may
+ * operation that caused the Рюкзак в_ grow. The размЧанка() may
  * be adjusted at any время. (It is not consопрered a version change.)
  * 
  * <P>
@@ -145,7 +145,7 @@ deprecated public class ArrayBag(T) : BagCollection!(T)
 
 
         /**
-         * Report the чанк размер использован when добавьing new buffers в_ the список
+         * Report the чанк размер использован when добавим new buffers в_ the список
         **/
 
         public final цел размЧанка()
@@ -154,7 +154,7 @@ deprecated public class ArrayBag(T) : BagCollection!(T)
         }
 
         /**
-         * Набор the чанк размер в_ be использован when добавьing new buffers в_ the 
+         * Набор the чанк размер в_ be использован when добавим new buffers в_ the 
          * список during future добавь() operations.
          * Any значение greater than 0 is ОК. (A значение of 1 makes this a
          * преобр_в very slow simulation of a linked список!)
@@ -165,7 +165,7 @@ deprecated public class ArrayBag(T) : BagCollection!(T)
                 if (newЧанкРазмер > 0)
                     размерЧанка_ = newЧанкРазмер;
                 else
-                   throw new ИсклНелегальногоАргумента("Attempt в_ установи negative чанк размер значение");
+                   throw new ИсклНелегальногоАргумента("Attempt в_ установи негатив чанк размер значение");
         }
 
         // Коллекция methods
@@ -355,7 +355,7 @@ deprecated public class ArrayBag(T) : BagCollection!(T)
          * Время complexity: O(n).
          * See_Also: util.collection.MutableBag.добавьIfAbsent
         **/
-        public final проц добавьIf(T элемент)
+        public final проц добавьЕсли(T элемент)
         {
                 if (!содержит(элемент))
                      добавь (элемент);

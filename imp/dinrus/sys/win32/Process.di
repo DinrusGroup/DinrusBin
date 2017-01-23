@@ -5,7 +5,7 @@
 
 module sys.win32.Process;
 
-//pragma(lib,"drTango");
+//pragma(lib,"DinrusTango.lib");
 
 private
 {

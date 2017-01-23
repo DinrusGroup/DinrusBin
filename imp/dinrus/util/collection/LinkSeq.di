@@ -16,7 +16,7 @@ module util.collection.LinkSeq;
 
 private import  util.collection.model.Iterator,
                 util.collection.model.Sortable,
-                util.collection.model.Comparator,
+                util.collection.model.Сравнитель,
                 util.collection.model.GuardIterator;
 
 private import  util.collection.impl.LLCell,
@@ -336,7 +336,7 @@ deprecated public class LinkSeq(T) : SeqCollection!(T), Sortable!(T)
          * Uses a merge-сортируй-based algorithm.
          * See_Also: util.collection.SortableCollection.сортируй
         **/
-        public final проц сортируй(Comparator!(T) cmp)
+        public final проц сортируй(Сравнитель!(T) cmp)
         {
                 if (список !is пусто)
                    {

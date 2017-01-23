@@ -112,7 +112,7 @@
             (P. L'Ecuyer и R. Simard, ACM Transactions on Mathematical Software (2007),
             33, 4, Article 22, for KISS, see CMWC движок for the другой)
       )
-      $(LI  floating point униформа generator always initializes the full mantissa, the
+      $(LI  floating точка униформа generator always initializes the full mantissa, the
             only flaw is a (*very* small) predilection of 0 as least important bit 
             (IEEE rounds в_ 0 in case of tie).
             Using a метод that initializes the full mantissa was shown в_ improve the
@@ -283,10 +283,10 @@ final class СлуччисГ(ТИсток=ДефолтныйДвижок)
     //-------- Utility functions в_ quickly получи a uniformly distributed random число -----------
 
     /// униформа ни в каком дистрибутиве on the whole range of целое типы, и on
-    /// the (0;1) range for floating point типы. Floating point guarantees the initialization
+    /// the (0;1) range for floating точка типы. Floating точка guarantees the initialization
     /// of the full mantissa, but due в_ rounding effects it might have *very* small
     /// dependence due в_ rounding effects on the least significant bit (in case of tie 0 is favored).
-    /// if проверкаГраниц is нет in the floating point case bounds might be included (but with a
+    /// if проверкаГраниц is нет in the floating точка case bounds might be included (but with a
     /// lower propability than другой numbers)
     T униформа(T,бул проверкаГраниц=да)(){
         static if(is(T==бцел)) {
@@ -427,7 +427,7 @@ final class СлуччисГ(ТИсток=ДефолтныйДвижок)
     }
     
     /// униформа ни в каком дистрибутиве on the range [0;в_) for целое типы, и on
-    /// the (0;в_) range for floating point типы. Same caveat as униформа(T) apply
+    /// the (0;в_) range for floating точка типы. Same caveat as униформа(T) apply
     T униформаР(T,бул проверкаГраниц=да)(T в_)
     in { assert(в_>0,"пустой диапазон");}
     body {
@@ -466,15 +466,15 @@ final class СлуччисГ(ТИсток=ДефолтныйДвижок)
         } else static assert(0,T.stringof~" тип для униформаР не поддерживается ни в каком дистрибутиве");
     }
     /// униформа ни в каком дистрибутиве on the range (-в_;в_) for целое типы, и on
-    /// the (-в_;0)(0;в_) range for floating point типы if проверкаГраниц is да.
+    /// the (-в_;0)(0;в_) range for floating точка типы if проверкаГраниц is да.
     /// If проверкаГраниц=нет the range changes в_ [-в_;0)u(0;в_] with a slightly
-    /// lower propability at the bounds for floating point numbers.
+    /// lower propability at the bounds for floating точка numbers.
     /// исключитьНоль controls if 0 is excluded or not (by default плав exclude it,
     /// ints no). Please note that the probability of 0 in floats is very small due
     //  в_ the high density of floats закрой в_ 0.
     /// Cannot be использован on unsigned типы.
     ///
-    /// In here there is probably one of the few cases where c handling of modulo of negative
+    /// In here there is probably one of the few cases where c handling of modulo of негатив
     /// numbers is handy
     T униформаРСимм(T,бул проверкаГраниц=да, бул исключитьНоль=плав_ли!(T))(T в_,цел итер=2000)
     in { assert(в_>0,"пустой range");}
@@ -648,8 +648,8 @@ final class СлуччисГ(ТИсток=ДефолтныйДвижок)
             }
         } else static assert(0,T.stringof~" тип для униформаРСимм не поддерживается ни в каком дистрибутиве");
     }
-    /// униформа ни в каком дистрибутиве [из_;в_) for целыйs, и (из_;в_) for floating point numbers.
-    /// if проверкаГраниц is нет the bounds are included in the floating point число ни в каком дистрибутиве.
+    /// униформа ни в каком дистрибутиве [из_;в_) for целыйs, и (из_;в_) for floating точка numbers.
+    /// if проверкаГраниц is нет the bounds are included in the floating точка число ни в каком дистрибутиве.
     /// the range for цел и дол is limited в_ only half the possible range
     /// (it could be worked around using дол aritmethic for цел, и doing a carry by hand for дол,
     /// but I think it is seldomly needed, for цел you are better off using дол when needed)

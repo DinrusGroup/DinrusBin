@@ -16,7 +16,7 @@ module util.collection.impl.LLCell;
 
 private import util.collection.impl.Cell;
 
-private import util.collection.model.Comparator;
+private import util.collection.model.Сравнитель;
 
 /**
  *
@@ -39,7 +39,7 @@ private import util.collection.model.Comparator;
 
 public class LLCell(T) : Cell!(T)
 {
-        alias Comparator!(T) ComparatorT;
+        alias Сравнитель!(T) ComparatorT;
 
 
         protected LLCell next_;
@@ -54,7 +54,7 @@ public class LLCell(T) : Cell!(T)
         }
 
         /**
-         * установи в_ point в_ n as следщ ячейка
+         * установи в_ точка в_ n as следщ ячейка
          * @param n, the new следщ ячейка
         **/
 
@@ -221,7 +221,7 @@ public class LLCell(T) : Cell!(T)
          * Merges the списки голова by fst и snd with respect в_ cmp
          * @param fst голова of the первый список
          * @param snd голова of the секунда список
-         * @param cmp a Comparator использован в_ сравни элементы
+         * @param cmp a Сравнитель использован в_ сравни элементы
          * Возвращает: the merged ordered список
         **/
 
@@ -308,7 +308,7 @@ public class LLCell(T) : Cell!(T)
         /**
          * Standard merge сортируй algorithm
          * @param s the список в_ сортируй
-         * @param cmp, the comparator в_ use for ordering
+         * @param cmp, the сравнитель в_ use for ordering
          * Возвращает: the голова of the sorted список
         **/
 

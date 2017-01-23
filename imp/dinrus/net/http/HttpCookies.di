@@ -218,7 +218,7 @@ class СтэкКуки
 
 /*******************************************************************************
 
-        This is the support point for сервер-sопрe кукики. It wraps a
+        This is the support точка for сервер-sопрe кукики. It wraps a
         СтэкКуки together with a установи of ЗаголовкиППГТ, along with the
         appropriate куки парсер. One would do something very similar
         for клиент sопрe куки parsing also.

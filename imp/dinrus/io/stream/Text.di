@@ -1,4 +1,4 @@
-﻿module io.stream.Text;
+﻿module io.stream.Текст;
 
 private import io.stream.Lines;
 private import io.stream.Format;

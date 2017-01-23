@@ -19,7 +19,7 @@ private import  util.collection.model.View,
 
 /**
  *
- * Dispenser is the корень interface of все mutable собериions; i.e.,
+ * Dispenser is the корень interface of все изменяемый собериions; i.e.,
  * собериions that may have элементы dynamically добавьed, removed,
  * и/or replaced in accord with their collection semantics.
  *

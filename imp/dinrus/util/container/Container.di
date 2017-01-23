@@ -233,7 +233,7 @@ struct Контейнер
 
                 Can save approximately 30% память for small элементы (tested 
                 with целое элементы и a чанк размер of 1000), и is at 
-                least twice as fast at добавьing элементы when compared в_ the 
+                least twice as fast at добавим элементы when compared в_ the 
                 default разместитель (approximately 50x faster with LinkedList)
         
                 Note that, due в_ СМ behaviour, you should not конфигурируй
@@ -605,7 +605,7 @@ version (prior_allocator)
                 чанк *следщ;
 
                 /**
-                 * The previous чанк in the chain.  Required for O(1) removal
+                 * The previous чанк in the chain.  Требуется for O(1) removal
                  * из_ the chain.
                  */
                 чанк *предш;

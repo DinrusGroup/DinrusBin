@@ -43,7 +43,7 @@ struct Slink (V, K=KeyDummy, бул Идентичность = нет, бул Х
 {
         alias Slink!(V, K, Идентичность, ХэшКэш) Тип;
         alias Тип                              *Реф;
-        alias Сравни!(V)                       Comparator;
+        alias Сравни!(V)                       Сравнитель;
 
         Реф             следщ;           // pointer в_ следщ
         V               значение;          // элемент значение
@@ -183,7 +183,7 @@ struct Slink (V, K=KeyDummy, бул Идентичность = нет, бул Х
         
         /***********************************************************************
 
-                 Набор в_ point в_ n as следщ ячейка
+                 Набор в_ точка в_ n as следщ ячейка
 
                  param: n, the new следщ ячейка
                         
@@ -361,12 +361,12 @@ struct Slink (V, K=KeyDummy, бул Идентичность = нет, бул Х
          
                 param: fst голова of the первый список
                 param: snd голова of the секунда список
-                param: cmp a Comparator использован в_ сравни элементы
+                param: cmp a Сравнитель использован в_ сравни элементы
                 Возвращает: the merged ordered список
                         
         ***********************************************************************/
 
-        static Реф merge (Реф fst, Реф snd, Comparator cmp)
+        static Реф merge (Реф fst, Реф snd, Сравнитель cmp)
         {
                 auto a = fst;
                 auto b = snd;
@@ -454,12 +454,12 @@ struct Slink (V, K=KeyDummy, бул Идентичность = нет, бул Х
                  Standard merge сортируй algorithm
                  
                  param: s the список в_ сортируй
-                 param: cmp, the comparator в_ use for ordering
+                 param: cmp, the сравнитель в_ use for ordering
                  Возвращает: the голова of the sorted список
                         
         ***********************************************************************/
 
-        static Реф сортируй (Реф s, Comparator cmp)
+        static Реф сортируй (Реф s, Сравнитель cmp)
         {
                 if (s is пусто || s.следщ is пусто)
                     return s;

@@ -64,10 +64,10 @@ final class Ripemd256 : MerkleDamgard
 
         /***********************************************************************
 
-        	Initialize the cИПher
+        	Initialize the cipher
 
         	Remarks:
-        		Returns the cИПher состояние в_ it's начальное значение
+        		Returns the cipher состояние в_ it's начальное значение
 
          ***********************************************************************/
 
@@ -85,7 +85,7 @@ final class Ripemd256 : MerkleDamgard
         		the дайджест
 
         	Remarks:
-        		Returns a дайджест of the текущ cИПher состояние, this may be the
+        		Returns a дайджест of the текущ cipher состояние, this may be the
         		final дайджест, or a дайджест of the состояние between calls в_ обнови()
 
          ***********************************************************************/
@@ -123,7 +123,7 @@ final class Ripemd256 : MerkleDamgard
 
         	Remarks:
         	Specifies the размер (in байты) of the паддинг which uses the
-        	length of the данные which имеется been cИПhered, this паддинг is
+        	length of the данные which имеется been ciphered, this паддинг is
         	carried out by the padLength метод. For Ripemd256 the добавьРазмер is 8.
 
          ***********************************************************************/
@@ -132,14 +132,14 @@ final class Ripemd256 : MerkleDamgard
 
         /***********************************************************************
 
-        	Pads the cИПher данные
+        	Pads the cipher данные
 
         	Параметры:
-        	данные = a срез of the cИПher буфер в_ заполни with паддинг
+        	данные = a срез of the cipher буфер в_ заполни with паддинг
 
         	Remarks:
         	Fills the passed буфер срез with the appropriate паддинг for
-        	the final вызов в_ трансформируй(). This паддинг will заполни the cИПher
+        	the final вызов в_ трансформируй(). This паддинг will заполни the cipher
         	буфер up в_ размерБлока()-добавьРазмер().
 
          ***********************************************************************/
@@ -155,13 +155,13 @@ final class Ripemd256 : MerkleDamgard
         	Performs the length паддинг
 
         	Параметры:
-        	данные   = the срез of the cИПher буфер в_ заполни with паддинг
-        	length = the length of the данные which имеется been cИПhered
+        	данные   = the срез of the cipher буфер в_ заполни with паддинг
+        	length = the length of the данные which имеется been ciphered
 
         	Remarks:
         	Fills the passed буфер срез with добавьРазмер() байты of паддинг
         	based on the length in байты of the ввод данные which имеется been
-        	cИПhered.
+        	ciphered.
 
          ***********************************************************************/
 
@@ -173,13 +173,13 @@ final class Ripemd256 : MerkleDamgard
 
         /***********************************************************************
 
-        	Performs the cИПher on a блок of данные
+        	Performs the cipher on a блок of данные
 
         	Параметры:
-        	данные = the блок of данные в_ cИПher
+        	данные = the блок of данные в_ cipher
 
         	Remarks:
-        	The actual cИПher algorithm is carried out by this метод on
+        	The actual cipher algorithm is carried out by this метод on
         	the passed блок of данные. This метод is called for every
         	размерБлока() байты of ввод данные и once ещё with the остаток
         	данные псеп_в_конце в_ размерБлока().
@@ -189,7 +189,7 @@ final class Ripemd256 : MerkleDamgard
         protected override проц трансформируй(ббайт[] ввод)
         {
         	бцел al, bl, cl, dl;
-        	бцел ar, br, cr, dr;
+        	бцел ar, br, вк, dr;
             бцел[16] x;
             бцел t;
 
@@ -201,150 +201,150 @@ final class Ripemd256 : MerkleDamgard
             dl = контекст[3];
             ar = контекст[4];
             br = контекст[5];
-            cr = контекст[6];
+            вк = контекст[6];
             dr = контекст[7];
 
             // Round 1 и parallel округли 1
             al = вращайВлево(al + (bl ^ cl ^ dl) + x[0], 11);
-            ar = вращайВлево(ar + ((br & dr) | (cr & ~(dr))) + x[5] + 0x50a28be6, 8);
+            ar = вращайВлево(ar + ((br & dr) | (вк & ~(dr))) + x[5] + 0x50a28be6, 8);
             dl = вращайВлево(dl + (al ^ bl ^ cl) + x[1], 14);
-            dr = вращайВлево(dr + ((ar & cr) | (br & ~(cr))) + x[14] + 0x50a28be6, 9);
+            dr = вращайВлево(dr + ((ar & вк) | (br & ~(вк))) + x[14] + 0x50a28be6, 9);
             cl = вращайВлево(cl + (dl ^ al ^ bl) + x[2], 15);
-            cr = вращайВлево(cr + ((dr & br) | (ar & ~(br))) + x[7] + 0x50a28be6, 9);
+            вк = вращайВлево(вк + ((dr & br) | (ar & ~(br))) + x[7] + 0x50a28be6, 9);
             bl = вращайВлево(bl + (cl ^ dl ^ al) + x[3], 12);
-            br = вращайВлево(br + ((cr & ar) | (dr & ~(ar))) + x[0] + 0x50a28be6, 11);
+            br = вращайВлево(br + ((вк & ar) | (dr & ~(ar))) + x[0] + 0x50a28be6, 11);
             al = вращайВлево(al + (bl ^ cl ^ dl) + x[4], 5);
-            ar = вращайВлево(ar + ((br & dr) | (cr & ~(dr))) + x[9] + 0x50a28be6, 13);
+            ar = вращайВлево(ar + ((br & dr) | (вк & ~(dr))) + x[9] + 0x50a28be6, 13);
             dl = вращайВлево(dl + (al ^ bl ^ cl) + x[5], 8);
-            dr = вращайВлево(dr + ((ar & cr) | (br & ~(cr))) + x[2] + 0x50a28be6, 15);
+            dr = вращайВлево(dr + ((ar & вк) | (br & ~(вк))) + x[2] + 0x50a28be6, 15);
             cl = вращайВлево(cl + (dl ^ al ^ bl) + x[6], 7);
-            cr = вращайВлево(cr + ((dr & br) | (ar & ~(br))) + x[11] + 0x50a28be6, 15);
+            вк = вращайВлево(вк + ((dr & br) | (ar & ~(br))) + x[11] + 0x50a28be6, 15);
             bl = вращайВлево(bl + (cl ^ dl ^ al) + x[7], 9);
-            br = вращайВлево(br + ((cr & ar) | (dr & ~(ar))) + x[4] + 0x50a28be6, 5);
+            br = вращайВлево(br + ((вк & ar) | (dr & ~(ar))) + x[4] + 0x50a28be6, 5);
             al = вращайВлево(al + (bl ^ cl ^ dl) + x[8], 11);
-            ar = вращайВлево(ar + ((br & dr) | (cr & ~(dr))) + x[13] + 0x50a28be6, 7);
+            ar = вращайВлево(ar + ((br & dr) | (вк & ~(dr))) + x[13] + 0x50a28be6, 7);
             dl = вращайВлево(dl + (al ^ bl ^ cl) + x[9], 13);
-            dr = вращайВлево(dr + ((ar & cr) | (br & ~(cr))) + x[6] + 0x50a28be6, 7);
+            dr = вращайВлево(dr + ((ar & вк) | (br & ~(вк))) + x[6] + 0x50a28be6, 7);
             cl = вращайВлево(cl + (dl ^ al ^ bl) + x[10], 14);
-            cr = вращайВлево(cr + ((dr & br) | (ar & ~(br))) + x[15] + 0x50a28be6, 8);
+            вк = вращайВлево(вк + ((dr & br) | (ar & ~(br))) + x[15] + 0x50a28be6, 8);
             bl = вращайВлево(bl + (cl ^ dl ^ al) + x[11], 15);
-            br = вращайВлево(br + ((cr & ar) | (dr & ~(ar))) + x[8] + 0x50a28be6, 11);
+            br = вращайВлево(br + ((вк & ar) | (dr & ~(ar))) + x[8] + 0x50a28be6, 11);
             al = вращайВлево(al + (bl ^ cl ^ dl) + x[12], 6);
-            ar = вращайВлево(ar + ((br & dr) | (cr & ~(dr))) + x[1] + 0x50a28be6, 14);
+            ar = вращайВлево(ar + ((br & dr) | (вк & ~(dr))) + x[1] + 0x50a28be6, 14);
             dl = вращайВлево(dl + (al ^ bl ^ cl) + x[13], 7);
-            dr = вращайВлево(dr + ((ar & cr) | (br & ~(cr))) + x[10] + 0x50a28be6, 14);
+            dr = вращайВлево(dr + ((ar & вк) | (br & ~(вк))) + x[10] + 0x50a28be6, 14);
             cl = вращайВлево(cl + (dl ^ al ^ bl) + x[14], 9);
-            cr = вращайВлево(cr + ((dr & br) | (ar & ~(br))) + x[3] + 0x50a28be6, 12);
+            вк = вращайВлево(вк + ((dr & br) | (ar & ~(br))) + x[3] + 0x50a28be6, 12);
             bl = вращайВлево(bl + (cl ^ dl ^ al) + x[15], 8);
-            br = вращайВлево(br + ((cr & ar) | (dr & ~(ar))) + x[12] + 0x50a28be6, 6);
+            br = вращайВлево(br + ((вк & ar) | (dr & ~(ar))) + x[12] + 0x50a28be6, 6);
             
             t = al; al = ar; ar = t;
             
             // Round 2 и parallel округли 2
             al = вращайВлево(al + (((cl ^ dl) & bl) ^ dl) + x[7] + 0x5a827999, 7);
-            ar = вращайВлево(ar + ((br | ~(cr)) ^ dr) + x[6] + 0x5c4dd124, 9);
+            ar = вращайВлево(ar + ((br | ~(вк)) ^ dr) + x[6] + 0x5c4dd124, 9);
             dl = вращайВлево(dl + (((bl ^ cl) & al) ^ cl) + x[4] + 0x5a827999, 6);
-            dr = вращайВлево(dr + ((ar | ~(br)) ^ cr) + x[11] + 0x5c4dd124, 13);
+            dr = вращайВлево(dr + ((ar | ~(br)) ^ вк) + x[11] + 0x5c4dd124, 13);
             cl = вращайВлево(cl + (((al ^ bl) & dl) ^ bl) + x[13] + 0x5a827999, 8);
-            cr = вращайВлево(cr + ((dr | ~(ar)) ^ br) + x[3] + 0x5c4dd124, 15);
+            вк = вращайВлево(вк + ((dr | ~(ar)) ^ br) + x[3] + 0x5c4dd124, 15);
             bl = вращайВлево(bl + (((dl ^ al) & cl) ^ al) + x[1] + 0x5a827999, 13);
-            br = вращайВлево(br + ((cr | ~(dr)) ^ ar) + x[7] + 0x5c4dd124, 7);
+            br = вращайВлево(br + ((вк | ~(dr)) ^ ar) + x[7] + 0x5c4dd124, 7);
             al = вращайВлево(al + (((cl ^ dl) & bl) ^ dl) + x[10] + 0x5a827999, 11);
-            ar = вращайВлево(ar + ((br | ~(cr)) ^ dr) + x[0] + 0x5c4dd124, 12);
+            ar = вращайВлево(ar + ((br | ~(вк)) ^ dr) + x[0] + 0x5c4dd124, 12);
             dl = вращайВлево(dl + (((bl ^ cl) & al) ^ cl) + x[6] + 0x5a827999, 9);
-            dr = вращайВлево(dr + ((ar | ~(br)) ^ cr) + x[13] + 0x5c4dd124, 8);
+            dr = вращайВлево(dr + ((ar | ~(br)) ^ вк) + x[13] + 0x5c4dd124, 8);
             cl = вращайВлево(cl + (((al ^ bl) & dl) ^ bl) + x[15] + 0x5a827999, 7);
-            cr = вращайВлево(cr + ((dr | ~(ar)) ^ br) + x[5] + 0x5c4dd124, 9);
+            вк = вращайВлево(вк + ((dr | ~(ar)) ^ br) + x[5] + 0x5c4dd124, 9);
             bl = вращайВлево(bl + (((dl ^ al) & cl) ^ al) + x[3] + 0x5a827999, 15);
-            br = вращайВлево(br + ((cr | ~(dr)) ^ ar) + x[10] + 0x5c4dd124, 11);
+            br = вращайВлево(br + ((вк | ~(dr)) ^ ar) + x[10] + 0x5c4dd124, 11);
             al = вращайВлево(al + (((cl ^ dl) & bl) ^ dl) + x[12] + 0x5a827999, 7);
-            ar = вращайВлево(ar + ((br | ~(cr)) ^ dr) + x[14] + 0x5c4dd124, 7);
+            ar = вращайВлево(ar + ((br | ~(вк)) ^ dr) + x[14] + 0x5c4dd124, 7);
             dl = вращайВлево(dl + (((bl ^ cl) & al) ^ cl) + x[0] + 0x5a827999, 12);
-            dr = вращайВлево(dr + ((ar | ~(br)) ^ cr) + x[15] + 0x5c4dd124, 7);
+            dr = вращайВлево(dr + ((ar | ~(br)) ^ вк) + x[15] + 0x5c4dd124, 7);
             cl = вращайВлево(cl + (((al ^ bl) & dl) ^ bl) + x[9] + 0x5a827999, 15);
-            cr = вращайВлево(cr + ((dr | ~(ar)) ^ br) + x[8] + 0x5c4dd124, 12);
+            вк = вращайВлево(вк + ((dr | ~(ar)) ^ br) + x[8] + 0x5c4dd124, 12);
             bl = вращайВлево(bl + (((dl ^ al) & cl) ^ al) + x[5] + 0x5a827999, 9);
-            br = вращайВлево(br + ((cr | ~(dr)) ^ ar) + x[12] + 0x5c4dd124, 7);
+            br = вращайВлево(br + ((вк | ~(dr)) ^ ar) + x[12] + 0x5c4dd124, 7);
             al = вращайВлево(al + (((cl ^ dl) & bl) ^ dl) + x[2] + 0x5a827999, 11);
-            ar = вращайВлево(ar + ((br | ~(cr)) ^ dr) + x[4] + 0x5c4dd124, 6);
+            ar = вращайВлево(ar + ((br | ~(вк)) ^ dr) + x[4] + 0x5c4dd124, 6);
             dl = вращайВлево(dl + (((bl ^ cl) & al) ^ cl) + x[14] + 0x5a827999, 7);
-            dr = вращайВлево(dr + ((ar | ~(br)) ^ cr) + x[9] + 0x5c4dd124, 15);
+            dr = вращайВлево(dr + ((ar | ~(br)) ^ вк) + x[9] + 0x5c4dd124, 15);
             cl = вращайВлево(cl + (((al ^ bl) & dl) ^ bl) + x[11] + 0x5a827999, 13);
-            cr = вращайВлево(cr + ((dr | ~(ar)) ^ br) + x[1] + 0x5c4dd124, 13);
+            вк = вращайВлево(вк + ((dr | ~(ar)) ^ br) + x[1] + 0x5c4dd124, 13);
             bl = вращайВлево(bl + (((dl ^ al) & cl) ^ al) + x[8] + 0x5a827999, 12);
-            br = вращайВлево(br + ((cr | ~(dr)) ^ ar) + x[2] + 0x5c4dd124, 11);
+            br = вращайВлево(br + ((вк | ~(dr)) ^ ar) + x[2] + 0x5c4dd124, 11);
             
             t = bl; bl = br; br = t;
             
             // Round 3 и parallel округли 3
             al = вращайВлево(al + ((bl | ~(cl)) ^ dl) + x[3] + 0x6ed9eba1, 11);
-            ar = вращайВлево(ar + (((cr ^ dr) & br) ^ dr) + x[15] + 0x6d703ef3, 9);
+            ar = вращайВлево(ar + (((вк ^ dr) & br) ^ dr) + x[15] + 0x6d703ef3, 9);
             dl = вращайВлево(dl + ((al | ~(bl)) ^ cl) + x[10] + 0x6ed9eba1, 13);
-            dr = вращайВлево(dr + (((br ^ cr) & ar) ^ cr) + x[5] + 0x6d703ef3, 7);
+            dr = вращайВлево(dr + (((br ^ вк) & ar) ^ вк) + x[5] + 0x6d703ef3, 7);
             cl = вращайВлево(cl + ((dl | ~(al)) ^ bl) + x[14] + 0x6ed9eba1, 6);
-            cr = вращайВлево(cr + (((ar ^ br) & dr) ^ br) + x[1] + 0x6d703ef3, 15);
+            вк = вращайВлево(вк + (((ar ^ br) & dr) ^ br) + x[1] + 0x6d703ef3, 15);
             bl = вращайВлево(bl + ((cl | ~(dl)) ^ al) + x[4] + 0x6ed9eba1, 7);
-            br = вращайВлево(br + (((dr ^ ar) & cr) ^ ar) + x[3] + 0x6d703ef3, 11);
+            br = вращайВлево(br + (((dr ^ ar) & вк) ^ ar) + x[3] + 0x6d703ef3, 11);
             al = вращайВлево(al + ((bl | ~(cl)) ^ dl) + x[9] + 0x6ed9eba1, 14);
-            ar = вращайВлево(ar + (((cr ^ dr) & br) ^ dr) + x[7] + 0x6d703ef3, 8);
+            ar = вращайВлево(ar + (((вк ^ dr) & br) ^ dr) + x[7] + 0x6d703ef3, 8);
             dl = вращайВлево(dl + ((al | ~(bl)) ^ cl) + x[15] + 0x6ed9eba1, 9);
-            dr = вращайВлево(dr + (((br ^ cr) & ar) ^ cr) + x[14] + 0x6d703ef3, 6);
+            dr = вращайВлево(dr + (((br ^ вк) & ar) ^ вк) + x[14] + 0x6d703ef3, 6);
             cl = вращайВлево(cl + ((dl | ~(al)) ^ bl) + x[8] + 0x6ed9eba1, 13);
-            cr = вращайВлево(cr + (((ar ^ br) & dr) ^ br) + x[6] + 0x6d703ef3, 6);
+            вк = вращайВлево(вк + (((ar ^ br) & dr) ^ br) + x[6] + 0x6d703ef3, 6);
             bl = вращайВлево(bl + ((cl | ~(dl)) ^ al) + x[1] + 0x6ed9eba1, 15);
-            br = вращайВлево(br + (((dr ^ ar) & cr) ^ ar) + x[9] + 0x6d703ef3, 14);
+            br = вращайВлево(br + (((dr ^ ar) & вк) ^ ar) + x[9] + 0x6d703ef3, 14);
             al = вращайВлево(al + ((bl | ~(cl)) ^ dl) + x[2] + 0x6ed9eba1, 14);
-            ar = вращайВлево(ar + (((cr ^ dr) & br) ^ dr) + x[11] + 0x6d703ef3, 12);
+            ar = вращайВлево(ar + (((вк ^ dr) & br) ^ dr) + x[11] + 0x6d703ef3, 12);
             dl = вращайВлево(dl + ((al | ~(bl)) ^ cl) + x[7] + 0x6ed9eba1, 8);
-            dr = вращайВлево(dr + (((br ^ cr) & ar) ^ cr) + x[8] + 0x6d703ef3, 13);
+            dr = вращайВлево(dr + (((br ^ вк) & ar) ^ вк) + x[8] + 0x6d703ef3, 13);
             cl = вращайВлево(cl + ((dl | ~(al)) ^ bl) + x[0] + 0x6ed9eba1, 13);
-            cr = вращайВлево(cr + (((ar ^ br) & dr) ^ br) + x[12] + 0x6d703ef3, 5);
+            вк = вращайВлево(вк + (((ar ^ br) & dr) ^ br) + x[12] + 0x6d703ef3, 5);
             bl = вращайВлево(bl + ((cl | ~(dl)) ^ al) + x[6] + 0x6ed9eba1, 6);
-            br = вращайВлево(br + (((dr ^ ar) & cr) ^ ar) + x[2] + 0x6d703ef3, 14);
+            br = вращайВлево(br + (((dr ^ ar) & вк) ^ ar) + x[2] + 0x6d703ef3, 14);
             al = вращайВлево(al + ((bl | ~(cl)) ^ dl) + x[13] + 0x6ed9eba1, 5);
-            ar = вращайВлево(ar + (((cr ^ dr) & br) ^ dr) + x[10] + 0x6d703ef3, 13);
+            ar = вращайВлево(ar + (((вк ^ dr) & br) ^ dr) + x[10] + 0x6d703ef3, 13);
             dl = вращайВлево(dl + ((al | ~(bl)) ^ cl) + x[11] + 0x6ed9eba1, 12);
-            dr = вращайВлево(dr + (((br ^ cr) & ar) ^ cr) + x[0] + 0x6d703ef3, 13);
+            dr = вращайВлево(dr + (((br ^ вк) & ar) ^ вк) + x[0] + 0x6d703ef3, 13);
             cl = вращайВлево(cl + ((dl | ~(al)) ^ bl) + x[5] + 0x6ed9eba1, 7);
-            cr = вращайВлево(cr + (((ar ^ br) & dr) ^ br) + x[4] + 0x6d703ef3, 7);
+            вк = вращайВлево(вк + (((ar ^ br) & dr) ^ br) + x[4] + 0x6d703ef3, 7);
             bl = вращайВлево(bl + ((cl | ~(dl)) ^ al) + x[12] + 0x6ed9eba1, 5);
-            br = вращайВлево(br + (((dr ^ ar) & cr) ^ ar) + x[13] + 0x6d703ef3, 5);
+            br = вращайВлево(br + (((dr ^ ar) & вк) ^ ar) + x[13] + 0x6d703ef3, 5);
             
-            t = cl; cl = cr; cr = t;
+            t = cl; cl = вк; вк = t;
             
             // Round 4 и parallel округли 4
             al = вращайВлево(al + ((bl & dl) | (cl & ~(dl))) + x[1] + 0x8f1bbcdc, 11);
-            ar = вращайВлево(ar + (br ^ cr ^ dr) + x[8], 15);
+            ar = вращайВлево(ar + (br ^ вк ^ dr) + x[8], 15);
             dl = вращайВлево(dl + ((al & cl) | (bl & ~(cl))) + x[9] + 0x8f1bbcdc, 12);
-            dr = вращайВлево(dr + (ar ^ br ^ cr) + x[6], 5);
+            dr = вращайВлево(dr + (ar ^ br ^ вк) + x[6], 5);
             cl = вращайВлево(cl + ((dl & bl) | (al & ~(bl))) + x[11] + 0x8f1bbcdc, 14);
-            cr = вращайВлево(cr + (dr ^ ar ^ br) + x[4], 8);
+            вк = вращайВлево(вк + (dr ^ ar ^ br) + x[4], 8);
             bl = вращайВлево(bl + ((cl & al) | (dl & ~(al))) + x[10] + 0x8f1bbcdc, 15);
-            br = вращайВлево(br + (cr ^ dr ^ ar) + x[1], 11);
+            br = вращайВлево(br + (вк ^ dr ^ ar) + x[1], 11);
             al = вращайВлево(al + ((bl & dl) | (cl & ~(dl))) + x[0] + 0x8f1bbcdc, 14);
-            ar = вращайВлево(ar + (br ^ cr ^ dr) + x[3], 14);
+            ar = вращайВлево(ar + (br ^ вк ^ dr) + x[3], 14);
             dl = вращайВлево(dl + ((al & cl) | (bl & ~(cl))) + x[8] + 0x8f1bbcdc, 15);
-            dr = вращайВлево(dr + (ar ^ br ^ cr) + x[11], 14);
+            dr = вращайВлево(dr + (ar ^ br ^ вк) + x[11], 14);
             cl = вращайВлево(cl + ((dl & bl) | (al & ~(bl))) + x[12] + 0x8f1bbcdc, 9);
-            cr = вращайВлево(cr + (dr ^ ar ^ br) + x[15], 6);
+            вк = вращайВлево(вк + (dr ^ ar ^ br) + x[15], 6);
             bl = вращайВлево(bl + ((cl & al) | (dl & ~(al))) + x[4] + 0x8f1bbcdc, 8);
-            br = вращайВлево(br + (cr ^ dr ^ ar) + x[0], 14);
+            br = вращайВлево(br + (вк ^ dr ^ ar) + x[0], 14);
             al = вращайВлево(al + ((bl & dl) | (cl & ~(dl))) + x[13] + 0x8f1bbcdc, 9);
-            ar = вращайВлево(ar + (br ^ cr ^ dr) + x[5], 6);
+            ar = вращайВлево(ar + (br ^ вк ^ dr) + x[5], 6);
             dl = вращайВлево(dl + ((al & cl) | (bl & ~(cl))) + x[3] + 0x8f1bbcdc, 14);
-            dr = вращайВлево(dr + (ar ^ br ^ cr) + x[12], 9);
+            dr = вращайВлево(dr + (ar ^ br ^ вк) + x[12], 9);
             cl = вращайВлево(cl + ((dl & bl) | (al & ~(bl))) + x[7] + 0x8f1bbcdc, 5);
-            cr = вращайВлево(cr + (dr ^ ar ^ br) + x[2], 12);
+            вк = вращайВлево(вк + (dr ^ ar ^ br) + x[2], 12);
             bl = вращайВлево(bl + ((cl & al) | (dl & ~(al))) + x[15] + 0x8f1bbcdc, 6);
-            br = вращайВлево(br + (cr ^ dr ^ ar) + x[13], 9);
+            br = вращайВлево(br + (вк ^ dr ^ ar) + x[13], 9);
             al = вращайВлево(al + ((bl & dl) | (cl & ~(dl))) + x[14] + 0x8f1bbcdc, 8);
-            ar = вращайВлево(ar + (br ^ cr ^ dr) + x[9], 12);
+            ar = вращайВлево(ar + (br ^ вк ^ dr) + x[9], 12);
             dl = вращайВлево(dl + ((al & cl) | (bl & ~(cl))) + x[5] + 0x8f1bbcdc, 6);
-            dr = вращайВлево(dr + (ar ^ br ^ cr) + x[7], 5);
+            dr = вращайВлево(dr + (ar ^ br ^ вк) + x[7], 5);
             cl = вращайВлево(cl + ((dl & bl) | (al & ~(bl))) + x[6] + 0x8f1bbcdc, 5);
-            cr = вращайВлево(cr + (dr ^ ar ^ br) + x[10], 15);
+            вк = вращайВлево(вк + (dr ^ ar ^ br) + x[10], 15);
             bl = вращайВлево(bl + ((cl & al) | (dl & ~(al))) + x[2] + 0x8f1bbcdc, 12);
-            br = вращайВлево(br + (cr ^ dr ^ ar) + x[14], 8);
+            br = вращайВлево(br + (вк ^ dr ^ ar) + x[14], 8);
             
             // Do not обменяй dl и dr; simply добавь the right значение в_ контекст 
 
@@ -354,7 +354,7 @@ final class Ripemd256 : MerkleDamgard
             контекст[3] += dr;
             контекст[4] += ar;
             контекст[5] += br;
-            контекст[6] += cr;
+            контекст[6] += вк;
             контекст[7] += dl;
 
             x[] = 0;

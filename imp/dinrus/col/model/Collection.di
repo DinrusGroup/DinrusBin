@@ -17,12 +17,12 @@ public import col.model.Iterator;
  * в данном случае не поддерживается, поскольку элементы не всегда добавляются простым
  * приёмом. Например, карта (мэп) требует добавления в обходчик и ключа, и самого элемента.
  */
-interface Коллекция(V) : Обходчик!(V), Чистящий!(V) 
+interface Коллекция(З) : Обходчик!(З), Чистящий!(З) 
 {
     /**
      * очистить контейнер от всех значений
      */
-    Коллекция!(V) очисти();
+    Коллекция!(З) очисти();
 
     /**
      * удали an элемент with the specific значение.  This may be an O(n)
@@ -31,7 +31,7 @@ interface Коллекция(V) : Обходчик!(V), Чистящий!(V)
      *
      * returns this.
      */
-    Коллекция!(V) удали(V v);
+    Коллекция!(З) удали(З з);
 
     /**
      * удали an элемент with the specific значение.  This may be an O(n)
@@ -42,16 +42,16 @@ interface Коллекция(V) : Обходчик!(V), Чистящий!(V)
      *
      * sets был_Удалён to true if the элемент existed and was removed.
      */
-    Коллекция!(V) удали(V v, ref бул был_Удалён);
+    Коллекция!(З) удали(З з, ref бул был_Удалён);
 
     /**
      * returns true if the collection содержит the значение.  can be O(n).
      */
-    бул содержит(V v);
+    бул содержит(З з);
 
     /**
      * make a copy of this collection.  This does not do a deep copy of the
      * elements if they are ссылка or pointer types.
      */
-    Коллекция!(V) dup();
+    Коллекция!(З) dup();
 }

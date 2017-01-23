@@ -5,7 +5,7 @@
 module sys.COM.shell32;
 
 /*[importlib("STDOLE2.TLB")]*/
-package import 	sys.DStructs, sys.DConsts, sys.DFuncs, sys.DIfaces, sys.uuid, tpl.com;
+package import 	sys.WinStructs, sys.WinConsts, sys.WinFuncs, sys.WinIfaces, sys.uuid, tpl.com;
 
 
 extern (C) extern КЛСИД CLSID_Shell;

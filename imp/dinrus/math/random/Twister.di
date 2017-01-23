@@ -45,7 +45,7 @@ module math.random.Twister;
 struct Твистер
 {
         public alias натурал  вЦел;
-        public alias дробь вРеал;
+        public alias дво вРеал;
         
         private enum : бцел                     // Period параметры
                 {

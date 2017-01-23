@@ -17,7 +17,7 @@ module util.collection.impl.RBCell;
 private import  util.collection.impl.Cell;
 
 private import  util.collection.model.Iterator,
-                util.collection.model.Comparator;
+                util.collection.model.Сравнитель;
 
 /**
  * RBCell реализует basic capabilities of Red-Black trees,
@@ -261,10 +261,10 @@ public class RBCell(T) : Cell!(T)
         /**
          * Return узел of текущ subtree containing элемент as элемент(), 
          * if it есть_ли, else пусто. 
-         * Uses Comparator cmp в_ найди и в_ проверь equality.
+         * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
 
-        public RBCell найди(T элемент, Comparator!(T) cmp)
+        public RBCell найди(T элемент, Сравнитель!(T) cmp)
         {
                 auto t = this;
                 for (;;)
@@ -286,9 +286,9 @@ public class RBCell(T) : Cell!(T)
 
         /**
          * Return число of узелs of текущ subtree containing элемент.
-         * Uses Comparator cmp в_ найди и в_ проверь equality.
+         * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
-        public цел счёт(T элемент, Comparator!(T) cmp)
+        public цел счёт(T элемент, Сравнитель!(T) cmp)
         {
                 цел c = 0;
                 auto t = this;

@@ -21,7 +21,7 @@ private import  io.stream.Buffered;
 private import  net.http.HttpStack,
                 net.http.HttpConst;
 
-private import  Text = text.Util;
+private import  Текст = text.Util;
 
 private import  Целое = text.convert.Integer;
 
@@ -242,7 +242,7 @@ class ТокеныППГТ
         /**********************************************************************
 
                 Trim the provопрed ткст by strИПping пробел из_ 
-                Всё ends. Returns a срез of the original контент.
+                Всё заканчивается. Returns a срез of the original контент.
 
         **********************************************************************/
 

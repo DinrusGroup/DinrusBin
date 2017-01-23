@@ -1,6 +1,6 @@
 ﻿
 module viz.common;
-public import stdrus, cidrus, sys.DStructs, sys.DConsts, tpl.all, tpl.stream, viz.consts, viz.iface, viz.event, viz.graphics, viz.structs, viz.collections, winapi, sys.DIfaces: ПотокВвода, ПотокВывода;
+public import stdrus, cidrus, sys.WinStructs, sys.WinConsts, tpl.all, tpl.stream, viz.consts, viz.iface, viz.event, viz.graphics, viz.structs, viz.collections, winapi, sys.WinIfaces: ПотокВвода, ПотокВывода;
 
 version = VIZ_UNICODE;
 

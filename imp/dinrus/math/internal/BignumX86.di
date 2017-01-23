@@ -118,7 +118,7 @@ enum : цел { KARATSUBASQUARELIMIT=26 }; // Minimum value for which square Kar
  */
 бцел многобайтУмнож(бцел[] приёмник, бцел[] src, бцел множитель, бцел carry);
 
-// The inner multИПly-and-add loop, together with the Even entry point.
+// The inner multИПly-and-add loop, together with the Even entry точка.
 // MultИПles by M_ADDRESS which should be "ESP+LASTPARAM" or "ESP". OP must be "add" or "sub"
 // This is the most time-critical код in the BigInt library.
 // It is used by Всё MulAdd, multИПlyAccumulate, and triangleAccumulate

@@ -119,9 +119,9 @@ public struct ДатаДоп {
 public т_мера парсируйДату(T)(T[] ист, ref ДВ dt) {
    auto fd = ПолнаяДата(dt);
 
-   auto ret = парсируйДату(ист, fd);
+   auto возвр = парсируйДату(ист, fd);
    dt = fd.знач;
-   return ret;
+   return возвр;
 }
 /** ditto */
 public т_мера парсируйДату(T)(T[] ист, ref ПолнаяДата fd, ббайт expanded = 0) {
@@ -284,7 +284,7 @@ private т_мера doIso8601Date(T)(
  * can never be encountered, one should check the return значение в_ be sure that
  * the parsing succeeded as ожидалось.
  *
- * Extra fields in ДатаДоп:
+ * Экстра fields in ДатаДоп:
  *
  * Seconds may be 60 if the часы and минуты are 23 and 59, as leap сек
  * are occasionally добавьed в_ UTC время. A Время's сек will be 59 in this
@@ -316,9 +316,9 @@ private т_мера doIso8601Date(T)(
 public т_мера парсируйВремя(T)(T[] ист, ref ДВ dt) {
    auto fd = ПолнаяДата(dt);
 
-   auto ret = парсируйВремя(ист, fd);
+   auto возвр = парсируйВремя(ист, fd);
    dt = fd.знач;
-   return ret;
+   return возвр;
 }
 /** ditto */
 public т_мера парсируйВремя(T)(T[] ист, ref ПолнаяДата fd) {
@@ -505,7 +505,7 @@ private т_мера doIso8601Time(T)(
  * // April 12th, 1985 23:50:30,042
  * парсируйДатуИВремя("1985W155T235030,042", t);
  *
- * // Invalid время: returns zero
+ * // Неверный время: returns zero
  * парсируйДатуИВремя("1902-03-04T10:1a", t);
  *
  * // Separating T omitted: returns zero
@@ -519,9 +519,9 @@ private т_мера doIso8601Time(T)(
  */
 public т_мера парсируйДатуИВремя(T)(T[] ист, ref ДВ dt) {
    ПолнаяДата fd;
-   auto ret = парсируйДатуИВремя(ист, fd);
+   auto возвр = парсируйДатуИВремя(ист, fd);
    dt = fd.знач;
-   return ret;
+   return возвр;
 }
 /** ditto */
 public т_мера парсируйДатуИВремя(T)(T[] ист, ref ПолнаяДата fd) {
@@ -697,10 +697,10 @@ enum :  байт { BAD, FOUND, NOTFOUND }
          break;
       case минута:
          добавьСекунды(fd, 6    * i / степ);
-         добавьMs  (fd, 6000 * i / степ % 1000);
+         добавьМс  (fd, 6000 * i / степ % 1000);
          break;
       case сукунда:
-         добавьMs(fd, 100 * i / степ);
+         добавьМс(fd, 100 * i / степ);
          break;
 
       default: assert (нет);
@@ -858,7 +858,7 @@ enum :  байт { BAD, FOUND, NOTFOUND }
 проц добавьЧасы (ref ПолнаяДата d, цел n) { d.знач += ИнтервалВремени.изЧасов  (n); }
 проц добавьМинуты  (ref ПолнаяДата d, цел n) { d.знач += ИнтервалВремени.изМин(n); }
 проц добавьСекунды  (ref ПолнаяДата d, цел n) { d.знач += ИнтервалВремени.изСек(n); }
-проц добавьMs    (ref ПолнаяДата d, цел n) { d.знач += ИнтервалВремени.изМиллисек (n); }
+проц добавьМс    (ref ПолнаяДата d, цел n) { d.знач += ИнтервалВремени.изМиллисек (n); }
 
 // годы and секунды always just получи the ДВ значение
 цел годы (ПолнаяДата d) { return Грегориан.генерный.дайГод      (d.знач); }

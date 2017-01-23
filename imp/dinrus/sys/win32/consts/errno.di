@@ -20,7 +20,7 @@
     const ENODEV            = 19;       // No such устройство
     const ENOTDIR           = 20;       // Not a дир
     const EISDIR            = 21;       // Is a дир
-    const EINVAL            = 22;       // Invalid аргумент
+    const EINVAL            = 22;       // Неверный аргумент
     const ENFILE            = 23;       // Файл table перебор
     const EMFILE            = 24;       // Too many открой файлы
     const ENOTTY            = 25;       // Not a typewriter

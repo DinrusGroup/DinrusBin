@@ -112,7 +112,7 @@ class PullParser(Ch = сим)
         final ПТипТокенаРЯР следщ()
         {
                 auto e = текст.конец;
-                auto p = текст.point;
+                auto p = текст.точка;
         
                 // at конец of document?
                 if (p >= e)
@@ -144,12 +144,12 @@ version (retainwhite)
 
                           case '/':
                                // пустой элемент closure
-                               текст.point = p;
+                               текст.точка = p;
                                return doEndEmptyElement;
  
                           default:
                                // must be attribute instead
-                               текст.point = p;
+                               текст.точка = p;
                                return doAttributeName;
                           }
                    }
@@ -168,7 +168,7 @@ version (partialwhite)
                       while (*(q-1) <= 32)
                              --q;
 }                
-                      текст.point = p;
+                      текст.точка = p;
                       НеобрValue = q [0 .. p - q];
                       return тип = ПТипТокенаРЯР.Данные;
                       }
@@ -182,26 +182,26 @@ version (partialwhite)
                             // one of the following ...
                             if (p[2..4] == "--") 
                                {
-                               текст.point = p + 4;
+                               текст.точка = p + 4;
                                return doComment;
                                }       
                             else 
                                if (p[2..9] == "[CDATA[") 
                                   {
-                                  текст.point = p + 9;
+                                  текст.точка = p + 9;
                                   return doCData;
                                   }
                                else 
                                   if (p[2..9] == "DOCTYPE") 
                                      {
-                                     текст.point = p + 9;
+                                     текст.точка = p + 9;
                                      return doDoctype;
                                      }
                             return doUnexpected("!", p);
 
                        case '\?':
                             // must be ПИ данные
-                            текст.point = p + 2;
+                            текст.точка = p + 2;
                             return doPI;
 
                        case '/':
@@ -233,7 +233,7 @@ version (partialwhite)
                             if (*q is '>')
                                {
                                --глубина;
-                               текст.point = q + 1;
+                               текст.точка = q + 1;
                                return тип = ПТипТокенаРЯР.КонечныйЭлемент;
                                }
                             return doExpected(">", q);
@@ -262,7 +262,7 @@ version (partialwhite)
                                localName = p[0 .. q - p];
                                }  
                                                       
-                            текст.point = q;
+                            текст.точка = q;
                             return тип = ПТипТокенаРЯР.НачальныйЭлемент;
                        }
         }
@@ -273,7 +273,7 @@ version (partialwhite)
 
         private ПТипТокенаРЯР doAttributeName()
         {
-                auto p = текст.point;
+                auto p = текст.точка;
                 auto q = p;
                 auto e = текст.конец;
 
@@ -321,7 +321,7 @@ version (partialwhite)
                                if (q < e)
                                   {
                                   НеобрValue = p[0 .. q - p];
-                                  текст.point = q + 1;   // пропусти конец quote
+                                  текст.точка = q + 1;   // пропусти конец quote
                                   return тип = ПТипТокенаРЯР.Атрибут;
                                   }
                                return endOfInput; 
@@ -340,13 +340,13 @@ version (partialwhite)
 
         private ПТипТокенаРЯР doEndEmptyElement()
         {
-                if (текст.point[0] is '/' && текст.point[1] is '>')
+                if (текст.точка[0] is '/' && текст.точка[1] is '>')
                    {
                    localName = префикс = пусто;
-                   текст.point += 2;
+                   текст.точка += 2;
                    return тип = ПТипТокенаРЯР.ПустойКонечныйЭлемент;
                    }
-                return doExpected("/>", текст.point);               
+                return doExpected("/>", текст.точка);               
        }
         
         /***********************************************************************
@@ -356,7 +356,7 @@ version (partialwhite)
         private ПТипТокенаРЯР doComment()
         {
                 auto e = текст.конец;
-                auto p = текст.point;
+                auto p = текст.точка;
                 auto q = p;
                 
                 while (p < e)
@@ -367,7 +367,7 @@ version (partialwhite)
 
                       if (p[0..3] == "-->") 
                          {
-                         текст.point = p + 3;
+                         текст.точка = p + 3;
                          НеобрValue = q [0 .. p - q];
                          return тип = ПТипТокенаРЯР.Комментарий;
                          }
@@ -384,7 +384,7 @@ version (partialwhite)
         private ПТипТокенаРЯР doCData()
         {
                 auto e = текст.конец;
-                auto p = текст.point;
+                auto p = текст.точка;
                 
                 while (p < e)
                       {
@@ -395,7 +395,7 @@ version (partialwhite)
                 
                       if (p[0..3] == "]]>") 
                          {
-                         текст.point = p + 3;                      
+                         текст.точка = p + 3;                      
                          НеобрValue = q [0 .. p - q];
                          return тип = ПТипТокенаРЯР.СиДанные;
                          }
@@ -412,7 +412,7 @@ version (partialwhite)
         private ПТипТокенаРЯР doPI()
         {
                 auto e = текст.конец;
-                auto p = текст.point;
+                auto p = текст.точка;
                 auto q = p;
 
                 while (p < e)
@@ -424,7 +424,7 @@ version (partialwhite)
                       if (p[1] == '>') 
                          {
                          НеобрValue = q [0 .. p - q];
-                         текст.point = p + 2;
+                         текст.точка = p + 2;
                          return тип = ПТипТокенаРЯР.ПИ;
                          }
                       ++p;
@@ -439,7 +439,7 @@ version (partialwhite)
         private ПТипТокенаРЯР doDoctype()
         {
                 auto e = текст.конец;
-                auto p = текст.point;
+                auto p = текст.точка;
 
                 // откинь leading пробел
                 while (*p <= 32)
@@ -453,7 +453,7 @@ version (partialwhite)
                          {
                          НеобрValue = q [0 .. p - q];
                          префикс = пусто;
-                         текст.point = p + 1;
+                         текст.точка = p + 1;
                          return тип = ПТипТокенаРЯР.Доктип;
                          }
                       else 
@@ -605,7 +605,7 @@ version (partialwhite)
                 ошСооб = пусто;
                 тип = ПТипТокенаРЯР.Нет;
 
-                auto p = текст.point;
+                auto p = текст.точка;
                 if (p)
                    {
                    static if (Ch.sizeof == 1)
@@ -628,7 +628,7 @@ version (partialwhite)
                                  ++p;
                           p += 2;
                           }
-                   текст.point = p;
+                   текст.точка = p;
                    }
         }
 }
@@ -643,14 +643,14 @@ package struct XmlText(Ch)
         package Ch*     конец;
         package т_мера  длин;
         package Ch[]    текст;
-        package Ch*     point;
+        package Ch*     точка;
 
         final проц сбрось(Ch[] newText)
         {
                 this.текст = newText;
                 this.длин = newText.length;
-                this.point = текст.ptr;
-                this.конец = point + длин;
+                this.точка = текст.ptr;
+                this.конец = точка + длин;
         }
 
         static const ббайт имя[64] =

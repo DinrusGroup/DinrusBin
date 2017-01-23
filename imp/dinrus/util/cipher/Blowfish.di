@@ -10,7 +10,7 @@ module util.cipher.Blowfish;
 
 private import util.cipher.Cipher;
 
-/** Implementation of the Blowfish cИПher designed by Bruce Schneier. */
+/** Implementation of the Blowfish cipher designed by Bruce Schneier. */
 class Blowfish : ШифрБлок
 {
     private
@@ -226,7 +226,7 @@ class Blowfish : ШифрБлок
         
         бцел длин = keyParams.ключ.length;
         if (длин < MIN_KEY_SIZE || длин > MAX_KEY_SIZE)
-            не_годится(имя()~": Invalid ключ length (требует 4-56 байты)");
+            не_годится(имя()~": Неверный ключ length (требует 4-56 байты)");
         
         workingKey = keyParams.ключ;
         
@@ -372,7 +372,7 @@ debug (UnitTest)
             "0123456789abcdef"
         ];
             
-        static ткст[] test_cИПhertexts = [
+        static ткст[] test_ciphertexts = [
             "4ef997456198dd78",
             "51866fd5b85ecb8a",
             "cc91732b8022f684",
@@ -393,12 +393,12 @@ debug (UnitTest)
             t.init(да, ключ);
             t.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
             результат = БайтКонвертер.hexEncode(буфер);
-            assert(результат == test_cИПhertexts[i],
-                    t.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+            assert(результат == test_ciphertexts[i],
+                    t.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
         
             // Decryption
             t.init(нет, ключ);
-            t.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+            t.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
             результат = БайтКонвертер.hexEncode(буфер);
             assert(результат == test_plaintexts[i],
                     t.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

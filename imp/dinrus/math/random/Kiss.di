@@ -1,30 +1,4 @@
-﻿/*******************************************************************************
-
-        copyright:      Copyright (c) 2008. все rights reserved
-
-        license:        BSD стиль: $(LICENSE)
-
-        version:        Initial release: May 2008
-
-        author:         Various
-
-        Since:          0.99.7
-
-        With gratitude в_ Dr Jurgen A Doornik. See his paper entitled
-        "Conversion of high-период random numbers в_ floating point"
-        
-*******************************************************************************/
-
-module math.random.Kiss;
-
-
-version (Win32)
-         private extern(Windows) цел QueryPerformanceCounter (бдол *);
-
-version (Posix)
-        {
-        private import rt.core.stdc.posix.sys.time;
-        }
+﻿module math.random.Kiss;
 
 
 /******************************************************************************
@@ -58,7 +32,7 @@ struct Kiss
         ///
         public alias натурал  вЦел;
         ///
-        public alias дробь вРеал;
+        public alias дво вРеал;
         
         private бцел kiss_k;
         private бцел kiss_m;
@@ -175,8 +149,8 @@ debug (Kiss)
                 w.старт;
                 дво v1;
                 for (цел i=счёт; --i;)
-                     v1 = dbl.дробь;
-                Стдвыв.форматнс ("{} дробь, {}/s, {:f10}", счёт, счёт/w.stop, v1);
+                     v1 = dbl.дво;
+                Стдвыв.форматнс ("{} дво, {}/s, {:f10}", счёт, счёт/w.stop, v1);
 
                 w.старт;
                 for (цел i=счёт; --i;)
@@ -185,10 +159,10 @@ debug (Kiss)
 
                 for (цел i=счёт; --i;)
                     {
-                    auto v = dbl.дробь;
+                    auto v = dbl.дво;
                     if (v <= 0.0 || v >= 1.0)
                        {
-                       Стдвыв.форматнс ("дробь {:f10}", v);
+                       Стдвыв.форматнс ("дво {:f10}", v);
                        break;
                        }
                     v = dbl.дробьДоп;

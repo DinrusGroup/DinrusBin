@@ -9,59 +9,58 @@ module col.Functions;
 
 /+ ИНТЕРФЕЙС:
 
-template ХэшФунк(V);
-template ФункцОбновления(V);
-template ФункцСравнения(V);
-цел ДефСравнить(V)(ref V v1, ref V v2);
-бцел ДефХэш(V)(ref V v);
+template ХэшФунк(З);
+template ФункцОбновления(З);
+template ФункцСравнения(З);
+цел ДефСравнить(З)(ref З v1, ref З v2);
+бцел ДефХэш(З)(ref З з);
 
 +/
 
 /**
- * Define a hash function type.
+ * Определить тип хэш-функции.
  */
-template ХэшФунк(V)
+template ХэшФунк(З)
 {
-    alias бцел function(ref V v) ХэшФунк;
+    alias бцел function(ref З з) ХэшФунк;
 }
 
 /**
- * Define an update function type.  The update function is responsible for
- * performing the operation denoted by:
+ * Определить тип функции обновления. Функция обновления отвечает за
+ * выполнение операции, отмеченной с помощью:
  *
  * origv = newv
  *
- * This can be different for Maps for example, where V may contain the ключ as
- * well as the значение.
+ * Может быть разной, например, для Карт, где З может содержать как ключ,
+ * так и значение.
  */
-template ФункцОбновления(V)
+template ФункцОбновления(З)
 {
-    alias проц function(ref V origv, ref V newv) ФункцОбновления;
+    alias проц function(ref З origv, ref З newv) ФункцОбновления;
 }
 
 /**
- * Define a comparison function type
+ * Определить тип функции сравнения
  *
- * This can be different for Maps in the same way the update function is
- * different.
+ * Для Карт может быть такая же разница, как с функцией обновления.
  */
-template ФункцСравнения(V)
+template ФункцСравнения(З)
 {
-    alias цел function(ref V v1, ref V v2) ФункцСравнения;
+    alias цел function(ref З v1, ref З v2) ФункцСравнения;
 }
 
 /**
- * Define the default compare
+ * Определяет сравнение по умолчанию
  */
-цел ДефСравнить(V)(ref V v1, ref V v2)
+цел ДефСравнить(З)(ref З v1, ref З v2)
 {
-    return typeid(V).compare(&v1, &v2);
+    return typeid(З).compare(&v1, &v2);
 }
 
 /**
- * Define the default hash function
+ * Определяет хэш-функцию по умолчанию
  */
-бцел ДефХэш(V)(ref V v)
+бцел ДефХэш(З)(ref З з)
 {
-    return typeid(V).getHash(&v);
+    return typeid(З).getHash(&з);
 }

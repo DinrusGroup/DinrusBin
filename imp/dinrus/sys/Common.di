@@ -16,7 +16,7 @@ version (Win32)
         {
         public import sys.win32.UserGdi;
 		public import exception;
-		//pragma(lib,"drTango");
+		//pragma(lib,"DinrusTango.lib");
         }
 
 version (linux)

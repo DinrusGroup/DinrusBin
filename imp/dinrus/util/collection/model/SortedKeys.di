@@ -15,21 +15,21 @@
 module util.collection.model.SortedKeys;
 
 private import  util.collection.model.View,
-                util.collection.model.Comparator;
+                util.collection.model.Сравнитель;
 
 
 /**
  *
  *
  * KeySorted is a mixin interface for Collections that
- * are always in sorted order with respect в_ a Comparator
+ * are always in sorted order with respect в_ a Сравнитель
  * held by the Коллекция.
  * <P>
  * KeySorted Collections guarantee that enumerations
  * appear in sorted order;  that is if a и b are two Keys
  * obtained in succession из_ ключи().nextElement(), that 
  * <PRE>
- * comparator(a, b) <= 0.
+ * сравнитель(a, b) <= 0.
  * </PRE>
  * 
         author: Doug Lea
@@ -42,8 +42,8 @@ public interface SortedKeys(K, V) : View!(V)
 {
 
         /**
-         * Report the Comparator использован for ordering
+         * Report the Сравнитель использован for ordering
         **/
 
-        public Comparator!(K) comparator();
+        public Сравнитель!(K) сравнитель();
 }

@@ -60,13 +60,13 @@ final class Md5 : Md4
 
         /***********************************************************************
 
-                Performs the cИПher on a блок of данные
+                Performs the cipher on a блок of данные
 
                 Параметры:
-                данные = the блок of данные в_ cИПher
+                данные = the блок of данные в_ cipher
 
                 Remarks:
-                The actual cИПher algorithm is carried out by this метод on
+                The actual cipher algorithm is carried out by this метод on
                 the passed блок of данные. This метод is called for every
                 размерБлока() байты of ввод данные и once ещё with the остаток
                 данные псеп_в_конце в_ размерБлока().

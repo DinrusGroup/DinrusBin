@@ -16,7 +16,7 @@
 module util.collection.TreeBag;
 
 private import  util.collection.model.Iterator,
-                util.collection.model.Comparator,
+                util.collection.model.Сравнитель,
                 util.collection.model.SortedValues,
                 util.collection.model.GuardIterator;
 
@@ -32,7 +32,7 @@ private import  util.collection.impl.RBCell,
 deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
 {
         alias RBCell!(T)        RBCellT;
-        alias Comparator!(T)    ComparatorT;
+        alias Сравнитель!(T)    ComparatorT;
 
         alias BagCollection!(T).удали     удали;
         alias BagCollection!(T).удалиВсе  удалиВсе;
@@ -47,7 +47,7 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
         package RBCellT дерево;
 
         /**
-         * The comparator в_ use for ordering.
+         * The сравнитель в_ use for ordering.
         **/
         protected ComparatorT cmp_;
 
@@ -73,7 +73,7 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
         }
 
         /**
-         * Make an пустой дерево, using the supplied элемент comparator for ordering.
+         * Make an пустой дерево, using the supplied элемент сравнитель for ordering.
         **/
         public this (ComparatorT c)
         {
@@ -81,7 +81,7 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
         }
 
         /**
-         * Make an пустой дерево, using the supplied элемент скринер и comparator
+         * Make an пустой дерево, using the supplied элемент скринер и сравнитель
         **/
         public this (Предикат s, ComparatorT c)
         {
@@ -104,11 +104,11 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
         }
 
         /**
-         * The default comparator
+         * The default сравнитель
          *
          * @param fst первый аргумент
          * @param snd секунда аргумент
-         * Возвращает: a negative число if fst is less than snd; a
+         * Возвращает: a негатив число if fst is less than snd; a
          * positive число if fst is greater than snd; else 0
         **/
 
@@ -189,20 +189,20 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
 
 
         /**
-         * Implements util.collection.ElementSortedCollection.comparator
+         * Implements util.collection.ElementSortedCollection.сравнитель
          * Время complexity: O(1).
-         * See_Also: util.collection.ElementSortedCollection.comparator
+         * See_Also: util.collection.ElementSortedCollection.сравнитель
         **/
-        public final ComparatorT comparator()
+        public final ComparatorT сравнитель()
         {
                 return cmp_;
         }
 
         /**
-         * Reset the comparator. Will cause a reorganization of the дерево.
+         * Reset the сравнитель. Will cause a reorganization of the дерево.
          * Время complexity: O(n лог n).
         **/
-        public final проц comparator(ComparatorT cmp)
+        public final проц сравнитель(ComparatorT cmp)
         {
                 if (cmp !is cmp_)
                    {
@@ -310,7 +310,7 @@ deprecated public class TreeBag(T) : BagCollection!(T), SortedValues!(T)
          * Время complexity: O(лог n).
          * See_Also: util.collection.MutableBag.добавьIfAbsent
         **/
-        public final проц добавьIf (T элемент)
+        public final проц добавьЕсли (T элемент)
         {
                 добавь_(элемент, да);
         }

@@ -76,7 +76,7 @@ version (Posix)
          */
         public const бцел ДефРазмер = 64;
 
-        /** Карта в_ associate the провод handles with their selection ключи */
+        /** Карта в_ associate the провод handles with their выделение ключи */
         private PollSelectionKey[ИВыбираемый.фукз] _keys;
         //private КлючВыбора[] _selectedKeys;
         private pollfd[] _pfds;
@@ -90,7 +90,7 @@ version (Posix)
          * размер         = maximum amount of conduits that will be registered;
          *                it will grow dynamically if needed.
          * maxEvents    = maximum amount of провод события that will be
-         *                returned in the selection установи per вызов в_ выбери();
+         *                returned in the выделение установи per вызов в_ выбери();
          *                this значение is currently not использован by this selector.
          */
         public проц открой(бцел размер = ДефРазмер, бцел maxEvents = ДефРазмер)
@@ -157,7 +157,7 @@ version (Posix)
             if (текущ !is пусто)
             {
                 debug (selector)
-                    Стдвыв.форматнс("--- добавьing pollfd in индекс {0} (of {1})",
+                    Стдвыв.форматнс("--- добавим pollfd in индекс {0} (of {1})",
                                   текущ.индекс, _count);
 
                 текущ.ключ.события = события;
@@ -280,7 +280,7 @@ version (Posix)
                 {
                     if (errno != EINTR || !_restartInterruptedSystemCall)
                     {
-                        // The вызов в_ проверьНомОш() ends up throwing an исключение
+                        // The вызов в_ проверьНомОш() заканчивается up throwing an исключение
                         проверьНомОш(__FILE__, __LINE__);
                     }
                     debug (selector)
@@ -288,7 +288,7 @@ version (Posix)
                 }
                 else
                 {
-                    // Timeout or got a selection.
+                    // Timeout or got a выделение.
                     break;
                 }
             }
@@ -296,7 +296,7 @@ version (Posix)
         }
 
         /**
-         * Return the selection установи resulting из_ the вызов в_ any of the
+         * Return the выделение установи resulting из_ the вызов в_ any of the
          * выбери() methods.
          *
          * Remarks:
@@ -309,7 +309,7 @@ version (Posix)
         }
 
         /**
-         * Return the selection ключ resulting из_ the registration of a
+         * Return the выделение ключ resulting из_ the registration of a
          * провод в_ the selector.
          *
          * Remarks:
@@ -339,7 +339,7 @@ version (Posix)
         }
 
         /**
-         * Iterate through the currently registered selection ключи.  Note that
+         * Iterate through the currently registered выделение ключи.  Note that
          * you should not erase or добавь any items из_ the selector while
          * iterating, although you can регистрируй existing conduits again.
          */

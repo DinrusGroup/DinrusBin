@@ -23,7 +23,7 @@ private
     import io.device.Array;
     import io.device.File;
 
-    import Text = text.Util;
+    import Текст = text.Util;
     import Ascii = text.Ascii;
     import Целое = text.convert.Integer;
     import Timestamp = text.convert.TimeStamp;
@@ -89,8 +89,8 @@ struct ОтветФтп
      1xx =             a positive, but preliminary, reply
      2xx =             a positive reply indicating completion
      3xx =             a positive reply indicating incomplete статус
-     4xx =             a temporary negative reply
-     5xx =             a permanent negative reply
+     4xx =             a temporary негатив reply
+     5xx =             a permanent негатив reply
      
      сукунда Digit (субъект):
      x0x =             condition based on syntax

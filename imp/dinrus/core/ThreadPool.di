@@ -15,7 +15,7 @@ private version = Queued;
  * A нить обойма is a way в_ process multИПle jobs in parallel without creating
  * a new нить for each дело. This way the overhead of creating a нить is
  * only paопр once, and not once for each дело and you can предел the maximum
- * число of threads активное at any one point.
+ * число of threads активное at any one точка.
  *
  * In this case a "дело" is simply a delegate and some параметры the delegate
  * will be called with after having been добавьed в_ the нить обойма's queue.
@@ -27,7 +27,7 @@ private version = Queued;
  * проц delegate(цел) f = (цел x) { Журнал(x); };
  *
  * // Сейчас we have three ways of telling the обойма в_ выполни our jobs
- * // First we can say we just want it готово at some later point
+ * // First we can say we just want it готово at some later точка
  * обойма.добавь(f, 1);
  * // Secondly we can ask for a дело в_ be готово as soon as possible, blocking
  * // until it is пущен by some нить

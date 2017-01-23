@@ -26,7 +26,7 @@ version=discrete;
         parsing, дерево traversal и ad-hoc дерево manИПulation.
 
         The DOM API is non-conformant, yet simple и functional in 
-        стиль - locate a дерево узел of interest и operate upon or 
+        стиль - местоположение a дерево узел of interest и operate upon or 
         around it. In все cases you will need a document экземпляр в_ 
         begin, whereupon it may be populated either by parsing an 
         existing document or via API manИПulation.
@@ -75,7 +75,7 @@ version=discrete;
 
         Note that the document дерево() включает все узелs in the дерево,
         и not just элементы. Use doc.элементы в_ адрес the topmost
-        элемент instead. For example, добавьing an interior sibling в_
+        элемент instead. For example, добавим an interior sibling в_
         the приор illustration
         ---
         doc.элементы.элемент (пусто, "sibling");
@@ -175,7 +175,7 @@ class Документ(T) : package PullParser!(T)
 
         /***********************************************************************
         
-                Return an xpath укз в_ запрос this document. This starts
+                Return an xpath укз в_ запрос this document. This начинается
                 at the document корень.
 
                 See also Узел.запрос
@@ -290,13 +290,13 @@ version(d)
 
                 while (да) 
                       {
-                      auto p = текст.point;
+                      auto p = текст.точка;
                       switch (super.следщ) 
                              {
                              case ПТипТокенаРЯР.КонечныйЭлемент:
                              case ПТипТокенаРЯР.ПустойКонечныйЭлемент:
                                   assert (тек.хост);
-                                  тек.конец = текст.point;
+                                  тек.конец = текст.точка;
                                   тек = тек.хост;                      
                                   break;
         
@@ -351,7 +351,7 @@ else
                                   break;
         
                              case ПТипТокенаРЯР.ПИ:
-                                  тек.pi_ (super.НеобрValue, p[0..текст.point-p]);
+                                  тек.pi_ (super.НеобрValue, p[0..текст.точка-p]);
                                   break;
         
                              case ПТипТокенаРЯР.Комментарий:

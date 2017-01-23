@@ -207,7 +207,7 @@ public class SaxHandler(Ch = сим) {
          * guaranteed.</p>
          *
          * @param префикс the префикс that was being mapped.
-         * This is the пустой ткст when a default маппинг scope ends.
+         * This is the пустой ткст when a default маппинг scope заканчивается.
          * @throws org.xml.sax.SAXException the клиент may throw
          *            an исключение during processing
          * @see #startPrefixMapping
@@ -331,7 +331,7 @@ public class SaxHandler(Ch = сим) {
          * happens, because characters can't be represented in just sixteen биты.
          * In one case, characters are represented in a <em>Surrogate Пара</em>,
          * using two special Unicode значения. Such characters are in the so-called
-         * "Astral Planes", with a код point above U+FFFF.  A секунда case involves
+         * "Astral Planes", with a код точка above U+FFFF.  A секунда case involves
          * composite characters, such as a основа character combining with one or
          * ещё accent characters. </p>
          *
@@ -512,7 +512,7 @@ public interface EntityResolver(Ch = сим) {
          * внутри the DTD (in either case, only if the парсер reads external
          * parameter entities), и external general entities referenced
          * внутри the document элемент (if the парсер reads external general
-         * entities).  The application may request that the парсер locate
+         * entities).  The application may request that the парсер местоположение
          * the сущность itself, that it use an alternative URI, or that it
          * use данные provопрed by the application (as a character or байт
          * ввод поток).</p>
@@ -729,8 +729,8 @@ public interface Locator(Ch = сим) {
         public Ch[] getSystemId();
 
         /*******************************************************************************
-         * Return the строка число where the текущ document событие ends.
-         * Строки are delimited by строка ends, which are defined in
+         * Return the строка число where the текущ document событие заканчивается.
+         * Строки are delimited by строка заканчивается, which are defined in
          * the XML specification.
          *
          * <p><strong>Предупреждение:</strong> The return значение из_ the метод
@@ -755,7 +755,7 @@ public interface Locator(Ch = сим) {
         public цел getLineNumber();
 
         /*******************************************************************************
-         * Return the column число where the текущ document событие ends.
+         * Return the column число where the текущ document событие заканчивается.
          * This is one-based число of Java <код>сим</код> значения since
          * the последний строка конец.
          *
@@ -958,7 +958,7 @@ class SaxParser(Ch = сим) : XMLЧитатель!(Ch), Locator!(Ch) {
          * <p>The feature имя is any fully-qualified URI.  It is
          * possible for an XMLЧитатель в_ expose a feature значение but
          * в_ be unable в_ change the текущ значение.
-         * Some feature значения may be immutable or mutable only 
+         * Some feature значения may be immutable or изменяемый only 
          * in specific contexts, such as before, during, or after 
          * a разбор.</p>
          *
@@ -1014,7 +1014,7 @@ class SaxParser(Ch = сим) : XMLЧитатель!(Ch), Locator!(Ch) {
          * <p>The property имя is any fully-qualified URI.  It is
          * possible for an XMLЧитатель в_ recognize a property имя but
          * в_ be unable в_ change the текущ значение.
-         * Some property значения may be immutable or mutable only 
+         * Some property значения may be immutable or изменяемый only 
          * in specific contexts, such as before, during, or after 
          * a разбор.</p>
          *
@@ -1341,8 +1341,8 @@ foo:
         }
 
         /*******************************************************************************
-         * Return the строка число where the текущ document событие ends.
-         * Строки are delimited by строка ends, which are defined in
+         * Return the строка число where the текущ document событие заканчивается.
+         * Строки are delimited by строка заканчивается, which are defined in
          * the XML specification.
          *
          * <p><strong>Предупреждение:</strong> The return значение из_ the метод
@@ -1369,7 +1369,7 @@ foo:
         }
 
         /*******************************************************************************
-         * Return the column число where the текущ document событие ends.
+         * Return the column число where the текущ document событие заканчивается.
          * This is one-based число of Java <код>сим</код> значения since
          * the последний строка конец.
          *
@@ -1451,7 +1451,7 @@ public abstract class XMLFilter(Ch = сим) : XMLЧитатель {
 }
 
 /*******************************************************************************
- * Base class for deriving an XML фильтр.
+ * База class for deriving an XML фильтр.
  *
  * <p>This class is designed в_ sit between an {@link org.xml.sax.XMLЧитатель
  * XMLЧитатель} и the клиент application's событие handlers.  By default, it
@@ -2103,7 +2103,7 @@ public interface XMLЧитатель(Ch = сим) {
          * <p>The feature имя is any fully-qualified URI.  It is
          * possible for an XMLЧитатель в_ expose a feature значение but
          * в_ be unable в_ change the текущ значение.
-         * Some feature значения may be immutable or mutable only 
+         * Some feature значения may be immutable or изменяемый only 
          * in specific contexts, such as before, during, or after 
          * a разбор.</p>
          *
@@ -2155,7 +2155,7 @@ public interface XMLЧитатель(Ch = сим) {
          * <p>The property имя is any fully-qualified URI.  It is
          * possible for an XMLЧитатель в_ recognize a property имя but
          * в_ be unable в_ change the текущ значение.
-         * Some property значения may be immutable or mutable only 
+         * Some property значения may be immutable or изменяемый only 
          * in specific contexts, such as before, during, or after 
          * a разбор.</p>
          *

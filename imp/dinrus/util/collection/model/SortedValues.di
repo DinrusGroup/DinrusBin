@@ -16,21 +16,21 @@
 module util.collection.model.SortedValues;
 
 private import  util.collection.model.View,
-                util.collection.model.Comparator;
+                util.collection.model.Сравнитель;
 
 
 /**
  *
  *
  * ElementSorted is a mixin interface for Collections that
- * are always in sorted order with respect в_ a Comparator
+ * are always in sorted order with respect в_ a Сравнитель
  * held by the Коллекция.
  * <P>
  * ElementSorted Collections guarantee that enumerations
  * appear in sorted order;  that is if a и b are two Elements
  * obtained in succession из_ элементы().nextElement(), that 
  * <PRE>
- * comparator(a, b) <= 0.
+ * сравнитель(a, b) <= 0.
  * </PRE>
  * 
         author: Doug Lea
@@ -43,9 +43,9 @@ public interface SortedValues(T) : View!(T)
 {
 
         /**
-         * Report the Comparator использован for ordering
+         * Report the Сравнитель использован for ordering
         **/
 
-        public Comparator!(T) comparator();
+        public Сравнитель!(T) сравнитель();
 }
 

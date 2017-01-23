@@ -1131,13 +1131,13 @@ debug (LinkedList)
                 const счёт = 1_000_000;
                 Секундомер w;
 
-                // benchmark добавьing
+                // benchmark добавим
                 w.старт;
                 for (цел i=счёт; i--;)
                      тест.приставь(i);
                 Стдвыв.форматнс ("{} добавьs: {}/s", тест.размер, тест.размер/w.stop);
 
-                // benchmark добавьing without allocation overhead
+                // benchmark добавим without allocation overhead
                 тест.очисть;
                 w.старт;
                 for (цел i=счёт; i--;)

@@ -118,14 +118,14 @@ public:
 
 сим [] вДесятичнТкст(цел frontExtraBytes);
 
-/** Convert в_ a hex ткст, printing a minimum число of цифры 'minPдобавьing',
+/** Convert в_ a hex ткст, printing a minimum число of цифры 'minPдобавим',
  *  allocating an добавьitional 'frontExtraBytes' at the старт of the ткст.
- *  Pдобавьing is готово with padChar, which may be '0' or ' '.
+ *  Pдобавим is готово with padChar, which may be '0' or ' '.
  *  'разделитель' is a цифра separation character. If non-zero, it is inserted
  *  between every 8 цифры.
- *  Separator characters do not contribute в_ the minPдобавьing.
+ *  Separator characters do not contribute в_ the minPдобавим.
  */
-сим [] вГексТкст(цел frontExtraBytes, сим разделитель = 0, цел minPдобавьing=0, сим padChar = '0');
+сим [] вГексТкст(цел frontExtraBytes, сим разделитель = 0, цел minPдобавим=0, сим padChar = '0');
 
 // return нет if не_годится character найдено
 бул изГексТкст(сим [] s);

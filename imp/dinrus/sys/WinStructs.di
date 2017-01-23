@@ -2,8 +2,8 @@
 Модуль структур WIN API для языка Динрус.
 Разработчик Виталий Кулич.
 */
-module sys.DStructs;
-import base, sys.DConsts, sys.DIfaces, sys.DFuncs;
+module sys.WinStructs;
+import base, sys.WinConsts, sys.WinIfaces, sys.WinFuncs;
 import tpl.com, sys.com, stdrus;
 
 
@@ -672,7 +672,7 @@ struct ОтладИнфОбАдр
 	бцел размерФайлаН;
 	бцел резерв0;
 	бцел резерв1;
-	сим имяФайла[sys.DConsts.МАКС_ПУТЬ];
+	сим имяФайла[sys.WinConsts.МАКС_ПУТЬ];
 	сим альтИмяФайла[14];
 	}
 	alias ПОИСК_ДАННЫХ_А ПДАН_А;	

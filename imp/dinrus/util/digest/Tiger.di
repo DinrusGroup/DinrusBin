@@ -61,10 +61,10 @@ final class Tiger : MerkleDamgard
 
         /***********************************************************************
 
-                Initialize the cИПher
+                Initialize the cipher
 
                 Remarks:
-                Returns the cИПher состояние в_ it's начальное значение
+                Returns the cipher состояние в_ it's начальное значение
 
         ***********************************************************************/
 
@@ -78,7 +78,7 @@ final class Tiger : MerkleDamgard
                 the дайджест
 
                 Remarks:
-                Returns a дайджест of the текущ cИПher состояние, this may be the
+                Returns a дайджест of the текущ cipher состояние, this may be the
                 final дайджест, or a дайджест of the состояние between calls в_ обнови()
 
         ***********************************************************************/
@@ -143,7 +143,7 @@ final class Tiger : MerkleDamgard
 
                 Remarks:
                 Specifies the размер (in байты) of the паддинг which uses the
-                length of the данные which имеется been cИПhered, this паддинг is
+                length of the данные which имеется been ciphered, this паддинг is
                 carried out by the padLength метод. For Tiger the добавьРазмер is 8.
 
         ***********************************************************************/
@@ -152,14 +152,14 @@ final class Tiger : MerkleDamgard
 
         /***********************************************************************
 
-                Pads the cИПher данные
+                Pads the cipher данные
 
                 Параметры:
-                данные = a срез of the cИПher буфер в_ заполни with паддинг
+                данные = a срез of the cipher буфер в_ заполни with паддинг
 
                 Remarks:
                 Fills the passed буфер срез with the appropriate паддинг for
-                the final вызов в_ трансформируй(). This паддинг will заполни the cИПher
+                the final вызов в_ трансформируй(). This паддинг will заполни the cipher
                 буфер up в_ размерБлока()-добавьРазмер().
 
         ***********************************************************************/
@@ -171,13 +171,13 @@ final class Tiger : MerkleDamgard
                 Performs the length паддинг
 
                 Параметры:
-                данные   = the срез of the cИПher буфер в_ заполни with паддинг
-                length = the length of the данные which имеется been cИПhered
+                данные   = the срез of the cipher буфер в_ заполни with паддинг
+                length = the length of the данные which имеется been ciphered
 
                 Remarks:
                 Fills the passed буфер срез with добавьРазмер() байты of паддинг
                 based on the length in байты of the ввод данные which имеется been
-                cИПhered.
+                ciphered.
 
         ***********************************************************************/
 
@@ -185,13 +185,13 @@ final class Tiger : MerkleDamgard
 
         /***********************************************************************
 
-                Performs the cИПher on a блок of данные
+                Performs the cipher on a блок of данные
 
                 Параметры:
-                данные = the блок of данные в_ cИПher
+                данные = the блок of данные в_ cipher
 
                 Remarks:
-                The actual cИПher algorithm is carried out by this метод on
+                The actual cipher algorithm is carried out by this метод on
                 the passed блок of данные. This метод is called for every
                 размерБлока() байты of ввод данные и once ещё with the остаток
                 данные псеп_в_конце в_ размерБлока().

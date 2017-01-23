@@ -1,6 +1,6 @@
 ﻿module stdrus;
 
-private import sys.DStructs, sys.DConsts,sys.DFuncs;
+private import sys.WinStructs, sys.WinConsts,sys.WinFuncs;
 private import tpl.args, tpl.stream;
 import cidrus, global;
 public import exception;
@@ -1182,7 +1182,7 @@ extern(D)
 ткст фм(...);
 alias фм форматируй;
 
-проц форматДелай(проц delegate(дим) putc, ИнфОТипе[] arguments, спис_ва аргук);
+проц форматДелай(проц delegate(дим) putc, ИнфОТипе[] arguments, спис_ва argptr);
 ткст форматируйс(ткст т, ...);
 
 проц разборСпискаАргументов(ref ИнфОТипе[] арги, ref спис_ва аргук, out ткст format);

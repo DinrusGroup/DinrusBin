@@ -1,30 +1,41 @@
 ﻿module col.Heap;
-
-/** Martin, 26.12.2004: 
-    1) replaced reразмер(размер()-1) with pop_back(), since the later is more efficient
-    2) replaced интерфейс_.установи_положение(запись(0), -1); with сбрось_положение()
-    3) added const modifier to various functions
-    TODO: in the moment the heap does not conform to the ИнтерфейсКучи specification, 
-          i.e., copies are passed instead of references. This is especially important 
-          for установи_положение(), where the reference argument is non-const. The 
-          specification should be changed to reflect that the heap actually (only?)
-          works when the heap запись is nothing more but a handle.
-    TODO: change the specification of ИнтерфейсКучи to make меньше(), больше() and
-          дай_положение() const. Needs changing DecimaterT. Might break 
-          someone's code.
-*/
-    
-
-//=============================================================================
-//
-//  CLASS Куча
-//
-//=============================================================================
-
-//== INCLUDES =================================================================
-
-//import auxd.OpenMesh.Core.IO.Streams;
 import util = tpl.Std;
+
+/+ ИНТЕРФЕЙС:
+
+struct ИнтерфейсКучиШ(ЗаписьКучи)
+{
+  бул меньше( ref ЗаписьКучи _e1, ref ЗаписьКучи _e2);
+  бул больше( ref ЗаписьКучи _e1, ref ЗаписьКучи _e2);
+  цел  дай_положение( ref ЗаписьКучи _e);
+  проц установи_положение(ref ЗаписьКучи _e, цел _i);
+}
+ 
+struct Куча(ЗаписьКучи, ИнтерфейсКучи = ЗаписьКучи)
+{
+    static Куча opCall();
+    static Куча opCall(ref ИнтерфейсКучи _интерфейс);
+    проц очисть() ;
+    бул пуста();
+    бцел размер() ;
+    бцел длина();
+    проц резервируй(бцел _n) ;
+    проц сбрось_положение(ЗаписьКучи _h);
+    бул сохранена(ЗаписьКучи _h);
+    проц вставь(ЗаписьКучи _h)  ;
+    ЗаписьКучи первая();
+    проц удали_первую();
+    проц удали(ЗаписьКучи _h);
+    проц обнови(ЗаписьКучи _h);
+    бул проверь();
+
+protected:  
+    ИнтерфейсКучи интерфейс_;
+    ЗаписьКучи[]            Основа;
+
+
+}
++/
 
 //== CLASS DEFINITION =========================================================
 

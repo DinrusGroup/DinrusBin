@@ -44,14 +44,14 @@ else
     /**
      * This function returns the следщ аргумент in the sequence referenced by
      * the supplied аргумент pointer.  The аргумент pointer will be adjusted
-     * в_ point в_ the следщ arggument in the sequence.
+     * в_ точка в_ the следщ arggument in the sequence.
      *
      * Параметры:
      *  ap  = The аргумент pointer.
      *
      * Возвращает:
      *  The следщ аргумент in the sequence.  The результат is undefined if ap
-     *  does not point в_ a valid аргумент.
+     *  does not точка в_ a valid аргумент.
      */
     T ва_арг(T) ( ref спис_ва ap )
     {

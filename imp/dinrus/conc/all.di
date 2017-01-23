@@ -10,7 +10,7 @@
  */
 
 module conc.all;
-pragma(lib, "conc.lib");
+pragma(lib, "DinrusConc.lib");
 
 // Java жди/уведоми and жди/уведомиВсех support
 public import conc.waitnotify;

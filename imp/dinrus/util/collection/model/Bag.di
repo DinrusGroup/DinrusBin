@@ -1,5 +1,5 @@
 ﻿/*
- Файл: Bag.d
+ Файл: Рюкзак.d
 
  Originally записано by Doug Lea и released преобр_в the public домен. 
  Thanks for the assistance и support of Sun Microsystems Labs, Agorics 
@@ -23,16 +23,16 @@ private import  util.collection.model.BagView,
  * author: Doug Lea
 **/
 
-public interface Bag(V) : BagView!(V), Dispenser!(V)
+public interface Рюкзак(V) : BagView!(V), Dispenser!(V)
 {
-        public override Bag!(V) дубликат();
+        public override Рюкзак!(V) дубликат();
         public alias дубликат dup;
 
         public alias добавь opCatAssign;
 
         проц добавь (V);
 
-        проц добавьIf (V);
+        проц добавьЕсли (V);
 
         проц добавь (Обходчик!(V));
 }

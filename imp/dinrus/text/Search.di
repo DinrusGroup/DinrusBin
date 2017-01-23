@@ -1,4 +1,4 @@
-﻿module text.Search;
+﻿module text.Поиск;
 private import Util = text.Util;
 
 /******************************************************************************
@@ -62,7 +62,7 @@ private struct НайдиПлод(T)
 
         /***********************************************************************
 
-                Search вперёд in the given контент, starting at the 
+                Поиск вперёд in the given контент, starting at the 
                 optional индекс.
 
                 Returns the индекс of a сверь, or контент.length where
@@ -77,7 +77,7 @@ private struct НайдиПлод(T)
 
         /***********************************************************************
 
-                Search backward in the given контент, starting at the 
+                Поиск backward in the given контент, starting at the 
                 optional индекс.
 
                 Returns the индекс of a сверь, or контент.length where
@@ -87,7 +87,7 @@ private struct НайдиПлод(T)
 
         т_мера реверс (T[] контент, т_мера ofs = т_мера.max)
         {       
-                return Util.rindex (контент, что, ofs);
+                return Util.пиндекс (контент, что, ofs);
         }
 
         /***********************************************************************
@@ -147,9 +147,9 @@ private struct НайдиПлод(T)
 
         ***********************************************************************/
 
-        T[] замени (T[] контент, T chr)
+        T[] замени (T[] контент, T симв)
         {     
-                return замени (контент, (&chr)[0..1]);  
+                return замени (контент, (&симв)[0..1]);  
         }
 
         /***********************************************************************
@@ -314,7 +314,7 @@ private struct ИщиПлод(T)
 
         /***********************************************************************
 
-                Search вперёд in the given контент, starting at the 
+                Поиск вперёд in the given контент, starting at the 
                 optional индекс.
 
                 Returns the индекс of a сверь, or контент.length where
@@ -337,7 +337,7 @@ private struct ИщиПлод(T)
 
         /***********************************************************************
 
-                Search backward in the given контент, starting at the 
+                Поиск backward in the given контент, starting at the 
                 optional индекс.
 
                 Returns the индекс of a сверь, or контент.length where
@@ -393,9 +393,9 @@ private struct ИщиПлод(T)
 
         ***********************************************************************/
 
-        T[] замени (T[] контент, T chr)
+        T[] замени (T[] контент, T симв)
         {     
-                return замени (контент, (&chr)[0..1]);  
+                return замени (контент, (&симв)[0..1]);  
         }
 
         /***********************************************************************
@@ -612,12 +612,12 @@ private struct ИщиПлод(T)
 
 ******************************************************************************/
 
-debug (Search)
+debug (Поиск)
 {
         import io.Stdout;
         import time.StopWatch;
 
-        auto x = import("Search.d");
+        auto x = import("Поиск.d");
         
         проц main()
         {
@@ -649,7 +649,7 @@ debug (Search)
 
                 elapsed.старт;
                 for (auto i=5000; i--;)
-                     Util.locatePattern (x, "индексУ {}");
+                     Util.местоположениеОбразца (x, "индексУ {}");
                 Стдвыв.форматнс ("образец {}", elapsed.stop);
 
                 elapsed.старт;

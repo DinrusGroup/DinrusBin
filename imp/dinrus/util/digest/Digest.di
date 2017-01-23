@@ -105,7 +105,7 @@ abstract class Дайджест
                Параметры:
                    буфер = a буфер can be supplied in which the дайджест
                             will be записано. It needs в_ be able в_ hold
-                            2 * размерДайджеста chars
+                            2 * размерДайджеста симвы
             
                Remarks:
                     If the буфер is not large enough в_ hold the hex дайджест,

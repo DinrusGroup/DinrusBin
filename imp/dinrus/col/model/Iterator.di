@@ -18,7 +18,7 @@ enum : бцел
 /**
  * Basic iterator.  Allows iterating over all the elements of an object.
  */
-interface Обходчик(V)
+interface Обходчик(З)
 {
     /**
      * If supported, returns the number of elements that will be iterated.
@@ -30,28 +30,28 @@ interface Обходчик(V)
     /**
      * foreach operator.
      */
-    цел opApply(цел delegate(ref V v) дг);
+    цел opApply(цел delegate(ref З з) дг);
 }
 
 /**
  * Обходчик с ключами.  This allows one to view the ключ of the элемент as well
  * as the значение while iterating.
  */
-interface Ключник(K, V) : Обходчик!(V)
+interface Ключник(К, З) : Обходчик!(З)
 {
-    alias Обходчик!(V).opApply opApply;
+    alias Обходчик!(З).opApply opApply;
 
     /**
      * iterate over both ключи and values
      */
-    цел opApply(цел delegate(ref K k, ref V v) дг);
+    цел opApply(цел delegate(ref К к, ref З з) дг);
 }
 
 /**
  * A очистить iterator is используется to очистить values from a collection.  This works by
  * telling the iterator that you want обх to удали the значение последн iterated.
  */
-interface Чистящий(V)
+interface Чистящий(З)
 {
     /**
      * iterate over the values of the iterator, telling обх which values to
@@ -61,17 +61,17 @@ interface Чистящий(V)
      * Make sure you specify ref for the чистить_ли parameter:
      *
      * -----
-     * foreach(ref чистить_ли, v; &чистящий.очистить){
+     * foreach(ref чистить_ли, з; &чистящий.очистить){
      * ...
      * -----
      */
-    цел очистить(цел delegate(ref бул чистить_ли, ref V v) дг);
+    цел очистить(цел delegate(ref бул чистить_ли, ref З з) дг);
 }
 
 /**
  * A очистить iterator for keyed containers.
  */
-interface ЧистящийКлючи(K, V) : Чистящий!(V)
+interface ЧистящийКлючи(К, З) : Чистящий!(З)
 {
     /**
      * iterate over the ключ/значение pairs of the iterator, telling обх which ones
@@ -80,7 +80,7 @@ interface ЧистящийКлючи(K, V) : Чистящий!(V)
      * Make sure you specify ref for the чистить_ли parameter:
      *
      * -----
-     * foreach(ref чистить_ли, k, v; &чистящий.чисть_ключ){
+     * foreach(ref чистить_ли, к, з; &чистящий.чисть_ключ){
      * ...
      * -----
      *
@@ -91,5 +91,5 @@ interface ЧистящийКлючи(K, V) : Чистящий!(V)
      *
      * See bugzilla #2498
      */
-    цел чисть_ключ(цел delegate(ref бул чистить_ли, ref K k, ref V v) дг);
+    цел чисть_ключ(цел delegate(ref бул чистить_ли, ref К к, ref З з) дг);
 }

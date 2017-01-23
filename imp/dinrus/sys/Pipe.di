@@ -1,6 +1,6 @@
 ﻿module sys.Pipe;
 
-private import sys.Common, io.device.Device, sys.DStructs;
+private import sys.Common, io.device.Device, sys.WinStructs;
 
 private enum {ДефРазмерБуфера = 8 * 1024}
 
@@ -39,7 +39,7 @@ class Пайп
     public this(бцел размерБуфера = ДефРазмерБуфера);
     version (Windows)
     {
-    package this(бцел размерБуфера, БЕЗАТРЫ *ба);
+    package this(бцел размерБуфера, SECURITY_ATTRIBUTES *ба);
 	}
     public Трубопровод сток();
     public Трубопровод источник();

@@ -10,7 +10,7 @@
         author:         Kris
 
         A установи of functions for converting between ткст и floating-
-        point значения.
+        точка значения.
 
         Applying the D "import alias" mechanism в_ this module is highly
         recommended, in order в_ предел namespace pollution:
@@ -87,7 +87,7 @@ private enum
 
 /******************************************************************************
 
-        Convert a formatted ткст of цифры в_ a floating-point
+        Convert a formatted ткст of цифры в_ a floating-точка
         число. Throws an исключение where the ввод текст is not
         parsable in its entirety.
         
@@ -171,12 +171,12 @@ T[] упрости(T) (T[] s)
 
 ******************************************************************************/
 
-private бул negative (ЧисТип x);
+private бул негатив (ЧисТип x);
 
 
 /******************************************************************************
 
-        Convert a floating-point число в_ a ткст. 
+        Convert a floating-точка число в_ a ткст. 
 
         The e parameter controls the число of exponent places излейted, 
         и can thus control where the вывод switches в_ the scientific 
@@ -315,7 +315,7 @@ private сим *convertl (сим* буф, реал значение, цел ndig
 
 /******************************************************************************
 
-        David Gay's extended conversions between ткст и floating-point
+        David Gay's extended conversions between ткст и floating-точка
         numeric representations. Use these where you need extended accuracy
         for convertions. 
 
@@ -336,7 +336,7 @@ version (float_dtoa)
         /**********************************************************************
 
                 Convert a formatted ткст of цифры в_ a floating-
-                point число. 
+                точка число. 
 
         **********************************************************************/
 
@@ -345,7 +345,7 @@ version (float_dtoa)
         /**********************************************************************
 
                 Convert a formatted ткст of цифры в_ a floating-
-                point число.
+                точка число.
 
         **********************************************************************/
 
@@ -354,7 +354,7 @@ version (float_dtoa)
         /**********************************************************************
 
                 Convert a formatted ткст of цифры в_ a floating-
-                point число. 
+                точка число. 
 
         **********************************************************************/
 
@@ -366,7 +366,7 @@ private import Целое = text.convert.Integer;
 
 /******************************************************************************
 
-        Convert a formatted ткст of цифры в_ a floating-point число.
+        Convert a formatted ткст of цифры в_ a floating-точка число.
         Good for general use, but use David Gay's dtoa package if serious
         rounding adjustments should be applied.
 
@@ -421,7 +421,7 @@ private import Целое = text.convert.Integer;
               c = *++p;
               }
 
-        // gobble up the point
+        // gobble up the точка
         if (c is '.' && p < конец)
             c = *++p;
 
@@ -494,7 +494,7 @@ private import Целое = text.convert.Integer;
 /******************************************************************************
 
         Internal function в_ преобразуй an exponent specifier в_ a floating
-        point значение.
+        точка значение.
 
 ******************************************************************************/
 
@@ -551,7 +551,7 @@ T[] форматируй(T) (T[] приёмн, ЧисТип x, бцел decimals
         }
 
         // выкинь the знак
-        бул знак = negative (x);
+        бул знак = негатив (x);
         if (знак)
             x = -x;
 
@@ -604,7 +604,7 @@ T[] форматируй(T) (T[] приёмн, ЧисТип x, бцел decimals
            if (эксп < 0)
                x *= pow10 (абс+1);
 
-           // излей первый цифра, и decimal point
+           // излей первый цифра, и decimal точка
            *p++ = cast(T) toDigit (x, счёт);
            if (decimals)
               {
@@ -649,18 +649,18 @@ T[] форматируй(T) (T[] приёмн, ЧисТип x, бцел decimals
            {
            assert (приёмн.length >= (((эксп < 0) ? 0 : эксп) + decimals + 1));
 
-           // if дробь only, излей a leading zero
+           // if дво only, излей a leading zero
            if (эксп < 0)
               {
               x *= pow10 (абс);
               *p++ = '0';
               }
            else
-              // излей все цифры в_ the left of point
+              // излей все цифры в_ the left of точка
               for (; эксп >= 0; --эксп)
                      *p++ = cast(T )toDigit (x, счёт);
 
-           // излей point
+           // излей точка
            if (decimals)
               {
               *p++ = '.';

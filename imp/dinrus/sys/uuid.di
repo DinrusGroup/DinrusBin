@@ -1,5 +1,5 @@
 ﻿module sys.uuid;
-import sys.DStructs: ИИД;
+import sys.WinStructs: ИИД;
 alias ИИД IID;
 
 //extern(Windows):

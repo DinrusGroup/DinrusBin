@@ -10,7 +10,7 @@ module col.DefaultAllocator;
 		
 /+ ИНТЕРФЕЙС:
 
-  struct БлокРазместитель(V, бцел элтовНаБлок)
+  struct БлокРазместитель(З, бцел элтовНаБлок)
     {
         const бул нужноСвоб = true;
         struct элемент
@@ -23,28 +23,28 @@ module col.DefaultAllocator;
             блок *предш;
             элемент *списокОсвобождения;
             бцел члоОсвоб;
-            V[элтовНаБлок] элты;
-            V *разместиИзОсвоб();
-            бул вымести(V *v);
+            З[элтовНаБлок] элты;
+            З *разместиИзОсвоб();
+            бул вымести(З *з);
         }
 
         блок *используется;
         блок *свеж;
         бцел следщСвеж;
 
-        V* размести();
-        проц освободи(V* v);
+        З* размести();
+        проц освободи(З* з);
         проц освободиВсе();
     }
 
-struct ПростойРазместитель(V)
+struct ПростойРазместитель(З)
 {
     const бул нужноСвоб = false;
 
-    V* размести();
+    З* размести();
 }
 
-template ДефолтныйРазместитель(V);
+template ДефолтныйРазместитель(З);
 +/
 //==========================================================
 
@@ -52,25 +52,25 @@ template ДефолтныйРазместитель(V);
     /**
      * Allocate a блок of elements at once, then use the блок to return
      * elements.  This makes allocating individual elements more efficient
-     * because the GC isn't используется for allocating every элемент, only every
+     * because the GC isn'т используется for allocating every элемент, only every
      * блок of elements.
      *
-     * The only requirement is that the size of V is >= size of a pointer.
-     * This is because the data V содержит is используется as a pointer when freeing
+     * The only requirement is that the size of З is >= size of a pointer.
+     * This is because the data З содержит is используется as a pointer when freeing
      * the элемент.
      *
      * If an entire блок of elements is freed, that блок is then returned to
      * the GC.
      */
-    struct БлокРазместитель(V, бцел элтовНаБлок)
+    struct БлокРазместитель(З, бцел элтовНаБлок)
     {
         /**
          * Free is needed to рециклируй nodes for another allocation.
          */
         const бул нужноСвоб = true;
-        static if(V.sizeof < (ук).sizeof)
+        static if(З.sizeof < (ук).sizeof)
         {
-            static assert(false, "Ошибка, Разместитель для " ~ V.stringof ~ " не инстанциирован");
+            static assert(false, "Ошибка, Разместитель для " ~ З.stringof ~ " не инстанциирован");
         }
 
         /**
@@ -112,12 +112,12 @@ template ДефолтныйРазместитель(V);
             /**
              * The elements in the блок.
              */
-            V[элтовНаБлок] элты;
+            З[элтовНаБлок] элты;
 
             /**
-             * Allocate a V* from the освободи list.
+             * Allocate a З* from the освободи list.
              */
-            V *разместиИзОсвоб()
+            З *разместиИзОсвоб()
             {
                 элемент *x = списокОсвобождения;
                 списокОсвобождения = x.следщ;
@@ -127,22 +127,22 @@ template ДефолтныйРазместитель(V);
                 //
                 x.следщ = null;
                 члоОсвоб--;
-                return cast(V*)x;
+                return cast(З*)x;
             }
 
             /**
-             * вымести a V*, send обх to the освободи list
+             * вымести a З*, send обх to the освободи list
              *
              * returns true if this блок no longer has any используется elements.
              */
-            бул вымести(V *v)
+            бул вымести(З *з)
             {
                 //
                 // очисти the элемент so the GC does not interpret the элемент
                 // as pointing to anything else.
                 //
-                memset(v, 0, (V).sizeof);
-                элемент *x = cast(элемент *)v;
+                memset(з, 0, (З).sizeof);
+                элемент *x = cast(элемент *)з;
                 x.следщ = списокОсвобождения;
                 списокОсвобождения = x;
                 return (++члоОсвоб == элтовНаБлок);
@@ -162,23 +162,23 @@ template ДефолтныйРазместитель(V);
         блок *свеж;
 
         /**
-         * The следщ элемент in the свеж блок.  Because we don't worry about
+         * The следщ элемент in the свеж блок.  Because we don'т worry about
          * the освободи list in the свеж блок, we need to keep track of the следщ
          * свеж элемент to use.
          */
         бцел следщСвеж;
 
         /**
-         * Allocate a V*
+         * Allocate a З*
          */
-        V* размести()
+        З* размести()
         {
             if(используется !is null && используется.члоОсвоб > 0)
             {
                 //
                 // размести one элемент of the используется list
                 //
-                V* рез = используется.разместиИзОсвоб();
+                З* рез = используется.разместиИзОсвоб();
                 if(используется.члоОсвоб == 0)
                     //
                     // move используется to the конец of the list
@@ -197,7 +197,7 @@ template ДефолтныйРазместитель(V);
                 следщСвеж = 0;
             }
 
-            V* рез = &свеж.элты[следщСвеж];
+            З* рез = &свеж.элты[следщСвеж];
             if(++следщСвеж == элтовНаБлок)
             {
                 if(используется is null)
@@ -229,14 +229,14 @@ template ДефолтныйРазместитель(V);
         }
 
         /**
-         * освободи a V*
+         * освободи a З*
          */
-        проц освободи(V* v)
+        проц освободи(З* з)
         {
             //
-            // need to figure out which блок v is in
+            // need to figure out which блок з is in
             //
-            блок *тек = cast(блок *)смАдрес(v);
+            блок *тек = cast(блок *)смАдрес(з);
 
             if(тек !is свеж && тек.члоОсвоб == 0)
             {
@@ -266,7 +266,7 @@ template ДефолтныйРазместитель(V);
                 }
             }
 
-            if(тек.вымести(v))
+            if(тек.вымести(з))
             {
                 //
                 // тек no longer has any elements in use, обх can be deleted.
@@ -274,7 +274,7 @@ template ДефолтныйРазместитель(V);
                 if(тек.следщ is тек)
                 {
                     //
-                    // only one элемент, don't освободи обх.
+                    // only one элемент, don'т освободи обх.
                     //
                 }
                 else
@@ -318,45 +318,45 @@ template ДефолтныйРазместитель(V);
 /**
  * Simple Разместитель uses new to размести each элемент
  */
-struct ПростойРазместитель(V)
+struct ПростойРазместитель(З)
 {
     /**
-     * new doesn't require освободи
+     * new doesn'т require освободи
      */
     const бул нужноСвоб = false;
 
     /**
-     * equivalent to new V;
+     * equivalent to new З;
      */
-    V* размести()
+    З* размести()
     {
-        return new V;
+        return new З;
     }
 }
 
 /**
- * Default Разместитель selects the correct Разместитель depending on the size of V.
+ * Default Разместитель selects the correct Разместитель depending on the size of З.
  */
-template ДефолтныйРазместитель(V)
+template ДефолтныйРазместитель(З)
 {
     //
-    // if there will be more than one V per page, use the блок Разместитель,
+    // if there will be more than one З per page, use the блок Разместитель,
     // otherwise, use the simple Разместитель.  Note we can only support
     // БлокРазместитель on Tango.
     //
     version(Динрус)
     {
-        static if((V).sizeof + ((ук).sizeof * 3) + бцел.sizeof >= 4095 / 2)
+        static if((З).sizeof + ((ук).sizeof * 3) + бцел.sizeof >= 4095 / 2)
         {
-            alias ПростойРазместитель!(V) ДефолтныйРазместитель;
+            alias ПростойРазместитель!(З) ДефолтныйРазместитель;
         }
         else
         {
-            alias БлокРазместитель!(V, (4095 - ((ук ).sizeof * 3) - бцел.sizeof) / (V).sizeof) ДефолтныйРазместитель;
+            alias БлокРазместитель!(З, (4095 - ((ук ).sizeof * 3) - бцел.sizeof) / (З).sizeof) ДефолтныйРазместитель;
         }
     }
     else
     {
-        alias ПростойРазместитель!(V) ДефолтныйРазместитель;
+        alias ПростойРазместитель!(З) ДефолтныйРазместитель;
     }
 }

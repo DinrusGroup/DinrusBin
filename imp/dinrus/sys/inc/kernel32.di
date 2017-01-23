@@ -1,5 +1,5 @@
 ﻿module sys.inc.kernel32;
-import sys.DConsts, sys.DStructs;
+import sys.WinConsts, sys.WinStructs;
 
 extern(Windows)
 {

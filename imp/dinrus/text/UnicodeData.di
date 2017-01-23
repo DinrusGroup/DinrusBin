@@ -5,36 +5,36 @@ struct ДанныеЮникод
 {
 	enum ОбщаяКатегория
     {
-        Lu = 1, //  БУква, Заглавная
+        Lu = 1, //  Буква, Заглавная
         Ll = 1 <<  1, //  Буква, Прописная
-        Lt = 1 <<  2, //  Letter, Titlecase
-        Lm = 1 <<  3, //  Letter, Modifier
-        Lo = 1 <<  4, //  Letter, Other
-        Mn = 1 <<  5, //  Mark, Nonspacing
-        Mc = 1 <<  6, //  Mark, Spacing Combining
-        Me = 1 <<  7, //  Mark, Enclosing
+        Lt = 1 <<  2, //  Буква, Titlecase
+        Lm = 1 <<  3, //  Буква, Modifier
+        Lo = 1 <<  4, //  Буква, Другое
+        Mn = 1 <<  5, //  Метка, Nonspacing
+        Mc = 1 <<  6, //  Метка, Spacing Combining
+        Me = 1 <<  7, //  Метка, Enclosing
         Nd = 1 <<  8, //  Число, Decimal Digit
-        Nl = 1 <<  9, //  Число, Letter
-        No = 1 << 10, //  Число, Other
-        Pc = 1 << 11, //  Punctuation, Connector
-        Pd = 1 << 12, //  Punctuation, Dash
-        Ps = 1 << 13, //  Punctuation, Откр
-        Pe = 1 << 14, //  Punctuation, Close
-        Pi = 1 << 15, //  Punctuation, Initial quote (may behave like Ps or Pe depending on usage)
-        Pf = 1 << 16, //  Punctuation, Final quote (may behave like Ps or Pe depending on usage)
-        Po = 1 << 17, //  Punctuation, Other
-        Sm = 1 << 18, //  Symbol, Math
-        Sc = 1 << 19, //  Symbol, Currency
-        Sk = 1 << 20, //  Symbol, Modifier
-        So = 1 << 21, //  Symbol, Other
-        Zs = 1 << 22, //  Separator, Space
-        Zl = 1 << 23, //  Separator, Line
-        Zp = 1 << 24, //  Separator, Paragraph
-        Cc = 1 << 25, //  Other, Control
-        Cf = 1 << 26, //  Other, Format
-        Cs = 1 << 27, //  Other, Surrogate
-        Co = 1 << 28, //  Other, Private Use
-        Cn = 1 << 29, //  Other, Not Assigned (no characters in the file have this property)
+        Nl = 1 <<  9, //  Число, Буква
+        No = 1 << 10, //  Число, Другое
+        Pc = 1 << 11, //  Пунктуация, Connector
+        Pd = 1 << 12, //  Пунктуация, Dash
+        Ps = 1 << 13, //  Пунктуация, Откр
+        Pe = 1 << 14, //  Пунктуация, Close
+        Pi = 1 << 15, //  Пунктуация, Initial quote (may behave like Ps or Pe depending on usage)
+        Pf = 1 << 16, //  Пунктуация, Final quote (may behave like Ps or Pe depending on usage)
+        Po = 1 << 17, //  Пунктуация, Другое
+        Sm = 1 << 18, //  Символ, Math
+        Sc = 1 << 19, //  Символ, Currency
+        Sk = 1 << 20, //  Символ, Modifier
+        So = 1 << 21, //  Символ, Другое
+        Zs = 1 << 22, //  Разделитель, Space
+        Zl = 1 << 23, //  Разделитель, Line
+        Zp = 1 << 24, //  Разделитель, Paragraph
+        Cc = 1 << 25, //  Другое, Control
+        Cf = 1 << 26, //  Другое, Format
+        Cs = 1 << 27, //  Другое, Surrogate
+        Co = 1 << 28, //  Другое, Private Use
+        Cn = 1 << 29, //  Другое, Not Assigned (no characters in the file have this property)
         СпецМаппинг = 1 << 30 // Special Bit for detection of specialMappings
     }
     
@@ -50,19 +50,19 @@ struct ДанныеЮникод
         RLO, //  Right-to-Left Overrопрe
         PDF, //  Pop Directional Format
         EN, //  European Число
-        ES, //  European Число Separator
+        ES, //  European Число Разделитель
         ET, //  European Число Terminator
         AN, //  Арабский Число
-        CS, //  Common Число Separator
-        NSM, //  Non-Spacing Mark
+        CS, //  Common Число Разделитель
+        NSM, //  Non-Spacing Метка
         BN, //  Boundary Нейтральный
-        B, //  Paragraph Separator
-        S, //  Segment Separator
+        B, //  Paragraph Разделитель
+        S, //  Segment Разделитель
         WS, //  Whitespace
-        ON //  Other Neutrals
+        ON //  Другое Neutrals
     }
     
-    enum DecompositionType
+    enum ПТипДекомпозиции
     {
         Неук, // Custom тип signaling no Decomposition
         Font, //    A font variant (e.g. a blackletter form).
@@ -79,7 +79,7 @@ struct ДанныеЮникод
         Narrow, //    A narrow (or hankaku) compatibility character.
         Small, //    A small variant form (CNS compatibility).
         Square, //    A CJK squared font variant.
-        Fraction, //    A vulgar дробь form.
+        Fraction, //    A vulgar дво form.
         Compat //    Otherwise unspecified compatibility character.
     }
     
@@ -101,7 +101,7 @@ struct ДанныеЮникод
 //    КлассДвунапр bопрiClass;
     
     //TODO end
-//    DecompositionType decompositionType;
+//    ПТипДекомпозиции decompositionType;
 //    дим[] decompositionMapping;
     
     // TODO Check handling

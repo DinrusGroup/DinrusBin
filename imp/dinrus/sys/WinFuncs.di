@@ -2,9 +2,9 @@
 Модуль функций WIN API для языка Динрус.
 Разработчик Виталий Кулич.
 */
-module sys.DFuncs;
+module sys.WinFuncs;
 
-protected import cidrus, sys.DConsts, sys.DIfaces, sys.DStructs;
+protected import cidrus, sys.WinConsts, sys.WinIfaces, sys.WinStructs;
 public import sys.inc.kernel32;
 
 pragma(lib, "dinrus.lib");
@@ -774,7 +774,7 @@ VirtualProtect
 /**
 VirtualQuery
 */
-бцел ОпросиВирт(ук адр, sys.DStructs.БАЗИОП *буф, бцел длина);
+бцел ОпросиВирт(ук адр, sys.WinStructs.БАЗИОП *буф, бцел длина);
 /**
 VirtualAllocEx
 */
@@ -790,7 +790,7 @@ VirtualProtectEx
 /**
 VirtualQueryEx
 */
-бцел ОпросиВиртДоп(ук процесс, ук адр, sys.DStructs.БАЗИОП *буф, бцел длина);
+бцел ОпросиВиртДоп(ук процесс, ук адр, sys.WinStructs.БАЗИОП *буф, бцел длина);
 
 //КУЧА
 /**

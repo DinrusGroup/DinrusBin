@@ -1,5 +1,5 @@
 ﻿module viz.structs;
-import winapi, sys.DStructs, viz.control;
+import winapi, sys.WinStructs, viz.control;
 
 alias typeof(""c[]) Ткст;
 alias typeof(""c.ptr) Ткст0;

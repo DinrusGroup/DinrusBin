@@ -17,7 +17,7 @@ module util.collection.TreeMap;
 
 private import  exception;
 
-private import  util.collection.model.Comparator,
+private import  util.collection.model.Сравнитель,
                 util.collection.model.SortedKeys,
                 util.collection.model.GuardIterator;
 
@@ -43,7 +43,7 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
 {
         alias RBCell!(T)                RBCellT;
         alias RBPair!(K, T)             RBPairT;
-        alias Comparator!(K)            ComparatorT;
+        alias Сравнитель!(K)            ComparatorT;
         alias GuardIterator!(T)         GuardIteratorT;
 
         alias КоллекцияКарт!(K, T).удали     удали;
@@ -59,11 +59,11 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
         package RBPairT дерево;
 
         /**
-         * The Comparator в_ use for ordering
+         * The Сравнитель в_ use for ordering
         **/
 
         protected ComparatorT           cmp;
-        protected Comparator!(T)        cmpElem;
+        protected Сравнитель!(T)        cmpElem;
 
         /**
          * Make an пустой дерево, using DefaultComparator for ordering
@@ -84,7 +84,7 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
         }
 
         /**
-         * Make an пустой дерево, using given Comparator for ordering
+         * Make an пустой дерево, using given Сравнитель for ordering
         **/
         public this (ComparatorT c)
         {
@@ -92,7 +92,7 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
         }
 
         /**
-         * Make an пустой дерево, using given скринер и Comparator.
+         * Make an пустой дерево, using given скринер и Сравнитель.
         **/
         public this (Предикат s, ComparatorT c)
         {
@@ -113,11 +113,11 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
         }
 
         /**
-         * The default ключ comparator
+         * The default ключ сравнитель
          *
          * @param fst первый аргумент
          * @param snd секунда аргумент
-         * Возвращает: a negative число if fst is less than snd; a
+         * Возвращает: a негатив число if fst is less than snd; a
          * positive число if fst is greater than snd; else 0
         **/
 
@@ -131,11 +131,11 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
 
 
         /**
-         * The default элемент comparator
+         * The default элемент сравнитель
          *
          * @param fst первый аргумент
          * @param snd секунда аргумент
-         * Возвращает: a negative число if fst is less than snd; a
+         * Возвращает: a негатив число if fst is less than snd; a
          * positive число if fst is greater than snd; else 0
         **/
 
@@ -231,20 +231,20 @@ deprecated public class TreeMap(K, T) : КоллекцияКарт!(K, T), Sorte
         // KeySortedCollection methods
 
         /**
-         * Implements util.collection.KeySortedCollection.comparator
+         * Implements util.collection.KeySortedCollection.сравнитель
          * Время complexity: O(1).
-         * See_Also: util.collection.KeySortedCollection.comparator
+         * See_Also: util.collection.KeySortedCollection.сравнитель
         **/
-        public final ComparatorT comparator()
+        public final ComparatorT сравнитель()
         {
                 return cmp;
         }
 
         /**
-         * Use a new Comparator. Causes a reorganization
+         * Use a new Сравнитель. Causes a reorganization
         **/
 
-        public final проц comparator (ComparatorT c)
+        public final проц сравнитель (ComparatorT c)
         {
                 if (cmp !is c)
                    {

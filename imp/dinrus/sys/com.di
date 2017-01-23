@@ -1,6 +1,6 @@
 ﻿module sys.com;
 
-private import tpl.args, tpl.stream, sys.DConsts, sys.DIfaces, sys.DStructs, sys.DFuncs, exception, tpl.com, sys.uuid;
+private import tpl.args, tpl.stream, sys.WinConsts, sys.WinIfaces, sys.WinStructs, sys.WinFuncs, exception, tpl.com, sys.uuid;
 
 extern(C) бул комАктивен();
 extern(D)

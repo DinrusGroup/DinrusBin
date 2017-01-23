@@ -39,7 +39,7 @@ private import text.convert.Layout;
         you require a persistent копируй.
         
         Note also that Sprint is templated, и can be instantiated for
-        wide chars through a Sprint!(дим) or Sprint!(шим). The wide
+        wide симвы through a Sprint!(дим) or Sprint!(шим). The wide
         versions differ in that Всё the вывод и the форматируй-ткст
         are of the мишень тип. Variadic текст аргументы are transcoded 
         appropriately.

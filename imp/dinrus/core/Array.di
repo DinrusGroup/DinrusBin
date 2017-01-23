@@ -92,7 +92,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -111,7 +111,7 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -242,7 +242,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LP)буф.length .. 0$(RB), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -261,7 +261,7 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LP)буф.length .. 0$(RB), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -396,7 +396,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -420,7 +420,7 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -578,7 +578,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LP)буф.length .. 0$(RB), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -602,7 +602,7 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LP)буф.length .. 0$(RB), returning
-     * the индекс of the first element matching pat, or буф.length if no match
+     * the индекс of the first element совпадают pat, or буф.length if no match
      * was найдено.  Comparisons will be performed using the supplied predicate
      * or '==' if Неук is supplied.
      *
@@ -984,7 +984,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * да if an element matching pat is найдено.  Comparisons will be performed
+     * да if an element совпадают pat is найдено.  Comparisons will be performed
      * using the supplied predicate or '<' if Неук is supplied.
      *
      * Параметры:
@@ -1002,7 +1002,7 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * да if a sequence matching pat is найдено.  Comparisons will be performed
+     * да if a sequence совпадают pat is найдено.  Comparisons will be performed
      * using the supplied predicate or '<' if Неук is supplied.
      *
      * Параметры:
@@ -1174,7 +1174,7 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), returning
-     * a счёт of the число of elements matching pat.  Comparisons will be
+     * a счёт of the число of elements совпадают pat.  Comparisons will be
      * performed using the supplied predicate or '==' if Неук is supplied.
      *
      * Параметры:
@@ -1185,7 +1185,7 @@ version( TangoDoc )
      *         callable тип.
      *
      * Возвращает:
-     *  The число of elements matching pat.
+     *  The число of elements совпадают pat.
      */
     т_мера счёт( Элем[] буф, Элем pat, Pred2E пред = Pred2E.init );
 
@@ -1472,8 +1472,8 @@ version( TangoDoc )
 {
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), moving все
-     * elements matching pat в_ the конец of the sequence.  The relative order of
-     * elements not matching pat will be preserved.  Comparisons will be
+     * elements совпадают pat в_ the конец of the sequence.  The relative order of
+     * elements not совпадают pat will be preserved.  Comparisons will be
      * performed using the supplied predicate or '==' if Неук is supplied.
      *
      * Параметры:
@@ -1494,8 +1494,8 @@ version( TangoDoc )
 
     /**
      * Performs a linear скан of буф из_ $(LB)0 .. буф.length$(RP), moving все
-     * elements matching pat в_ the конец of the sequence.  The relative order of
-     * elements not matching pat will be preserved.  Comparisons will be
+     * elements совпадают pat в_ the конец of the sequence.  The relative order of
+     * elements not совпадают pat will be preserved.  Comparisons will be
      * performed '=='.
      *
      * Параметры:
@@ -1988,7 +1988,7 @@ version( TangoDoc )
      *         callable тип.
      *
      * Возвращает:
-     *  The индекс of the pivot point, which will be the lesser of num - 1 and
+     *  The индекс of the pivot точка, which will be the lesser of num - 1 and
      *  буф.length.
      */
     т_мера выбери( Элем[] буф, Чис num, Pred2E пред = Pred2E.init );
@@ -2494,7 +2494,7 @@ else
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Binary Search
+// Binary Поиск
 ////////////////////////////////////////////////////////////////////////////////
 
 

@@ -322,7 +322,7 @@ private template ЛинейнаяАлгебра(т_плав)
     
         /**
         Возвращает: Whether this вектор is unit.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while сравнение of
                                нормаль square and 1. Have the same meaning as in равны function.
         */
@@ -431,7 +431,7 @@ private template ЛинейнаяАлгебра(т_плав)
     
     /**
     Возвращает: Является ли переданное основание ортогональным.
-    Params:
+    Парамы:
         r, s, t =          Векторы, образующие основание.
         отнпрец, абспрец = Параметры, передаваемые функции сравнения при вычислениях.
                            Имею то же значение, что и в функции равны.
@@ -442,7 +442,7 @@ private template ЛинейнаяАлгебра(т_плав)
     
     /**
     Возвращает: Является ли переданное основание ортонормальным.
-    Params:
+    Парамы:
         r, s, t =   Векторы, образующие основание.
         отнпрец, абспрец = Параметры, передаваемые функции сравнения при вычислениях.
                            Имею то же значение, что и в функции равны.
@@ -538,7 +538,7 @@ private template ЛинейнаяАлгебра(т_плав)
     
         /**
         Возвращает: Whether this вектор is unit.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while сравнение of
                                нормаль square and 1. Have the same meaning as in равны function.
         */
@@ -702,7 +702,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Sets quaternion, so that, it will represent same вращение as in мат matrix argument.
-        Params:
+        Парамы:
             мат = Matrix to extract вращение from. Should be pure вращение matrix.
         Throws:
             AssertError if мат is not pure вращение matrix and module was compiled with
@@ -750,7 +750,7 @@ private template ЛинейнаяАлгебра(т_плав)
     
         /**
         Возвращает: Whether this quaternion is unit.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while сравнение of
                                нормаль square and 1. Have the same meaning as in равны function.
         */
@@ -932,7 +932,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is подобие.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -940,7 +940,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is ноль.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -948,7 +948,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is orthogonal.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         Ссылки:
@@ -958,7 +958,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix represents pure вращение. I.e. hasn't масштабируй admixture.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -1059,10 +1059,10 @@ private template ЛинейнаяАлгебра(т_плав)
         have many applications, particulary you can use method for suppressing errors in pure
         вращение matrices after дол multiplication chain.
         
-        Params:
+        Парамы:
             Q = Output matrix, will be orthogonal after decomposition.
                 Argument shouldn't be null.
-            S = Output matrix, will be symmetric non-negative definite after
+            S = Output matrix, will be symmetric non-негатив definite after
                 decomposition. Argument shouldn't be null.
 
         Примеры:
@@ -1243,7 +1243,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is подобие.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -1251,7 +1251,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is ноль.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -1259,7 +1259,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is orthogonal.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         Ссылки:
@@ -1269,7 +1269,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix represents pure вращение. I.e. hasn't масштабируй admixture.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -1365,10 +1365,10 @@ private template ЛинейнаяАлгебра(т_плав)
         have many applications, particulary you can use method for suppressing errors in pure
         вращение matrices after дол multiplication chain.
         
-        Params:
+        Парамы:
             Q = Output matrix, will be orthogonal after decomposition.
                 Argument shouldn't be null.
-            S = Output matrix, will be symmetric non-negative definite after
+            S = Output matrix, will be symmetric non-негатив definite after
                 decomposition. Argument shouldn't be null.
 
         Примеры:
@@ -1576,7 +1576,7 @@ private template ЛинейнаяАлгебра(т_плав)
 
         /**
         Возвращает: Whether this matrix is подобие.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                                Have the same meaning as in равны function.
         */
@@ -1584,7 +1584,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Возвращает: Whether this matrix is ноль.
-        Params:
+        Парамы:
             отнпрец, абспрец = Parameters passed to равны function while calculations.
                         Has the same meaning as in равны function.
         */
@@ -1642,8 +1642,8 @@ private template ЛинейнаяАлгебра(т_плав)
         /** Constructs _translation matrix with offset values specified as v's components. */
         static Матрица44 перенос(Вектор3 v);
         /**
-        Constructs one-point perspecive projection matrix.
-        Params:
+        Constructs one-точка perspecive projection matrix.
+        Парамы:
             fov =       Field of view in vertical plane in радианы.
             aspect =    Frustum's width / height coefficient. It shouldn't be 0.
             near =      Distance to near plane.
@@ -1653,7 +1653,7 @@ private template ЛинейнаяАлгебра(т_плав)
         
         /**
         Constructs view matrix.
-        Params:
+        Парамы:
             eye =       Viewer's eye position.
             target =    View target.
             up =        View up вектор.

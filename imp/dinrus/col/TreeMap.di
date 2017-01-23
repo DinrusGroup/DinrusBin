@@ -13,10 +13,96 @@ public import col.Functions;
 private import col.RBTree;
 private import col.Iterators;
 
+/+ ИНТЕРФЕЙС:
+
+class ДеревоКарта(К, З, alias ШаблРеализац=КЧДерево, alias функСравнить=ДефСравнить) : Карта!(К, З)
+{
+
+    struct элемент
+    {
+        К ключ;
+        З знач;
+    }
+
+    static цел _функцияСравнения(ref элемент e, ref элемент e2);
+    static проц _функцияОбнова(ref элемент исх, ref элемент newv);
+    alias ШаблРеализац!(элемент, _функцияСравнения, _функцияОбнова) Реализ;
+
+
+    struct курсор
+    {
+
+        З значение();
+        К ключ();
+        З значение(З з);
+        курсор opPostInc();
+        курсор opPostDec();
+        курсор opAddAssign(цел прир);
+        курсор opSubAssign(цел прир);
+        бул opEquals(курсор обх);
+    }
+
+    final цел очистить(цел delegate(ref бул чистить_ли, ref З з) дг);
+    final цел чисть_ключ(цел delegate(ref бул чистить_ли, ref К к, ref З з) дг);
+
+    private class КлючОбходчик : Обходчик!(К)
+    {
+        final бцел длина();
+		alias длина length;
+        final цел opApply(цел delegate(ref К) дг);
+    }
+
+ 
+    цел opApply(цел delegate(ref К к, ref З з) дг);
+    цел opApply(цел delegate(ref З з) дг);
+    this();
+    private this(ref Реализ дубИз);
+    ДеревоКарта очисти();
+    бцел длина();
+	alias длина length;
+    курсор начало();
+    курсор конец();
+    курсор удали(курсор обх);
+    курсор найдиЗначение(курсор обх, З з);
+    курсор найдиЗначение(З з);
+    курсор найди(К к);
+    бул содержит(З з);
+    ДеревоКарта удали(З з);
+    ДеревоКарта удали(З з, ref бул был_Удалён);
+    ДеревоКарта удалиПо(К ключ);
+    ДеревоКарта удалиПо(К ключ, ref бул был_Удалён);
+    ДеревоКарта удали(Обходчик!(К) поднабор);
+    ДеревоКарта удали(Обходчик!(К) поднабор, ref бцел чло_Удалённых);
+    ДеревоКарта накладка(Обходчик!(К) поднабор, ref бцел чло_Удалённых);
+    ДеревоКарта накладка(Обходчик!(К) поднабор);
+
+    Обходчик!(К) ключи();
+    З opIndex(К ключ);
+    З opIndexAssign(З значение, К ключ);
+    ДеревоКарта установи(К ключ, З значение);
+    ДеревоКарта установи(К ключ, З значение, ref бул был_добавлен);
+    ДеревоКарта установи(Ключник!(К, З) исток);
+    ДеревоКарта установи(Ключник!(К, З) исток, ref бцел чло_добавленных);
+    бул имеетКлюч(К ключ);
+    бцел счёт(З з);
+    ДеревоКарта удалиВсе(З з);
+    ДеревоКарта удалиВсе(З з, ref бцел чло_Удалённых);
+    ДеревоКарта dup();
+    цел opEquals(Объект o);
+    ДеревоКарта установи(З[К] исток);
+    ДеревоКарта установи(З[К] исток, ref бцел чло_добавленных);
+    ДеревоКарта удали(К[] поднабор);
+    ДеревоКарта удали(К[] поднабор, ref бцел чло_Удалённых);
+    ДеревоКарта накладка(К[] поднабор);
+    ДеревоКарта накладка(К[] поднабор, ref бцел чло_Удалённых);
+}
++/
+
+
 /**
  * Implementation of the Карта interface using Красный-Чёрный trees.  this allows for
  * O(lg(n)) insertion, removal, and lookup times.  It also creates a sorted
- * установи of ключи.  K must be comparable.
+ * установи of ключи.  К must be comparable.
  *
  * Adding an элемент does not invalidate any cursors.
  *
@@ -25,28 +111,28 @@ private import col.Iterators;
  *
  * You can replace the Tree implementation with a custom implementation, the
  * implementation must be a struct template which can be instantiated with a
- * single template argument V, and must implement the following members
+ * single template argument З, and must implement the following members
  * (non-function members can be properties unless otherwise specified):
  *
  * parameters -> must be a struct with at least the following members:
  *   функцСравнения -> the compare function to use (should be a
- *                      ФункцСравнения!(V))
+ *                      ФункцСравнения!(З))
  *   обновлФункц -> the update function to use (should be an
- *                     ФункцОбновления!(V))
+ *                     ФункцОбновления!(З))
  * 
  * проц установка(parameters p) -> initializes the tree with the given parameters.
  *
  * бцел счёт -> счёт of the elements in the tree
  *
  * Узел -> must be a struct/class with the following members:
- *   V значение -> the значение which is pointed to by this позиция (cannot be a
+ *   З значение -> the значение which is pointed to by this позиция (cannot be a
  *                property)
  *   Узел следщ -> the следщ Узел in the tree as defined by the compare
  *                function, or конец if no other nodes exist.
  *   Узел предш -> the previous Узел in the tree as defined by the compare
  *                function.
  *
- * бул добавь(V v) -> добавь the given значение to the tree according to the order
+ * бул добавь(З з) -> добавь the given значение to the tree according to the order
  * defined by the compare function.  If the элемент already exists in the
  * tree, the update function should be called, and the function should return
  * false.
@@ -57,25 +143,25 @@ private import col.Iterators;
  * Узел конец -> must be a Узел that points to just past the very последн
  * valid элемент.
  *
- * Узел найди(V v) -> returns a Узел that points to the элемент that
- * содержит v, or конец if the элемент doesn't exist.
+ * Узел найди(З з) -> returns a Узел that points to the элемент that
+ * содержит з, or конец if the элемент doesn'т exist.
  *
  * Узел удали(Узел p) -> removes the given элемент from the tree,
  * returns the следщ valid элемент or конец if p was последн in the tree.
  *
  * проц очисти() -> removes all elements from the tree, sets счёт to 0.
  */
-class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерево, alias функСравнить=ДефСравнить) : Карта!(K, V)
+class ДеревоКарта(К, З, alias ШаблРеализац=КЧДерево, alias функСравнить=ДефСравнить) : Карта!(К, З)
 {
     /**
      * the elements that are passed to the tree.  Note that if you define a
      * custom update or compare function, обх should изыми элемент structs, not
-     * K or V.
+     * К or З.
      */
     struct элемент
     {
-        K ключ;
-        V знач;
+        К ключ;
+        З знач;
     }
 
     private КлючОбходчик _ключи;
@@ -113,7 +199,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         /**
          * дай the значение in this элемент
          */
-        V значение()
+        З значение()
         {
             return укз.значение.знач;
         }
@@ -121,7 +207,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         /**
          * дай the ключ in this элемент
          */
-        K ключ()
+        К ключ()
         {
             return укз.значение.ключ;
         }
@@ -129,10 +215,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         /**
          * установи the значение in this элемент
          */
-        V значение(V v)
+        З значение(З з)
         {
-            укз.значение.знач = v;
-            return v;
+            укз.значение.знач = з;
+            return з;
         }
 
         /**
@@ -200,21 +286,21 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         }
     }
 
-    final цел очистить(цел delegate(ref бул чистить_ли, ref V v) дг)
+    final цел очистить(цел delegate(ref бул чистить_ли, ref З з) дг)
     {
-        цел _дг(ref бул чистить_ли, ref K k, ref V v)
+        цел _дг(ref бул чистить_ли, ref К к, ref З з)
         {
-            return дг(чистить_ли, v);
+            return дг(чистить_ли, з);
         }
         return _примени(&_дг);
     }
 
-    final цел чисть_ключ(цел delegate(ref бул чистить_ли, ref K k, ref V v) дг)
+    final цел чисть_ключ(цел delegate(ref бул чистить_ли, ref К к, ref З з) дг)
     {
         return _примени(дг);
     }
 
-    private class КлючОбходчик : Обходчик!(K)
+    private class КлючОбходчик : Обходчик!(К)
     {
         final бцел длина()
         {
@@ -222,29 +308,29 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         }
 		alias длина length;
 
-        final цел opApply(цел delegate(ref K) дг)
+        final цел opApply(цел delegate(ref К) дг)
         {
-            цел _дг(ref бул чистить_ли, ref K k, ref V v)
+            цел _дг(ref бул чистить_ли, ref К к, ref З з)
             {
-                return дг(k);
+                return дг(к);
             }
             return _примени(&_дг);
         }
     }
 
 
-    private цел _примени(цел delegate(ref бул чистить_ли, ref K k, ref V v) дг)
+    private цел _примени(цел delegate(ref бул чистить_ли, ref К к, ref З з) дг)
     {
         курсор обх = начало;
         бул чистить_ли;
         цел возврдг = 0;
-        курсор _конец = конец; // cache конец so обх isn't always being generated
+        курсор _конец = конец; // cache конец so обх isn'т always being generated
         while(!возврдг && обх != _конец)
         {
             //
-            // don't allow user to change ключ
+            // don'т allow user to change ключ
             //
-            K врмключ = обх.ключ;
+            К врмключ = обх.ключ;
             чистить_ли = false;
             if((возврдг = дг(чистить_ли, врмключ, обх.ptr.значение.знач)) != 0)
                 break;
@@ -259,11 +345,11 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
     /**
      * iterate over the collection's ключ/значение pairs
      */
-    цел opApply(цел delegate(ref K k, ref V v) дг)
+    цел opApply(цел delegate(ref К к, ref З з) дг)
     {
-        цел _дг(ref бул чистить_ли, ref K k, ref V v)
+        цел _дг(ref бул чистить_ли, ref К к, ref З з)
         {
-            return дг(k, v);
+            return дг(к, з);
         }
 
         return _примени(&_дг);
@@ -272,11 +358,11 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
     /**
      * iterate over the collection's values
      */
-    цел opApply(цел delegate(ref V v) дг)
+    цел opApply(цел delegate(ref З з) дг)
     {
-        цел _дг(ref бул чистить_ли, ref K k, ref V v)
+        цел _дг(ref бул чистить_ли, ref К к, ref З з)
         {
-            return дг(v);
+            return дг(з);
         }
         return _примени(&_дг);
     }
@@ -287,10 +373,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      * Набор members of p to their initializer values in order to use the
      * default values defined by ДеревоКарта.
      *
-     * The default compare function performs K's compare.
+     * The default compare function performs К's compare.
      *
-     * The default update function sets only the V part of the элемент, and
-     * leaves the K part alone.
+     * The default update function sets only the З part of the элемент, and
+     * leaves the К part alone.
      */
     this()
     {
@@ -364,25 +450,25 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(n) time.
      */
-    курсор найдиЗначение(курсор обх, V v)
+    курсор найдиЗначение(курсор обх, З з)
     {
-        return _найдиЗначение(обх, конец, v);
+        return _найдиЗначение(обх, конец, з);
     }
 
     /**
      * найди an instance of a значение in the collection.  Equivalent to
-     * найдиЗначение(начало, v);
+     * найдиЗначение(начало, з);
      *
      * Runs in O(n) time.
      */
-    курсор найдиЗначение(V v)
+    курсор найдиЗначение(З з)
     {
-        return _найдиЗначение(начало, конец, v);
+        return _найдиЗначение(начало, конец, з);
     }
 
-    private курсор _найдиЗначение(курсор обх, курсор последн, V v)
+    private курсор _найдиЗначение(курсор обх, курсор последн, З з)
     {
-        while(обх != последн && обх.значение != v)
+        while(обх != последн && обх.значение != з)
             обх++;
         return обх;
     }
@@ -393,11 +479,11 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    курсор найди(K k)
+    курсор найди(К к)
     {
         курсор обх;
         элемент врм;
-        врм.ключ = k;
+        врм.ключ = к;
         обх.ptr = _дерево.найди(врм);
         return обх;
     }
@@ -407,32 +493,32 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(n) time.
      */
-    бул содержит(V v)
+    бул содержит(З з)
     {
-        return найдиЗначение(v) != конец;
+        return найдиЗначение(з) != конец;
     }
 
     /**
-     * Removes the первый элемент that has the значение v.  Returns true if the
+     * Removes the первый элемент that has the значение з.  Returns true if the
      * значение was present and was removed.
      *
      * Runs in O(n) time.
      */
-    ДеревоКарта удали(V v)
+    ДеревоКарта удали(З з)
     {
         бул пропущен;
-        return удали(v, пропущен);
+        return удали(з, пропущен);
     }
 
     /**
-     * Removes the первый элемент that has the значение v.  Returns true if the
+     * Removes the первый элемент that has the значение з.  Returns true if the
      * значение was present and was removed.
      *
      * Runs in O(n) time.
      */
-    ДеревоКарта удали(V v, ref бул был_Удалён)
+    ДеревоКарта удали(З з, ref бул был_Удалён)
     {
-        курсор обх = найдиЗначение(v);
+        курсор обх = найдиЗначение(з);
         if(обх == конец)
         {
             был_Удалён = false;
@@ -451,7 +537,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    ДеревоКарта удалиПо(K ключ)
+    ДеревоКарта удалиПо(К ключ)
     {
         курсор обх = найди(ключ);
         if(обх != конец)
@@ -465,7 +551,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    ДеревоКарта удалиПо(K ключ, ref бул был_Удалён)
+    ДеревоКарта удалиПо(К ключ, ref бул был_Удалён)
     {
         курсор обх = найди(ключ);
         if(обх == конец)
@@ -485,10 +571,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      * 
      * returns this.
      */
-    ДеревоКарта удали(Обходчик!(K) поднабор)
+    ДеревоКарта удали(Обходчик!(К) поднабор)
     {
-        foreach(k; поднабор)
-            удалиПо(k);
+        foreach(к; поднабор)
+            удалиПо(к);
         return this;
     }
 
@@ -498,7 +584,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      * 
      * returns this.
      */
-    ДеревоКарта удали(Обходчик!(K) поднабор, ref бцел чло_Удалённых)
+    ДеревоКарта удали(Обходчик!(К) поднабор, ref бцел чло_Удалённых)
     {
         бцел оригДлина = длина;
         удали(поднабор);
@@ -511,7 +597,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта накладка(Обходчик!(K) поднабор, ref бцел чло_Удалённых)
+    ДеревоКарта накладка(Обходчик!(К) поднабор, ref бцел чло_Удалённых)
     {
         //
         // create a wrapper iterator that generates elements from ключи.  Then
@@ -519,7 +605,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
         //
         // scope allocates on the stack.
         //
-        scope w = new ТрансформОбходчик!(элемент, K)(поднабор, function проц(ref K k, ref элемент e) { e.ключ = k;});
+        scope w = new ТрансформОбходчик!(элемент, К)(поднабор, function проц(ref К к, ref элемент e) { e.ключ = к;});
 
         чло_Удалённых = _дерево.накладка(w);
         return this;
@@ -531,14 +617,14 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта накладка(Обходчик!(K) поднабор)
+    ДеревоКарта накладка(Обходчик!(К) поднабор)
     {
         бцел пропущен;
         накладка(поднабор, пропущен);
         return this;
     }
 
-    Обходчик!(K) ключи()
+    Обходчик!(К) ключи()
     {
         return _ключи;
     }
@@ -549,7 +635,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    V opIndex(K ключ)
+    З opIndex(К ключ)
     {
         курсор обх = найди(ключ);
         if(обх == конец)
@@ -563,30 +649,30 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    V opIndexAssign(V значение, K ключ)
+    З opIndexAssign(З значение, К ключ)
     {
         установи(ключ, значение);
         return значение;
     }
 
     /**
-     * установи a ключ and значение pair.  If the pair didn't already exist, добавь обх.
+     * установи a ключ and значение pair.  If the pair didn'т already exist, добавь обх.
      *
      * returns this.
      */
-    ДеревоКарта установи(K ключ, V значение)
+    ДеревоКарта установи(К ключ, З значение)
     {
         бул пропущен;
         return установи(ключ, значение, пропущен);
     }
 
     /**
-     * установи a ключ and значение pair.  If the pair didn't already exist, добавь обх.
+     * установи a ключ and значение pair.  If the pair didn'т already exist, добавь обх.
      * был_добавлен is установи to true if the pair was добавленный.
      *
      * returns this.
      */
-    ДеревоКарта установи(K ключ, V значение, ref бул был_добавлен)
+    ДеревоКарта установи(К ключ, З значение, ref бул был_добавлен)
     {
         элемент элт;
         элт.ключ = ключ;
@@ -601,10 +687,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Returns this.
      */
-    ДеревоКарта установи(Ключник!(K, V) исток)
+    ДеревоКарта установи(Ключник!(К, З) исток)
     {
-        foreach(k, v; исток)
-            установи(k, v);
+        foreach(к, з; исток)
+            установи(к, з);
         return this;
     }
 
@@ -615,7 +701,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Returns this.
      */
-    ДеревоКарта установи(Ключник!(K, V) исток, ref бцел чло_добавленных)
+    ДеревоКарта установи(Ключник!(К, З) исток, ref бцел чло_добавленных)
     {
         бцел оригДлина = длина;
         установи(исток);
@@ -628,46 +714,46 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * Runs in O(lg(n)) time.
      */
-    бул имеетКлюч(K ключ)
+    бул имеетКлюч(К ключ)
     {
         return найди(ключ) != конец;
     }
 
     /**
-     * Returns the number of elements that contain the значение v
+     * Returns the number of elements that contain the значение з
      *
      * Runs in O(n) time.
      */
-    бцел счёт(V v)
+    бцел счёт(З з)
     {
         бцел экземпляры = 0;
         foreach(x; this)
-            if(x == v)
+            if(x == з)
                 экземпляры++;
         return экземпляры;
     }
 
     /**
-     * Remove all the elements that contain the значение v.
+     * Remove all the elements that contain the значение з.
      *
      * Runs in O(n + m lg(n)) time, where m is the number of elements removed.
      */
-    ДеревоКарта удалиВсе(V v)
+    ДеревоКарта удалиВсе(З з)
     {
         foreach(ref b, x; &очистить)
-            b = cast(бул)(x == v);
+            b = cast(бул)(x == з);
         return this;
     }
 
     /**
-     * Remove all the elements that contain the значение v.
+     * Remove all the elements that contain the значение з.
      *
      * Runs in O(n + m lg(n)) time, where m is the number of elements removed.
      */
-    ДеревоКарта удалиВсе(V v, ref бцел чло_Удалённых)
+    ДеревоКарта удалиВсе(З з, ref бцел чло_Удалённых)
     {
         бцел оригДлина = длина;
-        удалиВсе(v);
+        удалиВсе(з);
         чло_Удалённых = оригДлина - длина;
         return this;
     }
@@ -691,9 +777,9 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
     цел opEquals(Объект o)
     {
         //
-        // try casting to map, otherwise, don't compare
+        // try casting to map, otherwise, don'т compare
         //
-        auto m = cast(Карта!(K, V))o;
+        auto m = cast(Карта!(К, З))o;
         if(m !is null && m.length == длина)
         {
             auto _конец = конец;
@@ -713,10 +799,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
             }
             else
             {
-                foreach(K k, V v; m)
+                foreach(К к, З з; m)
                 {
-                    auto cu = найди(k);
-                    if(cu is _конец || cu.значение != v)
+                    auto cu = найди(к);
+                    if(cu is _конец || cu.значение != з)
                         return 0;
                 }
             }
@@ -732,10 +818,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта установи(V[K] исток)
+    ДеревоКарта установи(З[К] исток)
     {
-        foreach(K k, V v; исток)
-            this[k] = v;
+        foreach(К к, З з; исток)
+            this[к] = з;
         return this;
     }
 
@@ -747,7 +833,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта установи(V[K] исток, ref бцел чло_добавленных)
+    ДеревоКарта установи(З[К] исток, ref бцел чло_добавленных)
     {
         бцел оригДлина = длина;
         установи(исток);
@@ -760,10 +846,10 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * return this.
      */
-    ДеревоКарта удали(K[] поднабор)
+    ДеревоКарта удали(К[] поднабор)
     {
-        foreach(k; поднабор)
-            удалиПо(k);
+        foreach(к; поднабор)
+            удалиПо(к);
         return this;
     }
 
@@ -774,7 +860,7 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * чло_Удалённых is установи to the number of elements removed.
      */
-    ДеревоКарта удали(K[] поднабор, ref бцел чло_Удалённых)
+    ДеревоКарта удали(К[] поднабор, ref бцел чло_Удалённых)
     {
         бцел оригДлина = длина;
         удали(поднабор);
@@ -787,9 +873,9 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта накладка(K[] поднабор)
+    ДеревоКарта накладка(К[] поднабор)
     {
-        scope обход = new ОбходчикМассива!(K)(поднабор);
+        scope обход = new ОбходчикМассива!(К)(поднабор);
         return накладка(обход);
     }
 
@@ -800,9 +886,9 @@ class ДеревоКарта(K, V, alias ШаблРеализац=КЧДерев
      *
      * returns this.
      */
-    ДеревоКарта накладка(K[] поднабор, ref бцел чло_Удалённых)
+    ДеревоКарта накладка(К[] поднабор, ref бцел чло_Удалённых)
     {
-        scope обход = new ОбходчикМассива!(K)(поднабор);
+        scope обход = new ОбходчикМассива!(К)(поднабор);
         return накладка(обход, чло_Удалённых);
     }
 
@@ -817,9 +903,9 @@ version(UnitTest)
         for(цел i = 0; i < 10; i++)
             m[i * i + 1] = i;
         assert(m.length == 10);
-        foreach(ref чистить_ли, k, v; &m.чисть_ключ)
+        foreach(ref чистить_ли, к, з; &m.чисть_ключ)
         {
-            чистить_ли = (v % 2 == 1);
+            чистить_ли = (з % 2 == 1);
         }
         assert(m.length == 5);
         assert(m.содержит(6));

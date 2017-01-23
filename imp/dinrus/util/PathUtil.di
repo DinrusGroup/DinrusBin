@@ -47,9 +47,9 @@ debug (UnitTest)
     unittest
     {
         assert (нормализуй ("") == "");
-        assert (нормализуй ("/home/../john/../.drTango/.htaccess") == "/.drTango/.htaccess");
-        assert (нормализуй ("/home/../john/../.drTango/foo.conf") == "/.drTango/foo.conf");
-        assert (нормализуй ("/home/john/.drTango/foo.conf") == "/home/john/.drTango/foo.conf");
+        assert (нормализуй ("/home/../john/../.DinrusTango.lib/.htaccess") == "/.DinrusTango.lib/.htaccess");
+        assert (нормализуй ("/home/../john/../.DinrusTango.lib/foo.conf") == "/.DinrusTango.lib/foo.conf");
+        assert (нормализуй ("/home/john/.DinrusTango.lib/foo.conf") == "/home/john/.DinrusTango.lib/foo.conf");
         assert (нормализуй ("/foo/bar/.htaccess") == "/foo/bar/.htaccess");
         assert (нормализуй ("foo/bar/././.") == "foo/bar/");
         assert (нормализуй ("././foo/././././bar") == "foo/bar");
@@ -79,9 +79,9 @@ debug (UnitTest)
         assert (нормализуй(".../") == ".../");
         assert (нормализуй("///../foo") == "/foo");
         auto буф = new сим[100];
-        auto ret = нормализуй("foo/bar/./baz", буф);
-        assert (ret.ptr == буф.ptr);
-        assert (ret == "foo/bar/baz");
+        auto возвр = нормализуй("foo/bar/./baz", буф);
+        assert (возвр.ptr == буф.ptr);
+        assert (возвр == "foo/bar/baz");
 
 version (Windows) {
         assert (нормализуй ("\\foo\\..\\john") == "/john");
@@ -119,16 +119,16 @@ version (Windows) {
         <td>Matches 0 or ещё instances of any character.</td></tr>
     <tr><td><b>?</b></td>
         <td>Matches exactly one instances of any character.</td></tr>
-    <tr><td><b>[</b><i>chars</i><b>]</b></td>
+    <tr><td><b>[</b><i>симвы</i><b>]</b></td>
         <td>Matches one экземпляр of any character that appears
         between the brackets.</td></tr>
-    <tr><td><b>[!</b><i>chars</i><b>]</b></td>
+    <tr><td><b>[!</b><i>симвы</i><b>]</b></td>
         <td>Matches one экземпляр of any character that does not appear
-        between the brackets after the exclamation mark.</td></tr>
+        between the brackets after the exclamation метка.</td></tr>
     </table><p>
     Internally indivопрual character comparisons are готово calling
     charMatch(), so its rules apply here too. Note that путь
-    разделители and dots don't stop a meta-character из_ matching
+    разделители and dots don't stop a meta-character из_ совпадают
     further portions of the имяф.
 
     Возвращает: да if образец matches имяф, нет otherwise.

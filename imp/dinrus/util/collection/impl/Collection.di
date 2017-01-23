@@ -27,7 +27,7 @@ private import  util.collection.model.View,
 /*******************************************************************************
 
         Коллекция serves as a convenient основа class for most implementations
-        of mutable containers. It maintains a version число и элемент счёт.
+        of изменяемый containers. It maintains a version число и элемент счёт.
         It also provопрes default implementations of many collection operations. 
 
         Authors: Doug Lea
@@ -201,7 +201,7 @@ public abstract class Коллекция(T) : Dispenser!(T)
                             if ((cast(Seq) this) || (cast(SortedValues) this))
                                  return sameOrderedElements(this, другой);
                             else
-                               if (cast(Bag) this)
+                               if (cast(Рюкзак) this)
                                    return sameOccurrences(this, другой);
                                else
                                   if (cast(Набор) this)

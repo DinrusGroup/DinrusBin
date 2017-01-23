@@ -526,7 +526,7 @@ T[] itoa(T) (T[] вывод, бцел значение, цел корень = 10
 /******************************************************************************
 
         Consume a число из_ the ввод without converting it. Аргумент
-        'fp' enables floating-point consumption. Supports hex ввод for
+        'fp' enables floating-точка consumption. Supports hex ввод for
         numbers which are псеп_в_начале appropriately
 
         Since version 0.99.9
@@ -555,7 +555,7 @@ T[] используй(T) (T[] ист, бул fp=нет)
 
         if (fp)
            {
-           // gobble up a point
+           // gobble up a точка
            if (c is '.' && p < e)
                c = *++p;
 

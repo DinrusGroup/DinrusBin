@@ -3894,8 +3894,8 @@ enum : DWORD
 
 const 
 {
-char* CF_RTF = ("Rich Text Format");
-char* CF_RETEXTOBJ = ("RichEdit Text and Objects");
+char* CF_RTF = ("Rich Текст Format");
+char* CF_RETEXTOBJ = ("RichEdit Текст and Objects");
 }
 
 enum : DWORD 
@@ -11819,7 +11819,7 @@ struct PERF_OBJECT_TYPE
  DWORD NumCounters;
  DWORD DefaultCounter;
  DWORD NumInstances;
- DWORD CodePage;
+ DWORD КодоваяСтраница;
  LARGE_INTEGER PerfTime;
  LARGE_INTEGER PerfFreq;
 }

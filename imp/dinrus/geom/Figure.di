@@ -1,6 +1,6 @@
 ﻿module geom.Figure;
 
- import sys.DStructs;
+ import sys.WinStructs;
 
  const Прямоугольник НульПрям = Прямоугольник.init;
  const Точка НульТчк = Точка.init;

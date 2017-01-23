@@ -17,7 +17,7 @@ module util.collection.impl.RBPair;
 
 private import util.collection.impl.RBCell;
 
-private import util.collection.model.Comparator;
+private import util.collection.model.Сравнитель;
 
 
 /**
@@ -83,11 +83,11 @@ public class RBPair(K, T) : RBCell!(T)
          * Implements RBCell.найди.
          * Overrопрe RBCell version since we are ordered on ключи, not элементы, so
          * элемент найди имеется в_ ищи whole дерево.
-         * comparator аргумент not actually использован.
+         * сравнитель аргумент not actually использован.
          * See_Also: RBCell.найди
         **/
 
-        public final override RBCell!(T) найди(T элемент, Comparator!(T) cmp)
+        public final override RBCell!(T) найди(T элемент, Сравнитель!(T) cmp)
         {
                 RBCell!(T) t = this;
 
@@ -118,7 +118,7 @@ public class RBPair(K, T) : RBCell!(T)
          * Implements RBCell.счёт.
          * See_Also: RBCell.счёт
         **/
-        public final override цел счёт(T элемент, Comparator!(T) cmp)
+        public final override цел счёт(T элемент, Сравнитель!(T) cmp)
         {
                 цел c = 0;
                 RBCell!(T) t = this;
@@ -146,7 +146,7 @@ public class RBPair(K, T) : RBCell!(T)
          * найди и return a ячейка holding ключ, or пусто if no such
         **/
 
-        public final RBPair найдиКлюч(K ключ, Comparator!(K) cmp)
+        public final RBPair найдиКлюч(K ключ, Сравнитель!(K) cmp)
         {
                 auto t = this;
 
@@ -170,7 +170,7 @@ public class RBPair(K, T) : RBCell!(T)
         /**
          * найди и return a ячейка holding (ключ, элемент), or пусто if no such
         **/
-        public final RBPair найди(K ключ, T элемент, Comparator!(K) cmp)
+        public final RBPair найди(K ключ, T элемент, Сравнитель!(K) cmp)
         {
                 auto t = this;
 
@@ -194,7 +194,7 @@ public class RBPair(K, T) : RBCell!(T)
         /**
          * return число of узелs of subtree holding ключ
         **/
-        public final цел учтиКлюч(K ключ, Comparator!(K) cmp)
+        public final цел учтиКлюч(K ключ, Сравнитель!(K) cmp)
         {
                 цел c = 0;
                 auto t = this;
@@ -217,7 +217,7 @@ public class RBPair(K, T) : RBCell!(T)
         /**
          * return число of узелs of subtree holding (ключ, элемент)
         **/
-        public final цел счёт(K ключ, T элемент, Comparator!(K) cmp)
+        public final цел счёт(K ключ, T элемент, Сравнитель!(K) cmp)
         {
                 цел c = 0;
                 auto t = this;

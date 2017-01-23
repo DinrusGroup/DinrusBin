@@ -26,7 +26,7 @@ enum ПСостояниеКонтекста
 {
     Готов,      /// When a КонтекстСтэка is in готов состояние, it may be пуск
     Выполняется,    /// When a КонтекстСтэка is выполняется, it is currently in use, и cannot be пуск
-    Завершён,       /// When a КонтекстСтэка is мёртв, it may no longer be пуск
+    Завершён,       /// When a КонтекстСтэка is завершён, it may no longer be пуск
 }
 
 /******************************************************
@@ -71,7 +71,7 @@ public class ОшибкаКонтекста : Ошибка
  * Contexts may be nested arbitrarily, ie Context A invokes
  * Context B, such that when B жниs A is resumeauxd.
  *
- * Calling пуск on already выполняется or мёртв контекст will
+ * Calling пуск on already выполняется or завершён контекст will
  * result in an exception.
  *
  * If an exception is generated in a контекст и it is
@@ -273,7 +273,7 @@ public final class КонтекстСтэка
     public final проц рециклируй(проц delegate() dg);
     
     /**
-     * Immediately sets the контекст состояние to мёртв. This
+     * Immediately sets the контекст состояние to завершён. This
      * can be использован as an alternative to deleting the 
      * контекст since it releases any GC references, и
      * may be easily reallocateauxd.
@@ -307,9 +307,9 @@ public final class КонтекстСтэка
     public бул выполняется();
     
     /**
-     * Возвращает: True if the контекст is currenctly мёртв
+     * Возвращает: True if the контекст is currenctly завершён
      */
-    public бул мёртв();
+    public бул завершён();
     
     /**
      * Возвращает: The currently выполняется стэк контекст.
@@ -340,7 +340,7 @@ public final class КонтекстСтэка
             break;
             
             case ПСостояниеКонтекста.Завершён:
-                //Make sure контекст is мёртв
+                //Make sure контекст is завершён
 				//assert(старт_см is пусто);
             break;
             

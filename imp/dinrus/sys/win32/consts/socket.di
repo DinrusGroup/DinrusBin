@@ -150,7 +150,7 @@ enum: int
 
 enum
 {
-        EAI_BADFLAGS = 10022,                   /// Invalid value for `ai_flags' field.
+        EAI_BADFLAGS = 10022,                   /// Неверный value for `ai_flags' field.
         EAI_NONAME = 11001,                     /// NAME or SERVICE is unknown.
         EAI_AGAIN = 11002,                      /// Temporary failure in name resolution.
         EAI_FAIL = 11003,                       /// Non-recoverable failure in name res.

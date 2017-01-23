@@ -1,7 +1,7 @@
 ﻿module time.chrono.Calendar;
 
 public  import time.Time;
-private import exception;
+
 
 
 public abstract class Календарь
@@ -265,14 +265,14 @@ public abstract class Календарь
 
         /**
          * Returns a new Время with the specified число of месяцы добавьed.  If
-         * the месяцы are negative, the месяцы are subtracted.
+         * the месяцы are негатив, the месяцы are subtracted.
          *
          * If the мишень месяц does not support the день component of the ввод
          * время, then an ошибка will be thrown, unless truncateDay is установи в_
          * да.  If truncateDay is установи в_ да, then the день is reduced в_
          * the maximum день of that месяц.
          *
-         * For example, добавьing one месяц в_ 1/31/2000 with truncateDay установи в_
+         * For example, добавим one месяц в_ 1/31/2000 with truncateDay установи в_
          * да results in 2/28/2000.
          *
          * The default implementation uses information provопрed by the
@@ -284,7 +284,7 @@ public abstract class Календарь
          *
          * Параметры: t = A время в_ добавь the месяцы в_
          * Параметры: члоМес = The число of месяцы в_ добавь.  This can be
-         * negative.
+         * негатив.
          * Параметры: truncateDay = Round the день down в_ the maximum день of the
          * мишень месяц if necessary.
          *
@@ -304,7 +304,7 @@ public abstract class Календарь
          * эра boundaries.  Derived classes may support this.
          *
          * Параметры: t = A время в_ добавь the годы в_
-         * Параметры: члоЛет = The число of годы в_ добавь.  This can be negative.
+         * Параметры: члоЛет = The число of годы в_ добавь.  This can be негатив.
          *
          * Возвращает: A Время that represents the provопрed время with the число
          * of годы добавьed.

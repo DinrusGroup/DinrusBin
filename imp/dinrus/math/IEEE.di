@@ -274,10 +274,10 @@ public:
     цел не_годится();
 }
 
-/// Возвращает снимок of the текущ состояние of the floating-point статус флаги.
+/// Возвращает снимок of the текущ состояние of the floating-точка статус флаги.
 И3еФлаги и3еФлаги();
 
-/// Набор все of the floating-point статус флаги в_ нет.
+/// Набор все of the floating-точка статус флаги в_ нет.
 проц сбросьИ3еФлаги();
 
 /** IEEE rounding modes.
@@ -290,7 +290,7 @@ enum РежимОкругления : крат {
     К_НУЛЮ    = 0x0C00
 };
 
-/** Change the rounding режим использован for все floating-point operations.
+/** Change the rounding режим использован for все floating-точка operations.
  *
  * Returns the old rounding режим.
  *
@@ -323,7 +323,7 @@ enum КонтрольТочности : крат {
 КонтрольТочности передайТочностьРеала(КонтрольТочности прец);
 
 /*********************************************************************
- * Separate floating point значение преобр_в significand и exponent.
+ * Separate floating точка значение преобр_в significand и exponent.
  *
  * Возвращает:
  *      Calculate и return $(I x) и $(I эксп) such that
@@ -360,7 +360,7 @@ enum КонтрольТочности : крат {
  * Note that the special return значения may все be equal.
  *
  *      $(TABLE_SV
- *      $(TR $(TH x)                $(TH илогб(x))     $(TH Invalid?))
+ *      $(TR $(TH x)                $(TH илогб(x))     $(TH Неверный?))
  *      $(TR $(TD 0)                 $(TD FP_ILOGB0)   $(TD да))
  *      $(TR $(TD $(PLUSMN)$(INFIN)) $(TD FP_ILOGBINFINITY) $(TD да))
  *      $(TR $(TD $(NAN))            $(TD FP_ILOGBNAN) $(TD да))
@@ -467,7 +467,7 @@ enum КонтрольТочности : крат {
 /*********************************
  * Is the binary representation of x опрentical в_ y?
  *
- * Same as ==, except that positive и negative zero are not опрentical,
+ * Same as ==, except that positive и негатив zero are not опрentical,
  * и two $(NAN)s are опрentical if they have the same 'payload'.
  */
 
@@ -502,7 +502,7 @@ enum КонтрольТочности : крат {
 /*********************************
  * Return !=0 if x is $(PLUSMN)0.
  *
- * Does not affect any floating-point флаги
+ * Does not affect any floating-точка флаги
  */
 цел ноль_ли(реал x);
 
@@ -513,10 +513,10 @@ enum КонтрольТочности : крат {
 цел беск_ли(реал x);
 
 /**
- * Calculate the следщ largest floating point значение after x.
+ * Calculate the следщ largest floating точка значение after x.
  *
  * Return the least число greater than x that is representable as a реал;
- * thus, it gives the следщ point on the IEEE число строка.
+ * thus, it gives the следщ точка on the IEEE число строка.
  *
  *  $(TABLE_SV
  *    $(SVH x,            следщВыше(x)   )
@@ -572,10 +572,10 @@ X разбейЗначимое(X)(ref X x)
 }
 
 /**
- * Calculate the следщ smallest floating point значение before x.
+ * Calculate the следщ smallest floating точка значение before x.
  *
  * Return the greatest число less than x that is representable as a реал;
- * thus, it gives the previous point on the IEEE число строка.
+ * thus, it gives the previous точка on the IEEE число строка.
  *
  *  $(TABLE_SV
  *    $(SVH x,            следщНиже(x)   )
@@ -603,7 +603,7 @@ X разбейЗначимое(X)(ref X x)
 /**
  * Calculates the следщ representable значение after x in the direction of y.
  *
- * If y > x, the результат will be the следщ largest floating-point значение;
+ * If y > x, the результат will be the следщ largest floating-точка значение;
  * if y < x, the результат will be the следщ smallest значение.
  * If x == y, the результат is y.
  *
@@ -661,7 +661,7 @@ X разбейЗначимое(X)(ref X x)
 
     // The difference in абс(exponent) between x or y и абс(x-y)
     // is equal в_ the число of significand биты of x which are
-    // equal в_ y. If negative, x и y have different exponents.
+    // equal в_ y. If негатив, x и y have different exponents.
     // If positive, x и y are equal в_ 'bitsdiff' биты.
     // AND with 0x7FFF в_ form the абсолютный значение.
     // To avoопр out-by-1 ошибки, we вычти 1 so it rounds down
@@ -748,7 +748,7 @@ body {
     if (!((x>=0 && y>=0) || (x<=0 && y<=0))) return 0.0;
 
     // The implementation is simple: cast x и y в_ целыйs,
-    // average them (avoопрing перебор), и cast the результат back в_ a floating-point число.
+    // average them (avoопрing перебор), и cast the результат back в_ a floating-точка число.
 
     alias плавТрэтсИ3Е!(реал) F;
     T u;

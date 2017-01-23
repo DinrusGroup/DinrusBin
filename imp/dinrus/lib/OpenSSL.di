@@ -24,7 +24,7 @@ private import stdrus, stringz, cidrus, thread, sync, sys.SharedLib, io.FileSyst
 
    A lot of unsigned longs and longs were converted to бцел and цел
 
-   These will need to be reversed to support 64bit drTango
+   These will need to be reversed to support 64bit DinrusTango.lib
    (should use c_long and c_ulong from rt.core.stdc.config)
 
    XXX TODO XXX
@@ -109,9 +109,9 @@ extern (C)
         бцел num;
     };
 
-    struct EVP_CИПHER_CTX
+    struct EVP_CIPHER_CTX
     {
-        ук cИПher;
+        ук cipher;
         ук engine;
         цел зашифруй;
         цел buf_len;
@@ -124,15 +124,15 @@ extern (C)
         ук ap_data;
         цел key_len;
         c_ulong flags;
-        ук cИПher_data;
+        ук cipher_data;
         цел final_used;
         цел block_mask;
         ббайт[EVP_MAX_BLOCK_LENGTH] finalv;
     };
     
     // fallback for OpenSSL 0.9.7l 28 Sep 2006 that defines only macros
-    цел EVP_CИПHER_CTX_block_size_097l(EVP_CИПHER_CTX *e){
-        return *((cast(цел*)e.cИПher)+1);
+    цел EVP_CIPHER_CTX_block_size_097l(EVP_CIPHER_CTX *e){
+        return *((cast(цел*)e.cipher)+1);
     }
 
     struct BIO 
@@ -163,7 +163,7 @@ extern (C)
         // yadda yadda ...        
     };
     struct X509_STORE_CTX {};
-    struct EVP_CИПHER {};
+    struct EVP_CIPHER {};
     struct X509_ALGOR {};
     struct ASN1_INTEGER {};
     struct EVP_MD {};
@@ -214,7 +214,7 @@ extern (C)
     typedef проц function(SSL_CTX *ctx, цел mode, цел function(цел, X509_STORE_CTX *) callback) tSSL_CTX_set_verify;
     typedef проц function(EVP_PKEY *pkey) tEVP_PKEY_free;
     typedef цел function(SSL_CTX *ctx, цел cmd, цел larg, ук parg) tSSL_CTX_ctrl;
-    typedef цел function(SSL_CTX *ctx, сим *str) tSSL_CTX_set_cИПher_list;
+    typedef цел function(SSL_CTX *ctx, сим *str) tSSL_CTX_set_cipher_list;
     typedef проц function(SSL_CTX *) tSSL_CTX_free;
     typedef проц function() tSSL_load_error_strings;
     typedef проц function() tSSL_library_init;
@@ -239,7 +239,7 @@ extern (C)
     typedef цел function(SSL_CTX *ctx) tSSL_CTX_check_private_key;
     typedef EVP_PKEY* function(BIO *bp, EVP_PKEY **x, pem_password_cb *cb, ук u) tPEM_read_bio_PrivateKey;
     typedef BIO* function(сим *filename, сим *mode) tBIO_new_file;
-    typedef цел function() tERR_Просмотр_error;
+    typedef цел function() tERR_peek_error;
     typedef цел function(BIO *b, цел flags) tBIO_test_flags;
     typedef цел function(BIO *b, цел cmd, цел larg, ук parg) tBIO_ctrl; 
     typedef проц function(SSL *ssl, цел mode) tSSL_set_shutdown;
@@ -261,8 +261,8 @@ extern (C)
     typedef проц function(RSA *r) tRSA_free;
     typedef BIO* function(BIO_METHOD *тип) tBIO_new;
     typedef BIO_METHOD* function() tBIO_s_mem;
-    typedef цел function(BIO *bp, EVP_PKEY *x, EVP_CИПHER *cИПher, сим *kstr, цел klen, pem_password_cb, проц *) tPEM_write_bio_PKCS8PrivateKey;
-    typedef EVP_CИПHER* function() tEVP_aes_256_cbc;
+    typedef цел function(BIO *bp, EVP_PKEY *x, EVP_CIPHER *cipher, сим *kstr, цел klen, pem_password_cb, проц *) tPEM_write_bio_PKCS8PrivateKey;
+    typedef EVP_CIPHER* function() tEVP_aes_256_cbc;
     typedef проц* function(d2i_of_void d2i, сим *name, BIO *bp, проц **x, pem_password_cb cb, ук u) tPEM_ASN1_read_bio;
     typedef X509* function() tX509_new;
     typedef проц function(X509 *x) tX509_free;
@@ -281,7 +281,7 @@ extern (C)
     typedef цел function(X509_STORE_CTX *ctx, X509_STORE *store, X509 *x509, ук shizzle) tX509_STORE_CTX_init;
     typedef цел function(X509_STORE_CTX *ctx) tX509_verify_cert;
     typedef проц function(X509_STORE_CTX *ctx) tX509_STORE_CTX_free;
-    typedef цел function(i2d_of_void i2d, сим *name, BIO *bp, сим *x, EVP_CИПHER *enc, сим *kstr, цел klen, pem_password_cb cb, ук u) tPEM_ASN1_write_bio;
+    typedef цел function(i2d_of_void i2d, сим *name, BIO *bp, сим *x, EVP_CIPHER *enc, сим *kstr, цел klen, pem_password_cb cb, ук u) tPEM_ASN1_write_bio;
     typedef цел function(X509_NAME *name, сим* field, цел тип, сим *bytes, цел len, цел loc, цел set) tX509_NAME_add_entry_by_txt;
     typedef цел function(SSL_CTX *ctx, ббайт *id, бцел len) tSSL_CTX_set_session_id_context;
     typedef цел function(EVP_PKEY *a, EVP_PKEY *b) tEVP_PKEY_cmp_parameters;
@@ -300,15 +300,15 @@ extern (C)
     typedef проц function(MD5_CTX *c) tMD5_Init;
     typedef проц function(MD5_CTX *c, ук data, size_t len) tMD5_Update;
     typedef проц function(ббайт *md, MD5_CTX *c) tMD5_Final;
-    typedef цел function(EVP_CИПHER_CTX *ctx, EVP_CИПHER *тип, ук impl, ббайт *key, ббайт *iv) tEVP_EncryptInit_ex;
-    typedef цел function(EVP_CИПHER_CTX *ctx, EVP_CИПHER *тип, ук impl, ббайт *key, ббайт*iv) tEVP_DecryptInit_ex;
-    typedef цел function(EVP_CИПHER_CTX *ctx, ббайт *outv, цел *outl, ббайт *inv, цел inl) tEVP_EncryptUpdate;
-    typedef цел function(EVP_CИПHER_CTX *ctx, ббайт *outv, цел *outl, ббайт *inv, цел inl) tEVP_DecryptUpdate;
-    typedef цел function(EVP_CИПHER_CTX *ctx, ббайт *outv, цел *outl) tEVP_EncryptFinal_ex;
-    typedef цел function(EVP_CИПHER_CTX *ctx, ббайт *outv, цел *outl) tEVP_DecryptFinal_ex;
-    typedef цел function(EVP_CИПHER_CTX *ctx) tEVP_CИПHER_CTX_block_size;
-    typedef EVP_CИПHER *function() tEVP_aes_128_cbc;
-    typedef цел function(EVP_CИПHER_CTX *ctx) tEVP_CИПHER_CTX_cleanup;
+    typedef цел function(EVP_CIPHER_CTX *ctx, EVP_CIPHER *тип, ук impl, ббайт *key, ббайт *iv) tEVP_EncryptInit_ex;
+    typedef цел function(EVP_CIPHER_CTX *ctx, EVP_CIPHER *тип, ук impl, ббайт *key, ббайт*iv) tEVP_DecryptInit_ex;
+    typedef цел function(EVP_CIPHER_CTX *ctx, ббайт *outv, цел *outl, ббайт *inv, цел inl) tEVP_EncryptUpdate;
+    typedef цел function(EVP_CIPHER_CTX *ctx, ббайт *outv, цел *outl, ббайт *inv, цел inl) tEVP_DecryptUpdate;
+    typedef цел function(EVP_CIPHER_CTX *ctx, ббайт *outv, цел *outl) tEVP_EncryptFinal_ex;
+    typedef цел function(EVP_CIPHER_CTX *ctx, ббайт *outv, цел *outl) tEVP_DecryptFinal_ex;
+    typedef цел function(EVP_CIPHER_CTX *ctx) tEVP_CIPHER_CTX_block_size;
+    typedef EVP_CIPHER *function() tEVP_aes_128_cbc;
+    typedef цел function(EVP_CIPHER_CTX *ctx) tEVP_CIPHER_CTX_cleanup;
 
     struct CRYPTO_dynlock_value
     {
@@ -413,7 +413,7 @@ tSSL_CTX_use_PrivateKey SSL_CTX_use_PrivateKey;
 tSSL_CTX_set_verify SSL_CTX_set_verify;
 tEVP_PKEY_free EVP_PKEY_free;
 tSSL_CTX_ctrl SSL_CTX_ctrl;
-tSSL_CTX_set_cИПher_list SSL_CTX_set_cИПher_list;
+tSSL_CTX_set_cipher_list SSL_CTX_set_cipher_list;
 tSSL_CTX_free SSL_CTX_free;
 tSSL_load_error_strings SSL_load_error_strings;
 tSSL_library_init SSL_library_init;
@@ -435,7 +435,7 @@ tCRYPTO_cleanup_all_ex_data CRYPTO_cleanup_all_ex_data;
 tSSL_CTX_check_private_key SSL_CTX_check_private_key;
 tPEM_read_bio_PrivateKey PEM_read_bio_PrivateKey;
 tBIO_new_file BIO_new_file;
-tERR_Просмотр_error ERR_Просмотр_error;
+tERR_peek_error ERR_peek_error;
 tBIO_ctrl BIO_ctrl;
 tSSL_get_shutdown SSL_get_shutdown;
 tSSL_set_shutdown SSL_set_shutdown;
@@ -506,8 +506,8 @@ tEVP_DecryptUpdate EVP_DecryptUpdate;
 tEVP_EncryptFinal_ex EVP_EncryptFinal_ex;
 tEVP_DecryptFinal_ex EVP_DecryptFinal_ex;
 tEVP_aes_128_cbc EVP_aes_128_cbc;
-tEVP_CИПHER_CTX_block_size EVP_CИПHER_CTX_block_size;
-tEVP_CИПHER_CTX_cleanup EVP_CИПHER_CTX_cleanup;
+tEVP_CIPHER_CTX_block_size EVP_CIPHER_CTX_block_size;
+tEVP_CIPHER_CTX_cleanup EVP_CIPHER_CTX_cleanup;
 
 цел PEM_write_bio_RSAPublicKey(BIO *bp, RSA *x)
 {
@@ -609,8 +609,8 @@ body
     ук funcPtr = биб.дайСимвол(stringz.вТкст0(funcName));
     if (funcPtr)
     {
-        проц **point = cast(проц **)&func;
-        *point = funcPtr;
+        проц **точка = cast(проц **)&func;
+        *точка = funcPtr;
     }
     else
         throw new Исключение("Не удалось загрузить символ: " ~ funcName);
@@ -629,7 +629,7 @@ static ЧЗМютекс[] _locks = null;
 
 проц выдайОшибкуОпенССЛ()
 {
-    if (ERR_Просмотр_error())
+    if (ERR_peek_error())
     {
         ткст строкаИскл;
 
@@ -783,7 +783,7 @@ version (Win32)
         вяжиФ(X509_NAME_add_entry_by_txt, "X509_NAME_add_entry_by_txt", ssllib);
         вяжиФ(PEM_read_bio_PrivateKey, "PEM_read_bio_PrivateKey", ssllib);
         вяжиФ(BIO_new_file, "BIO_new_file", ssllib);
-        вяжиФ(ERR_Просмотр_error, "ERR_Просмотр_error", ssllib);
+        вяжиФ(ERR_peek_error, "ERR_peek_error", ssllib);
         try
             вяжиФ(BIO_test_flags, "BIO_test_flags", ssllib); // 0.9.7 doesn't have this function, it access the struct directly
         catch (Исключение ex)
@@ -831,12 +831,12 @@ version (Win32)
         вяжиФ(EVP_DecryptFinal_ex, "EVP_DecryptFinal_ex", ssllib);
         вяжиФ(EVP_aes_128_cbc, "EVP_aes_128_cbc", ssllib);
         try {
-            вяжиФ(EVP_CИПHER_CTX_block_size, "EVP_CИПHER_CTX_block_size", ssllib);
+            вяжиФ(EVP_CIPHER_CTX_block_size, "EVP_CIPHER_CTX_block_size", ssllib);
         } catch (Исключение e){
             // openSSL 0.9.7l defines only macros, not the function
-            EVP_CИПHER_CTX_block_size=&EVP_CИПHER_CTX_block_size_097l;
+            EVP_CIPHER_CTX_block_size=&EVP_CIPHER_CTX_block_size_097l;
         }
-        вяжиФ(EVP_CИПHER_CTX_cleanup, "EVP_CИПHER_CTX_cleanup", ssllib);
+        вяжиФ(EVP_CIPHER_CTX_cleanup, "EVP_CIPHER_CTX_cleanup", ssllib);
     }
 }
 
@@ -872,7 +872,7 @@ version (Win32)
         вяжиФ(SSL_CTX_use_PrivateKey, "SSL_CTX_use_PrivateKey", ssllib);
         вяжиФ(SSL_CTX_set_verify, "SSL_CTX_set_verify", ssllib);
         вяжиФ(SSL_CTX_ctrl, "SSL_CTX_ctrl", ssllib);
-        вяжиФ(SSL_CTX_set_cИПher_list, "SSL_CTX_set_cИПher_list", ssllib);
+        вяжиФ(SSL_CTX_set_cipher_list, "SSL_CTX_set_cipher_list", ssllib);
         вяжиФ(SSL_load_error_strings, "SSL_load_error_strings", ssllib);
         вяжиФ(SSL_library_init, "SSL_library_init", ssllib);
         вяжиФ(SSL_CTX_check_private_key, "SSL_CTX_check_private_key", ssllib);
@@ -885,7 +885,7 @@ version (Win32)
         version(Posix)
         {
             version(darwin){
-                ткст[] loadPathCrypto = [ "/usr/биб/libcrypto.dylib", "libcrypto.dylib" ];
+                ткст[] loadPathCrypto = [ "/usr/lib/libcrypto.dylib", "libcrypto.dylib" ];
                 cryptolib = грузиБиб(loadPathCrypto);
                 if (cryptolib !is null) вяжиКрипто(cryptolib);
             } else {

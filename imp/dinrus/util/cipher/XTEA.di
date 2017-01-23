@@ -8,7 +8,7 @@ module util.cipher.XTEA;
 
 private import util.cipher.Cipher;
 
-/** Implementation of the XTEA cИПher designed by
+/** Implementation of the XTEA cipher designed by
     David Wheeler и Roger Needham. */
 class XTEA : ШифрБлок
 {
@@ -64,7 +64,7 @@ class XTEA : ШифрБлок
                 "4141414141414141"
             ];
                 
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "dee9d4d8f7131ed9",
                 "065c1b8975c6a816",
                 "1ff9a0261ac64264",
@@ -88,12 +88,12 @@ class XTEA : ШифрБлок
                 t.init(да, ключ);
                 t.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        t.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+                assert(результат == test_ciphertexts[i],
+                        t.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
     
                 // Decryption
                 t.init(нет, ключ);
-                t.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                t.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         t.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

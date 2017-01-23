@@ -186,7 +186,7 @@ public interface View(T)
          * <UL>
          *  <LI> Seq и ElementSortedView: другой.элементы() имеется the 
          *        same order as this.элементы().
-         *  <LI> Bag: другой.элементы имеется the same экземпляры each элемент as this.
+         *  <LI> Рюкзак: другой.элементы имеется the same экземпляры each элемент as this.
          *  <LI> Набор: другой.элементы имеется все элементы of this
          *  <LI> Карта: другой имеется все (ключ, элемент) pairs of this.
          *  <LI> KeySortedView: другой имеется все (ключ, элемент)

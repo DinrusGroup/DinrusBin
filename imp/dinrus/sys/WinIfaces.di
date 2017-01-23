@@ -2,8 +2,8 @@
 Модуль интерфейсов WIN API для языка Динрус.
 Разработчик Виталий Кулич.
 */
-module sys.DIfaces;
-import sys.DStructs, sys.DConsts;
+module sys.WinIfaces;
+import sys.WinStructs, sys.WinConsts;
 import tpl.com;
 
 /**

@@ -106,7 +106,7 @@ const реал МАКСГАММА = 1755.5483429L;
  *
  *    betaIncompleteCompl(a, b, x )  =  бетаНеполная( b, a, 1-x )
  *
- * The integral is evaluated by a continued дробь expansion
+ * The integral is evaluated by a continued дво expansion
  * or, when b*x is small, by a power series.
  */
 реал бетаНеполная(реал aa, реал bb, реал xx );
@@ -133,7 +133,7 @@ const реал МАКСГАММА = 1755.5483429L;
  *
  * In this implementation Всё аргументы must be positive.
  * The integral is evaluated by either a power series or
- * continued дробь expansion, depending on the relative
+ * continued дво expansion, depending on the relative
  * значения of a и x.
  */
 реал гаммаНеполная(реал a, реал x );

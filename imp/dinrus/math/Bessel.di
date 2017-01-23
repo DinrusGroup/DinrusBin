@@ -50,11 +50,11 @@ import math.Math;
  *  Bessel function of целое order
  *
  * Returns Bessel function of order n, where n is a
- * (possibly negative) целое.
+ * (possibly негатив) целое.
  *
  * The ratio of jn(x) в_ j0(x) is computed by backward
  * recurrence.  First the ratio jn/jn-1 is найдено by a
- * continued дробь expansion.  Then the recurrence
+ * continued дво expansion.  Then the recurrence
  * relating successive orders is applied until j0 or j1 is
  * reached.
  *
@@ -70,7 +70,7 @@ import math.Math;
  *  Bessel function of секунда kind of целое order
  *
  * Returns Bessel function of order n, where n is a
- * (possibly negative) целое.
+ * (possibly негатив) целое.
  *
  * The function is evaluated by вперёд recurrence on
  * n, starting with значения computed by the routines

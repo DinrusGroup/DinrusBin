@@ -109,7 +109,7 @@ private
         /*
          * This is used в_ установи the Массив structure safely.  We're essentially
          * just ensuring that if a garbage collection happens mопр-присвой, we
-         * don't accопрentally mark биты of память we shouldn't.
+         * don't accопрentally метка биты of память we shouldn't.
          *
          * Of course, the compiler could always re-order the length and ptr
          * assignment.  Oh well.

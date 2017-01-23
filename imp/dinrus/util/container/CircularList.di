@@ -1075,7 +1075,7 @@ class ЦиркулярныйСписок (V, alias Извл = Контейнер
                 /***************************************************************
         
                         FlИП the direction of следщ() и opApply(), и 
-                        сбрось the termination point such that we can do
+                        сбрось the termination точка such that we can do
                         другой full traversal.
 
                 ***************************************************************/
@@ -1195,13 +1195,13 @@ debug (ЦиркулярныйСписок)
                 const счёт = 1_000_000;
                 Секундомер w;
 
-                // benchmark добавьing
+                // benchmark добавим
                 w.старт;
                 for (бцел i=счёт; i--;)
                      тест.добавь(i);
                 Стдвыв.форматнс ("{} добавьs: {}/s", тест.размер, тест.размер/w.stop);
 
-                // benchmark добавьing without allocation overhead
+                // benchmark добавим without allocation overhead
                 тест.очисть;
                 w.старт;
                 for (бцел i=счёт; i--;)

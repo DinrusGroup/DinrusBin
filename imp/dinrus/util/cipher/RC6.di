@@ -9,7 +9,7 @@ module util.cipher.RC6;
 private import util.cipher.Cipher;
 
 /**
- * Implementation of the RC6-32/20/b cИПher designed by 
+ * Implementation of the RC6-32/20/b cipher designed by 
  * Ron Rivest et al. of RSA Security.
  * 
  * It should be noted that this algorithm is very similar в_ RC5.
@@ -50,7 +50,7 @@ class RC6 : ШифрБлок
         
         бцел длин = keyParams.ключ.length;
         if (длин != 16 && длин != 24 && длин != 32)
-            не_годится(имя()~": Invalid ключ length (требует 16/24/32 байты)");
+            не_годится(имя()~": Неверный ключ length (требует 16/24/32 байты)");
         
         S = new бцел[2*ROUNDS+4];        
                    
@@ -184,7 +184,7 @@ class RC6 : ШифрБлок
                 "02132435465768798a9bacbdcedfe0f1"
             ];
                 
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "8fc3a53656b1f778c129df4e9848a41e",
                 "524e192f4715c6231f51f6367ea43f18",
                 "6cd61bcb190b30384e8a3f168690ae82",
@@ -204,12 +204,12 @@ class RC6 : ШифрБлок
                 t.init(да, ключ);
                 t.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        t.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+                assert(результат == test_ciphertexts[i],
+                        t.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
             
                 // Decryption
                 t.init(нет, ключ);
-                t.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                t.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         t.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

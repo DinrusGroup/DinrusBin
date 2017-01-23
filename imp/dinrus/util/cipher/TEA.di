@@ -8,7 +8,7 @@ module util.cipher.TEA;
 
 private import util.cipher.Cipher;
 
-/** Implementation of the TEA cИПher designed by
+/** Implementation of the TEA cipher designed by
     David Wheeler и Roger Needham. */
 class TEA : ШифрБлок
 {
@@ -51,7 +51,7 @@ class TEA : ШифрБлок
                 "0102030405060708"
             ];
                 
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "41ea3a0a94baa940",
                 "6a2f9cf3fccf3c55",
                 "34e943b0900f5dcb",
@@ -70,12 +70,12 @@ class TEA : ШифрБлок
                 t.init(да, ключ);
                 t.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        t.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+                assert(результат == test_ciphertexts[i],
+                        t.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
 
                 // Decryption
                 t.init(нет, ключ);
-                t.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                t.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         t.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

@@ -1,5 +1,5 @@
 ﻿module global;
-private import sys.DStructs, runtime, gc, cidrus, win;
+private import sys.WinStructs, runtime, gc, cidrus, win;
 
 static Рантайм _рт; //Главный рантайм
 static т_см _см; //Главный СборщикМусора

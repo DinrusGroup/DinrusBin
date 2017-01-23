@@ -70,7 +70,7 @@ template типЦелЧис_ли( T )
 
 
 /**
- * Evaluates в_ да if T is a реал floating-point тип.
+ * Evaluates в_ да if T is a реал floating-точка тип.
  */
 template типРеал_ли( T )
 {
@@ -81,7 +81,7 @@ template типРеал_ли( T )
 
 
 /**
- * Evaluates в_ да if T is a комплексное floating-point тип.
+ * Evaluates в_ да if T is a комплексное floating-точка тип.
  */
 template типКомплекс_ли( T )
 {
@@ -92,7 +92,7 @@ template типКомплекс_ли( T )
 
 
 /**
- * Evaluates в_ да if T is an мнимое floating-point тип.
+ * Evaluates в_ да if T is an мнимое floating-точка тип.
  */
 template типМнимое_ли( T )
 {
@@ -103,18 +103,18 @@ template типМнимое_ли( T )
 
 
 /**
- * Evaluates в_ да if T is any floating-point тип: реал, комплексное, or
+ * Evaluates в_ да if T is any floating-точка тип: реал, комплексное, or
  * мнимое.
  */
-template isFloatingPointType( T )
+template типДробь_ли( T )
 {
-    const бул isFloatingPointType = типРеал_ли!(T)    ||
+    const бул типДробь_ли = типРеал_ли!(T)    ||
                                      типКомплекс_ли!(T) ||
                                      типМнимое_ли!(T);
 }
 
 /// да if T is an atomic тип
-template isAtomicType(T)
+template типАтом_ли(T)
 {
     static if( is( T == бул )
             || is( T == сим )
@@ -134,58 +134,58 @@ template isAtomicType(T)
             || is( T == вплав )
             || is( T == вдво )
             || is( T == вреал ) )
-        const isAtomicType = да;
+        const типАтом_ли = да;
     else
-        const isAtomicType = нет;
+        const типАтом_ли = нет;
 }
 
 /**
  * комплексное тип for the given тип
  */
-template ComplexTypeOf(T){
+template КомплексныйТипИз(T){
     static if(is(T==плав)||is(T==вплав)||is(T==кплав)){
-        alias кплав ComplexTypeOf;
+        alias кплав КомплексныйТипИз;
     } else static if(is(T==дво)|| is(T==вдво)|| is(T==кдво)){
-        alias кдво ComplexTypeOf;
+        alias кдво КомплексныйТипИз;
     } else static if(is(T==реал)|| is(T==вреал)|| is(T==креал)){
-        alias креал ComplexTypeOf;
-    } else static assert(0,"unsupported тип in ComplexTypeOf "~T.stringof);
+        alias креал КомплексныйТипИз;
+    } else static assert(0,"unsupported тип in КомплексныйТипИз "~T.stringof);
 }
 
 /**
  * реал тип for the given тип
  */
-template RealTypeOf(T){
+template РеальныйТипИз(T){
     static if(is(T==плав)|| is(T==вплав)|| is(T==кплав)){
-        alias плав RealTypeOf;
+        alias плав РеальныйТипИз;
     } else static if(is(T==дво)|| is(T==вдво)|| is(T==кдво)){
-        alias дво RealTypeOf;
+        alias дво РеальныйТипИз;
     } else static if(is(T==реал)|| is(T==вреал)|| is(T==креал)){
-        alias реал RealTypeOf;
-    } else static assert(0,"unsupported тип in RealTypeOf "~T.stringof);
+        alias реал РеальныйТипИз;
+    } else static assert(0,"unsupported тип in РеальныйТипИз "~T.stringof);
 }
 
 /**
  * мнимое тип for the given тип
  */
-template ImaginaryTypeOf(T){
+template МнимыйТипИз(T){
     static if(is(T==плав)|| is(T==вплав)|| is(T==кплав)){
-        alias вплав ImaginaryTypeOf;
+        alias вплав МнимыйТипИз;
     } else static if(is(T==дво)|| is(T==вдво)|| is(T==кдво)){
-        alias вдво ImaginaryTypeOf;
+        alias вдво МнимыйТипИз;
     } else static if(is(T==реал)|| is(T==вреал)|| is(T==креал)){
-        alias вреал ImaginaryTypeOf;
-    } else static assert(0,"unsupported тип in ImaginaryTypeOf "~T.stringof);
+        alias вреал МнимыйТипИз;
+    } else static assert(0,"unsupported тип in МнимыйТипИз "~T.stringof);
 }
 
 /// тип with maximum точность
-template MaxPrecTypeOf(T){
+template МаксПрецТипИз(T){
     static if (типКомплекс_ли!(T)){
-        alias креал MaxPrecTypeOf;
+        alias креал МаксПрецТипИз;
     } else static if (типМнимое_ли!(T)){
-        alias вреал MaxPrecTypeOf;
+        alias вреал МаксПрецТипИз;
     } else {
-        alias реал MaxPrecTypeOf;
+        alias реал МаксПрецТипИз;
     }
 }
 
@@ -213,9 +213,9 @@ debug( UnitTest )
         static assert( !типУк_ли!(сим*[]) );
         static assert( типУк_ли!(реал*) );
         static assert( !типУк_ли!(бцел) );
-        static assert( is(MaxPrecTypeOf!(плав)==реал));
-        static assert( is(MaxPrecTypeOf!(кплав)==креал));
-        static assert( is(MaxPrecTypeOf!(вплав)==вреал));
+        static assert( is(МаксПрецТипИз!(плав)==реал));
+        static assert( is(МаксПрецТипИз!(кплав)==креал));
+        static assert( is(МаксПрецТипИз!(вплав)==вреал));
 
         class Ham
         {
@@ -243,10 +243,10 @@ debug( UnitTest )
 /**
  * Evaluates в_ да if T is a a pointer, class, interface, or delegate.
  */
-template ссылТип_ли( T )
+template типСсылка_ли( T )
 {
 
-    const бул ссылТип_ли = типУк_ли!(T)  ||
+    const бул типСсылка_ли = типУк_ли!(T)  ||
                                is( T == class )     ||
                                is( T == interface ) ||
                                is( T == delegate );
@@ -269,16 +269,16 @@ version( GNU )
     // GDC should also be able в_ use the другой version, but it probably
     // relies on a frontend fix in one of the latest DMD versions - will
     // удали this when GDC is ready. For сейчас, this код пароль the unittests.
-    private template статМасс_лиTypeInst( T )
+    private template экзТипаСтатМас( T )
     {
-        const T статМасс_лиTypeInst =void;
+        const T экзТипаСтатМас =void;
     }
 
     template типСтатМас_ли( T )
     {
         static if( is( typeof(T.length) ) && !is( typeof(T) == typeof(T.init) ) )
         {
-            const бул типСтатМас_ли = is( T == typeof(T[0])[статМасс_лиTypeInst!(T).length] );
+            const бул типСтатМас_ли = is( T == typeof(T[0])[экзТипаСтатМас!(T).length] );
         }
         else
         {
@@ -331,9 +331,9 @@ debug( UnitTest )
 /**
  * Evaluates в_ да if T is an associative Массив тип.
  */
-template isAssocArrayType( T )
+template типАссоцМассив_ли( T )
 {
-    const бул isAssocArrayType = is( typeof(T.init.values[0])[typeof(T.init.ключи[0])] == T );
+    const бул типАссоцМассив_ли = is( typeof(T.init.values[0])[typeof(T.init.ключи[0])] == T );
 }
 
 
@@ -351,53 +351,53 @@ template ВызываемыйТип_ли( T )
 
 
 /**
- * Evaluates в_ the return тип of Fn.  Fn is required в_ be a callable тип.
+ * Evaluates в_ the return тип of Фн.  Фн is required в_ be a callable тип.
  */
-template ReturnTypeOf( Fn )
+template ВозвратныйТипИз( Фн )
 {
-    static if( is( Fn Ret == return ) )
-        alias Ret ReturnTypeOf;
+    static if( is( Фн Возвр == return ) )
+        alias Возвр ВозвратныйТипИз;
     else
         static assert( нет, "Аргумент есть no return тип." );
 }
 
 /** 
  * Returns the тип that a T would evaluate в_ in an expression.
- * Expr is not required в_ be a callable тип
+ * Выраж is not required в_ be a callable тип
  */ 
-template ExprTypeOf( Expr )
+template ТипВыражениеИз( Выраж )
 {
-    static if(ВызываемыйТип_ли!( Expr ))
-        alias ReturnTypeOf!( Expr ) ExprTypeOf;
+    static if(ВызываемыйТип_ли!( Выраж ))
+        alias ВозвратныйТипИз!( Выраж ) ТипВыражениеИз;
     else
-        alias Expr ExprTypeOf;
+        alias Выраж ТипВыражениеИз;
 }
 
 
 /**
  * Evaluates в_ the return тип of фн.  фн is required в_ be callable.
  */
-template ReturnTypeOf( alias фн )
+template ВозвратныйТипИз( alias фн )
 {
-    static if( is( typeof(фн) Base == typedef ) )
-        alias ReturnTypeOf!(Base) ReturnTypeOf;
+    static if( is( typeof(фн) База == typedef ) )
+        alias ВозвратныйТипИз!(База) ВозвратныйТипИз;
     else
-        alias ReturnTypeOf!(typeof(фн)) ReturnTypeOf;
+        alias ВозвратныйТипИз!(typeof(фн)) ВозвратныйТипИз;
 }
 
 
 /**
- * Evaluates в_ a tuple representing the параметры of Fn.  Fn is required в_
+ * Evaluates в_ a tuple representing the параметры of Фн.  Фн is required в_
  * be a callable тип.
  */
-template ParameterTupleOf( Fn )
+template КортежПараметровИз( Фн )
 {
-    static if( is( Fn Params == function ) )
-        alias Params ParameterTupleOf;
-    else static if( is( Fn Params == delegate ) )
-        alias ParameterTupleOf!(Params) ParameterTupleOf;
-    else static if( is( Fn Params == Params* ) )
-        alias ParameterTupleOf!(Params) ParameterTupleOf;
+    static if( is( Фн Парамы == function ) )
+        alias Парамы КортежПараметровИз;
+    else static if( is( Фн Парамы == delegate ) )
+        alias КортежПараметровИз!(Парамы) КортежПараметровИз;
+    else static if( is( Фн Парамы == Парамы* ) )
+        alias КортежПараметровИз!(Парамы) КортежПараметровИз;
     else
         static assert( нет, "Аргумент есть no параметры." );
 }
@@ -407,12 +407,12 @@ template ParameterTupleOf( Fn )
  * Evaluates в_ a tuple representing the параметры of фн.  n is required в_
  * be callable.
  */
-template ParameterTupleOf( alias фн )
+template КортежПараметровИз( alias фн )
 {
-    static if( is( typeof(фн) Base == typedef ) )
-        alias ParameterTupleOf!(Base) ParameterTupleOf;
+    static if( is( typeof(фн) База == typedef ) )
+        alias КортежПараметровИз!(База) КортежПараметровИз;
     else
-        alias ParameterTupleOf!(typeof(фн)) ParameterTupleOf;
+        alias КортежПараметровИз!(typeof(фн)) КортежПараметровИз;
 }
 
 
@@ -420,10 +420,10 @@ template ParameterTupleOf( alias фн )
  * Evaluates в_ a tuple representing the ancestors of T.  T is required в_ be
  * a class or interface тип.
  */
-template BaseTypeTupleOf( T )
+template КортежБазовыхТиповИз( T )
 {
-    static if( is( T Base == super ) )
-        alias Base BaseTypeTupleOf;
+    static if( is( T База == super ) )
+        alias База КортежБазовыхТиповИз;
     else
         static assert( нет, "Аргумент is not a class or interface." );
 }
@@ -444,68 +444,68 @@ template БазТипМассивов(T)
 /**
  * strips one [] off a тип
  */
-template ElementTypeOfArray(T:T[])
+template ЭлементТипаМассив(T:T[])
 {
-    alias T ElementTypeOfArray;
+    alias T ЭлементТипаМассив;
 }
 
 /**
  * Count the []'s on an Массив тип
  */
-template rankOfArray(T) {
+template рангМассива(T) {
     static if(is(T S : S[])) {
-        const бцел rankOfArray = 1 + rankOfArray!(S);
+        const бцел рангМассива = 1 + рангМассива!(S);
     } else {
-        const бцел rankOfArray = 0;
+        const бцел рангМассива = 0;
     }
 }
 
 /// тип of the ключи of an AA
-template KeyTypeOfAA(T){
-    alias typeof(T.init.ключи[0]) KeyTypeOfAA;
+template ТипКлючАМ(T){
+    alias typeof(T.init.ключи[0]) ТипКлючАМ;
 }
 
 /// тип of the values of an AA
-template ValTypeOfAA(T){
-    alias typeof(T.init.values[0]) ValTypeOfAA;
+template ТипЗначениеАМ(T){
+    alias typeof(T.init.values[0]) ТипЗначениеАМ;
 }
 
 /// returns the размер of a static Массив
-template staticArraySize(T)
+template размерСтатичМассива(T)
 {
-    static assert(типСтатМас_ли!(T),"staticArraySize needs a static Массив as тип");
-    static assert(rankOfArray!(T)==1,"implemented only for 1d массивы...");
-    const т_мера staticArraySize=(T).sizeof / typeof(T.init).sizeof;
+    static assert(типСтатМас_ли!(T),"размерСтатичМассива needs a static Массив as тип");
+    static assert(рангМассива!(T)==1,"implemented only for 1d массивы...");
+    const т_мера размерСтатичМассива=(T).sizeof / typeof(T.init).sizeof;
 }
 
 /// is T is static Массив returns a dynamic Массив, otherwise returns T
-template DynamicArrayType(T)
+template ТипДинамичМассив(T)
 {
     static if( типСтатМас_ли!(T) )
-        alias typeof(T.dup) DynamicArrayType;
+        alias typeof(T.dup) ТипДинамичМассив;
     else
-        alias T DynamicArrayType;
+        alias T ТипДинамичМассив;
 }
 
 debug( UnitTest )
 {
     static assert( is(БазТипМассивов!(реал[][])==реал) );
     static assert( is(БазТипМассивов!(реал[2][3])==реал) );
-    static assert( is(ElementTypeOfArray!(реал[])==реал) );
-    static assert( is(ElementTypeOfArray!(реал[][])==реал[]) );
-    static assert( is(ElementTypeOfArray!(реал[2][])==реал[2]) );
-    static assert( is(ElementTypeOfArray!(реал[2][2])==реал[2]) );
-    static assert( rankOfArray!(реал[][])==2 );
-    static assert( rankOfArray!(реал[2][])==2 );
-    static assert( is(ValTypeOfAA!(сим[цел])==сим));
-    static assert( !is(KeyTypeOfAA!(сим[цел])==цел));
-    static assert( is(ValTypeOfAA!(ткст[цел])==ткст));
-    static assert( is(KeyTypeOfAA!(ткст[цел[]])==цел[]));
-    static assert( isAssocArrayType!(ткст[цел[]]));
-    static assert( !isAssocArrayType!(ткст));
-    static assert( is(DynamicArrayType!(сим[2])==DynamicArrayType!(ткст)));
-    static assert( is(DynamicArrayType!(сим[2])==ткст));
-    static assert( staticArraySize!(сим[2])==2);
+    static assert( is(ЭлементТипаМассив!(реал[])==реал) );
+    static assert( is(ЭлементТипаМассив!(реал[][])==реал[]) );
+    static assert( is(ЭлементТипаМассив!(реал[2][])==реал[2]) );
+    static assert( is(ЭлементТипаМассив!(реал[2][2])==реал[2]) );
+    static assert( рангМассива!(реал[][])==2 );
+    static assert( рангМассива!(реал[2][])==2 );
+    static assert( is(ТипЗначениеАМ!(сим[цел])==сим));
+    static assert( !is(ТипКлючАМ!(сим[цел])==цел));
+    static assert( is(ТипЗначениеАМ!(ткст[цел])==ткст));
+    static assert( is(ТипКлючАМ!(ткст[цел[]])==цел[]));
+    static assert( типАссоцМассив_ли!(ткст[цел[]]));
+    static assert( !типАссоцМассив_ли!(ткст));
+    static assert( is(ТипДинамичМассив!(сим[2])==ТипДинамичМассив!(ткст)));
+    static assert( is(ТипДинамичМассив!(сим[2])==ткст));
+    static assert( размерСтатичМассива!(сим[2])==2);
 }
 
 // ------- CTFE -------

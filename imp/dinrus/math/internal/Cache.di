@@ -184,7 +184,7 @@ private:
 	бул probablyIntel; // да = _probably_ an Intel процессор, might be faking
 	бул probablyAMD; // да = _probably_ an AMD процессор
 	сим [12] vendorID;
-	сим [] processorName;
+	сим [] имяПроцессора;
 	сим [48] processorNameBuffer;
 	бцел features = 0;     // mmx, sse, sse2, hyperthreading, etc
 	бцел miscfeatures = 0; // sse3, etc.

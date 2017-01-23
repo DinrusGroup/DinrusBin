@@ -170,10 +170,10 @@ T[] изСущности (T) (T[] ист, T[] приёмн = пусто)
 
 /******************************************************************************
 
-        Convert reserved chars в_ entities. For example: " => &quot; 
+        Convert reserved симвы в_ entities. For example: " => &quot; 
 
         Either a срез of the provопрed вывод буфер is returned, or the 
-        original контент, depending on whether there were reserved chars
+        original контент, depending on whether there were reserved симвы
         present or not. The вывод буфер should be sufficiently large в_  
         accomodate the преобразованый вывод, or it will be allocated из_ the 
         куча instead 
@@ -248,7 +248,7 @@ T[] вСущность(T) (T[] ист, T[] приёмн = пусто)
 
 /******************************************************************************
 
-        Convert reserved chars в_ entities. For example: " => &quot; 
+        Convert reserved симвы в_ entities. For example: " => &quot; 
 
         This variant does not require an interim workspace, и instead
         излейs directly via the provопрed delegate

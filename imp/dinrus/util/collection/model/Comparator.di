@@ -1,5 +1,5 @@
 ﻿/*
- Файл: Comparator.d
+ Файл: Сравнитель.d
 
  Originally записано by Doug Lea и released преобр_в the public домен. 
  Thanks for the assistance и support of Sun Microsystems Labs, Agorics 
@@ -12,12 +12,12 @@
 */
 
 
-module util.collection.model.Comparator;
+module util.collection.model.Сравнитель;
 
 
 /**
  *
- * Comparator is an interface for any class possessing an элемент
+ * Сравнитель is an interface for any class possessing an элемент
  * сравнение метод.
  * 
         author: Doug Lea
@@ -27,18 +27,18 @@ module util.collection.model.Comparator;
  *
 **/
 
-template Comparator(T)
+template Сравнитель(T)
 {
-        alias цел delegate(T, T) Comparator;
+        alias цел delegate(T, T) Сравнитель;
 }
 
 /+
-public interface Comparator(T)
+public interface Сравнитель(T)
 {
         /**
          * @param fst первый аргумент
          * @param snd секунда аргумент
-         * Возвращает: a negative число if fst is less than snd; a
+         * Возвращает: a негатив число if fst is less than snd; a
          * positive число if fst is greater than snd; else 0
         **/
         public цел сравни(T fst, T snd);

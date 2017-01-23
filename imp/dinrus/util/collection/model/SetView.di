@@ -17,7 +17,7 @@ module util.collection.model.SetView;
 private import util.collection.model.View;
 
 /**
- * Sets provопрe an include operations for добавьing
+ * Sets provопрe an include operations for добавим
  * an элемент only if it is not already present.
  * They also добавь a guarantee:
  * With sets,

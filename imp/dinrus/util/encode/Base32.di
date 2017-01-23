@@ -64,7 +64,7 @@ module util.encode.Base32;
     Параметры:
     данные = что is в_ be кодирован
     buff = буфер large enough в_ hold кодирован данные
-    pad  = Whether в_ pad аски вывод with '='-chars
+    pad  = Whether в_ pad аски вывод with '='-симвы
 
     Example:
     ---
@@ -84,7 +84,7 @@ module util.encode.Base32;
 
     Параметры:
     данные = что is в_ be кодирован
-    pad = whether в_ pad вывод with '='-chars
+    pad = whether в_ pad вывод with '='-симвы
 
     Example:
     ---

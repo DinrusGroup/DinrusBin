@@ -326,8 +326,8 @@ version(Clone)
   public final ткст сортируемыйОбразецДатыВремени() ;
   public final ткст универсальныйСортируемыйОбразецДатыВремени() ;
 
-  package ткст generalShortTimePattern();
-  package ткст generalLongTimePattern();
+  package ткст общКраткийОбразецВремени();
+  package ткст общДлинныйОбразецВремени();
  // private проц проверьТолькоЧтен();
  // private проц инициализуй();
  // private цел[] опциональныеКалендари() ;

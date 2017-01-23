@@ -97,9 +97,9 @@ class БзипВывод : ФильтрВывода
         super(поток);
         out_chunk = new ббайт[BUFFER_SIZE];
         
-        auto ret = BZ2_bzCompressInit(&bzs, размерБлока, 0, DEFAULT_WORKFACTOR);
-        if( ret != BZ_OK )
-            throw new ИсключениеБзип(ret);
+        auto возвр = BZ2_bzCompressInit(&bzs, размерБлока, 0, DEFAULT_WORKFACTOR);
+        if( возвр != BZ_OK )
+            throw new ИсключениеБзип(возвр);
 
         bzs_valid = да;
     }
@@ -121,7 +121,7 @@ class БзипВывод : ФильтрВывода
 
     т_мера пиши(проц[] ист)
     {
-        check_valid();
+        проверьГожесть();
         scope(failure) kill_bzs();
 
         bzs.avail_in = ист.length;
@@ -132,9 +132,9 @@ class БзипВывод : ФильтрВывода
             bzs.avail_out = out_chunk.length;
             bzs.next_out = out_chunk.ptr;
 
-            auto ret = BZ2_bzCompress(&bzs, BZ_RUN);
-            if( ret != BZ_RUN_OK )
-                throw new ИсключениеБзип(ret);
+            auto возвр = BZ2_bzCompress(&bzs, BZ_RUN);
+            if( возвр != BZ_RUN_OK )
+                throw new ИсключениеБзип(возвр);
 
             // Push the compressed байты out в_ the поток, until it's either
             // записано them все, or choked.
@@ -196,7 +196,7 @@ class БзипВывод : ФильтрВывода
 
     проц подай()
     {
-        check_valid();
+        проверьГожесть();
         scope(failure) kill_bzs();
 
         bzs.avail_in = 0;
@@ -209,8 +209,8 @@ class БзипВывод : ФильтрВывода
             bzs.avail_out = out_chunk.length;
             bzs.next_out = out_chunk.ptr;
 
-            auto ret = BZ2_bzCompress(&bzs, BZ_FINISH);
-            switch( ret )
+            auto возвр = BZ2_bzCompress(&bzs, BZ_FINISH);
+            switch( возвр )
             {
                 case BZ_FINISH_OK:
                     break;
@@ -220,7 +220,7 @@ class БзипВывод : ФильтрВывода
                     break;
 
                 default:
-                    throw new ИсключениеБзип(ret);
+                    throw new ИсключениеБзип(возвр);
             }
 
             auto have = out_chunk.length - bzs.avail_out;
@@ -248,7 +248,7 @@ class БзипВывод : ФильтрВывода
     // unsets the bzs_valid flag.
     private проц kill_bzs()
     {
-        check_valid();
+        проверьГожесть();
 
         BZ2_bzCompressEnd(&bzs);
         bzs_valid = нет;
@@ -256,7 +256,7 @@ class БзипВывод : ФильтрВывода
 
     // Asserts that the поток is still valid and usable (except that this
     // check doesn't получи elопрed with -release).
-    private проц check_valid()
+    private проц проверьГожесть()
     {
         if( !bzs_valid )
             throw new ИсклЗакрытБзип;
@@ -300,9 +300,9 @@ class БзипВвод : ФильтрВвода
         super(поток);
         in_chunk = new ббайт[BUFFER_SIZE];
 
-        auto ret = BZ2_bzDecompressInit(&bzs, 0, small?1:0);
-        if( ret != BZ_OK )
-            throw new ИсключениеБзип(ret);
+        auto возвр = BZ2_bzDecompressInit(&bzs, 0, small?1:0);
+        if( возвр != BZ_OK )
+            throw new ИсключениеБзип(возвр);
 
         bzs_valid = да;
     }
@@ -346,14 +346,14 @@ class БзипВвод : ФильтрВвода
                 bzs.next_in = in_chunk.ptr;
             }
 
-            auto ret = BZ2_bzDecompress(&bzs);
-            if( ret == BZ_STREAM_END )
+            auto возвр = BZ2_bzDecompress(&bzs);
+            if( возвр == BZ_STREAM_END )
             {
                 kill_bzs();
                 завершено = да;
             }
-            else if( ret != BZ_OK )
-                throw new ИсключениеБзип(ret);
+            else if( возвр != BZ_OK )
+                throw new ИсключениеБзип(возвр);
         }
         while( !завершено && bzs.avail_out > 0 );
 
@@ -368,7 +368,7 @@ class БзипВвод : ФильтрВвода
 
     override ИПотокВвода слей()
     {
-        check_valid();
+        проверьГожесть();
 
         // TODO: What should this метод do?  We don't do any куча allocation,
         // so there's really nothing в_ сотри...  For сейчас, just invalidate the
@@ -382,7 +382,7 @@ class БзипВвод : ФильтрВвода
     // unsets the bzs_valid flag.
     private проц kill_bzs()
     {
-        check_valid();
+        проверьГожесть();
 
         BZ2_bzDecompressEnd(&bzs);
         bzs_valid = нет;
@@ -390,7 +390,7 @@ class БзипВвод : ФильтрВвода
 
     // Asserts that the поток is still valid and usable (except that this
     // check doesn't получи elопрed with -release).
-    private проц check_valid()
+    private проц проверьГожесть()
     {
         if( !bzs_valid )
             throw new ИсклЗакрытБзип;

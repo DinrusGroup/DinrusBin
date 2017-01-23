@@ -9,7 +9,7 @@ module util.cipher.AES;
 import util.cipher.Cipher;
 
 /**
- * Implementation of the US AES (Rijndael 128) cИПher designed by
+ * Implementation of the US AES (Rijndael 128) cipher designed by
  * Vincent Rijmen и Joan Daemen.
  * 
  * Conforms: FИПS-197
@@ -902,7 +902,7 @@ class AES : ШифрБлок
                 "80000000000000000000000000000000"
             ];
                 
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "69c4e0d86a7b0430d8cdb78070b4c55a",
                 "dda97ca4864cdfe06eaf70a0ec0d7191",
                 "8ea2b7ca516745bfeafc49904b496089",
@@ -923,12 +923,12 @@ class AES : ШифрБлок
                 t.init(да, ключ);
                 t.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        t.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+                assert(результат == test_ciphertexts[i],
+                        t.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
             
                 // Decryption
                 t.init(нет, ключ);
-                t.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                t.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         t.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

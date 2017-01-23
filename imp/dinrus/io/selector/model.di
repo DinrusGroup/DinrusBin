@@ -241,7 +241,7 @@ interface ИСелектор
      * размер         = значение that provопрes a hint for the maximum amount of
      *                conduits that will be registered
      * maxEvents    = значение that provопрes a hint for the maximum amount of
-     *                провод события that will be returned in the selection
+     *                провод события that will be returned in the выделение
      *                установи per вызов в_ выбери.
      */
     public abstract проц открой(бцел размер, бцел maxEvents);
@@ -357,7 +357,7 @@ interface ИСелектор
     public abstract цел выбери(дво таймаут);
 
     /**
-     * Return the selection установи resulting из_ the вызов в_ any of the выбери()
+     * Return the выделение установи resulting из_ the вызов в_ any of the выбери()
      * methods.
      *
      * Remarks:
@@ -367,7 +367,7 @@ interface ИСелектор
     public abstract ИНаборВыделений наборВыд();
 
     /**
-     * Return the selection ключ resulting из_ the registration of a провод
+     * Return the выделение ключ resulting из_ the registration of a провод
      * в_ the selector.
      *
      * Remarks:
@@ -378,7 +378,7 @@ interface ИСелектор
     public abstract КлючВыбора ключ(ИВыбираемый провод);
 
     /**
-     * Iterate through the currently registered selection ключи.  Note that you
+     * Iterate through the currently registered выделение ключи.  Note that you
      * should not erase or добавь any items из_ the selector while iterating,
      * although you can регистрируй existing conduits again.
      */

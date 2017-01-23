@@ -1,5 +1,5 @@
 ﻿module win;
-public  import sys.DConsts, sys.DIfaces, sys.DStructs, sys.DFuncs, sys.uuid;
+public  import sys.WinConsts, sys.WinIfaces, sys.WinStructs, sys.WinFuncs, sys.uuid;
 /+
 public static
 {

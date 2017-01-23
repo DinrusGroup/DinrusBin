@@ -31,7 +31,7 @@ final class Crc32 : Дайджест
          *
          * Параметры:
          *      polynomial = The magic CRC число в_ основа calculations on.  The
-         *      default compatible with ZИП, PNG, ethernet и другие. Note: This
+         *      default compatible with ZIP, PNG, ethernet и другие. Note: This
          *      default значение имеется poor ошибка correcting свойства.
          */
         this (бцел polynomial = 0xEDB88320U);

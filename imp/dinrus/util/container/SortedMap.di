@@ -60,7 +60,7 @@ private import exception : НетЭлементаИскл;
         SortedMap dup ()
         SortedMap очисть ()
         SortedMap сбрось ()
-        SortedMap comparator (Comparator c)
+        SortedMap сравнитель (Сравнитель c)
         ---
 
 *******************************************************************************/
@@ -74,7 +74,7 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
         private alias Тип              *Реф;
 
         private alias Куча!(Тип)       Размест;
-        private alias Сравни!(K)       Comparator;
+        private alias Сравни!(K)       Сравнитель;
 
         // корень of the дерево. Пусто if пустой.
         package Реф                     дерево;
@@ -83,7 +83,7 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
         private Размест                   куча;
 
         // Comparators использован for ordering
-        private Comparator              cmp;
+        private Сравнитель              cmp;
         private Сравни!(V)             cmpElem;
 
         private т_мера                  счёт,
@@ -92,11 +92,11 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
 
         /***********************************************************************
 
-                Make an пустой дерево, using given Comparator for ordering
+                Make an пустой дерево, using given Сравнитель for ordering
                  
         ***********************************************************************/
 
-        public this (Comparator c = пусто)
+        public this (Сравнитель c = пусто)
         {
                 this (c, 0);
         }
@@ -107,7 +107,7 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
                  
         ***********************************************************************/
 
-        private this (Comparator c, т_мера n)
+        private this (Сравнитель c, т_мера n)
         {       
                 счёт = n;
                 cmpElem = &compareElem;
@@ -235,11 +235,11 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
 
         /***********************************************************************
 
-                Use a new Comparator. Causes a reorganization
+                Use a new Сравнитель. Causes a reorganization
                  
         ***********************************************************************/
 
-        final SortedMap comparator (Comparator c)
+        final SortedMap сравнитель (Сравнитель c)
         {
                 if (cmp !is c)
                    {
@@ -848,12 +848,12 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
 
         /***********************************************************************
 
-                The default ключ comparator
+                The default ключ сравнитель
 
                 @param fst первый аргумент
                 @param snd секунда аргумент
 
-                Возвращает: a negative число if fst is less than snd; a
+                Возвращает: a негатив число if fst is less than snd; a
                 positive число if fst is greater than snd; else 0
                  
         ***********************************************************************/
@@ -869,12 +869,12 @@ class SortedMap (K, V, alias Извл = Контейнер.извлеки,
 
         /***********************************************************************
 
-                The default значение comparator
+                The default значение сравнитель
 
                 @param fst первый аргумент
                 @param snd секунда аргумент
 
-                Возвращает: a negative число if fst is less than snd; a
+                Возвращает: a негатив число if fst is less than snd; a
                 positive число if fst is greater than snd; else 0
                  
         ***********************************************************************/
@@ -1088,7 +1088,7 @@ debug (SortedMap)
                 foreach (ref vv; ключи)
                          vv = Kiss.экземпляр.вЦел(цел.max);
 
-                // benchmark добавьing
+                // benchmark добавим
                 w.старт;
                 for (цел i=счёт; i--;)
                      тест.добавь(ключи[i], i);
@@ -1100,7 +1100,7 @@ debug (SortedMap)
                      тест.получи(ключи[i], v);
                 Стдвыв.форматнс ("{} lookups: {}/s", тест.размер, тест.размер/w.stop);
 
-                // benchmark добавьing without allocation overhead
+                // benchmark добавим without allocation overhead
                 тест.очисть;
                 w.старт;
                 for (цел i=счёт; i--;)

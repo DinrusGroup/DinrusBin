@@ -9,12 +9,101 @@
  *  ArcLib.  The interface has been modified to mimic the STL std.список
  *  type more closely, and a few new members have been added.
  *
- *  Author:  William V. Baxter III, OLM Digital, Inc.
+ *  Author:  William З. Baxter III, OLM Digital, Inc.
  *  Date: 04 Sep 2007
  *  License:       zlib/libpng
  */
 //============================================================================
 module col.List;
+
+/+ ИНТЕРФЕЙС:
+
+class неверный_обходчик : Искл
+{
+    this(ткст сооб) ;
+}
+
+
+struct ОбходСписка(Т, бул резерв_ли = нет)
+ {
+    alias Т тип_значения;
+    alias Т* указатель;
+    alias Список!(Т).Узел тип_узла;
+    alias Список!(Т).Узел* указатель_на_узел;
+
+    private static ОбходСписка opCall(указатель_на_узел иниц) ;
+    Т знач();
+    Т* укз();
+    цел opEquals(ref ОбходСписка other);
+    проц opPostInc();
+    проц opAddAssign(цел i) ;
+    проц opPostDec() ;
+    проц opSubAssign(цел i) ;
+}
+
+ОбходСписка!(Т) обход_списка_начало(Т)(Т[] x);
+ОбходСписка!(Т) обход_списка_конец(Т)(Т[] x);
+ОбходСписка!(Т,да) обход_списка_начало_рев(Т)(Т[] x);
+ОбходСписка!(Т,да) обход_списка_конец_рев(Т)(Т[] x);
+
+template обходчик_списка(Т) {
+    alias ОбходСписка!(Т,нет) обходчик_списка;
+}
+
+template обходчик_списка_рев(Т) {
+    alias ОбходСписка!(Т,да) обходчик_списка_рев;
+}
+
+
+struct Список(Т)
+{
+
+    alias Т тип_значения;
+    alias Т* указатель;
+    alias Узел тип_узла;
+    alias Узел* указатель_на_узел;
+    alias обходчик_списка!(Т) обходчик;
+    alias обходчик_списка_рев!(Т) реверсОбходчик;
+
+
+    обходчик приставь(ref Т новДанные);
+    проц opCatAssign(ref Т новДанные);
+    обходчик предпоставь(ref Т новДанные);
+    обходчик вставь(обходчик обход, ref Т новДанные);
+    обходчик удали(обходчик обход);
+    цел длина();
+    цел размер();
+    бул пуст();
+    проц сотри();
+	бул opIn_r(Т данные);
+	обходчик найди(Т данные);
+	цел opApply(цел delegate(ref Т) dg);
+	цел opApplyReverse(цел delegate(ref Т) dg);
+    обходчик начало() ;
+    обходчик конец() ;
+    реверсОбходчик начало_рев() ;
+    реверсОбходчик конец_рев();
+    Т первый(); 
+    Т последний();
+	
+protected:
+    Узел* голова();
+    Узел* хвост();
+    проц голова(Узел* h);
+    проц хвост(Узел* т) ;
+
+private:
+   цел размерСписка_ = 0;
+    struct Узел
+    {
+        Т данные;
+        Узел* предш = пусто;
+        Узел* следщ = пусто;
+    }
+}
+
+
++/
 
 
 class неверный_обходчик : Искл
@@ -24,11 +113,11 @@ class неверный_обходчик : Искл
 
 
 /// Iterator type for Список
-struct ОбходСписка(T, бул резерв_ли = нет) {
-    alias T тип_значения;
-    alias T* указатель;
-    alias Список!(T).Узел тип_узла;
-    alias Список!(T).Узел* указатель_на_узел;
+struct ОбходСписка(Т, бул резерв_ли = нет) {
+    alias Т тип_значения;
+    alias Т* указатель;
+    alias Список!(Т).Узел тип_узла;
+    alias Список!(Т).Узел* указатель_на_узел;
 
     private static ОбходСписка opCall(указатель_на_узел иниц) {
         ОбходСписка M; with(M) {
@@ -37,10 +126,10 @@ struct ОбходСписка(T, бул резерв_ли = нет) {
     }
 
     /// Return the value referred to by the обходчик
-    T знач() { assert(укз_ !is пусто); return укз_.данные; }
+    Т знач() { assert(укз_ !is пусто); return укз_.данные; }
 
     /// Return a указатель to the value referred to by the обходчик
-    T* укз() { assert(укз_ !is пусто); return &укз_.данные; }
+    Т* укз() { assert(укз_ !is пусто); return &укз_.данные; }
     
     цел opEquals(ref ОбходСписка other) {
         return укз_ is other.укз_;
@@ -86,25 +175,25 @@ private:
     указатель_на_узел укз_  = пусто;
 }
 
-ОбходСписка!(T) обход_списка_начало(T)(T[] x) {
+ОбходСписка!(Т) обход_списка_начало(Т)(Т[] x) {
     return x.начало();
 }
-ОбходСписка!(T) обход_списка_конец(T)(T[] x) {
+ОбходСписка!(Т) обход_списка_конец(Т)(Т[] x) {
     return x.конец();
 }
-ОбходСписка!(T,да) обход_списка_начало_рев(T)(T[] x) {
-    return ОбходСписка!(T).начало(x);
+ОбходСписка!(Т,да) обход_списка_начало_рев(Т)(Т[] x) {
+    return ОбходСписка!(Т).начало(x);
 }
-ОбходСписка!(T,да) обход_списка_конец_рев(T)(T[] x) {
-    return ОбходСписка!(T).конец(x);
-}
-
-template обходчик_списка(T) {
-    alias ОбходСписка!(T,нет) обходчик_списка;
+ОбходСписка!(Т,да) обход_списка_конец_рев(Т)(Т[] x) {
+    return ОбходСписка!(Т).конец(x);
 }
 
-template обходчик_списка_рев(T) {
-    alias ОбходСписка!(T,да) обходчик_списка_рев;
+template обходчик_списка(Т) {
+    alias ОбходСписка!(Т,нет) обходчик_списка;
+}
+
+template обходчик_списка_рев(Т) {
+    alias ОбходСписка!(Т,да) обходчик_списка_рев;
 }
 
 
@@ -112,29 +201,27 @@ template обходчик_списка_рев(T) {
  *
  *   Uses a doubly-linked список structure internally.
  */
-struct Список(T)
+struct Список(Т)
 {
 public:
-    alias T тип_значения;
-    alias T* указатель;
+    alias Т тип_значения;
+    alias Т* указатель;
     alias Узел тип_узла;
     alias Узел* указатель_на_узел;
-    alias обходчик_списка!(T) обходчик;
-    alias обходчик_списка_рев!(T) реверсОбходчик;
-
-public:
+    alias обходчик_списка!(Т) обходчик;
+    alias обходчик_списка_рев!(Т) реверсОбходчик;
 
     /// приставь an элт to the список
-    обходчик приставь(ref T новДанные)
+    обходчик приставь(ref Т новДанные)
     {
         return вставь_узел_перед(&якорь_, новДанные);
     }
 
     /// Also приставь an элт to the список using L ~= элт syntax.
-    проц opCatAssign(/*const*/ ref T новДанные) { приставь(новДанные); }
+    проц opCatAssign(/*const*/ ref Т новДанные) { приставь(новДанные); }
 
     /// предпоставь an элт onto the голова of список
-    обходчик предпоставь(ref T новДанные)
+    обходчик предпоставь(ref Т новДанные)
     {
         if (пуст() && голова is пусто) {
             // Really we'd like all lists to be initialized this way,
@@ -148,13 +235,13 @@ public:
 
 
     /// Insert an element перед обход
-    обходчик вставь(обходчик обход, ref T новДанные)
+    обходчик вставь(обходчик обход, ref Т новДанные)
     {
         return вставь_узел_перед(обход.укз_, новДанные);
     }
 
     // Does all insertions
-    private обходчик вставь_узел_перед(Узел* перед, ref T новДанные)
+    private обходчик вставь_узел_перед(Узел* перед, ref Т новДанные)
     {
         Узел* элт = new Узел;
         элт.данные = новДанные;
@@ -181,7 +268,7 @@ public:
 
         размерСписка_++;
 
-        return ОбходСписка!(T)(элт);
+        return ОбходСписка!(Т)(элт);
     }
 
     /// remove node pointed to by обход from the список
@@ -232,9 +319,9 @@ public:
     }
 
 	/// 'элт in список' implementation.  O(N) performance.
-	бул opIn_r(T данные)
+	бул opIn_r(Т данные)
 	{
-		foreach(T d; *this)
+		foreach(Т d; *this)
 			if (d == данные)
 				return да; 
 				
@@ -243,7 +330,7 @@ public:
 
 	/// Find элт список, return an обходчик.  O(N) performance.
     /// If not found returns this.конец()
-	обходчик найди(T данные)
+	обходчик найди(Т данные)
 	{
         обходчик it = начало(), _конец=конец();
         
@@ -255,7 +342,7 @@ public:
     }
 
 	// foreach обходчик forwards 
-	цел opApply(цел delegate(ref T) dg)
+	цел opApply(цел delegate(ref Т) dg)
 	{
 		Узел* curr=голова;
         if (curr is пусто) return 0; // special case for unitialized список
@@ -270,7 +357,7 @@ public:
 	}
 
 	// foreach обходчик backwards 
-	цел opApplyReverse(цел delegate(ref T) dg)
+	цел opApplyReverse(цел delegate(ref Т) dg)
 	{
 		Узел* curr = хвост;
         if (curr is пусто) return 0; // special case for unitialized список
@@ -292,27 +379,27 @@ public:
     *******************************************************************************/
 
     обходчик начало() {
-        return ОбходСписка!(T)(голова);
+        return ОбходСписка!(Т)(голова);
     }
     обходчик конец() {
-        return ОбходСписка!(T)(&якорь_);
+        return ОбходСписка!(Т)(&якорь_);
     }
     реверсОбходчик начало_рев() {
-        return ОбходСписка!(T,да)(хвост);
+        return ОбходСписка!(Т,да)(хвост);
     }
     реверсОбходчик конец_рев() {
-        return ОбходСписка!(T,да)(&якорь_);
+        return ОбходСписка!(Т,да)(&якорь_);
     }
 
 	/// return the first element in the список
-    T первый()
+    Т первый()
     {
         assert(!пуст(), "первый: список пуст!"); 
         return голова.данные;
     }
 
 	/// return the last element in the список 
-    T последний()
+    Т последний()
     {
         assert(!пуст(), "последний: список пуст!"); 
         return хвост.данные;
@@ -364,7 +451,7 @@ public:
 					if (q is пусто) break;
 				}
 
-				/* if q hasn't fallen off конец, we have two lists to merge */
+				/* if q hasn'т fallen off конец, we have two lists to merge */
 				qsize = insize;
 
 				/* now we have two lists; merge them */
@@ -423,14 +510,14 @@ protected:
     Узел* голова() { return якорь_.следщ; }
     Узел* хвост() { return якорь_.предш; }
     проц голова(Узел* h) { якорь_.следщ = h; }
-    проц хвост(Узел* t) { якорь_.предш = t; }
+    проц хвост(Узел* т) { якорь_.предш = т; }
 
 private:
 
     // Note there's always an "anchor" node, and nodes are stored in circular manner.
     // This makes it work well with STL style iterators that need a distinct начало and
     // конец nodes for forward and reverse iteration.
-    // Unfortunately it wastes T.sizeof bytes on useless payload данные.
+    // Unfortunately it wastes Т.sizeof bytes on useless payload данные.
     // We could make Узел a class and then use inheritance to create AnchorNode and PayloadNode
     // subclasses, but then we have overhead of N*reference.sizeof (i.e. O(N) overhead).
     Узел якорь_;
@@ -441,7 +528,7 @@ private:
     /// The internal node structure with предш/следщ pointers and the user данные payload
     struct Узел
     {
-        T данные;
+        Т данные;
         Узел* предш = пусто;
         Узел* следщ = пусто;
     }

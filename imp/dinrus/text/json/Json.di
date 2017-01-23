@@ -83,7 +83,7 @@ class Json(T) : private JsonParser!(T)
                      /// use these типы for external references
         public alias JsonValue*  Значение;
         public alias NameValue*  Атрибут;
-        public alias JsonObject* Composite;
+        public alias JsonObject* Композит;
 
                     /// enumerates the seven acceptable JSON значение типы
         public enum Тип {Пусто, Строка, НеобрСтрока, Число, Объект, Массив, Да, Нет};
@@ -120,10 +120,10 @@ class Json(T) : private JsonParser!(T)
 
                 корень = создайЗначение;
                 if (super.сбрось (json))
-                    if (текТип is Токен.BeginObject)
+                    if (текТип is Токен.НачниОбъект)
                         корень.установи (разбериОбъект);
                     else
-                       if (текТип is Токен.BeginArray)
+                       if (текТип is Токен.НачниМассив)
                            корень.установи (разбериМассив);
                        else
                           исключение ("не_годится json document");
@@ -262,7 +262,7 @@ class Json(T) : private JsonParser!(T)
 
         ***********************************************************************/
         
-        private Composite создайОбъект ()
+        private Композит создайОбъект ()
         {
                 return objects.размести.сбрось;
         }
@@ -313,11 +313,11 @@ class Json(T) : private JsonParser!(T)
                             v.установи (Тип.Пусто);
                             break;
 
-                       case Токен.BeginObject:
+                       case Токен.НачниОбъект:
                             v.установи (разбериОбъект);
                             break;
 
-                       case Токен.BeginArray:
+                       case Токен.НачниМассив:
                             v.установи (разбериМассив);
                             break;
 
@@ -343,16 +343,16 @@ class Json(T) : private JsonParser!(T)
 
         ***********************************************************************/
         
-        private Composite разбериОбъект ()
+        private Композит разбериОбъект ()
         {
                 auto o = objects.размести.сбрось;
 
                 while (super.следщ) 
                       {
-                      if (super.текТип is Токен.EndObject)
+                      if (super.текТип is Токен.ЗавершиОбъект)
                           return o;
 
-                      if (super.текТип != Токен.Name)
+                      if (super.текТип != Токен.Имя)
                           super.ожидалось ("an attribute-имя", super.стр.ptr);
                         
                       auto имя = super.значение;
@@ -380,7 +380,7 @@ class Json(T) : private JsonParser!(T)
                 auto Массив = &массивы[nesting++];
                 auto старт = Массив.индекс;
 
-                while (super.следщ && super.текТип != Токен.EndArray) 
+                while (super.следщ && super.текТип != Токен.ЗавершиМассив) 
                       {
                       if (Массив.индекс >= Массив.контент.length)
                           Массив.контент.length = Массив.контент.length + 300;
@@ -388,7 +388,7 @@ class Json(T) : private JsonParser!(T)
                       Массив.контент [Массив.индекс++] = разбериЗначение;
                       }
 
-                if (super.текТип != Токен.EndArray)
+                if (super.текТип != Токен.ЗавершиМассив)
                     исключение ("malformed Массив");
 
                 --nesting;
@@ -411,7 +411,7 @@ class Json(T) : private JsonParser!(T)
         
                         Набор a имя и a значение for this attribute
 
-                        Returns itself, for use with Composite.добавь()
+                        Returns itself, for use with Композит.добавь()
 
                 ***************************************************************/
         
@@ -428,7 +428,7 @@ class Json(T) : private JsonParser!(T)
                 Represents a single json Объект (a composite of named 
                 attribute/значение pairs).
 
-                This is есть_алиас as Composite
+                This is есть_алиас as Композит
 
         ***********************************************************************/
         
@@ -441,7 +441,7 @@ class Json(T) : private JsonParser!(T)
         
                 ***************************************************************/
         
-                Composite сбрось ()
+                Композит сбрось ()
                 {
                         голова = хвост = пусто;
                         return this;
@@ -453,7 +453,7 @@ class Json(T) : private JsonParser!(T)
 
                 ***************************************************************/
         
-                Composite добавь (Атрибут a)
+                Композит добавь (Атрибут a)
                 {
                         if (хвост)
                             хвост.следщ = a, хвост = a;
@@ -468,7 +468,7 @@ class Json(T) : private JsonParser!(T)
 
                 ***************************************************************/
         
-                Composite добавь (Атрибут[] установи...)
+                Композит добавь (Атрибут[] установи...)
                 {
                         foreach (атр; установи)
                                  добавь (атр);
@@ -574,7 +574,7 @@ class Json(T) : private JsonParser!(T)
                         Значение[]         Массив;
                         реал            число;
                         T[]             ткст;
-                        Composite       объект;
+                        Композит       объект;
                 }
         
                 public Тип тип;               /// the тип of this узел
@@ -617,7 +617,7 @@ class Json(T) : private JsonParser!(T)
                             return ткст;
 
                         if (тип is Тип.Строка)
-                            return unescape (ткст, приёмн);
+                            return убериИскейп (ткст, приёмн);
 
                         return пусто;
                 }
@@ -637,7 +637,7 @@ class Json(T) : private JsonParser!(T)
                             дг(ткст);
                         else
                            if (тип is Тип.Строка)
-                               unescape (ткст, дг);
+                               убериИскейп (ткст, дг);
                            else
                               return нет;
                         return да;
@@ -645,12 +645,12 @@ class Json(T) : private JsonParser!(T)
 
                 /***************************************************************
         
-                        Return the контент as a Composite/Объект. Returns пусто
-                        if this значение is not a Composite.
+                        Return the контент as a Композит/Объект. Returns пусто
+                        if this значение is not a Композит.
 
                 ***************************************************************/
         
-                Composite вОбъект ()
+                Композит вОбъект ()
                 {
                         return тип is Тип.Объект ? объект : пусто;
                 }
@@ -700,7 +700,7 @@ class Json(T) : private JsonParser!(T)
 
                 ***************************************************************/
         
-                Значение установи (Composite об)
+                Значение установи (Композит об)
                 {
                         тип = Тип.Объект;
                         объект = об;
@@ -806,7 +806,7 @@ class Json(T) : private JsonParser!(T)
         
                         проц printValue (Значение знач)
                         {
-                                проц printObject (Composite об)
+                                проц printObject (Композит об)
                                 {
                                         if (об is пусто) 
                                             return;
@@ -938,8 +938,8 @@ class Json(T) : private JsonParser!(T)
                                    if (тип is typeid(дол))
                                        v.установи (ва_арг!(дол)(арги));
                                    else
-                                   if (тип is typeid(Composite))
-                                       v.установи (ва_арг!(Composite)(арги));
+                                   if (тип is typeid(Композит))
+                                       v.установи (ва_арг!(Композит)(арги));
                                    else
                                    if (тип is typeid(T[]))
                                        v.установи (ва_арг!(T[])(арги));

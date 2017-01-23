@@ -12,14 +12,14 @@ public import col.model.Iterator;
 /**
  * Interface defining an object that accesses values by ключ.
  */
-interface СКлючом(K, V) : Ключник!(K, V), ЧистящийКлючи!(K, V)
+interface СКлючом(К, З) : Ключник!(К, З), ЧистящийКлючи!(К, З)
 {
     /**
      * удали the значение at the given ключ location
      *
      * Returns this.
      */
-    СКлючом!(K, V) удалиПо(K ключ);
+    СКлючом!(К, З) удалиПо(К ключ);
 
     /**
      * удали the значение at the given ключ location
@@ -28,12 +28,12 @@ interface СКлючом(K, V) : Ключник!(K, V), ЧистящийКлюч
      *
      * был_Удалён is установи to true if the элемент existed and was removed.
      */
-    СКлючом!(K, V) удалиПо(K ключ, ref бул был_Удалён);
+    СКлючом!(К, З) удалиПо(К ключ, ref бул был_Удалён);
 
     /**
      * access a значение based on the ключ
      */
-    V opIndex(K ключ);
+    З opIndex(К ключ);
 
     /**
      * assign a значение based on the ключ
@@ -43,22 +43,22 @@ interface СКлючом(K, V) : Ключник!(K, V), ЧистящийКлюч
      * Note that some containers do not use user-specified ключи.  For those
      * containers, the ключ must already have existed перед setting.
      */
-    V opIndexAssign(V значение, K ключ);
+    З opIndexAssign(З значение, К ключ);
 
     /**
      * установи the ключ/значение pair.  This is similar to opIndexAssign, but returns
      * this, so the function can be chained.
      */
-    СКлючом!(K, V) установи(K ключ, V значение);
+    СКлючом!(К, З) установи(К ключ, З значение);
 
     /**
      * Same as установи, but has a был_добавлен boolean to tell the caller whether the
      * значение was добавленный or not.
      */
-    СКлючом!(K, V) установи(K ключ, V значение, ref бул был_добавлен);
+    СКлючом!(К, З) установи(К ключ, З значение, ref бул был_добавлен);
 
     /**
      * returns true if the collection содержит the ключ
      */
-    бул имеетКлюч(K ключ);
+    бул имеетКлюч(К ключ);
 }

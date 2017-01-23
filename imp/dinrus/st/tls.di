@@ -39,21 +39,21 @@ private extern(C)
 }
 
 /**
- * Нить Local Storage (Локальное Хранилище Потока) - это механизм
+ * Локальное Хранилище Потока - это механизм
  * для ассоциации переменных с определенными потоками.
- * This can be использован to ensure the principle of confinement, и is
- * useful for many sorts of algorithms.
+ * Его использование может гарантировать принцип confinement'а, и
+ * быть полезным для алгоритмов многих типов.
  */
 public class НитеЛок(T)
 {
     /**
-     * Allocates the thread local storage.
+     * Размещает нителокальное хранилище.
      *
      * Параметры:
-     *  def = An optional default value for the thread local storage.
+     *  def =Необязательное значение по умолчанию для НЛХ.
      *
      * Выводит исключение:
-     *  A НитеЛокИскл if the system could not allocate the storage.
+     *  НитеЛокИскл, если система не может разместить хранилище.
      */
     public this(T def = T.init)
     {
@@ -61,7 +61,7 @@ public class НитеЛок(T)
         
         switch(pthread_key_create(&ключ_нлх, &clean_up))
         {
-            case 0: break; //Success
+            case 0: break; //Успех
             
             case EAGAIN: throw new НитеЛокИскл
                 ("Вне диапазона ключей для НЛХ");
@@ -77,7 +77,7 @@ public class НитеЛок(T)
     }
     
     /**
-     * Deallocates the thread local storage.
+     * Вымещает НЛХ.
      */
     public ~this()
     {
@@ -86,7 +86,7 @@ public class НитеЛок(T)
     }
     
     /**
-     * Возвращает: The текущ value of the thread local storage.
+     * Возвращает: текущ значение НЛХ.
      */
     public T знач()
     {

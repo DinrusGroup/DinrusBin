@@ -49,18 +49,18 @@ class Аргументы
                         Ошибка определители:
                         ---
                         Нет:           ok
-                        ParamLo:        too few парамы for an аргумент
-                        ParamHi:        too many парамы for an аргумент
-                        Required:       missing аргумент is требуется 
-                        Requires:       depends on a missing аргумент
+                        ПарамМлад:        too few парамы for an аргумент
+                        ПарамСтарш:        too many парамы for an аргумент
+                        Требуется:       missing аргумент is требуется 
+                        Требует:       depends on a missing аргумент
                         Конфликт:       conflicting аргумент is present
-                        Extra:          неожиданный аргумент (see sloppy)
-                        Option:         parameter does not match опции
+                        Экстра:          неожиданный аргумент (see sloppy)
+                        Опция:         parameter does not match опции
                         ---
 
                 ***************************************************************/
         
-                enum {Нет, ParamLo, ParamHi, Required, Requires, Конфликт, Extra, Option, Invalid};
+                enum {Нет, ПарамМлад, ПарамСтарш, Требуется, Требует, Конфликт, Экстра, Опция, Неверный};
 
                 alias проц   delegate() Вызывало;
                 alias ткст delegate(ткст значение) Инспектор;

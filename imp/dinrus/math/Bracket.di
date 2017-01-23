@@ -80,7 +80,7 @@ body {
     T a = ax, b = bx, d;  // [a..b] is our текущ bracket.
     R fa = fax, fb = fbx, fd; // d is the third best guess.       
 
-    // Test the function at point c; обнови brackets accordingly
+    // Test the function at точка c; обнови brackets accordingly
     проц bracket(T c)
     {
         T fc = f(c);        
@@ -139,7 +139,7 @@ body {
         T a1 = (fb - fa)/(b - a);
         T a2 = ((fd - fb)/(d - b) - a1)/(d - a);
     
-        // Determine the starting point of newton steps.
+        // Determine the starting точка of newton steps.
         T c = противоположныеЗнаки(a2, fa) ? a  : b;
      
         // старт the safeguarded newton steps.
@@ -323,7 +323,7 @@ body{
     T lastStep;
     T bestx = xinitial; // the best значение so far (min значение for f(x)).
     R fbest = func(bestx);
-    T секунда = xinitial;  // the point with the секунда best значение of f(x)
+    T секунда = xinitial;  // the точка with the секунда best значение of f(x)
     R fsecond = fbest;
     T third = xinitial;  // the previous значение of секунда.
     R fthird = fbest;
@@ -380,25 +380,25 @@ body{
             else lastStep = - tol1;
         }
         xtest = bestx + lastStep;
-        // Evaluate the function at point xtest.
+        // Evaluate the function at точка xtest.
         R ftest = func(xtest);
 
         if (ftest <= fbest) {
-            // We have a new best point!
-            // The previous best point becomes a предел.
+            // We have a new best точка!
+            // The previous best точка becomes a предел.
             if (xtest >= bestx) xlo = bestx; else xhi = bestx;
             third = секунда;  fthird = fsecond;
             секунда = bestx;  fsecond = fbest;
             bestx = xtest;  fbest = ftest;
         } else {
-            // This new point is сейчас one of the limits.
+            // This new точка is сейчас one of the limits.
             if (xtest < bestx)  xlo = xtest; else xhi = xtest;
-            // Is it a new секунда best point?
+            // Is it a new секунда best точка?
             if (ftest < fsecond || секунда == bestx) {
                 third = секунда;  fthird = fsecond;
                 секунда = xtest;  fsecond = ftest;
             } else if (ftest <= fthird || third == bestx || third == секунда) {
-                // At least it's our third best point!
+                // At least it's our third best точка!
                 third = xtest;  fthird = ftest;
             }
         }

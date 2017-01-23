@@ -85,7 +85,7 @@ class RC4 : ШифрПоток
                 "01010101010101010101010101010101"
             ];
                  
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "75b7878099e0c596",
                 "7494c2e7104b0879",
                 "de188941a3375d3a",
@@ -135,13 +135,13 @@ class RC4 : ШифрПоток
                 // Encryption
                 r.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        r.имя~": ("~результат~") != ("~test_cИПhertexts[i]~")");
+                assert(результат == test_ciphertexts[i],
+                        r.имя~": ("~результат~") != ("~test_ciphertexts[i]~")");
                         
                 r.сбрось();
                 
                 // Decryption
-                r.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                r.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         r.имя~": ("~результат~") != ("~test_plaintexts[i]~")");

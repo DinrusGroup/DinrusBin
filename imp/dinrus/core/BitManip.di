@@ -196,7 +196,7 @@ else
     // сейчас each two биты of x is a число 00,01 or 10.
     // сейчас добавь neighbouring pairs
     x = ((x&0xCCCC_CCCC)>>2) + (x&0x3333_3333);
-    // сейчас each nibble holds 0000-0100. добавьing them won't
+    // сейчас each nibble holds 0000-0100. добавим them won't
     // перебор any ещё, so we don't need в_ маска any ещё
 
     // Сейчас добавь the nibbles, then the байты, then the words

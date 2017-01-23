@@ -9,10 +9,50 @@ module col.Link;
 
 private import col.DefaultAllocator;
 
+/+ ИНТЕРФЕЙС:
+
+
+struct Связка(З)
+{
+    alias Связка *Узел;
+    Узел следщ;
+    Узел предш;
+    З значение;
+    Узел приставь(Узел n);
+    Узел поставь(Узел n);
+    Узел открепи();
+    static проц крепи(Узел первый, Узел второй);
+    бцел счёт(Узел концУзел = null);
+    Узел dup(Узел delegate(З з) функцияСоздать);
+    Узел dup();
+}
+
+struct ГоловаСвязки(З, alias Разместитель=ДефолтныйРазместитель)
+{
+
+    alias Связка!(З).Узел Узел;
+    alias Разместитель!(Связка!(З)) разместитель;
+    разместитель разм;
+    Узел конец;
+    бцел счёт;
+    Узел начало();
+    проц установка();
+    Узел удали(Узел n);
+    проц сортируй(Сравниватель)(Сравниватель comp);
+    Узел удали(Узел первый, Узел последн);
+    Узел вставь(Узел перед, З з);
+    проц очисти();
+    проц копируйВ(ref ГоловаСвязки цель, бул копироватьУзлы=true);
+    private Узел размести();
+    private Узел размести(З з);
+}
+
++/
+
 /**
  * Linked-list узел that is используется in various collection classes.
  */
-struct Связка(V)
+struct Связка(З)
 {
     /**
      * convenience alias
@@ -24,7 +64,7 @@ struct Связка(V)
     /**
      * the значение that is represented by this link Узел.
      */
-    V значение;
+    З значение;
 
     /**
      * вставь the given узел between this узел and предш.  This updates all
@@ -91,7 +131,7 @@ struct Связка(V)
         return c;
     }
 
-    Узел dup(Узел delegate(V v) функцияСоздать)
+    Узел dup(Узел delegate(З з) функцияСоздать)
     {
         //
         // create a duplicate of this and all nodes after this.
@@ -118,10 +158,10 @@ struct Связка(V)
 
     Узел dup()
     {
-        Узел _создай(V v)
+        Узел _создай(З з)
         {
-            auto n = new Связка!(V);
-            n.значение = v;
+            auto n = new Связка!(З);
+            n.значение = з;
             return n;
         }
         return dup(&_создай);
@@ -129,23 +169,23 @@ struct Связка(V)
 }
 
 /**
- * This struct uses a Связка(V) to keep track of a link-list of values.
+ * This struct uses a Связка(З) to keep track of a link-list of values.
  *
  * The implementation uses a dummy link узел to be the голова and хвост of the
  * list.  Basically, the list is circular, with the dummy узел marking the
  * конец/beginning.
  */
-struct ГоловаСвязки(V, alias Разместитель=ДефолтныйРазместитель)
+struct ГоловаСвязки(З, alias Разместитель=ДефолтныйРазместитель)
 {
     /**
      * Convenience alias
      */
-    alias Связка!(V).Узел Узел;
+    alias Связка!(З).Узел Узел;
 
     /**
      * Convenience alias
      */
-    alias Разместитель!(Связка!(V)) разместитель;
+    alias Разместитель!(Связка!(З)) разместитель;
 
     /**
      * The разместитель for this link голова
@@ -212,11 +252,11 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
         конец.предш.следщ = null;
 
         //
-        // use merge сортируй, don't update предш pointers until the сортируй is
+        // use merge сортируй, don'т update предш pointers until the сортируй is
         // finished.
         //
-        цел K = 1;
-        while(K < счёт)
+        цел К = 1;
+        while(К < счёт)
         {
             //
             // конец.следщ serves as the sorted list голова
@@ -229,7 +269,7 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
             while(голова !is null)
             {
 
-                if(врмсчёт <= K)
+                if(врмсчёт <= К)
                 {
                     //
                     // the rest is alread sorted
@@ -238,7 +278,7 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
                     break;
                 }
                 Узел лево = голова;
-                for(цел k = 1; k < K && голова.следщ !is null; k++)
+                for(цел к = 1; к < К && голова.следщ !is null; к++)
                     голова = голова.следщ;
                 Узел право = голова.следщ;
 
@@ -247,7 +287,7 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
                 // лево side
                 //
                 голова.следщ = null;
-                цел члоправ = K;
+                цел члоправ = К;
                 while(true)
                 {
                     if(лево is null)
@@ -288,10 +328,10 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
                     }
                 }
 
-                врмсчёт -= 2 * K;
+                врмсчёт -= 2 * К;
             }
 
-            K *= 2;
+            К *= 2;
         }
 
         //
@@ -322,14 +362,14 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
     }
 
     /**
-     * Insert the given значение перед the given Узел.  Use вставь(конец, v) to
+     * Insert the given значение перед the given Узел.  Use вставь(конец, з) to
      * добавь to the конец of the list, or to an empty list. O(1) operation.
      */
-    Узел вставь(Узел перед, V v)
+    Узел вставь(Узел перед, З з)
     {
         счёт++;
-        //return перед.приставь(new Узел(v)).предш;
-        return перед.приставь(размести(v)).предш;
+        //return перед.приставь(new Узел(з)).предш;
+        return перед.приставь(размести(з)).предш;
     }
 
     /**
@@ -374,12 +414,12 @@ struct ГоловаСвязки(V, alias Разместитель=Дефолтн
     }
 
     /**
-     * Allocate a new Узел, then установи the значение to v
+     * Allocate a new Узел, then установи the значение to з
      */
-    private Узел размести(V v)
+    private Узел размести(З з)
     {
         auto возврзнач = размести();
-        возврзнач.значение = v;
+        возврзнач.значение = з;
         return возврзнач;
     }
 }

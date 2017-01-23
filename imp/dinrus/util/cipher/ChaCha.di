@@ -153,7 +153,7 @@ class ChaCha : Salsa20
                 
             ];
                  
-            static ткст[] test_cИПhertexts = [
+            static ткст[] test_ciphertexts = [
                 "beb1e81e0f747e43ee51922b3e87fb38"~
                 "d0163907b4ed49336032ab78b67c2457"~
                 "9fe28f751bd3703e51d876c017faa435"~
@@ -187,12 +187,12 @@ class ChaCha : Salsa20
                 cc.init(да, парамы);
                 cc.обнови(БайтКонвертер.hexDecode(test_plaintexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
-                assert(результат == test_cИПhertexts[i],
-                        cc.имя()~": ("~результат~") != ("~test_cИПhertexts[i]~")");           
+                assert(результат == test_ciphertexts[i],
+                        cc.имя()~": ("~результат~") != ("~test_ciphertexts[i]~")");           
                 
                 // Decryption
                 cc.init(нет, парамы);
-                cc.обнови(БайтКонвертер.hexDecode(test_cИПhertexts[i]), буфер);
+                cc.обнови(БайтКонвертер.hexDecode(test_ciphertexts[i]), буфер);
                 результат = БайтКонвертер.hexEncode(буфер);
                 assert(результат == test_plaintexts[i],
                         cc.имя()~": ("~результат~") != ("~test_plaintexts[i]~")");

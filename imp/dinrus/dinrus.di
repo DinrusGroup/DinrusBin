@@ -83,14 +83,14 @@ sync, thread, stdrus, tpl.all, runtime, exception, global, win;
 /+
 Модуль win содержит открытый доступ к модулям:
 
-	sys.DConsts, 
+	sys.WinConsts, 
 	 //В этом модуле: константы (их перчни) для API ОС.
 	sys.uuid,
-	sys.DIfaces,
+	sys.WinIfaces,
 	//Интерфейсы API данной операционной системы.
-	sys.DStructs,
+	sys.WinStructs,
 	 //Здесь искать: структуры API для данной системы.
-	sys.DFuncs;
+	sys.WinFuncs;
 	 //Здесь: функции и процедуры, предоставляемые API ОС.
 	 
 Кроме того, в нём находятся основные рычаги управления консольным вводом-выводом.

@@ -12,7 +12,7 @@ import core.Traits:типРеал_ли;
 
 /// class that returns exponential distributed numbers (f=эксп(-x) for x>0, 0 otherwise)
 final class ЭкспИсточник(СлучГ,T){
-    static assert(типРеал_ли!(T),T.stringof~" not acceptable, only floating point variables supported");
+    static assert(типРеал_ли!(T),T.stringof~" not acceptable, only floating точка variables supported");
     /// probability ни в каком дистрибутиве
     static реал плотностьВерФ(реал x){ return эксп(-x); }
     /// inverse probability ни в каком дистрибутиве

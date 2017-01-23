@@ -40,7 +40,7 @@ public interface Seq(T) : SeqView!(T), Dispenser!(T)
          * 0..размер() (i.e., one past the текущ последний индекс). If the индекс is
          * equal в_ размер(), the элементы are appended.
          * 
-         * @param индекс the индекс в_ старт добавьing at
+         * @param индекс the индекс в_ старт добавим at
          * @param e the элементы в_ добавь
          * Возвращает: condition:
          * <PRE>

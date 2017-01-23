@@ -1,5 +1,5 @@
 ﻿module sys.memory;
-import sys.DConsts;
+import sys.WinConsts;
 
 
 /**

@@ -26,12 +26,12 @@ class ТипированныйВвод(T) : ФильтрВвода
         final цел opApply (цел delegate(ref T x) дг)
         {
                 T x;
-                цел ret;
+                цел возвр;
 
                 while ((источник.читай((&x)[0..1]) is T.sizeof))
-                        if ((ret = дг (x)) != 0)
+                        if ((возвр = дг (x)) != 0)
                              break;
-                return ret;
+                return возвр;
         }
 }
 

@@ -22,7 +22,7 @@ public  import util.container.Container;
 
 /******************************************************************************
 
-        КэшКарта extends the basic hashmap тип by добавьing a предел в_ 
+        КэшКарта extends the basic hashmap тип by добавим a предел в_ 
         the число of items contained at any given время. In добавьition, 
         КэшКарта sorts the кэш записи such that those записи 
         frequently использовался are at the голова of the queue, и those
@@ -345,7 +345,7 @@ debug (КэшКарта)
                 const счёт = 1_000_000;
                 Секундомер w;
 
-                // benchmark добавьing
+                // benchmark добавим
                 w.старт;
                 for (цел i=счёт; i--;)
                      тест.добавь (i, i);

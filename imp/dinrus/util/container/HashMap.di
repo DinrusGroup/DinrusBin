@@ -1181,7 +1181,7 @@ debug (ХэшКарта)
                 смСобери;
                 тест.проверь;
 
-                // benchmark добавьing
+                // benchmark добавим
                 w.старт;
                 for (цел i=счёт; i--;)
                      тест.добавь(i, i);
@@ -1193,7 +1193,7 @@ debug (ХэшКарта)
                      тест.получи(i, v);
                 Стдвыв.форматнс ("{} lookups: {}/s", тест.размер, тест.размер/w.stop);
 
-                // benchmark добавьing without allocation overhead
+                // benchmark добавим without allocation overhead
                 тест.очисть;
                 w.старт;
                 for (цел i=счёт; i--;)

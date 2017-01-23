@@ -9,29 +9,29 @@
         author:         Kris
 
 
-        Text is a class for managing и manИПulating Unicode character
+        Текст is a class for managing и manИПulating Unicode character
         массивы.
 
-        Text maintains a текущ "selection", controlled via the выбери()
+        Текст maintains a текущ "выделение", controlled via the выбери()
         и ищи() methods. Each of добавь(), приставь(), замени() и
-        удали() operate with respect в_ the selection.
+        удали() operate with respect в_ the выделение.
 
         The ищи() methods also operate with respect в_ the текущ
-        selection, provопрing a means of iterating across matched образцы.
-        To установи a selection across the entire контент, use the выбери()
+        выделение, provопрing a means of iterating across matched образцы.
+        To установи a выделение across the entire контент, use the выбери()
         метод with no аргументы.
 
         Indexes и lengths of контент always счёт код units, not код
         points. This is similar в_ traditional аски ткст handling, yet
-        indexing is rarely использован in practice due в_ the selection опрiom:
+        indexing is rarely использован in practice due в_ the выделение опрiom:
         substring indexing is generally implied as opposed в_ manИПulated
         directly. This allows for a ещё Потокlined model with regard в_
         utf-surrogates.
 
         Strings support a range of functionality, из_ вставь и removal
         в_ utf кодировка и decoding. There is also an immutable поднабор
-        called TextView, intended в_ simplify life in a multi-threaded
-        environment. However, TextView must expose the необр контент as
+        called ТекстОбзор, intended в_ simplify life in a multi-threaded
+        environment. However, ТекстОбзор must expose the необр контент as
         needed и thus immutability depends в_ an протяженность upon so-called
         "honour" of a callee. D does not активируй immutability enforcement
         at this время, but this class will be изменён в_ support such a
@@ -39,7 +39,7 @@
 
         The class is templated for use with ткст, шим[], и дим[],
         и should migrate across encodings seamlessly. In particular, все
-        functions in text.Util are compatible with Text контент in
+        functions in text.Util are compatible with Текст контент in
         any of the supported encodings. In future, this class will become
         a princИПal gateway в_ the extensive ICU unicode library.
 
@@ -47,7 +47,7 @@
         combining text.Text with text.Util e.g. строки of текст
         can be processed thusly:
         ---
-        auto источник = new Text!(сим)("one\ntwo\nthree");
+        auto источник = new Текст!(сим)("one\ntwo\nthree");
 
         foreach (строка; Util.строки(источник.срез))
                  // do something with строка
@@ -55,7 +55,7 @@
 
         Speaking a bit like Yoda might be accomplished as follows:
         ---
-        auto приёмн = new Text!(сим);
+        auto приёмн = new Текст!(сим);
 
         foreach (элемент; Util.delims ("все cows съешь grass", " "))
                  приёмн.приставь (элемент);
@@ -63,90 +63,90 @@
 
         Below is an overview of the API и class иерархия:
         ---
-        class Text(T) : TextView!(T)
+        class Текст(T) : ТекстОбзор!(T)
         {
                 // установи or сбрось the контент
-                Text установи (T[] chars, бул mutable=да);
-                Text установи (TextView другой, бул mutable=да);
+                Текст установи (T[] симвы, бул изменяемый=да);
+                Текст установи (ТекстОбзор другой, бул изменяемый=да);
 
                 // retrieve currently selected текст
-                T[] selection ();
+                T[] выделение ();
 
-                // установи и retrieve текущ selection point
-                Text point (бцел индекс);
-                бцел point ();
+                // установи и retrieve текущ выделение точка
+                Текст точка (бцел индекс);
+                бцел точка ();
 
-                // метка a selection
-                Text выбери (цел старт=0, цел length=цел.max);
+                // метка a выделение
+                Текст выбери (цел старт=0, цел length=цел.max);
 
-                // return an обходчик в_ перемести the selection around.
+                // return an обходчик в_ перемести the выделение around.
                 // Also exposes "замени все" functionality
-                Search ищи (T chr);
-                Search ищи (T[] образец);
+                Поиск ищи (T симв);
+                Поиск ищи (T[] образец);
 
-                // форматируй аргументы behind текущ selection
-                Text форматируй (T[] форматируй, ...);
+                // форматируй аргументы behind текущ выделение
+                Текст форматируй (T[] форматируй, ...);
 
-                // добавь behind текущ selection
-                Text добавь (T[] текст);
-                Text добавь (TextView другой);
-                Text добавь (T chr, цел счёт=1);
-                Text добавь (ИПотокВвода источник);
+                // добавь behind текущ выделение
+                Текст добавь (T[] текст);
+                Текст добавь (ТекстОбзор другой);
+                Текст добавь (T симв, цел счёт=1);
+                Текст добавь (ИПотокВвода источник);
 
-                // transcode behind текущ selection
-                Text кодируй (ткст);
-                Text кодируй (шим[]);
-                Text кодируй (дим[]);
+                // transcode behind текущ выделение
+                Текст кодируй (ткст);
+                Текст кодируй (шим[]);
+                Текст кодируй (дим[]);
 
-                // вставь before текущ selection
-                Text приставь (T[] текст);
-                Text приставь (TextView другой);
-                Text приставь (T chr, цел счёт=1);
+                // вставь before текущ выделение
+                Текст приставь (T[] текст);
+                Текст приставь (ТекстОбзор другой);
+                Текст приставь (T симв, цел счёт=1);
 
-                // замени текущ selection
-                Text замени (T chr);
-                Text замени (T[] текст);
-                Text замени (TextView другой);
+                // замени текущ выделение
+                Текст замени (T симв);
+                Текст замени (T[] текст);
+                Текст замени (ТекстОбзор другой);
 
-                // удали текущ selection
-                Text удали ();
+                // удали текущ выделение
+                Текст удали ();
 
                 // очисть контент
-                Text очисть ();
+                Текст очисть ();
 
                 // убери leading и trailing пробел
-                Text убери ();
+                Текст убери ();
 
-                // убери leading и trailing chr экземпляры
-                Text откинь (T chr);
+                // убери leading и trailing симв экземпляры
+                Текст откинь (T симв);
 
-                // упрости at point, or текущ selection
-                Text упрости (цел point = цел.max);
+                // упрости at точка, or текущ выделение
+                Текст упрости (цел точка = цел.max);
 
                 // резервируй some пространство for inserts/добавьitions
-                Text резервируй (цел extra);
+                Текст резервируй (цел extra);
         
                 // пиши контент в_ поток
-                Text пиши (ИПотокВывода сток);
+                Текст пиши (ИПотокВывода сток);
         }
 
-        class TextView(T) : UniText
+        class ТекстОбзор(T) : ЮниТекст
         {
                 // хэш контент
-                т_хэш toХэш ();
+                т_хэш вХэш ();
 
                 // return length of контент
                 бцел length ();
 
                 // сравни контент
                 бул равно  (T[] текст);
-                бул равно  (TextView другой);
-                бул ends    (T[] текст);
-                бул ends    (TextView другой);
-                бул starts  (T[] текст);
-                бул starts  (TextView другой);
+                бул равно  (ТекстОбзор другой);
+                бул заканчивается    (T[] текст);
+                бул заканчивается    (ТекстОбзор другой);
+                бул начинается  (T[] текст);
+                бул начинается  (ТекстОбзор другой);
                 цел сравни  (T[] текст);
-                цел сравни  (TextView другой);
+                цел сравни  (ТекстОбзор другой);
                 цел opEquals (Объект другой);
                 цел opCmp    (Объект другой);
 
@@ -160,10 +160,10 @@
                 typeinfo кодировка ();
 
                 // замени the сравнение algorithm
-                Comparator comparator (Comparator другой);
+                Сравнитель сравнитель (Сравнитель другой);
         }
 
-        class UniText
+        class ЮниТекст
         {
                 // преобразуй контент
                 abstract ткст  вТкст   (ткст  приёмн = пусто);
@@ -171,7 +171,7 @@
                 abstract дим[] вТкст32 (дим[] приёмн = пусто);
         }
 
-        struct Search
+        struct Поиск
         {
                 // выбери приор экземпляр
                 бул предш();
@@ -197,7 +197,7 @@
 
 module text.Text;
 
-private import  text.Search;
+private import  text.Поиск;
 
 private import  io.model;
 
@@ -216,83 +216,80 @@ private import cidrus : memmove;
 
 /*******************************************************************************
 
-        The mutable Text class actually реализует the full API, whereas
+        The изменяемый Текст class actually реализует the full API, whereas
         the superclasses are purely abstract (could be interfaces instead).
 
 *******************************************************************************/
 
-class Text(T) : TextView!(T)
+class Текст(T) : ТекстОбзор!(T)
 {
         public  alias установи               opAssign;
         public  alias добавь            opCatAssign;
-        private alias TextView!(T)      TextViewT;
-        private alias Выкладка!(T)        LayoutT;
+        private alias ТекстОбзор!(T)      ШТекстОбзор;
+        private alias Выкладка!(T)        ШВыкладка;
 
         private T[]                     контент;
-        private бул                    mutable;
-        private Comparator              comparator_;
-        private бцел                    selectPoint,
-                                        selectLength,
-                                        contentLength;
+        private бул                    изменяемый;
+        private Сравнитель              сравнитель_;
+        private бцел                    выборТочки,
+                                        выборДлины,
+                                        длинаКонтента;
 
         /***********************************************************************
 
-                Search Обходчик
+                Поиск Обходчик
 
         ***********************************************************************/
 
-        private struct Search(T)
+        private struct Поиск(T)
         {
-                private alias ИщиПлод!(T) Engine;
-                private alias т_мера delegate(T[], т_мера) Call;
+                private alias ИщиПлод!(T) Движок;
+                private alias т_мера delegate(T[], т_мера) Вызов;
 
-                private Text    текст;
-                private Engine  движок;
+                private Текст    текст;
+                private Движок  движок;
 
                 /***************************************************************
 
-                        Construct a Search экземпляр
+                       Конструктор Поиск экземпляра
 
                 ***************************************************************/
 
-                static Search opCall (Text текст, T[] сверь)
+                static Поиск opCall (Текст текст, T[] сверь)
                 {
-                        Search s =void;
+                        Поиск s =void;
                         s.движок.сверь = сверь;
-                        текст.selectLength = 0;
+                        текст.выборДлины = 0;
                         s.текст = текст;
                         return s;
                 }
 
                 /***************************************************************
 
-                        Search backward, starting at the character приор в_
-                        the selection point
+                        Поиск назад, начиная с символа перед точкой выбора
 
                 ***************************************************************/
 
                 бул предш ()
                 {
-                        return locate (&движок.реверс, текст.срез, текст.point - 1);
+                        return местоположение (&движок.реверс, текст.срез, текст.точка - 1);
                 }
 
                 /***************************************************************
 
-                        Search вперёд, starting just after the currently
-                        selected текст
+                        Поиск вперёд, начиная от только что выделенного текста
 
                 ***************************************************************/
 
                 бул следщ ()
                 {
-                        return locate (&движок.вперёд, текст.срез, 
-                                        текст.selectPoint + текст.selectLength);
+                        return местоположение (&движок.вперёд, текст.срез, 
+                                        текст.выборТочки + текст.выборДлины);
                 }
 
                 /***************************************************************
 
-                        Returns да if there is a сверь внутри the 
-                        associated текст
+                        Вернуть да, если есть совпадение в связанном тексте
 
                 ***************************************************************/
 
@@ -303,7 +300,7 @@ class Text(T) : TextView!(T)
 
                 /***************************************************************
                 
-                        Returns число of совпадает внутри the associated
+                       Вернуть число совпадений в связанном тексте
                         текст
 
                 ***************************************************************/
@@ -315,18 +312,18 @@ class Text(T) : TextView!(T)
 
                 /***************************************************************
 
-                        Замени все совпадает with the given character
+                        Заменить все совпадения на данный символ
 
                 ***************************************************************/
 
-                проц замени (T chr)
+                проц замени (T симв)
                 {     
-                        замени ((&chr)[0..1]);  
+                        замени ((&симв)[0..1]);  
                 }
 
                 /***************************************************************
 
-                        Замени все совпадает with the given substitution
+                        Заменить все совпадения заданной подстановкой
 
                 ***************************************************************/
 
@@ -342,11 +339,11 @@ class Text(T) : TextView!(T)
  
                 /***************************************************************
 
-                        locate образец индекс и выбери as appropriate
+                       Найти индекс положения образца и выбрать необходимый
 
                 ***************************************************************/
 
-                private бул locate (Call вызов, T[] контент, т_мера из_)
+                private бул местоположение (Вызов вызов, T[] контент, т_мера из_)
                 {
                         auto индекс = вызов (контент, из_);
                         if (индекс < контент.length)
@@ -362,24 +359,24 @@ class Text(T) : TextView!(T)
 
                 Selection вринтервал
 
-                deprecated: use point() instead
+                deprecated: use точка() instead
 
         ***********************************************************************/
 
         deprecated public struct Span
         {
-                бцел    begin,                  /// индекс of selection point
-                        length;                 /// length of selection
+                бцел    begin,                  /// индекс of выделение точка
+                        length;                 /// length of выделение
         }
 
         /***********************************************************************
 
-                Созд an пустой Text with the specified available
+                Созд an пустой Текст with the specified available
                 пространство
 
                 Note: A character like 'a' will be implicitly преобразованый в_
                 бцел и thus will be accepted for this constructor, making
-                it appear like you can инициализуй a Text экземпляр with a 
+                it appear like you can инициализуй a Текст экземпляр with a 
                 single character, something which is not supported.
 
         ***********************************************************************/
@@ -387,38 +384,38 @@ class Text(T) : TextView!(T)
         this (бцел пространство = 0)
         {
                 контент.length = пространство;
-                this.comparator_ = &simpleComparator;
+                this.сравнитель_ = &простойСравнитель;
         }
 
         /***********************************************************************
 
-                Созд a Text upon the provопрed контент. If saопр
+                Созд a Текст upon the provопрed контент. If saопр
                 контент is immutable (читай-only) then you might consопрer
                 настройка the 'копируй' parameter в_ нет. Doing so will
                 avoопр allocating куча-пространство for the контент until it is
-                изменён via Text methods. This can be useful when
-                wrapping an Массив "temporarily" with a стэк-based Text
+                изменён via Текст methods. This can be useful when
+                wrapping an Массив "temporarily" with a стэк-based Текст
 
         ***********************************************************************/
 
         this (T[] контент, бул копируй = да)
         {
                 установи (контент, копируй);
-                this.comparator_ = &simpleComparator;
+                this.сравнитель_ = &простойСравнитель;
         }
 
         /***********************************************************************
 
-                Созд a Text via the контент of другой. If saопр
+                Созд a Текст via the контент of другой. If saопр
                 контент is immutable (читай-only) then you might consопрer
                 настройка the 'копируй' parameter в_ нет. Doing so will avoопр
                 allocating куча-пространство for the контент until it is изменён
-                via Text methods. This can be useful when wrapping an Массив
-                temporarily with a стэк-based Text
+                via Текст methods. This can be useful when wrapping an Массив
+                temporarily with a стэк-based Текст
 
         ***********************************************************************/
 
-        this (TextViewT другой, бул копируй = да)
+        this (ШТекстОбзор другой, бул копируй = да)
         {
                 this (другой.срез, копируй);
         }
@@ -429,54 +426,54 @@ class Text(T) : TextView!(T)
                 specifies whether the given Массив is likely в_ change. If
                 not, the Массив is есть_алиас until such время it is altered via
                 this class. This can be useful when wrapping an Массив
-                "temporarily" with a стэк-based Text.
+                "temporarily" with a стэк-based Текст.
 
-                Also resets the curent selection в_ пусто           
+                Also resets the curent выделение в_ пусто           
 
         ***********************************************************************/
 
-        final Text установи (T[] chars, бул копируй = да)
+        final Текст установи (T[] симвы, бул копируй = да)
         {
-                contentLength = chars.length;
-                if ((this.mutable = копируй) is да)
-                     контент = chars.dup;
+                длинаКонтента = симвы.length;
+                if ((this.изменяемый = копируй) is да)
+                     контент = симвы.dup;
                 else
-                   контент = chars;
+                   контент = симвы;
 
-                // no selection
+                // no выделение
                 return выбери (0, 0);
         }
 
         /***********************************************************************
 
-                Замени the контент of this Text. If the new контент
+                Замени the контент of this Текст. If the new контент
                 is immutable (читай-only) then you might consопрer настройка the
                 'копируй' parameter в_ нет. Doing so will avoопр allocating
                 куча-пространство for the контент until it is изменён via one of
                 these methods. This can be useful when wrapping an Массив
-                "temporarily" with a стэк-based Text.
+                "temporarily" with a стэк-based Текст.
 
-                Also resets the curent selection в_ пусто           
+                Also resets the curent выделение в_ пусто           
 
         ***********************************************************************/
 
-        final Text установи (TextViewT другой, бул копируй = да)
+        final Текст установи (ШТекстОбзор другой, бул копируй = да)
         {
                 return установи (другой.срез, копируй);
         }
 
         /***********************************************************************
 
-                Explicitly установи the текущ selection в_ the given старт и
+                Explicitly установи the текущ выделение в_ the given старт и
                 length. значения are pinned в_ the контент extents
 
         ***********************************************************************/
 
-        final Text выбери (цел старт=0, цел length=цел.max)
+        final Текст выбери (цел старт=0, цел length=цел.max)
         {
                 pinIndices (старт, length);
-                selectPoint = старт;
-                selectLength = length;
+                выборТочки = старт;
+                выборДлины = length;
                 return this;
         }
 
@@ -486,45 +483,45 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        final T[] selection ()
+        final T[] выделение ()
         {
-                return срез [selectPoint .. selectPoint+selectLength];
+                return срез [выборТочки .. выборТочки+выборДлины];
         }
 
         /***********************************************************************
 
-                Return the индекс и length of the текущ selection
+                Return the индекс и length of the текущ выделение
 
-                deprecated: use point() instead
+                deprecated: use точка() instead
 
         ***********************************************************************/
 
         deprecated final Span вринтервал ()
         {
                 Span s;
-                s.begin = selectPoint;
-                s.length = selectLength;
+                s.begin = выборТочки;
+                s.length = выборДлины;
                 return s;
         }
 
         /***********************************************************************
 
-                Return the текущ selection point
+                Return the текущ выделение точка
 
         ***********************************************************************/
 
-        final бцел point ()
+        final бцел точка ()
         {
-                return selectPoint;
+                return выборТочки;
         }
 
         /***********************************************************************
 
-                Набор the текущ selection point, и resets selection length
+                Набор the текущ выделение точка, и resets выделение length
 
         ***********************************************************************/
 
-        final Text point (бцел индекс)
+        final Текст точка (бцел индекс)
         {
                 return выбери (индекс, 0);
         }
@@ -532,18 +529,18 @@ class Text(T) : TextView!(T)
         /***********************************************************************
         
                 Return a ищи обходчик for a given образец. The обходчик
-                sets the текущ текст selection as appropriate. For example:
+                sets the текущ текст выделение as appropriate. For example:
                 ---
-                auto t = new Text ("hello world");
+                auto t = new Текст ("hello world");
                 auto s = t.ищи ("world");
 
                 assert (s.следщ);
-                assert (t.selection == "world");
+                assert (t.выделение == "world");
                 ---
 
                 Replacing образцы operates in a similar fashion:
                 ---
-                auto t = new Text ("hello world");
+                auto t = new Текст ("hello world");
                 auto s = t.ищи ("world");
 
                 // замени все экземпляры of "world" with "everyone"
@@ -553,19 +550,19 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        Search!(T) ищи (T[] сверь)
+        Поиск!(T) ищи (T[] сверь)
         {
-                return Search!(T) (this, сверь);
+                return Поиск!(T) (this, сверь);
         }
 
-        Search!(T) ищи (ref T сверь)
+        Поиск!(T) ищи (ref T сверь)
         {
                 return ищи ((&сверь)[0..1]);
         }
 
         /***********************************************************************
 
-                Find и выбери the следщ occurrence of a BMP код point
+                Find и выбери the следщ occurrence of a BMP код точка
                 in a ткст. Returns да if найдено, нет otherwise
 
                 deprecated: use ищи() instead
@@ -575,7 +572,7 @@ class Text(T) : TextView!(T)
         deprecated final бул выбери (T c)
         {
                 auto s = срез();
-                auto x = Util.locate (s, c, selectPoint);
+                auto x = Util.местоположение (s, c, выборТочки);
                 if (x < s.length)
                    {
                    выбери (x, 1);
@@ -593,7 +590,7 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        deprecated final бул выбери (TextViewT другой)
+        deprecated final бул выбери (ШТекстОбзор другой)
         {
                 return выбери (другой.срез);
         }
@@ -607,13 +604,13 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        deprecated final бул выбери (T[] chars)
+        deprecated final бул выбери (T[] симвы)
         {
                 auto s = срез();
-                auto x = Util.locatePattern (s, chars, selectPoint);
+                auto x = Util.местоположениеОбразца (s, симвы, выборТочки);
                 if (x < s.length)
                    {
-                   выбери (x, chars.length);
+                   выбери (x, симвы.length);
                    return да;
                    }
                 return нет;
@@ -621,17 +618,17 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Find и выбери a приор occurrence of a BMP код point
+                Find и выбери a приор occurrence of a BMP код точка
                 in a ткст. Returns да if найдено, нет otherwise
 
                 deprecated: use ищи() instead
 
         ***********************************************************************/
 
-        deprecated final бул selectPrior (T c)
+        deprecated final бул выбериПеред (T c)
         {
                 auto s = срез();
-                auto x = Util.locatePrior (s, c, selectPoint);
+                auto x = Util.местоположениеПеред (s, c, выборТочки);
                 if (x < s.length)
                    {
                    выбери (x, 1);
@@ -649,9 +646,9 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        deprecated final бул selectPrior (TextViewT другой)
+        deprecated final бул выбериПеред (ШТекстОбзор другой)
         {
-                return selectPrior (другой.срез);
+                return выбериПеред (другой.срез);
         }
 
         /***********************************************************************
@@ -663,13 +660,13 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        deprecated final бул selectPrior (T[] chars)
+        deprecated final бул выбериПеред (T[] симвы)
         {
                 auto s = срез();
-                auto x = Util.locatePatternPrior (s, chars, selectPoint);
+                auto x = Util.местоположениеПередОбразцом (s, симвы, выборТочки);
                 if (x < s.length)
                    {
-                   выбери (x, chars.length);
+                   выбери (x, симвы.length);
                    return да;
                    }
                 return нет;
@@ -677,11 +674,11 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Доб formatted контент в_ this Text
+                Доб formatted контент в_ this Текст
 
         ***********************************************************************/
 
-        final Text форматируй (T[] форматируй, ...)
+        final Текст форматируй (T[] форматируй, ...)
         {
                 бцел излей (T[] s)
                 {
@@ -689,67 +686,67 @@ class Text(T) : TextView!(T)
                         return s.length;
                 }
 
-                LayoutT.экземпляр.преобразуй (&излей, _arguments, _argptr, форматируй);
+                ШВыкладка.экземпляр.преобразуй (&излей, _arguments, _argptr, форматируй);
                 return this;
         }
 
         /***********************************************************************
 
-                Доб текст в_ this Text
+                Доб текст в_ this Текст
 
         ***********************************************************************/
 
-        final Text добавь (TextViewT другой)
+        final Текст добавь (ШТекстОбзор другой)
         {
                 return добавь (другой.срез);
         }
 
         /***********************************************************************
 
-                Доб текст в_ this Text
+                Доб текст в_ this Текст
 
         ***********************************************************************/
 
-        final Text добавь (T[] chars)
+        final Текст добавь (T[] симвы)
         {
-                return добавь (chars.ptr, chars.length);
+                return добавь (симвы.ptr, симвы.length);
         }
 
         /***********************************************************************
 
-                Доб a счёт of characters в_ this Text
+                Доб a счёт of characters в_ this Текст
 
         ***********************************************************************/
 
-        final Text добавь (T chr, цел счёт=1)
+        final Текст добавь (T симв, цел счёт=1)
         {
-                бцел point = selectPoint + selectLength;
-                расширь (point, счёт);
-                return установи (chr, point, счёт);
+                бцел точка = выборТочки + выборДлины;
+                расширь (точка, счёт);
+                return установи (симв, точка, счёт);
         }
 
         /***********************************************************************
 
-                Доб an целое в_ this Text
+                Доб an целое в_ this Текст
 
                 deprecated: use форматируй() instead
 
         ***********************************************************************/
         
-        deprecated final Text добавь (цел v, T[] фмт = пусто)
+        deprecated final Текст добавь (цел v, T[] фмт = пусто)
         {
                 return добавь (cast(дол) v, фмт);
         }
 
         /***********************************************************************
 
-                Доб a дол в_ this Text
+                Доб a дол в_ this Текст
 
                 deprecated: use форматируй() instead
 
         ***********************************************************************/
 
-        deprecated final Text добавь (дол v, T[] фмт = пусто)
+        deprecated final Текст добавь (дол v, T[] фмт = пусто)
         {
                 T[64] врем =void;
                 return добавь (Целое.форматируй(врем, v, фмт));
@@ -757,13 +754,13 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Доб a дво в_ this Text
+                Доб a дво в_ this Текст
 
                 deprecated: use форматируй() instead
 
         ***********************************************************************/
 
-        deprecated final Text добавь (дво v, бцел decimals=2, цел e=10)
+        deprecated final Текст добавь (дво v, бцел decimals=2, цел e=10)
         {
                 T[64] врем =void;
                 return добавь (Float.форматируй(врем, v, decimals, e));
@@ -771,13 +768,13 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Доб контент из_ ввод поток at insertion point. Use
+                Доб контент из_ ввод поток at insertion точка. Use
                 io.stream.Utf as a wrapper в_ perform conversion as
                 necessary
 
         ***********************************************************************/
 
-        final Text добавь (ИПотокВвода источник)
+        final Текст добавь (ИПотокВвода источник)
         {
                 T[8192/T.sizeof] врем =void;
                 while (да) 
@@ -795,48 +792,48 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Insert characters преобр_в this Text
+                Insert characters преобр_в this Текст
 
         ***********************************************************************/
 
-        final Text приставь (T chr, цел счёт=1)
+        final Текст приставь (T симв, цел счёт=1)
         {
-                расширь (selectPoint, счёт);
-                return установи (chr, selectPoint, счёт);
+                расширь (выборТочки, счёт);
+                return установи (симв, выборТочки, счёт);
         }
 
         /***********************************************************************
 
-                Insert текст преобр_в this Text
+                Insert текст преобр_в this Текст
 
         ***********************************************************************/
 
-        final Text приставь (T[] другой)
+        final Текст приставь (T[] другой)
         {
-                расширь (selectPoint, другой.length);
-                контент[selectPoint..selectPoint+другой.length] = другой;
+                расширь (выборТочки, другой.length);
+                контент[выборТочки..выборТочки+другой.length] = другой;
                 return this;
         }
 
         /***********************************************************************
 
-                Insert другой Text преобр_в this Text
+                Insert другой Текст преобр_в this Текст
 
         ***********************************************************************/
 
-        final Text приставь (TextViewT другой)
+        final Текст приставь (ШТекстОбзор другой)
         {
                 return приставь (другой.срез);
         }
 
         /***********************************************************************
 
-                Доб кодирован текст at the текущ selection point. The текст
+                Доб кодирован текст at the текущ выделение точка. The текст
                 is преобразованый as necessary в_ the appropritate utf кодировка.
 
         ***********************************************************************/
 
-        final Text кодируй (ткст s)
+        final Текст кодируй (ткст s)
         {
                 T[1024] врем =void;
 
@@ -851,7 +848,7 @@ class Text(T) : TextView!(T)
         }
 
         /// ditto
-        final Text кодируй (шим[] s)
+        final Текст кодируй (шим[] s)
         {
                 T[1024] врем =void;
 
@@ -866,7 +863,7 @@ class Text(T) : TextView!(T)
         }
 
         /// ditto
-        final Text кодируй (дим[] s)
+        final Текст кодируй (дим[] s)
         {
                 T[1024] врем =void;
 
@@ -881,83 +878,83 @@ class Text(T) : TextView!(T)
         }
 
         /// ditto
-        final Text кодируй (Объект o)
+        final Текст кодируй (Объект o)
         {
                 return кодируй (o.вТкст);
         }
 
         /***********************************************************************
 
-                Замени a section of this Text with the specified
+                Замени a section of this Текст with the specified
                 character
 
         ***********************************************************************/
 
-        final Text замени (T chr)
+        final Текст замени (T симв)
         {
-                return установи (chr, selectPoint, selectLength);
+                return установи (симв, выборТочки, выборДлины);
         }
 
         /***********************************************************************
 
-                Замени a section of this Text with the specified
+                Замени a section of this Текст with the specified
                 Массив
 
         ***********************************************************************/
 
-        final Text замени (T[] chars)
+        final Текст замени (T[] симвы)
         {
-                цел чанк = chars.length - selectLength;
+                цел чанк = симвы.length - выборДлины;
                 if (чанк >= 0)
-                    расширь (selectPoint, чанк);
+                    расширь (выборТочки, чанк);
                 else
-                   удали (selectPoint, -чанк);
+                   удали (выборТочки, -чанк);
 
-                контент [selectPoint .. selectPoint+chars.length] = chars;
-                return выбери (selectPoint, chars.length);
+                контент [выборТочки .. выборТочки+симвы.length] = симвы;
+                return выбери (выборТочки, симвы.length);
         }
 
         /***********************************************************************
 
-                Замени a section of this Text with другой
+                Замени a section of this Текст with другой
 
         ***********************************************************************/
 
-        final Text замени (TextViewT другой)
+        final Текст замени (ШТекстОбзор другой)
         {
                 return замени (другой.срез);
         }
 
         /***********************************************************************
 
-                Удали the selection из_ this Text и сбрось the
-                selection в_ zero length (at the текущ позиция)
+                Удали the выделение из_ this Текст и сбрось the
+                выделение в_ zero length (at the текущ позиция)
 
         ***********************************************************************/
 
-        final Text удали ()
+        final Текст удали ()
         {
-                удали (selectPoint, selectLength);
-                return выбери (selectPoint, 0);
+                удали (выборТочки, выборДлины);
+                return выбери (выборТочки, 0);
         }
 
         /***********************************************************************
 
-                Удали the selection из_ this Text
+                Удали the выделение из_ this Текст
 
         ***********************************************************************/
 
-        private Text удали (цел старт, цел счёт)
+        private Текст удали (цел старт, цел счёт)
         {
                 pinIndices (старт, счёт);
                 if (счёт > 0)
                    {
-                   if (! mutable)
+                   if (! изменяемый)
                          realloc ();
 
                    бцел i = старт + счёт;
-                   memmove (контент.ptr+старт, контент.ptr+i, (contentLength-i) * T.sizeof);
-                   contentLength -= счёт;
+                   memmove (контент.ptr+старт, контент.ptr+i, (длинаКонтента-i) * T.sizeof);
+                   длинаКонтента -= счёт;
                    }
                 return this;
         }
@@ -965,18 +962,18 @@ class Text(T) : TextView!(T)
         /***********************************************************************
 
                 Truncate this ткст at an optional индекс. Default behaviour
-                is в_ упрости at the текущ добавь point. Текущий selection
-                is moved в_ the truncation point, with length 0
+                is в_ упрости at the текущ добавь точка. Текущий выделение
+                is moved в_ the truncation точка, with length 0
 
         ***********************************************************************/
 
-        final Text упрости (цел индекс = цел.max)
+        final Текст упрости (цел индекс = цел.max)
         {
                 if (индекс is цел.max)
-                    индекс = selectPoint + selectLength;
+                    индекс = выборТочки + выборДлины;
 
                 pinIndex (индекс);
-                return выбери (contentLength = индекс, 0);
+                return выбери (длинаКонтента = индекс, 0);
         }
 
         /***********************************************************************
@@ -985,36 +982,36 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        final Text очисть ()
+        final Текст очисть ()
         {
-                return выбери (contentLength = 0, 0);
+                return выбери (длинаКонтента = 0, 0);
         }
 
         /***********************************************************************
 
-                Удали leading и trailing пробел из_ this Text,
-                и сбрось the selection в_ the trimmed контент
+                Удали leading и trailing пробел из_ this Текст,
+                и сбрось the выделение в_ the trimmed контент
 
         ***********************************************************************/
 
-        final Text убери ()
+        final Текст убери ()
         {
                 контент = Util.убери (срез);
-                выбери (0, contentLength = контент.length);
+                выбери (0, длинаКонтента = контент.length);
                 return this;
         }
 
         /***********************************************************************
 
-                Удали leading и trailing совпадает из_ this Text,
-                и сбрось the selection в_ the очищенный контент
+                Удали leading и trailing совпадает из_ this Текст,
+                и сбрось the выделение в_ the очищенный контент
 
         ***********************************************************************/
 
-        final Text откинь (T совпадает)
+        final Текст откинь (T совпадает)
         {
                 контент = Util.откинь (срез, совпадает);
-                выбери (0, contentLength = контент.length);
+                выбери (0, длинаКонтента = контент.length);
                 return this;
         }
 
@@ -1024,7 +1021,7 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        final Text резервируй (бцел extra)
+        final Текст резервируй (бцел extra)
         {
                 realloc (extra);
                 return this;
@@ -1036,13 +1033,13 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        Text пиши (ИПотокВывода сток)
+        Текст пиши (ИПотокВывода сток)
         {
                 сток.пиши (срез);
                 return this;
         }
 
-        /* ======================== TextView methods ======================== */
+        /* ======================== ТекстОбзор methods ======================== */
 
 
 
@@ -1059,28 +1056,28 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Набор the comparator delegate. Where другой is пусто, we behave
+                Набор the сравнитель delegate. Where другой is пусто, we behave
                 as a getter only
 
         ***********************************************************************/
 
-        final Comparator comparator (Comparator другой)
+        final Сравнитель сравнитель (Сравнитель другой)
         {
-                auto врем = comparator_;
+                auto врем = сравнитель_;
                 if (другой)
-                    comparator_ = другой;
+                    сравнитель_ = другой;
                 return врем;
         }
 
         /***********************************************************************
 
-                Хэш this Text
+                Хэш this Текст
 
         ***********************************************************************/
 
-        override т_хэш toХэш ()
+        override т_хэш вХэш ()
         {
-                return Util.jhash (cast(ббайт*) контент.ptr, contentLength * T.sizeof);
+                return Util.джейхэш (cast(ббайт*) контент.ptr, длинаКонтента * T.sizeof);
         }
 
         /***********************************************************************
@@ -1091,16 +1088,16 @@ class Text(T) : TextView!(T)
 
         final бцел length ()
         {
-                return contentLength;
+                return длинаКонтента;
         }
 
         /***********************************************************************
 
-                Is this Text equal в_ другой?
+                Is this Текст equal в_ другой?
 
         ***********************************************************************/
 
-        final бул равно (TextViewT другой)
+        final бул равно (ШТекстОбзор другой)
         {
                 if (другой is this)
                     return да;
@@ -1109,75 +1106,75 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Is this Text equal в_ the provопрed текст?
+                Is this Текст equal в_ the provопрed текст?
 
         ***********************************************************************/
 
         final бул равно (T[] другой)
         {
-                if (другой.length == contentLength)
-                    return Util.совпадают (другой.ptr, контент.ptr, contentLength);
+                if (другой.length == длинаКонтента)
+                    return Util.совпадают (другой.ptr, контент.ptr, длинаКонтента);
                 return нет;
         }
 
         /***********************************************************************
 
-                Does this Text конец with другой?
+                Does this Текст конец with другой?
 
         ***********************************************************************/
 
-        final бул ends (TextViewT другой)
+        final бул заканчивается (ШТекстОбзор другой)
         {
-                return ends (другой.срез);
+                return заканчивается (другой.срез);
         }
 
         /***********************************************************************
 
-                Does this Text конец with the specified ткст?
+                Does this Текст конец with the specified ткст?
 
         ***********************************************************************/
 
-        final бул ends (T[] chars)
+        final бул заканчивается (T[] симвы)
         {
-                if (chars.length <= contentLength)
-                    return Util.совпадают (контент.ptr+(contentLength-chars.length), chars.ptr, chars.length);
+                if (симвы.length <= длинаКонтента)
+                    return Util.совпадают (контент.ptr+(длинаКонтента-симвы.length), симвы.ptr, симвы.length);
                 return нет;
         }
 
         /***********************************************************************
 
-                Does this Text старт with другой?
+                Does this Текст старт with другой?
 
         ***********************************************************************/
 
-        final бул starts (TextViewT другой)
+        final бул начинается (ШТекстОбзор другой)
         {
-                return starts (другой.срез);
+                return начинается (другой.срез);
         }
 
         /***********************************************************************
 
-                Does this Text старт with the specified ткст?
+                Does this Текст старт with the specified ткст?
 
         ***********************************************************************/
 
-        final бул starts (T[] chars)
+        final бул начинается (T[] симвы)
         {
-                if (chars.length <= contentLength)
-                    return Util.совпадают (контент.ptr, chars.ptr, chars.length);
+                if (симвы.length <= длинаКонтента)
+                    return Util.совпадают (контент.ptr, симвы.ptr, симвы.length);
                 return нет;
         }
 
         /***********************************************************************
 
-                Сравни this Text старт with другой. Returns 0 if the
-                контент совпадает, less than zero if this Text is "less"
-                than the другой, or greater than zero where this Text
+                Сравни this Текст старт with другой. Returns 0 if the
+                контент совпадает, less than zero if this Текст is "less"
+                than the другой, or greater than zero where this Текст
                 is "bigger".
 
         ***********************************************************************/
 
-        final цел сравни (TextViewT другой)
+        final цел сравни (ШТекстОбзор другой)
         {
                 if (другой is this)
                     return 0;
@@ -1187,32 +1184,32 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Сравни this Text старт with an Массив. Returns 0 if the
-                контент совпадает, less than zero if this Text is "less"
-                than the другой, or greater than zero where this Text
+                Сравни this Текст старт with an Массив. Returns 0 if the
+                контент совпадает, less than zero if this Текст is "less"
+                than the другой, or greater than zero where this Текст
                 is "bigger".
 
         ***********************************************************************/
 
-        final цел сравни (T[] chars)
+        final цел сравни (T[] симвы)
         {
-                return comparator_ (срез, chars);
+                return сравнитель_ (срез, симвы);
         }
 
         /***********************************************************************
 
-                Return контент из_ this Text
+                Return контент из_ this Текст
 
                 A срез of приёмн is returned, representing a копируй of the
                 контент. The срез is clИПped в_ the minimum of either
                 the length of the provопрed Массив, or the length of the
-                контент minus the stИПulated старт point
+                контент minus the stИПulated старт точка
 
         ***********************************************************************/
 
         final T[] копируй (T[] приёмн)
         {
-                бцел i = contentLength;
+                бцел i = длинаКонтента;
                 if (i > приёмн.length)
                     i = приёмн.length;
 
@@ -1221,7 +1218,7 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Return an alias в_ the контент of this TextView. Note
+                Return an alias в_ the контент of this ТекстОбзор. Note
                 that you are bound by honour в_ покинь this контент wholly
                 unmolested. D surely needs some way в_ enforce immutability
                 upon Массив references
@@ -1230,17 +1227,17 @@ class Text(T) : TextView!(T)
 
         final T[] срез ()
         {
-                return контент [0 .. contentLength];
+                return контент [0 .. длинаКонтента];
         }
 
         /***********************************************************************
 
-                Convert в_ the UniText типы. The optional аргумент
+                Convert в_ the ЮниТекст типы. The optional аргумент
                 приёмн will be resized as требуется в_ house the conversion.
                 To minimize куча allocation during subsequent conversions,
                 apply the following образец:
                 ---
-                Text  ткст;
+                Текст  ткст;
 
                 шим[] буфер;
                 шим[] результат = ткст.utf16 (буфер);
@@ -1293,14 +1290,14 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Сравни this Text в_ другой. We сравни against другой
+                Сравни this Текст в_ другой. We сравни against другой
                 Strings only. Literals и другой objects are not supported
 
         ***********************************************************************/
 
         override цел opCmp (Объект o)
         {
-                auto другой = cast (TextViewT) o;
+                auto другой = cast (ШТекстОбзор) o;
 
                 if (другой is пусто)
                     return -1;
@@ -1310,13 +1307,13 @@ class Text(T) : TextView!(T)
 
         /***********************************************************************
 
-                Is this Text equal в_ the текст of something else?
+                Is this Текст equal в_ the текст of something else?
 
         ***********************************************************************/
 
         override цел opEquals (Объект o)
         {
-                auto другой = cast (TextViewT) o;
+                auto другой = cast (ШТекстОбзор) o;
 
                 if (другой)
                     return равно (другой);
@@ -1340,8 +1337,8 @@ class Text(T) : TextView!(T)
 
         private проц pinIndex (ref цел x)
         {
-                if (x > contentLength)
-                    x = contentLength;
+                if (x > длинаКонтента)
+                    x = длинаКонтента;
         }
 
         /***********************************************************************
@@ -1352,11 +1349,11 @@ class Text(T) : TextView!(T)
 
         private проц pinIndices (ref цел старт, ref цел length)
         {
-                if (старт > contentLength)
-                    старт = contentLength;
+                if (старт > длинаКонтента)
+                    старт = длинаКонтента;
 
-                if (length > (contentLength - старт))
-                    length = contentLength - старт;
+                if (length > (длинаКонтента - старт))
+                    length = длинаКонтента - старт;
         }
 
         /***********************************************************************
@@ -1368,7 +1365,7 @@ class Text(T) : TextView!(T)
 
         ***********************************************************************/
 
-        private цел simpleComparator (T[] a, T[] b)
+        private цел простойСравнитель (T[] a, T[] b)
         {
                 бцел i = a.length;
                 if (b.length < i)
@@ -1389,31 +1386,31 @@ class Text(T) : TextView!(T)
 
         private проц расширь (бцел индекс, бцел счёт)
         {
-                if (!mutable || (contentLength + счёт) > контент.length)
+                if (!изменяемый || (длинаКонтента + счёт) > контент.length)
                      realloc (счёт);
 
-                memmove (контент.ptr+индекс+счёт, контент.ptr+индекс, (contentLength - индекс) * T.sizeof);
-                selectLength += счёт;
-                contentLength += счёт;
+                memmove (контент.ptr+индекс+счёт, контент.ptr+индекс, (длинаКонтента - индекс) * T.sizeof);
+                выборДлины += счёт;
+                длинаКонтента += счёт;
         }
 
         /***********************************************************************
 
-                Замени a section of this Text with the specified
+                Замени a section of this Текст with the specified
                 character
 
         ***********************************************************************/
 
-        private Text установи (T chr, бцел старт, бцел счёт)
+        private Текст установи (T симв, бцел старт, бцел счёт)
         {
-                контент [старт..старт+счёт] = chr;
+                контент [старт..старт+счёт] = симв;
                 return this;
         }
 
         /***********************************************************************
 
                 Размести память due в_ a change in the контент. We укз
-                the distinction between mutable и immutable here.
+                the distinction between изменяемый и immutable here.
 
         ***********************************************************************/
 
@@ -1421,29 +1418,29 @@ class Text(T) : TextView!(T)
         {
                 бцел размер = (контент.length + счёт + 127) & ~127;
 
-                if (mutable)
+                if (изменяемый)
                     контент.length = размер;
                 else
                    {
-                   mutable = да;
+                   изменяемый = да;
                    T[] x = контент;
                    контент = new T[размер];
-                   if (contentLength)
-                       контент[0..contentLength] = x;
+                   if (длинаКонтента)
+                       контент[0..длинаКонтента] = x;
                    }
         }
 
         /***********************************************************************
 
-                Internal метод в_ support Text appending
+                Internal метод в_ support Текст appending
 
         ***********************************************************************/
 
-        private Text добавь (T* chars, бцел счёт)
+        private Текст добавь (T* симвы, бцел счёт)
         {
-                бцел point = selectPoint + selectLength;
-                расширь (point, счёт);
-                контент[point .. point+счёт] = chars[0 .. счёт];
+                бцел точка = выборТочки + выборДлины;
+                расширь (точка, счёт);
+                контент[точка .. точка+счёт] = симвы[0 .. счёт];
                 return this;
         }
 }
@@ -1456,9 +1453,9 @@ class Text(T) : TextView!(T)
 
 *******************************************************************************/
 
-class TextView(T) : UniText
+class ТекстОбзор(T) : ЮниТекст
 {
-        public typedef цел delegate (T[] a, T[] b) Comparator;
+        public typedef цел delegate (T[] a, T[] b) Сравнитель;
 
         /***********************************************************************
 
@@ -1470,15 +1467,15 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Is this Text equal в_ другой?
+                Is this Текст equal в_ другой?
 
         ***********************************************************************/
 
-        abstract бул равно (TextView другой);
+        abstract бул равно (ТекстОбзор другой);
 
         /***********************************************************************
 
-                Is this Text equal в_ the the provопрed текст?
+                Is this Текст equal в_ the the provопрed текст?
 
         ***********************************************************************/
 
@@ -1486,65 +1483,65 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Does this Text конец with другой?
+                Does this Текст конец with другой?
 
         ***********************************************************************/
 
-        abstract бул ends (TextView другой);
+        abstract бул заканчивается (ТекстОбзор другой);
 
         /***********************************************************************
 
-                Does this Text конец with the specified ткст?
+                Does this Текст конец with the specified ткст?
 
         ***********************************************************************/
 
-        abstract бул ends (T[] chars);
+        abstract бул заканчивается (T[] симвы);
 
         /***********************************************************************
 
-                Does this Text старт with другой?
+                Does this Текст старт with другой?
 
         ***********************************************************************/
 
-        abstract бул starts (TextView другой);
+        abstract бул начинается (ТекстОбзор другой);
 
         /***********************************************************************
 
-                Does this Text старт with the specified ткст?
+                Does this Текст старт with the specified ткст?
 
         ***********************************************************************/
 
-        abstract бул starts (T[] chars);
+        abstract бул начинается (T[] симвы);
 
         /***********************************************************************
 
-                Сравни this Text старт with другой. Returns 0 if the
-                контент совпадает, less than zero if this Text is "less"
-                than the другой, or greater than zero where this Text
+                Сравни this Текст старт with другой. Returns 0 if the
+                контент совпадает, less than zero if this Текст is "less"
+                than the другой, or greater than zero where this Текст
                 is "bigger".
 
         ***********************************************************************/
 
-        abstract цел сравни (TextView другой);
+        abstract цел сравни (ТекстОбзор другой);
 
         /***********************************************************************
 
-                Сравни this Text старт with an Массив. Returns 0 if the
-                контент совпадает, less than zero if this Text is "less"
-                than the другой, or greater than zero where this Text
+                Сравни this Текст старт with an Массив. Returns 0 if the
+                контент совпадает, less than zero if this Текст is "less"
+                than the другой, or greater than zero where this Текст
                 is "bigger".
 
         ***********************************************************************/
 
-        abstract цел сравни (T[] chars);
+        abstract цел сравни (T[] симвы);
 
         /***********************************************************************
 
-                Return контент из_ this Text. A срез of приёмн is
+                Return контент из_ this Текст. A срез of приёмн is
                 returned, representing a копируй of the контент. The
                 срез is clИПped в_ the minimum of either the length
                 of the provопрed Массив, or the length of the контент
-                minus the stИПulated старт point
+                minus the stИПulated старт точка
 
         ***********************************************************************/
 
@@ -1552,7 +1549,7 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Сравни this Text в_ другой
+                Сравни this Текст в_ другой
 
         ***********************************************************************/
 
@@ -1560,7 +1557,7 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Is this Text equal в_ другой?
+                Is this Текст equal в_ другой?
 
         ***********************************************************************/
 
@@ -1568,7 +1565,7 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Is this Text equal в_ другой?
+                Is this Текст equal в_ другой?
 
         ***********************************************************************/
 
@@ -1584,23 +1581,23 @@ class TextView(T) : UniText
 
         /***********************************************************************
 
-                Набор the comparator delegate
+                Набор the сравнитель delegate
 
         ***********************************************************************/
 
-        abstract Comparator comparator (Comparator другой);
+        abstract Сравнитель сравнитель (Сравнитель другой);
 
         /***********************************************************************
 
-                Хэш this Text
+                Хэш this Текст
 
         ***********************************************************************/
 
-        abstract т_хэш toХэш ();
+        abstract т_хэш вХэш ();
 
         /***********************************************************************
 
-                Return an alias в_ the контент of this TextView. Note
+                Return an alias в_ the контент of this ТекстОбзор. Note
                 that you are bound by honour в_ покинь this контент wholly
                 unmolested. D surely needs some way в_ enforce immutability
                 upon Массив references
@@ -1617,7 +1614,7 @@ class TextView(T) : UniText
 
 *******************************************************************************/
 
-class UniText
+class ЮниТекст
 {
         abstract ткст  вТкст  (ткст  приёмн = пусто);
 
@@ -1641,7 +1638,7 @@ debug (UnitTest)
         //проц main() {}
         unittest
         {
-        auto s = new Text!(сим);
+        auto s = new Текст!(сим);
         s = "hello";
 
         auto Массив = new Массив(1024);
@@ -1652,25 +1649,25 @@ debug (UnitTest)
 
         s = "hello";
         s.ищи("hello").следщ;
-        assert (s.selection == "hello");
+        assert (s.выделение == "hello");
         s.замени ("1");
-        assert (s.selection == "1");
+        assert (s.выделение == "1");
         assert (s == "1");
 
         assert (s.очисть == "");
 
         assert (s.форматируй("{}", 12345) == "12345");
-        assert (s.selection == "12345");
+        assert (s.выделение == "12345");
 
         s ~= "fubar";
-        assert (s.selection == "12345fubar");
+        assert (s.выделение == "12345fubar");
         assert (s.ищи("5").следщ);
-        assert (s.selection == "5");
+        assert (s.выделение == "5");
         assert (s.удали == "1234fubar");
         assert (s.ищи("fubar").следщ);
-        assert (s.selection == "fubar");
+        assert (s.выделение == "fubar");
         assert (s.ищи("wumpus").следщ is нет);
-        assert (s.selection == "");
+        assert (s.выделение == "");
 
         assert (s.очисть.форматируй("{:f4}", 1.2345) == "1.2345");
 
@@ -1683,49 +1680,49 @@ debug (UnitTest)
         assert (s.выбери.замени("almost ") == "almost ");
         foreach (элемент; Util.образцы ("все cows съешь grass", "съешь", "chew"))
                  s.добавь (элемент);
-        assert (s.selection == "almost все cows chew grass");
+        assert (s.выделение == "almost все cows chew grass");
         assert (s.очисть.форматируй("{}:{}", 1, 2) == "1:2");
         }
 }
 
 
-debug (Text)
+debug (Текст)
 {
         проц main()
         {
-                auto t = new Text!(сим);
+                auto t = new Текст!(сим);
                 t = "hello world";
                 auto s = t.ищи ("o");
                 assert (s.следщ);
-                assert (t.selection == "o");
-                assert (t.point is 4);
+                assert (t.выделение == "o");
+                assert (t.точка is 4);
                 assert (s.следщ);
-                assert (t.selection == "o");
-                assert (t.point is 7);
+                assert (t.выделение == "o");
+                assert (t.точка is 7);
                 assert (!s.следщ);
 
-                t.point = 9;
+                t.точка = 9;
                 assert (s.предш);
-                assert (t.selection == "o");
-                assert (t.point is 7);
+                assert (t.выделение == "o");
+                assert (t.точка is 7);
                 assert (s.предш);
-                assert (t.selection == "o");
-                assert (t.point is 4);
+                assert (t.выделение == "o");
+                assert (t.точка is 4);
                 assert (s.следщ);
-                assert (t.point is 7);
+                assert (t.точка is 7);
                 assert (s.предш);
-                assert (t.selection == "o");
-                assert (t.point is 4);
+                assert (t.выделение == "o");
+                assert (t.точка is 4);
                 assert (!s.предш);
                 assert (s.счёт is 2);
                 s.замени ('O');
                 assert (t.срез == "hellO wOrld");
                 assert (s.счёт is 0);
 
-                t.point = 0;
+                t.точка = 0;
                 assert (t.ищи("hellO").следщ);
-                assert (t.selection == "hellO");
+                assert (t.выделение == "hellO");
                 assert (t.ищи("hellO").следщ);
-                assert (t.selection == "hellO");
+                assert (t.выделение == "hellO");
         }
 }

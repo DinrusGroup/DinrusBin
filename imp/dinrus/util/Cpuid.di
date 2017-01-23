@@ -88,11 +88,11 @@ public:
     /// Note that some CPUs have programmable vendorIDs.
     ткст производитель()     {return cast(ткст) vendorID;}
     /// Returns процессор ткст, for display purposes only
-    ткст процессор()  {return processorName;}    
+    ткст процессор()  {return имяПроцессора;}    
     
     /// The данные caches. If there are fewer than 5 physical caches levels,
     /// the remaining levels are установи в_ бцел.max (== entire память пространство)
-    ИнфОКэше[5] datacache;
+    ИнфОКэше[5] кэшДанных;
     /// Does it have an x87 FPU on-chИП?
     бул x87onChИП()    {return (features&FPU_BIT)!=0;}
     /// Is MMX supported?
@@ -194,7 +194,7 @@ private:
     бул probablyIntel; // да = _probably_ an Intel процессор, might be faking
     бул probablyAMD; // да = _probably_ an AMD процессор
     сим[12] vendorID;
-    ткст processorName;
+    ткст имяПроцессора;
     сим[48] processorNameBuffer;
     бцел features = 0;     // mmx, sse, sse2, hyperthreading, etc
     бцел miscfeatures = 0; // sse3, etc.
@@ -294,7 +294,7 @@ version(Really_D_InlineAsm_X86) {
 {
     // CPUID2 is a dog's breakfast. What was Intel thinking???
     // We are only interested in the данные caches
-    проц decИПherCpuid2(ббайт x) {
+    проц расшифруйИдцпб2(ббайт x) {
         if (x==0) return;
         // Values из_ http://www.sandpile.org/ia32/cpuid.htm.
         // Includes Itanium and non-Intel CPUs.
@@ -336,13 +336,13 @@ version(Really_D_InlineAsm_X86) {
             if (x==опрs[i]) {
                 цел уровень = i< FIRSTDATA2 ? 0: i<FIRSTDATA3 ? 1 : 2;
                 if (x==0x49 && семейство==0xF && model==0x6) уровень=2;
-                datacache[уровень].размер=sizes[i];
-                datacache[уровень].ассоциативность=ways[i];
+                кэшДанных[уровень].размер=sizes[i];
+                кэшДанных[уровень].ассоциативность=ways[i];
                 if (уровень == 3 || x==0x2C || x==0x0D || (x>=0x48 && x<=0x80) 
                                    || x==0x86 || x==0x87
                                    || (x>=0x66 && x<=0x68) || (x>=0x39 && x<=0x3E)){
-                    datacache[уровень].размерСтроки = 64;
-                } else datacache[уровень].размерСтроки = 32;
+                    кэшДанных[уровень].размерСтроки = 64;
+                } else кэшДанных[уровень].размерСтроки = 32;
             }
         }
     }
@@ -367,9 +367,9 @@ version(Really_D_InlineAsm_X86) {
         // These are NOT стандарт Intel values
         // (TLB = 32 Запись, 4 way associative, 4K pages)
         // (L1 cache = 16K, 4way, linesize16)
-                datacache[0].размер=8;
-                datacache[0].ассоциативность=4;
-                datacache[0].размерСтроки=16;
+                кэшДанных[0].размер=8;
+                кэшДанных[0].ассоциативность=4;
+                кэшДанных[0].размерСтроки=16;
                 return;             
             }
             // lsb of a is как many times в_ loop.
@@ -381,10 +381,10 @@ version(Really_D_InlineAsm_X86) {
         for (цел c=0; c<4;++c) {
             // high bit установи == no инфо.
             if (a[c] & 0x8000_0000) continue;
-            decИПherCpuid2(cast(ббайт)(a[c] & 0xFF));
-            decИПherCpuid2(cast(ббайт)((a[c]>>8) & 0xFF));
-            decИПherCpuid2(cast(ббайт)((a[c]>>16) & 0xFF));
-            decИПherCpuid2(cast(ббайт)((a[c]>>24) & 0xFF));
+            расшифруйИдцпб2(cast(ббайт)(a[c] & 0xFF));
+            расшифруйИдцпб2(cast(ббайт)((a[c]>>8) & 0xFF));
+            расшифруйИдцпб2(cast(ббайт)((a[c]>>16) & 0xFF));
+            расшифруйИдцпб2(cast(ббайт)((a[c]>>24) & 0xFF));
         }
     } while (--numinfos);
 }
@@ -412,19 +412,19 @@ version(Really_D_InlineAsm_X86) {
         
         ++number_of_sets;
         ббайт уровень = cast(ббайт)(((a>>5)&7)-1);
-        if (уровень > datacache.length) continue; // ignore deep caches
-        datacache[уровень].ассоциативность = a & 0x200 ? ббайт.max :cast(ббайт)((b>>22)+1);
-        datacache[уровень].размерСтроки = (b & 0xFFF)+ 1; // system coherency строка размер
+        if (уровень > кэшДанных.length) continue; // ignore deep caches
+        кэшДанных[уровень].ассоциативность = a & 0x200 ? ббайт.max :cast(ббайт)((b>>22)+1);
+        кэшДанных[уровень].размерСтроки = (b & 0xFFF)+ 1; // system coherency строка размер
         бцел line_partitions = ((b >> 12)& 0x3FF) + 1;
         // Size = число of sets * ассоциативность * cachelinesize * linepartitions
         // and must преобразуй в_ Kb, also divопрing by the число of hyperthreads using this cache.
-        бдол sz = (datacache[уровень].ассоциативность< ббайт.max)? number_of_sets *
-            datacache[уровень].ассоциативность : number_of_sets;        
-        datacache[уровень].размер = cast(бцел)(
-                (sz * datacache[уровень].размерСтроки * line_partitions ) / (numthreads *1024));
+        бдол sz = (кэшДанных[уровень].ассоциативность< ббайт.max)? number_of_sets *
+            кэшДанных[уровень].ассоциативность : number_of_sets;        
+        кэшДанных[уровень].размер = cast(бцел)(
+                (sz * кэшДанных[уровень].размерСтроки * line_partitions ) / (numthreads *1024));
         if (уровень == 0 && (a&0xF)==3) {
             // Halve the размер for unified L1 caches
-            datacache[уровень].размер/=2;
+            кэшДанных[уровень].размер/=2;
         }
     }
 }
@@ -442,9 +442,9 @@ version(Really_D_InlineAsm_X86) {
         mov c5, ECX;
     }
 
-    datacache[0].размер = ( (c5>>24) & 0xFF);
-    datacache[0].ассоциативность = cast(ббайт)( (c5 >> 16) & 0xFF);
-    datacache[0].размерСтроки = c5 & 0xFF;
+    кэшДанных[0].размер = ( (c5>>24) & 0xFF);
+    кэшДанных[0].ассоциативность = cast(ббайт)( (c5 >> 16) & 0xFF);
+    кэшДанных[0].размерСтроки = c5 & 0xFF;
 
     if (max_extended_cpuid >= 0x8000_0006) {
         // AMD K6-III or K6-2+ or later.
@@ -466,14 +466,14 @@ version(Really_D_InlineAsm_X86) {
         }
     
         ббайт [] assocmap = [ 0, 1, 2, 0, 4, 0, 8, 0, 16, 0, 32, 48, 64, 96, 128, 0xFF ];
-        datacache[1].размер = (c6>>16) & 0xFFFF;
-        datacache[1].ассоциативность = assocmap[(c6>>12)&0xF];
-        datacache[1].размерСтроки = c6 & 0xFF;
+        кэшДанных[1].размер = (c6>>16) & 0xFFFF;
+        кэшДанных[1].ассоциативность = assocmap[(c6>>12)&0xF];
+        кэшДанных[1].размерСтроки = c6 & 0xFF;
         
         // The L3 cache значение is TOTAL, not per core.
-        datacache[2].размер = ((d6>>18)*512)/numcores; // could be up в_ 2 * this, -1.
-        datacache[2].ассоциативность = assocmap[(d6>>12)&0xF];
-        datacache[2].размерСтроки = d6 & 0xFF;
+        кэшДанных[2].размер = ((d6>>18)*512)/numcores; // could be up в_ 2 * this, -1.
+        кэшДанных[2].ассоциативность = assocmap[(d6>>12)&0xF];
+        кэшДанных[2].размерСтроки = d6 & 0xFF;
     }
 }
 
@@ -608,9 +608,9 @@ version(Really_D_InlineAsm_X86) {
         цел старт = 0, конец = 0;
         while (processorNameBuffer[старт] == ' ') { ++старт; }
         while (processorNameBuffer[$-конец-1] == 0) { ++конец; }
-        processorName = processorNameBuffer[старт..$-конец];
+        имяПроцессора = processorNameBuffer[старт..$-конец];
     } else {
-        processorName = "Unknown CPU";
+        имяПроцессора = "Unknown CPU";
     }
     // Determine cache sizes
     
@@ -627,7 +627,7 @@ version(Really_D_InlineAsm_X86) {
     }
     // Therefore, we try the AMD метод unless it's an Intel chИП.
     // If we still have no инфо, try the Intel methods.
-    datacache[0].размер = 0;
+    кэшДанных[0].размер = 0;
     if (max_cpuid<2 || !probablyIntel) {
         if (max_extended_cpuid >= 0x8000_0005) {
             getAMDcacheinfo();
@@ -635,35 +635,35 @@ version(Really_D_InlineAsm_X86) {
             // According в_ AMDProcRecognitionAppNote, this means CPU
             // K5 model 0, or Am5x86 (model 4), or Am4x86DX4 (model 4)
             // Am5x86 есть 16Kb 4-way unified данные & код cache.
-            datacache[0].размер = 8;
-            datacache[0].ассоциативность = 4;
-            datacache[0].размерСтроки = 32;     
+            кэшДанных[0].размер = 8;
+            кэшДанных[0].ассоциативность = 4;
+            кэшДанных[0].размерСтроки = 32;     
         } else {
             // Some obscure CPU.
             // Values for Cyrix 6x86MX (семейство 6, model 0)
-            datacache[0].размер = 64;
-            datacache[0].ассоциативность = 4;
-            datacache[0].размерСтроки = 32;     
+            кэшДанных[0].размер = 64;
+            кэшДанных[0].ассоциативность = 4;
+            кэшДанных[0].размерСтроки = 32;     
         }
     }   
-    if ((datacache[0].размер == 0) && max_cpuid>=4) {
+    if ((кэшДанных[0].размер == 0) && max_cpuid>=4) {
         getcacheinfoCPUID4();
     }
-    if ((datacache[0].размер == 0) && max_cpuid>=2) {     
+    if ((кэшДанных[0].размер == 0) && max_cpuid>=2) {     
         getcacheinfoCPUID2();
     }
-    if (datacache[0].размер == 0) {
+    if (кэшДанных[0].размер == 0) {
         // Pentium, PMMX, late model 486, or an obscure CPU
         if (mmx) { // Pentium MMX. Also есть 8kB код cache.
-            datacache[0].размер = 16;
-            datacache[0].ассоциативность = 4;
-            datacache[0].размерСтроки = 32;     
+            кэшДанных[0].размер = 16;
+            кэшДанных[0].ассоциативность = 4;
+            кэшДанных[0].размерСтроки = 32;     
         } else { // Pentium 1 (which also есть 8kB код cache)
                  // or 486.
             // Cyrix 6x86: 16, 4way, 32 linesize
-            datacache[0].размер = 8;
-            datacache[0].ассоциативность = 2;
-            datacache[0].размерСтроки = 32;
+            кэшДанных[0].размер = 8;
+            кэшДанных[0].ассоциативность = 2;
+            кэшДанных[0].размерСтроки = 32;
         }       
     }
     if (max_cpuid >=0x0B) {
@@ -701,9 +701,9 @@ version(Really_D_InlineAsm_X86) {
 
     проц cpuidX86()
     {
-            datacache[0].размер = 8;
-            datacache[0].ассоциативность = 2;
-            datacache[0].размерСтроки = 32;     
+            кэшДанных[0].размер = 8;
+            кэшДанных[0].ассоциативность = 2;
+            кэшДанных[0].размерСтроки = 32;     
     }   
 }
 
@@ -724,14 +724,14 @@ version(Really_D_InlineAsm_X86) {
     бцел L2size[]= [0, 0,  0,  0,  0,  0,  0,  256,  512];
     бцел L3size[]= [0, 0,  0,  0,  0,  0,  0,  2048,  0];
     
-    datacache[0].размер = sizes[cputype];
-    datacache[0].ассоциативность = ways[cputype]; 
-    datacache[0].размерСтроки = (cputype==PPCG5)? 128 : 
+    кэшДанных[0].размер = sizes[cputype];
+    кэшДанных[0].ассоциативность = ways[cputype]; 
+    кэшДанных[0].размерСтроки = (cputype==PPCG5)? 128 : 
         (cputype == PPC620 || cputype == PPCG3)? 64 : 32;
-    datacache[1].размер = L2size[cputype];
-    datacache[2].размер = L3size[cputype];
-    datacache[1].размерСтроки = datacache[0].размерСтроки;
-    datacache[2].размерСтроки = datacache[0].размерСтроки;
+    кэшДанных[1].размер = L2size[cputype];
+    кэшДанных[2].размер = L3size[cputype];
+    кэшДанных[1].размерСтроки = кэшДанных[0].размерСтроки;
+    кэшДанных[2].размерСтроки = кэшДанных[0].размерСтроки;
 }
 
 // TODO: Implement this function with OS support
@@ -754,20 +754,20 @@ static this()
         // it's a 386 or 486, or a Cyrix 6x86.
         //Probably still есть an external cache.
     }
-    if (datacache[0].размер==0) {
+    if (кэшДанных[0].размер==0) {
             // Guess same as Pentium 1.
-            datacache[0].размер = 8;
-            datacache[0].ассоциативность = 2;
-            datacache[0].размерСтроки = 32;     
+            кэшДанных[0].размер = 8;
+            кэшДанных[0].ассоциативность = 2;
+            кэшДанных[0].размерСтроки = 32;     
     }
     numCacheУровеньs = 1;
     // And сейчас заполни up все the unused levels with full память пространство.
-    for (цел i=1; i< datacache.length; ++i) {
-        if (datacache[i].размер==0) {
+    for (цел i=1; i< кэшДанных.length; ++i) {
+        if (кэшДанных[i].размер==0) {
             // Набор все remaining levels of cache equal в_ full адрес пространство.
-            datacache[i].размер = бцел.max/1024;
-            datacache[i].ассоциативность = 1;
-            datacache[i].размерСтроки = datacache[i-1].размерСтроки;
+            кэшДанных[i].размер = бцел.max/1024;
+            кэшДанных[i].ассоциативность = 1;
+            кэшДанных[i].размерСтроки = кэшДанных[i-1].размерСтроки;
         } else numCacheУровеньs = i+1;
     }
 }

@@ -1,5 +1,5 @@
 ﻿module tpl.stream;
-import dinrus, sys.DIfaces, sys.DConsts, cidrus;
+import dinrus, sys.WinIfaces, sys.WinConsts, cidrus;
 
 protected бул пробел(сим c) {
   return c == ' ' || c == '\t' || c == '\r' || c == '\n';
@@ -18,7 +18,7 @@ protected бул цифра16(сим c) {
 }
 
 
-extern (D) abstract class Поток :  sys.DIfaces.ПотокВвода, sys.DIfaces.ПотокВывода
+extern (D) abstract class Поток :  sys.WinIfaces.ПотокВвода, sys.WinIfaces.ПотокВывода
  {
  
 	extern (C) extern

@@ -241,7 +241,7 @@ struct RedBlack (V, A = AttributeDummy)
         /**
          * Return узел of текущ subtree containing значение as значение(), 
          * if it есть_ли, else пусто. 
-         * Uses Comparator cmp в_ найди и в_ проверь equality.
+         * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
 
         Реф найди (V значение, Сравни!(V) cmp)
@@ -268,7 +268,7 @@ struct RedBlack (V, A = AttributeDummy)
          * Return узел of subtree совпадают "значение" 
          * or, if Неук найдено, the one just after or before  
          * if it doesn't exist, return пусто
-         * Uses Comparator cmp в_ найди и в_ проверь equality.
+         * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
         Реф findFirst (V значение, Сравни!(V) cmp, бул after = да)
         {
@@ -314,7 +314,7 @@ struct RedBlack (V, A = AttributeDummy)
         
         /**
          * Return число of узелs of текущ subtree containing значение.
-         * Uses Comparator cmp в_ найди и в_ проверь equality.
+         * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
         цел счёт (V значение, Сравни!(V) cmp)
         {

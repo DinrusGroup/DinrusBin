@@ -232,7 +232,7 @@ Journal of Statistical Software <b>11</b>, (July 2004).
  *
  *    betaDistributionCompl(a, b, x )  =  betaDistribution( b, a, 1-x )
  *
- * The integral is evaluated by a continued дробь expansion
+ * The integral is evaluated by a continued дво expansion
  * or, when b*x is small, by a power series.
  *
  * The inverse finds the значение of x for which betaDistribution(a,b,x) - y = 0
@@ -315,7 +315,7 @@ Journal of Statistical Software <b>11</b>, (July 2004).
 
 /** Negative binomial ни в каком дистрибутиве и its inverse
  *
- * Returns the sum of the terms 0 through k of the negative
+ * Returns the sum of the terms 0 through k of the негатив
  * binomial ни в каком дистрибутиве:
  *
  * $(BIGSUM j=0, k) $(CHOOSE n+j-1, j-1) $(POWER p, n) $(POWER (1-p), j)
@@ -328,7 +328,7 @@ Journal of Statistical Software <b>11</b>, (July 2004).
  * The inverse finds the аргумент y such
  * that negativeBinomialDistribution(k,n,y) is equal в_ p.
  *
- * The Geometric Distribution is a special case of the negative binomial
+ * The Geometric Distribution is a special case of the негатив binomial
  * ни в каком дистрибутиве.
  * -----------------------
  * geometricDistribution(k, p) = negativeBinomialDistribution(k, 1, p);

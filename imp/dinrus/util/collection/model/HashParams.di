@@ -17,7 +17,7 @@ module util.collection.model.HashParams;
 
 /**
  *
- * Base interface for хэш таблица based собериions.
+ * База interface for хэш таблица based собериions.
  * Provопрes common ways of dealing with корзины и threshholds.
  * (It would be nice в_ совместно some of the код too, but this
  * would require multИПle inheritance here.)

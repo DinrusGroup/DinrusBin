@@ -35,21 +35,21 @@ public interface BagView(V) : View!(V)
 
 version (VERBOSE)
 {
-        public alias добавьing opCat;
+        public alias добавим opCat;
 
         /**
-         * Construct a new Bag that is a клонируй of сам except
+         * Construct a new Рюкзак that is a клонируй of сам except
          * that it включает indicated элемент. This can be использован
-         * в_ создай a series of Bag, each differing из_ the
+         * в_ создай a series of Рюкзак, each differing из_ the
          * другой only in that they contain добавьitional элементы.
          *
-         * @param the элемент в_ добавь в_ the new Bag
-         * Возвращает: the new Bag c, with the совпадает as this except that
+         * @param the элемент в_ добавь в_ the new Рюкзак
+         * Возвращает: the new Рюкзак c, with the совпадает as this except that
          * c.occurrencesOf(элемент) == occurrencesOf(элемент)+1 
          * Throws: IllegalElementException if !canInclude(элемент)
         **/
 
-        public Bag добавьing(V элемент);
+        public Рюкзак добавим(V элемент);
 
         /**
          * Construct a new Коллекция that is a клонируй of сам except
@@ -63,7 +63,7 @@ version (VERBOSE)
          * Throws: IllegalElementException if !canInclude(элемент)
         **/
 
-        public Bag добавьingIfAbsent(V элемент);
+        public Рюкзак добавимЕслиНет(V элемент);
 } // version
 
 }

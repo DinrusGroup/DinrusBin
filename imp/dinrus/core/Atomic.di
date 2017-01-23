@@ -661,7 +661,7 @@ else version( D_InlineAsm_X86 )
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -815,7 +815,7 @@ else version( D_InlineAsm_X86 )
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -955,7 +955,7 @@ else version( D_InlineAsm_X86 )
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1067,7 +1067,7 @@ else version( D_InlineAsm_X86 )
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1179,7 +1179,7 @@ else version( D_InlineAsm_X86 )
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1269,7 +1269,7 @@ else
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1319,7 +1319,7 @@ else
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1364,7 +1364,7 @@ else
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1410,7 +1410,7 @@ else
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template тип specified." );
+                pragma( msg, "Неверный template тип specified." );
                 static assert( нет );
             }
         }
@@ -1456,7 +1456,7 @@ else
                 ////////////////////////////////////////////////////////////////
 
 
-                pragma( msg, "Invalid template type specified." );
+                pragma( msg, "Неверный template type specified." );
                 static assert( нет );
             }
         }
