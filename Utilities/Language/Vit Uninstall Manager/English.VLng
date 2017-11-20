@@ -1,0 +1,19 @@
+[Language]
+Title=Ukraine
+Translator=Mihalko Vitaliy Omeliyanovich
+Informations=vitsoftware@gmail.com
+[Translation]
+5=About
+7=Exit
+2=Delete 
+1=Uninstall
+6=Hide program in which is present word 'Microsoft'
+9=Close
+15=Do you really want to delete the uninstall entry ?
+16=Yes
+17=No
+11=Uninstall program does not exist or damage (Recommended delete this record)
+12=Show system components (need restart)
+18=Save window size
+19=Show as list
+

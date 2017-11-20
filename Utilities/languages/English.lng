@@ -1,0 +1,67 @@
+﻿//English language file for 
+//Translator=
+//Version=0.1
+//Date=02/24/2011
+//If you find an error in translation please inform the developers 
+//and the translator as soon as possible.
+
+<MainMenu>
+11010=File
+11011=Open
+11020=Exit
+11050=View
+11051=Language
+11052=Use sounds
+11100=Help
+11101=Contents
+11102=Check for Update
+11103=Homepage
+11110=About...
+</MainMenu>
+
+<MainForm>
+12011=File to convert:
+12012=Open or drop video file here
+12013=Choose video file
+12014=Open
+12015=Open file to convert
+12050=Convert video to:
+12051=Format:
+12052=Specify desired format
+12053=Format
+12054=Gadget
+12060=Size:
+12061=Choose from the list or specify your own (WxH) 
+12062=Original
+12070=Quality:
+12071=Quality %1 from 10
+12072=low
+12073=high
+12075=More
+12076=No audio
+12077=Original
+12078=Other
+12080=File:
+12081=Output file
+12082=Choose folder and file
+12090=Play
+12091=Show in folder
+12100=Convert
+12101=Cancel
+12110=Keep aspect ratio
+12111=Maintain aspect ratio of the original video (Width taken as basis)
+</MainForm>
+
+<GeneralMessages>
+13011=Invalid size. Please correct it and try again
+13012=File with name "%1" already exists. Change file name and try again
+13013=Converting...
+13014=Conversion has been cancelled
+13015=Error. Unsupported codec
+13016=Error. Unable to convert
+13017=Conversion finished
+13030=New program version %1 available! In this version:
+13031=Do you want to download the new version of the program?
+13032=You are using the latest version of the program. Stay tuned for future updates.
+13033=Error while updating 
+</GeneralMessages>

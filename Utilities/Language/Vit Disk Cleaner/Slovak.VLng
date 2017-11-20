@@ -1,0 +1,60 @@
+[Language]
+Title=Slovak
+CharSet=238
+Translator=Lumir
+Informations=lumir@stonline.sk
+[Translation]
+1=Skenova
+2=Oznaèi všetko
+3=Zruši všetko
+4=Vymaza
+5=O programe
+6=Ukonèi
+7=Skenovanie:
+8=Ve¾kos:
+9=Rıchle vyh¾adávanie h¾adá doèasné a nepotrebné súbory v adresároch.
+10=Informácie
+11=Rozšírené vyh¾adávanie h¾adá nepotrebné súbory vo zväzkoch. Typy súborov môete vybra v záloke "Nastavenia" a tie si môete prida aj vlastné typy súborov.
+12=Oznaèi všetko
+13=Zruši všetko
+14=Prida
+15=Vymaza
+16=Predvolené
+17=Typ súboru
+18=Popis
+19=Prida
+20=Zatvori
+21=Typ
+22=Adresár
+23=Súbor
+24=Typy súborov
+25=Ignorované
+27=Ostatné
+28=Nastavenia
+31=Zobrazi poslednú poloku v zozname pri skenovaní v reime:
+32=Súbor\Adresár
+33=Ve¾kos
+34=Kategória
+35=Zväzok
+36=Názov
+37=Poloky
+38=Typ
+39=Rıchle vyh¾adávanie
+40=Rozšírené vyh¾adávanie
+41=Zastavi
+42=Rıchle vyh¾adávanie
+43=Rozšírené vyh¾adávanie
+44=Priebeh:
+45=Neplatné zadanie.
+46=Tento typ súboru nemôete prida!
+47=Prvı znak musí by bodka!
+48=Málo znakov. Minimálne musia by štyri, vrátane bodky!
+49=Pre "Adresár" musíte zada minimálne štyri znaky!
+50=Pre "Súbor" musíte zada minimálne pä znakov!
+51=Táto poloka sa nedá vymaza !
+52=Táto poloka sa nedá odznaèi !
+53=Odznaèenie tejto poloky sa nedoporuèuje!
+54=Vıkon skenovania v reime "Rozšírené vyh¾adávanie":
+
+
+

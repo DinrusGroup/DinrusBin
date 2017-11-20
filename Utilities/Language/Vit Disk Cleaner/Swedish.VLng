@@ -1,0 +1,60 @@
+﻿[Language]
+Title=Svenska
+Translator=Göran Malmberg
+Informations=vitsoftware@gmail.com
+[Translation]
+1=Skan
+2=Välj alla
+3=Välj bort alla
+4=Ta bort
+5=Om
+6=Avsluta
+7=Skanning:
+8=Storle:
+9=Snabb sökning är avsedd för skanning av katalogen, som är mest benägen att bli nedskräpad av temporär och annan onödig fil.
+10=Info
+11=Utökad sökning är avsedd för skanning av disken efter onödiga filtyper. Möjliga filtyper är de om valts i parameter såväl som i tillägg.
+12=Välj alla
+13=Välj bort alla
+14=Lägga till
+15=Ta bort
+16=Standard
+17=Filtyp
+18=Beskrivning
+19=Lägg till
+20=Stäng
+21=Typ
+22=Katalog
+23=Fil
+24=Filtyper
+25=Ignoreringslista
+27=Andra
+28=Inställning
+31=Visa sista post i listan vid skanning:
+32=Fil\Katalog
+33=Storlek
+34=Kategori
+35=Disk
+36=Etikett
+37=Post
+38=Typ
+39=Snabb sökning
+40=Utökad sökning
+41=Stoppa
+42=För"Snabb sökning" läge
+43=För "Utökad sökning" läge
+44=Utveckling:
+45=Otillåten inmatning.
+46=Denna filtyp förbjuds att lägga till!
+47=1:a tecken måstet vara en punkt!
+48=Tecken fattas. Måste vara minst fyra inklusive punkt!
+49=För "Katalog" måste anges minst fyra tecken!
+50=För "Fil" måste anges minst fem tecken!
+51=Att ta bort denna post är omöjligt!
+52=Att välja bort denna post är omöjligt!
+53=Att välja bort denna post förordas ej!
+54=Skanningsutförande vid 'Utökad sökning':
+
+
+
+
