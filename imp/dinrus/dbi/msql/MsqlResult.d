@@ -18,9 +18,7 @@ private import dbi.msql.imp;
  */
 class РезультатМЭсКюЭл : Результат {
 	public:
-	this () {
-
-	}
+	this () ;
 
 	/**
 	 * Get the следщ ряд from a результат установи.
@@ -28,16 +26,11 @@ class РезультатМЭсКюЭл : Результат {
 	 * Returns:
 	 *	A Ряд object with the queried information or пусто for an empty установи.
 	 */
-	override Ряд получиРяд () {
-		return пусто;
-	}
+	override Ряд получиРяд ();
 
 	/**
 	 * Free all бд resources used by a результат установи.
 	 */
-	override проц финиш () {
+	override проц финиш () ;
 
-	}
-
-	private:
 }

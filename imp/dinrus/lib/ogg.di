@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2004-2009 Derelict Developers
  * All rights reserved.
  *
@@ -30,12 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 module lib.ogg;
-import dinrus;
-
-private
-{
-    //import stdrus;
-}
+import stdrus;
 
 
 alias long      ogg_int64_t;

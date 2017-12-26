@@ -1,108 +1,108 @@
-﻿
+
 module tpl.collection;
 
 class Коллекция(Ш)
 {
-	private Ш[] _t;
+    private Ш[] _t;
 
-	public final цел добавь(Ш t)
-	{
-		this._t ~= t;
-		return this._t.length - 1;
-	}
+    public final цел добавь(Ш t)
+    {
+        this._t ~= t;
+        return this._t.length - 1;
+    }
 
-	public final проц сотри()
-	{
-		this._t.length = 0;
-	}
+    public final проц сотри()
+    {
+        this._t.length = 0;
+    }
 
-	public final цел длина()
-	{
-		return this._t.length;
-	}
+    public final цел длина()
+    {
+        return this._t.length;
+    }
 
-	public final проц удали(Ш t)
-	{		
-		this.удалиПо(this.найди(t));
-	}
+    public final проц удали(Ш t)
+    {
+        this.удалиПо(this.найди(t));
+    }
 
-	public final проц удалиПо(цел idx)
-	{
-		цел x = 0;
-		Ш[] новШ = new Ш[this._t.length - 1];
-		
-		foreach(цел i, Ш t; this._t)
-		{
-			if(i != idx)
-			{
-				новШ[x] = t;
-				x++;
-			}
-		}
+    public final проц удалиПо(цел idx)
+    {
+        цел x = 0;
+        Ш[] новШ = new Ш[this._t.length - 1];
 
-		this._t = новШ;
-	}
+        foreach(цел i, Ш t; this._t)
+        {
+            if(i != idx)
+            {
+                новШ[x] = t;
+                x++;
+            }
+        }
 
-	public final цел найди(Ш t)
-	{
-		foreach(цел i, Ш ft; this._t)
-		{
-			if(ft is t)
-			{
-				return i;
-			}
-		}
+        this._t = новШ;
+    }
 
-		return -1;
-	}
+    public final цел найди(Ш t)
+    {
+        foreach(цел i, Ш ft; this._t)
+        {
+            if(ft is t)
+            {
+                return i;
+            }
+        }
 
-	public Ш opIndex(цел i)
-	{
-		if(i >= 0 && i < this._t.length)
-		{
-			return this._t[i];
-		}
+        return -1;
+    }
 
-		return null;
-	}
+    public Ш opIndex(цел i)
+    {
+        if(i >= 0 && i < this._t.length)
+        {
+            return this._t[i];
+        }
 
-	public цел opApply(цел delegate(ref Ш) dg)
-	{
-		цел res = 0;
+        return null;
+    }
 
-		if(this._t.length)
-		{
-			for(цел i = 0; i < this._t.length; i++)
-			{
-				res = dg(this._t[i]);
+    public цел opApply(цел delegate(ref Ш) dg)
+    {
+        цел res = 0;
 
-				if(res)
-				{
-					break;
-				}
-			}
-		}
+        if(this._t.length)
+        {
+            for(цел i = 0; i < this._t.length; i++)
+            {
+                res = dg(this._t[i]);
 
-		return res;
-	}
+                if(res)
+                {
+                    break;
+                }
+            }
+        }
 
-	public цел opApply(цел delegate(ref цел, ref Ш) dg)
-	{
-		цел res = 0;
+        return res;
+    }
 
-		if(this._t.length)
-		{
-			for(цел i = 0; i < this._t.length; i++)
-			{
-				res = dg(i, this._t[i]);
+    public цел opApply(цел delegate(ref цел, ref Ш) dg)
+    {
+        цел res = 0;
 
-				if(res)
-				{
-					break;
-				}
-			}
-		}
+        if(this._t.length)
+        {
+            for(цел i = 0; i < this._t.length; i++)
+            {
+                res = dg(i, this._t[i]);
 
-		return res;
-	}	
+                if(res)
+                {
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
 }

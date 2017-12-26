@@ -1,4 +1,4 @@
-﻿module util.pathex;
+module util.pathex;
 
 ткст дайТекПап();
 ткст дайТекПап(char драйв);

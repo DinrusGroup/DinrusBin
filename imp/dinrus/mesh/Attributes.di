@@ -1,4 +1,4 @@
-﻿module mesh.Attributes;
+module mesh.Attributes;
 import mesh.Status;
 
 

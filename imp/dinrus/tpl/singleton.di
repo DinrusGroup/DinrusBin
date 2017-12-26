@@ -1,4 +1,4 @@
-﻿
+
 module tpl.singleton;
 import win, stdrus;
 
@@ -7,23 +7,23 @@ import win, stdrus;
   */
 final static class ДержательСинглтона(T)
 {
-	public alias ДержательСинглтона!(T) ТипСам;
-   	private static T с_экземпляр;
+    public alias ДержательСинглтона!(T) ТипСам;
+    private static T с_экземпляр;
 
-   	private synchronized static this()
-   	{
-        static assert(is(T == class) || is(T == struct) || is(T == union), 
-                "ДержательСинглтона: только класс, союз или структура");
+    private synchronized static this()
+    {
+        static assert(is(T == class) || is(T == struct) || is(T == union),
+                      "ДержательСинглтона: только класс, союз или структура");
 
-		static if(is(T == class))
-   			с_экземпляр = new T();
-	}
+        static if(is(T == class))
+            с_экземпляр = new T();
+    }
 
     public static T экземпляр()
     {
-		static if(is(T == class))
+        static if(is(T == class))
             assert(с_экземпляр !is пусто);
-           
+
         return с_экземпляр;
     }
 
@@ -53,7 +53,7 @@ class Синглтон(T)
 public:
 
     /** Функция доступа к синглтону.
-        Use this function to obtain a reference to the instance of the 
+        Use this function to obtain a reference to the instance of the
         encapsulated class. Note that this instance is unique and created
         on the first call to Экземпляр().
     */
@@ -84,7 +84,7 @@ private:
     {
         укнаэкз__ = new T;
     }
-  
+
     // Will be called if instance is accessed after its lifetime has expired
     static проц приМёртвойССылке()
     {
@@ -97,22 +97,26 @@ private:
         укнаэкз__ = пусто;
         разрушен__ = да;
     }
-  
+
     static T     укнаэкз__ = пусто;
     static бул  разрушен__ = нет;
 }
 
-class Тест {
-    this() {
+class Тест
+{
+    this()
+    {
         скажинс("Создание класса Тест");
     }
-    ~this() {
+    ~this()
+    {
         скажинс("Уничтожение класса Тест");
     }
     ткст фуу = "hi";
 }
 
-unittest {
+unittest
+{
     alias Синглтон!(Тест)  СинглтонТест;
     скажинс(СинглтонТест.Экземпляр.фуу);
     СинглтонТест.Экземпляр.фуу = "bar";

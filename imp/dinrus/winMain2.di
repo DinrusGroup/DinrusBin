@@ -1,4 +1,4 @@
-﻿module winMain2;
+module winMain2;
 import sys.win32.UserGdi;
 
 extern(C)	бул ртСтарт(ПередВходом передвхо = пусто, ОбработчикИсключения дг = пусто);

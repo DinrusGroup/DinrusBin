@@ -22,7 +22,7 @@ private import dbi.pg.imp, dbi.pg.PgError;
  * See_Also:
  *	Результат is the interface of which this provides an implementation.
  */
-class PgРезультат : Результат {
+class ПгРезультат : Результат {
 	public:
 	this (PGconn* conn, PGresult* результаты) ;
 

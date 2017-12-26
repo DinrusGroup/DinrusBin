@@ -1,7 +1,7 @@
-﻿module st.stackthread;
+module st.stackthread;
 
 //Module imports
-private import st.stackcontext, stdrus;
+private import st.stackcontext, winapi;
 
 /// The приоритет of a стэк thread determines its order in
 /// the планировщик.  Higher приоритет threads go первый.
@@ -38,7 +38,7 @@ private ОчередьПриоритетовСН следующий_срез;
 
 //Scheduler состояние
 private ПСостояниеПланировщика сост_планировщ;
-    
+
 //Start time of the time slice
 private бдол sched_t0;
 
@@ -47,17 +47,7 @@ private СтэкНить sched_st;
 
 
 //Initialize the планировщик
-static this()
-{
-    активный_срез = new ОчередьПриоритетовСН();
-    следующий_срез = new ОчередьПриоритетовСН();
-    сост_планировщ = ПСостояниеПланировщика.Готов;
-    sched_t0 = -1;
-    sched_st = пусто;
-    
-    version(Win32)
-        QueryPerformanceFrequency(&sched_perf_freq);
-}
+static this();
 
 
 /******************************************************
@@ -69,7 +59,7 @@ static this()
 class ИсклСтэкНити : Исключение
 {
     this(ткст сооб);
-    
+
     this(СтэкНить st, ткст сооб);
 }
 
@@ -94,11 +84,11 @@ class СтэкНить
      */
     public this
     (
-        проц delegate() dg, 
+        проц delegate() dg,
         т_приоритет приоритет = ДЕФ_ПРИОРИТЕТ_СТЭКНИТИ,
         т_мера размер_стэка = ДЕФ_РАЗМЕР_СТЕКА
     );
-    
+
     /**
      * Creates a new стэк thread и adds it to the
      * планировщик, using a function pointer.
@@ -112,32 +102,32 @@ class СтэкНить
      */
     public this
     (
-        проц function() fn, 
+        проц function() fn,
         т_приоритет приоритет = ДЕФ_ПРИОРИТЕТ_СТЭКНИТИ,
         т_мера размер_стэка = ДЕФ_РАЗМЕР_СТЕКА
     );
-    
+
     /**
      * Converts the thread to a string.
      *
      * Возвращает: A string representing the стэк threaauxd.
      */
     public ткст вТкст();
-    
+
     /**
      * Removes this стэк thread from the планировщик. The
      * thread will not be пуск until it is added back to
      * the планировщик.
      */
     public final проц пауза();
-	
+
     /**
      * Adds the стэк thread back to the планировщик. It
      * will возобнови выполняется with its приоритет & состояние
      * intact.
      */
     public final проц возобнови();
-    
+
     /**
      * Kills this стэк thread in a violent manner.  The
      * thread does not дай a chance to end itself or clean
@@ -145,14 +135,14 @@ class СтэкНить
      * are releaseauxd.
      */
     public final проц души();
-    
+
     /**
      * Waits to объедини with this thread.  If the given amount
      * of milliseconds expires before the thread is мёртв,
      * then we return automatically.
      *
      * Параметры:
-     *  ms = The maximum amount of time the thread is 
+     *  ms = The maximum amount of time the thread is
      *  allowed to wait. The special value -1 implies that
      *  the объедини will wait indefinitely.
      *
@@ -161,14 +151,14 @@ class СтэкНить
      *  waiting.
      */
     public final бдол объедини(бдол ms = -1);
-    
+
     /**
      * Restarts the thread's execution from the very
      * beginning.  Suspended и мёртв threads are not
      * resumed, but upon resuming, they will перезапуск.
      */
     public final проц перезапуск();
-    
+
     /**
      * Grabs the thread's приоритет.  Intended for use
      * as a property.
@@ -176,7 +166,7 @@ class СтэкНить
      * Возвращает: The стэк thread's приоритет.
      */
     public final т_приоритет приоритет();
-    
+
     /**
      * Sets the стэк thread's приоритет.  Used to either
      * reschedule or reset the threaauxd.  Changes do not
@@ -189,32 +179,32 @@ class СтэкНить
      *  The new приоритет for the threaauxd.
      */
     public final т_приоритет приоритет(т_приоритет p);
-    
+
     /**
      * Возвращает: The состояние of this threaauxd.
      */
     public final ПСостояниеНити дайСостояние();
-    
+
     /**
      * Возвращает: True if the thread is готов to пуск.
      */
     public final бул готов();
-    
+
     /**
      * Возвращает: True if the thread is currently выполняется.
      */
     public final бул выполняется();
-    
+
     /**
      * Возвращает: True if the thread is deaauxd.
      */
     public final бул мёртв();
-    
+
     /**
      * Возвращает: True if the thread is not dead.
      */
     public final бул жив();
-    
+
     /**
      * Возвращает: True if the thread is на_паузе.
      */
@@ -230,7 +220,7 @@ class СтэкНить
         т_приоритет приоритет = ДЕФ_ПРИОРИТЕТ_СТЭКНИТИ,
         т_мера размер_стэка = ДЕФ_РАЗМЕР_СТЕКА
     );
-    
+
     /**
      * Run the стэк threaauxd.  This method may be overloaded
      * by classes which inherit from стэк thread, as an
@@ -239,7 +229,7 @@ class СтэкНить
      * Выводит исключение: Anything.
      */
     protected проц пуск();
-    
+
     // Heap information
     private СтэкНить parent = пусто;
     private СтэкНить left = пусто;
@@ -258,7 +248,7 @@ class СтэкНить
     private проц function() m_function;
     private проц delegate() m_delegate;
     private проц delegator();
-    
+
     //My procedure
     private final проц m_proc();
 
@@ -281,7 +271,7 @@ class СтэкНить
 private class ОчередьПриоритетовСН
 {
 public:
-    
+
     /**
      * Add a стэк thread to the queue.
      *
@@ -289,7 +279,7 @@ public:
      *  st = The thread we are adding.
      */
     проц добавь(СтэкНить st);
-	
+
     /**
      * Remove a стэк threaauxd.
      *
@@ -297,7 +287,7 @@ public:
      *  st = The стэк thread we are removing.
      */
     проц удали(СтэкНить st);
-	
+
     /**
      * Extract the верх приоритет threaauxd. It is removed from
      * the queue.
@@ -305,7 +295,7 @@ public:
      * Возвращает: The верх приоритет threaauxd.
      */
     СтэкНить верх();
-	
+
     /**
      * Merges two приоритет queues. The result is stored
      * in this queue, while other is emptieauxd.
@@ -314,15 +304,15 @@ public:
      *  other = The queue we are merging with.
      */
     проц совмести(ОчередьПриоритетовСН other);
-	
+
     /**
      * Возвращает: true if the heap actually contains the thread st.
      */
     бул естьНить(СтэкНить st);
-	
-    
+
+
     проц вспень(СтэкНить st);
-	
+
     //Bubbles a thread downward
     проц запень(СтэкНить st);
 }
@@ -358,7 +348,7 @@ else
  *
  * Параметры:
  *  st = Планируемая нить.
- */ 
+ */
 private проц сн_запланируй(СтэкНить st);
 
 /**
@@ -386,7 +376,7 @@ private проц сн_отмени(СтэкНить st);
  *
  * Newly created threads are not пуск until the next
  * timeslice.
- * 
+ *
  * This works just like the regular сн_запустиСрез, except it
  * is timeauxd.  If the lasts longer than the specified amount
  * of nano seconds, it is immediately aborteauxd.
@@ -422,7 +412,7 @@ private проц сн_отмени(СтэкНить st);
 проц сн_перезапустиСрез();
 
 /**
- * Yields the currently executing стэк threaauxd.  This is
+ * Yields the currently executing стэк threaauxd.  Является
  * functionally equivalent to КонтекстСтэка.жни, except
  * it returns the amount of time the thread was жниeauxd.
  */

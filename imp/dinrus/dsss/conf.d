@@ -1,22 +1,22 @@
 ﻿/**
  * DSSS configuration stuff
- * 
+ *
  * Authors:
  *  Gregor Richards
- * 
+ *
  * License:
  *  Copyright (c) 2006, 2007  Gregor Richards
- *  
+ *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated докumentation файлы (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to исп, copy, modify, merge, publish, distribute, sublicense,
  *  and/or sell copies of the Software, and to permit persons to whom the
  *  Software is furnished to do so, subject to the following conditions:
- *  
+ *
  *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,7 +34,7 @@ import dsss.clean;
 import dsss.platform;
 import dsss.system;
 
-import sys.DProcess;
+import sys.WinProcess;
 
 import util.booltype;
 import util.fdt;
@@ -136,7 +136,7 @@ const ткст имяКонфФайлаПП = "dsss.last";
 
 /** Tested версии (for the цель) */
 бул[ткст] версии;
-    
+
 /* It's often useful to know whether we're using GNU and/or Posix, as GNU on
  * Windows tends to do some things Posixly. */
 version(build) {
@@ -157,9 +157,9 @@ version(build) {
         скажифнс("Не удалось выявить префикс установки DSSS.");
         выход(1);
     }
-    
+
     префиксУстановки = канонПуть(префиксУстановки);
-    
+
     // get some default usedirs
     использПапки ~= канонПуть(префиксУстановки ~ РАЗДПАП ~ "..");
     version(Posix) {
@@ -171,20 +171,20 @@ version(build) {
 	    else version(Windows) {
         ткст дом = дайПеремСреды("DINRUS");
         if (дом != "") {
-            использПапки ~= канонПуть(дом ~ РАЗДПАП ~".."~ РАЗДПАП ~"imp"~ РАЗДПАП ~"dinrus"~ РАЗДПАП ~"dsss");		
+            использПапки ~= канонПуть(дом ~ РАЗДПАП ~".."~ РАЗДПАП ~"imp"~ РАЗДПАП ~"dinrus"~ РАЗДПАП ~"dsss");
         }
 		/*debug*/ скажинс("Дом="~дом);
     }
-    
+
     // set the префикс to actually инсталлируй things to
-    
+
     // using this directory, найди включить and библиотека directories
     if (естьФайл(префиксУстановки ~ РАЗДПАП ~".." ~ РАЗДПАП ~"imp"~ РАЗДПАП ~"dinrus"~ РАЗДПАП ~"dsss" ~ РАЗДПАП ~ "main.d")) {
         // this is probably the постройка префикс
         вИсхПапке = да;
         /*debug*/ скажинс("форсПрефикс ="~форсПрефикс);
         if (форсПрефикс == "") {
-            форсПрефикс = префиксУстановки;			
+            форсПрефикс = префиксУстановки;
         } else {
             форсПрефикс = канонПуть(форсПрефикс);
         }
@@ -202,11 +202,11 @@ version(build) {
             ребилд = префиксУстановки ~
                 РАЗДПАП ~ "rebuild.exe";
         }
-		
+
         /*debug*/ скажинс("ребилд ="~ребилд);
-		
+
         устПеремСреды("DSSS_BUILD", ребилд);
-        
+
         if (!префиксКандиДок.length)
             префиксКандиДок = канонПуть(
                 префиксУстановки ~ РАЗДПАП ~".." ~ РАЗДПАП ~ "imp"~ РАЗДПАП ~"dinrus"~ РАЗДПАП ~"dsss" ~ РАЗДПАП~"dsss"~ РАЗДПАП~"candydoc.tar.gz");
@@ -215,11 +215,11 @@ version(build) {
                 префиксУстановки ~ РАЗДПАП ~".." ~ РАЗДПАП ~ "imp"~ РАЗДПАП ~"dinrus"~ РАЗДПАП ~"dsss" ~ РАЗДПАП~"dsss_lib_test.d");
     } else {
         вИсхПапке = нет;
-        
+
         // slightly more complicated for a real инсталлируй
         if (форсПрефикс == "") {
             форсПрефикс = извлекиПапку(префиксУстановки);
-            
+
             // if this is inaccessible, we need to make a better decision
             version(Posix) {
                 if (access((форсПрефикс ~ '\0').ptr, праваДоступа.W_OK) != 0) {
@@ -232,18 +232,18 @@ version(build) {
                     }
                 }
             }
-            
+
         } else {
             форсПрефикс = канонПуть(форсПрефикс);
         }
-        
+
         ткст сссБазовоеРасп = форсПрефикс ~ РАЗДПАП ~
             "imp" ~ РАЗДПАП ~
             "dinrus" ~ РАЗДПАП ~
             "dsss" ~ РАЗДПАП;
         стабДРасп = сссБазовоеРасп ~ "stub.d";
         дсссДллРасп = сссБазовоеРасп ~ "dsssdll.d";
-        
+
         // set постройка environment variable
         version(Posix) {
             ребилд = префиксУстановки ~
@@ -252,7 +252,7 @@ version(build) {
             ребилд = префиксУстановки ~
                 РАЗДПАП ~ "rebuild.exe";
         }
-        
+
         // if we don't have rebuild next to us, try to исп it without a путь
         if (!естьФайл(ребилд)) {
             version(Posix) {
@@ -261,9 +261,9 @@ version(build) {
                 ребилд = "rebuild.exe";
 			}
 		}
-        
+
         устПеремСреды("DSSS_BUILD", ребилд);
-        
+
         if (!префиксКандиДок.length)
             префиксКандиДок = канонПуть(
                 префиксУстановки ~ РАЗДПАП ~
@@ -272,7 +272,7 @@ version(build) {
                 "dsss" ~ РАЗДПАП ~
                 "candydoc.tar.gz");
 				/*debug*/ скажинс("префиксКандиДок ="~префиксКандиДок);
-				
+
         if (!префиксДсссЛибТест.length)
             префиксДсссЛибТест = канонПуть(
                 префиксУстановки ~ РАЗДПАП ~
@@ -281,11 +281,11 @@ version(build) {
                 "dsss_lib_test.d");
 		 /*debug*/ скажинс("префиксДсссЛибТест ="~префиксДсссЛибТест);
     }
-    
+
     if (!бинПрефикс.length)
         бинПрефикс = форсПрефикс;//  ~ РАЗДПАП ~".."~ РАЗДПАП ~ "bin";
 		/*debug*/ скажинс("бинПрефикс ="~бинПрефикс);
-		
+
     if (!либПрефикс.length)
         либПрефикс = форсПрефикс  ~ РАЗДПАП ~".."~ РАЗДПАП ~ "lib";
 			/*debug*/ скажинс("либПрефикс ="~либПрефикс);
@@ -293,20 +293,20 @@ version(build) {
         инклюдПрефикс = форсПрефикс ~ РАЗДПАП ~".."~ РАЗДПАП ~
                 "imp" ~ РАЗДПАП ~"dinrus";
 					/*debug*/ скажинс("инклюдПрефикс ="~инклюдПрефикс);
-					
+
     if (!докПрефикс.length)
         докПрефикс = форсПрефикс ~ РАЗДПАП ~".."~ РАЗДПАП ~
                 "imp" ~ РАЗДПАП ~"dinrus"
 				~ РАЗДПАП ~"dsss"~ РАЗДПАП ~
             "doc";
 				/*debug*/ скажинс("докПрефикс ="~докПрефикс);
-				
+
     if (!префиксМанифеста.length)
         префиксМанифеста = форсПрефикс~ РАЗДПАП ~".." ~ РАЗДПАП ~"imp"
 				~ РАЗДПАП ~"dsss"~ РАЗДПАП ~ "dsss"
 				~ РАЗДПАП ~ "manifest";
 				/*debug*/ скажинс("префиксМанифеста ="~префиксМанифеста);
-				
+
     if (!этцетераПрефикс.length) {
         if (форсПрефикс == "/usr") {
             // in the case of /usr, исп /etc instead of /usr/etc
@@ -322,11 +322,11 @@ version(build) {
                 "imp" ~ РАЗДПАП ~"dinrus"
 				~ РАЗДПАП ~"dsss"~ РАЗДПАП ~ "dsss"
 				~ РАЗДПАП ~ "sources");
-    
+
     // set the scratch префикс and some some environment variables
     version(Posix) {
         черновойПрефикс = "/tmp";
-        
+
         устПеремСреды("DSSS", префиксУстановки ~ РАЗДПАП ~ bname);
         устПеремСреды("PREFIX", форсПрефикс);
         устПеремСреды("BIN_PREFIX", бинПрефикс);
@@ -335,7 +335,7 @@ version(build) {
         устПеремСреды("DOC_PREFIX", докПрефикс);
         устПеремСреды("ETC_PREFIX", этцетераПрефикс);
         устПеремСреды("EXE_EXT", "");
-        
+
         // make sure components run with libraries, etc
         устПеремСреды("PATH", бинПрефикс ~ ":" ~ дайПеремСреды("PATH"));
         ткст ldlibp = дайПеремСреды("LD_LIBRARY_PATH");
@@ -349,7 +349,7 @@ version(build) {
         черновойПрефикс = канонПуть(префиксУстановки ~ РАЗДПАП ~
                                   ".." ~ РАЗДПАП ~
                                   "tmp");
-        
+
         устПеремСреды("DSSS", префиксУстановки ~ РАЗДПАП ~ bname);
         устПеремСреды("PREFIX", форсПрефикс);
         устПеремСреды("BIN_PREFIX", бинПрефикс);
@@ -358,11 +358,11 @@ version(build) {
         устПеремСреды("DOC_PREFIX", докПрефикс);
         устПеремСреды("ETC_PREFIX", этцетераПрефикс);
         устПеремСреды("EXE_EXT", ".exe");
-        
+
         // путь for both bin and lib
         устПеремСреды("PATH", бинПрефикс ~ ";" ~ либПрефикс ~ ";" ~ дайПеремСреды("PATH"));
-    } 
-    
+    }
+
     ребилд ~= " " ~ дссс_опцииПостройки ~
         " -Idsss_imports" ~ РАЗДПАП ~
         " -I. -S." ~ РАЗДПАП ~
@@ -374,7 +374,7 @@ version(build) {
 class ДСССКонф {
     /// Configurable секции
     ткст[] секции;
-    
+
     /// Settings per секция
     char[][char[]][char[]] настройки;
 }
@@ -384,16 +384,16 @@ class ДСССКонф {
 {
     /* конфиг файл format: every строка is precisely one секция, настройка, block
      * opener or block closer. The only действительно block opener is 'версия' */
-    
+
     /** A function to tokenize a single конфиг файл строка */
     ткст[] tokLine(ткст строка)
     {
         /** All токены читай thusfar */
         ткст[] токены;
-        
+
         /** Current token */
         ткст ток;
-        
+
         /** Add the current token */
         проц addToken()
         {
@@ -402,7 +402,7 @@ class ДСССКонф {
                 ток = "";
             }
         }
-        
+
         for (цел i = 0; i < строка.length; i++) {
             if (stdrus.числобукв_ли(строка[i]) ||
                 строка[i] == '_') {
@@ -415,13 +415,13 @@ class ДСССКонф {
                 addToken();
                 ток ~= строка[i];
                 addToken();
-                
+
                 ток ~= строка[(i + 1) .. $];
-                
+
                 // trim whitespace of the настройка
                 while (ток.length && пробел_ли(ток[0])) ток = ток[1..$];
                 while (ток.length && пробел_ли(ток[$-1])) ток = ток[0..($-1)];
-                
+
                 if (ток.length) addToken();
                 break;
             } else {
@@ -431,23 +431,23 @@ class ДСССКонф {
             }
         }
         addToken();
-        
+
         return токены;
     }
-    
+
     /// The actual configuration store
     ДСССКонф конф = new ДСССКонф();
-    
+
     /// The data откуда the конфиг файл
     ткст файлКонф;
-    
+
     if (естьФайл(имяКонфФайла)) {
         if (генконф) {
             // this makes no sense
             скажифнс("Поскольку файл конфигурации уже существует, он не будет сгенерирован.");
             выход(1);
         }
-        
+
         // before reading the конфиг, дистчистка if it's changed
         if (configF == имяКонфФайла) {
             if (естьФайл(имяКонфФайлаПП)) {
@@ -456,11 +456,11 @@ class ДСССКонф {
                     дистчистка(читайКонфиг(null, нет, имяКонфФайлаПП));
                 }
             }
-        
+
             // copy in our new dsss.lastbuild
             копируйФайл(имяКонфФайла, имяКонфФайлаПП);
         }
-        
+
         // Read the конфиг файл
         файлКонф = cast(char[]) читайФайл(имяКонфФайла);
     } else {
@@ -480,7 +480,7 @@ class ДСССКонф {
                     файлКонф ~= "[" ~ dire ~ "]\n";
                 }
             }
-            
+
         } else {
             // откуда a список
             foreach (постройка; стройЭлты) {
@@ -491,33 +491,33 @@ class ДСССКонф {
                 }
             }
         }
-        
+
         if (генконф) {
             // write it
             пишиФайл(имяКонфФайла, файлКонф);
         }
-        
+
     }
-    
-    
+
+
     // Normalize it
     файлКонф = замени(файлКонф, "\r", "");
-    
+
     // Split it by строки
     ткст[] строки = разбейдоп(файлКонф, "\n");
-    
+
     /// Current секция
     ткст секция;
-    
+
     // set up the defaults for the top-level секция
     конф.настройки[""] = null;
     конф.настройки[""]["name"] = извлекиИмяПути(дайтекпап());
     конф.настройки[""]["version"] = "last";
-    
+
     // parse строка-by-строка
     for (цел i = 0; i < строки.length; i++) {
         ткст строка = строки[i];
-            
+
         /** A function to закрой the current scope */
         проц закройМасштаб(бул ignoreElse = нет)
         {
@@ -525,7 +525,7 @@ class ДСССКонф {
             for (i++; i < строки.length; i++) {
                 ткст[] члотокенов = tokLine(строки[i]);
                 if (члотокенов.length == 0) continue;
-                    
+
                 // possibly change the глубина
                 if (члотокенов[0] == "}") {
                     // check for else
@@ -540,11 +540,11 @@ class ДСССКонф {
                             // drop the глубина even though we won't reparse it
                             глубина--;
                         }
-                        
+
                     } else {
                         глубина--;
                     }
-                    
+
                     if (глубина == 0) {
                         return; // done! :)
                     }
@@ -556,7 +556,7 @@ class ДСССКонф {
             скажифнс("Ошибка конфигурации DSSS: незакрытый масштаб.");
             выход(1);
         }
-        
+
         // combine строки
         while (i < строки.length - 1 &&
                строка.length &&
@@ -564,11 +564,11 @@ class ДСССКонф {
             i++;
             строка = строка[0 .. ($ - 1)] ~ строки[i];
         }
-        
+
         // then parse it
         ткст[] токены = tokLine(строка);
         if (токены.length == 0) continue;
-        
+
         // then do something with it
         if (токены[0] == "[" &&
             токены[$ - 1] == "]") {
@@ -576,10 +576,10 @@ class ДСССКонф {
             ткст путь = объедини(токены[1 .. ($ - 1)], "");
             // allow \'s for badly-written конф файлы
             путь = замени(путь, "\\\\", "/");
-            
+
             секция = канонПуть(путь);
             конф.настройки[секция] = null;
-                
+
             // need to have some default настройки: цель and тип
             if (секция == "*") {
                 // "global" секция, no цель/тип
@@ -598,41 +598,41 @@ class ДСССКонф {
                 конф.секции ~= секция;
                 конф.настройки[секция]["type"] = "binary";
                 конф.настройки[секция]["target"] = секция[1..$];
-                
+
             } else if (!естьФайл(секция)) {
                 скажифнс("ВНИМАНИЕ: Раздел для несуществующего файла %s.", секция);
             } else {
                 конф.секции ~= секция;
-                
+
                 if (папка_ли(секция)) {
                     конф.настройки[секция]["type"] = "library";
-                    
+
                     // цель according to the библиотека naming convention
                     ткст пкт = замени(канонПуть(секция),
                                                     "\\\\", "/");
-                    
+
                     // имя it
                     конф.настройки[секция]["target"] =
                         имяБиблиотеки(секция);
-                        
+
                 } else {
                     конф.настройки[секция]["type"] = "binary";
                     конф.настройки[секция]["target"] = дайИмяПути(секция);
                 }
             }
-                
+
             // FIXME: guarantee that секции aren't repeated
-                
+
         } else if (токены.length == 3 &&
                    токены[1] == "=") {
             // a настройка
             конф.настройки[секция][stdrus.впроп(токены[0])] = раскройПерСреды(токены[2]);
-                
+
         } else if (токены.length == 1 &&
                    stdrus.числобукв_ли(токены[0][0])) {
             // a настройка with no value
             конф.настройки[секция][stdrus.впроп(токены[0])] = "";
-            
+
         } else if (токены.length == 4 &&
                    токены[1] == "+" &&
                    токены[2] == "=") {
@@ -643,13 +643,13 @@ class ДСССКонф {
             } else {
                 конф.настройки[секция][настройка] = раскройПерСреды(токены[3]);
             }
-                
+
         } else if (токены[0] == "version") {
             /* a версия statement, must be of one form:
              *  * версия(версия) {
              *  * версия(!версия) {
              */
-            
+
             if ((токены.length != 5 ||
                  токены[1] != "(" ||
                  токены[3] != ")" ||
@@ -662,7 +662,7 @@ class ДСССКонф {
                 ошибка("Ошибка конфигурации DSSS: неверная строка версии.");
                 выход(1);
             }
-            
+
             // whether the comparison is действительно
             бул действительно = нет;
             ткст верток;
@@ -673,40 +673,40 @@ class ДСССКонф {
             } else {
                 верток = токены[2];
             }
-            
+
             проверьВерсию(верток);
-            
+
             // now choose our путь
             if (версии[верток]) действительно = !действительно;
             if (!действительно) {
                 // нет, найди the end to this block
                 закройМасштаб();
             }
-         
+
         } else if ((токены.length == 1 &&
                     (токены[0] == "}" ||
                      токены[0] == "{")) ||
                    токены[0] == "#") {
             // this is ignored, just a scope we're in or a comment
-            
+
         } else if (токены.length > 2 &&
                    токены[0] == "}" &&
                    токены[1] == "else") {
             // skip this else case
             закройМасштаб(да);
-            
+
         } else {
             ошибка(фм("Ошибка конфигурации DSSS:\n нераспознанная строка '%s'.", строки[i]));
             выход(1);
-                
+
         }
     }
-    
+
     // now apply global настройки to every other настройка
     if ("*" in конф.настройки) {
         ткст[ткст] гнастройки = конф.настройки["*"];
         конф.настройки.remove("*");
-        
+
         // for each секция ...
         foreach (ключ, настройки; конф.настройки) {
             // for each global настройка ...
@@ -719,7 +719,7 @@ class ДСССКонф {
             }
         }
     }
-    
+
     return конф;
 }
 
@@ -730,7 +730,7 @@ class ДСССКонф {
         /* now check if this версия is defined by making a .d файл and
          * building it */
         цел возвр = система(ребилд ~ "-testversion=" ~ верток);
-        
+
         if (возвр == 0) {
             // да версия
             версии[верток] = да;
@@ -763,12 +763,12 @@ in {
 body {
     ткст[ткст] настройки = конф.настройки[цель];
     ткст[] файлы;
-    
+
     // 1) get the exclusion список
     ткст[] исключить;
     if ("exclude" in настройки) {
         исключить = разбей(настройки["exclude"]);
-        
+
         // canonicalize and un-Windows-ize the paths
         for (цел i = 0; i < исключить.length; i++) {
             исключить[i] = замени(канонПуть(исключить[i]),
@@ -810,7 +810,7 @@ body {
         // done!
         return файлы;
     }
-    
+
     // 2) stomp through the directory добавляется файлы
     проц добавьПап(ткст ndir, бул force = нет)
     {
@@ -820,21 +820,21 @@ body {
              исключено(канонПуть(ndir)))) {
             return;
         }
-        
+
         // not исключено, get the список of файлы
         ткст[] dirFiles = списпап(ndir);
         foreach (файл; dirFiles) {
             if (!файл.length) continue; // shouldn't happen
-            
+
             // ignore dotfiles (mainly to ignore . and ..)
             if (файл[0] == '.') continue;
-            
+
             // make this the full путь
             файл = ndir ~ РАЗДПАП ~ файл;
 
             // get the extension
             ткст ext = stdrus.впроп(извлекиРасш(файл)).dup;
-            
+
             if (папка_ли(файл)) {
                 // perhaps recurse
                 добавьПап(файл);
@@ -853,13 +853,13 @@ body {
             }
         }
     }
-    
+
     if (папка_ли(цель)) {
         добавьПап(цель, да);
     } else {
         файлы ~= цель;
     }
-    
+
     return файлы;
 }
 
@@ -877,19 +877,19 @@ class ХукИскл : Исключение {
 {
     // список of списуст файлы
     ткст[] манифест;
-    
+
     // since parts of the script can potentially change the directory, store it
     ткст исхтрп = дайтекпап();
-    
+
     // разбей the steps by ;
     ткст[] кмнды = разбей(шаг, ";");
-    
+
     foreach (кмнд; кмнды) {
         // очисть кмнд
         while (кмнд.length > 0 && пробел_ли(кмнд[0])) кмнд = кмнд[1..$];
         while (кмнд.length > 0 && пробел_ли(кмнд[$-1])) кмнд = кмнд[0..($-1)];
         if (подробнРежим) скажифнс("Команда: %s", кмнд);
-        
+
         // run it
         ткст ext = stdrus.впроп(извлекиРасш(кмнд));
         if (найди(кмнд, ' ') == -1 && ext == "d") {
@@ -904,25 +904,25 @@ class ХукИскл : Исключение {
                    кмнд[0..6] == "error ") {
             скажифнс("ОШИБКА: %s", кмнд[6..$]);
             throw new ХукИскл("хук столкнулся с ошибкой.");
-            
+
         } else if (кмнд.length > 8 &&
                    кмнд[0..8] == "инсталлируй ") {
             // doing an инсталлируй
             ткст[] comps = разбей(кмнд);
             if (comps.length != 3) continue; // FIXME: not действительно
-            
+
             // do this инсталлируй
             // check for / or \
             цел slloc = найдрек(comps[1], '/');
             if (slloc == -1)
                 slloc = найдрек(comps[1], '\\');
-            
+
             // убери off the префикс откуда our манифест путь
             ткст путьКМанифесту = comps[2] ~ РАЗДПАП;
             if (путьКМанифесту.length > форсПрефикс.length &&
                 путьКМанифесту[0 .. форсПрефикс.length] == форсПрефикс)
                 путьКМанифесту = путьКМанифесту[форсПрефикс.length + 1 .. $];
-            
+
             if (slloc != -1) {
                 // путь provided
                 ткст f = comps[1][(slloc + 1) .. $];
@@ -961,28 +961,28 @@ class ХукИскл : Исключение {
 
             // start with the base
             устВПап(comps[1]);
-            
+
         } else if (кмнд.length > 3 &&
                    кмнд[0..3] == "cd ") {
             // change directories
             ткст[] comps = разбей(кмнд);
             if (comps.length != 2) continue; // FIXME: not действительно
-            
+
             // change our directory
             сменипап(comps[1]);
-            
+
         } else if (кмнд.length > 5 &&
                    кмнд[0..5] == "eval ") {
             // run the команда, execute its output
             ППоток proc;
-            
+
             кмнд = кмнд[5..$];
             if (stdrus.впроп(извлекиРасш(кмнд)) == "d") {
                 proc = new ППоток(ребилд ~ "-full -exec " ~ кмнд);
             } else {
                 proc = new ППоток(кмнд);
             }
-            
+
             // now catch its output
             ткст readbuf;
             char readc;
@@ -994,22 +994,22 @@ class ХукИскл : Исключение {
                 }
                 readbuf ~= readc;
             }
-            
+
             // and run it
             манифест ~= шагСценарияДссс(конф, readbuf);
-            
+
             proc.закрой();
-            
+
         } else if (кмнд.length > 4 &&
                    (кмнд[0..4] == "set " ||
                     кмнд[0..4] == "add ")) {
             цел i;
-            
+
             бул добавляется = (кмнд[0..4] == "add ");
-            
+
             // set <секция>.<настройка> <value>
             кмнд = кмнд[4..$];
-            
+
             // 1) get the <секция>:<настройка>
             ткст sset = кмнд.dup;
             for (i = 0; i < кмнд.length; i++) {
@@ -1020,9 +1020,9 @@ class ХукИскл : Исключение {
                     break;
                 }
             }
-            
+
             if (i == кмнд.length) кмнд = "";
-            
+
             // 2) divide <секция>:<настройка>
             ткст секция, настройка;
             цел dotloc = найди(sset, ':');
@@ -1033,7 +1033,7 @@ class ХукИскл : Исключение {
                 секция = sset[0..dotloc].dup;
                 настройка = sset[dotloc+1 .. $].dup;
             }
-            
+
             // 3) perhaps get a список of секции
             ткст[] испСекции;
             if (секция == "*") {
@@ -1041,7 +1041,7 @@ class ХукИскл : Исключение {
             } else {
                 испСекции ~= секция;
             }
-            
+
             // 4) set
             foreach (секц; испСекции) {
                 if (секц in конф.настройки) {
@@ -1054,15 +1054,15 @@ class ХукИскл : Исключение {
                     конф.настройки[секц][настройка] = кмнд.dup;
                 }
             }
-            
+
         } else {
             // hopefully we can just run it
             пСкажиСисАборт(кмнд);
         }
     }
-    
+
     сменипап(исхтрп);
-    
+
     return манифест;
 }
 
@@ -1070,15 +1070,15 @@ class ХукИскл : Исключение {
 ткст[] исходникиПоЭлтам(ткст[] стройЭлты, ДСССКонф конф)
 {
     ткст[] стройИсходники;
-    
+
     if (стройЭлты.length == 0 && "deftargets" in конф.настройки[""]) {
         стройЭлты = разбей(конф.настройки[""]["deftargets"], " ");
     }
-    
+
     if (стройЭлты.length) {
         if (стройЭлты.length == 1 && стройЭлты[0] == "all") {
             стройИсходники = конф.секции;
-            
+
         } else {
             // now select the builds that have been requested
             foreach (be; стройЭлты) {
@@ -1089,7 +1089,7 @@ class ХукИскл : Исключение {
 
                 // поиск for a секция or цель with this имя
                 бул found = нет;
-                
+
                 foreach (секция; конф.секции) {
                     if (сравниПутьОбразец(замени(секция, "\\\\", "/"), be)) {
                         // постройка this
@@ -1097,29 +1097,29 @@ class ХукИскл : Исключение {
                         found = да;
                         continue;
                     }
-                    
+
                     // not the секция имя, so try "цель"
                     if (сравниПутьОбразец(замени(конф.настройки[секция]["target"], "\\\\", "/"), be)) {
-                        
+
                         // постройка this (by секция имя)
                         стройИсходники ~= секция;
                         found = да;
                     }
                 }
-                
+
                 if (!found) {
                     // didn't match anything!
                     ошибка(фм("%s не имеет описания в файле конфигурации.", be));
                     выход(1);
                 }
             }
-        
+
         }
     } else {
         // no builds selected, постройка them all
         стройИсходники = конф.секции;
     }
-    
+
     return стройИсходники;
 }
 
@@ -1138,7 +1138,7 @@ class ХукИскл : Исключение {
 ткст дайИмяСовмБиб(ткст[ткст] настройки)
 {
     ткст цель = настройки["target"];
-    
+
     if (целеваяВерсия("Posix")) {
         // lib<цель>.so.<соверсия>
         return "lib" ~ цель ~ ".so." ~ дайСоверсию(настройки);
@@ -1154,20 +1154,20 @@ class ХукИскл : Исключение {
 ткст[] дайКраткиеИменаСовмБиб(ткст[ткст] настройки)
 {
     ткст цель = настройки["target"];
-    
+
     if (целеваяВерсия("Posix")) {
         // lib<цель>.so.<first part of соверсия>
         ткст соверсия = дайСоверсию(настройки);
         ткст[] рез;
         цел dotloc;
-        
+
         // cut off each dot one-by-one
         while ((dotloc = найдрек(соверсия, '.')) != -1) {
             соверсия = соверсия[0..dotloc];
             рез ~= ("lib" ~ цель ~ ".so." ~ соверсия);
         }
         рез ~= "lib" ~ цель ~ ".so";
-        
+
         return рез;
     } else {
         // no short версия
@@ -1197,13 +1197,13 @@ class ХукИскл : Исключение {
 {
     static бул проверено = нет;
     static бул безопасно = нет;
-    
+
     if (!проверено) {
         цел возвр = система(ребилд ~ "-libs-safe");
         безопасно = (возвр == 0);
         проверено = да;
     }
-    
+
     return безопасно;
 }
 
@@ -1212,16 +1212,16 @@ class ХукИскл : Исключение {
 {
     static бул проверено = нет;
     static бул supported = нет;
-    
+
     if (!проверено) {
         // ask ребилд
         цел возвр = система(ребилд ~ "-shlib-support");
-        
+
         supported = (возвр == 0);
-        
+
         проверено = да;
     }
-    
+
     return supported;
 }
 
@@ -1240,17 +1240,17 @@ class ХукИскл : Исключение {
         скажифнс("+ создаётся папка %s", префикс);
         сделпапР(префикс);
     }
-            
+
     скажифнс("+ копируется %s", файл);
     version(Posix) {
         ткст цель = префикс ~ РАЗДПАП ~ файл;
-        
+
         // preserve permissions
         пСкажиСисАборт("cp -fpRL " ~ откуда ~ файл ~ " " ~ цель);
-        
+
         // but then guarantee the permissions we made aren't too bad (ignore errors)
         система("chmod a+rX " ~ цель ~ " 2> /dev/null");
-        
+
     } else {
         копируйФайл(откуда ~ файл, префикс ~ РАЗДПАП ~ файл);
     }
@@ -1260,7 +1260,7 @@ class ХукИскл : Исключение {
 ткст раскройПерСреды(ткст откуда)
 {
     ткст возвр = откуда ~ "";
-    
+
     // now expand
     for (цел i = 0; i < возвр.length; i++) {
         if (возвр[i] == '$') {
@@ -1269,7 +1269,7 @@ class ХукИскл : Исключение {
             for (j = i + 1; j < возвр.length &&
                  (stdrus.числобукв_ли(возвр[j]) || возвр[j] == '_');
                  j++) {}
-                    
+
             // expand
             ткст envvar;
             envvar = дайПеремСреды(возвр[(i + 1) .. j]);
@@ -1278,7 +1278,7 @@ class ХукИскл : Исключение {
             возвр[j .. $];
         }
     }
-    
+
     return возвр;
 }
 

@@ -1,11 +1,11 @@
-﻿/*********************************************************
-   Copyright: (C) 2008 by Steven Schveighoffer.
-              All rights reserved
+/*********************************************************
+   Авторское право: (C) 2008 принадлежит Steven Schveighoffer.
+              Все права защищены
 
-   License: $(LICENSE)
+   Лицензия: $(LICENSE)
 
-   This is a collection of useful iterators, and iterator
-   functions.
+   Это коллекция полезных итераторов и итерирующих
+   функций.
 **********************************************************/
 module col.Iterators;
 
@@ -199,9 +199,9 @@ class ТрансформКлючник(К, З, J=К, U=З) : Ключник!(К,
 	alias длина length;
 
     /**
-     * Iterate through the исток iterator, working with temporary copies of a
-     * transformed З элемент.  Note that К can be пропущен if this is the only
-     * use for the iterator.
+     * Итерирует по  итератору исходника, работая с временными копиями
+     * трансформированного элемента З.  Прим.: К можно пропустить, если это единственное
+     * использование этого итератора.
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -228,8 +228,8 @@ class ТрансформКлючник(К, З, J=К, U=З) : Ключник!(К,
     }
 
     /**
-     * Iterate through the исток iterator, working with temporary copies of a
-     * transformed К,З pair.
+     * Итерирует по  итератору исходника, работая с временными копиями
+     * трансформированной пары К,З.
      */
     цел opApply(цел delegate(ref К к, ref З з) дг)
     {
@@ -257,7 +257,7 @@ class ТрансформКлючник(К, З, J=К, U=З) : Ключник!(К,
 }
 
 /**
- * A Chain iterator chains several iterators together.
+ * Цепной итератор сцепляет несколько цепей вместе.
  */
 class ОбходчикЦепи(З) : Обходчик!(З)
 {
@@ -265,11 +265,11 @@ class ОбходчикЦепи(З) : Обходчик!(З)
     private бул _поддержкаДлины;
 
     /**
-     * Constructor.  Pass in the iterators you wish to цепь together in the
-     * order you wish them to be chained.
+     * Конструктор.  * Передайте итераторы, которые желаете сцепить в том
+     * порядке, в котором вы желаете их сцепить.
      *
-     * If all of the iterators support длина, then this iterator supports
-     * длина.  If one doesn'т, then the длина is not supported.
+     * Если все итераторы поддерживают длину, то и этот тоже поддерживает
+     * длина.  * Если один не поддерживает, то длина не поддерживается.
      */
     this(Обходчик!(З)[] цепь ...)
     {
@@ -284,9 +284,9 @@ class ОбходчикЦепи(З) : Обходчик!(З)
     }
 
     /**
-     * Returns the sum of all the iterator lengths in the цепь.
+     * Возвращает сумму всех длин итераторов в цепи.
      *
-     * returns ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ if a single iterator in the цепь does not support
+     * возвращает ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ, если единичный итератор в цепи не поддерживает
      * длина
      */
     бцел длина()
@@ -302,7 +302,7 @@ class ОбходчикЦепи(З) : Обходчик!(З)
     }
 	alias длина length;
     /**
-     * Iterate through the цепь of iterators.
+     *Итерировать по цепочке итераторов.
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -317,7 +317,7 @@ class ОбходчикЦепи(З) : Обходчик!(З)
 }
 
 /**
- * A Chain iterator chains several iterators together.
+ * Цепной итератор сцепляет несколько цепей вместе.
  */
 class КлючникЦепи(К, З) : Ключник!(К, З)
 {
@@ -325,11 +325,11 @@ class КлючникЦепи(К, З) : Ключник!(К, З)
     private бул _поддержкаДлины;
 
     /**
-     * Constructor.  Pass in the iterators you wish to цепь together in the
-     * order you wish them to be chained.
+     * Конструктор.  * Передайте итераторы, которые желаете сцепить в том
+     * порядке, в котором вы желаете их сцепить.
      *
-     * If all of the iterators support длина, then this iterator supports
-     * длина.  If one doesn'т, then the длина is not supported.
+     * Если все итераторы поддерживают длину, то и этот тоже поддерживает
+     * длина.  * Если один не поддерживает, то длина не поддерживается.
      */
     this(Ключник!(К, З)[] цепь ...)
     {
@@ -344,9 +344,9 @@ class КлючникЦепи(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Returns the sum of all the iterator lengths in the цепь.
+     * Возвращает сумму всех длин итераторов в цепи.
      *
-     * returns ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ if any iterators in the цепь return -1 for длина
+     * возвращает ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ, если любые итераторы в цепи возвращают -1 для длина
      */
     бцел длина()
     {
@@ -361,7 +361,7 @@ class КлючникЦепи(К, З) : Ключник!(К, З)
     }
 	alias длина length;
     /**
-     * Iterate through the цепь of iterators using values only.
+     * итерировать по цепочке итераторов, используя только значения.
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -375,7 +375,7 @@ class КлючникЦепи(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Iterate through the цепь of iterators using ключи and values.
+     * итерировать по цепочке итераторов, используя ключи и значения.
      */
     цел opApply(цел delegate(ref К, ref З) дг)
     {
@@ -390,8 +390,8 @@ class КлючникЦепи(К, З) : Ключник!(К, З)
 }
 
 /**
- * A Filter iterator filters out unwanted elements based on a function or
- * delegate.
+ * Итератор Фильтр отфильтровывает нежелательные элементы, основанные на функции или
+ * делегате.
  */
 class ФильтрОбходчик(З) : Обходчик!(З)
 {
@@ -400,10 +400,10 @@ class ФильтрОбходчик(З) : Обходчик!(З)
     private бул function(ref З) _фн;
 
     /**
-     * Construct a filter iterator with the given delegate deciding whether an
-     * элемент will be iterated or not.
+     * Построить итератор-фильтр с указанным делегатом, решающий будет ли
+     * элемент итерирован, либо нет.
      *
-     * The delegate should return true for elements that should be iterated.
+     * Делегат должен возвращать значение true для элементов, которые должны быть итерированы.
      */
     this(Обходчик!(З) исток, бул delegate(ref З) дг)
     {
@@ -412,10 +412,10 @@ class ФильтрОбходчик(З) : Обходчик!(З)
     }
 
     /**
-     * Construct a filter iterator with the given function deciding whether an
-     * элемент will be iterated or not.
+     * * Построить итератор-фильтр с указанной функцией, решающей, будет ли
+     * элемент итерирован, либо нет.
      *
-     * the function should return true for elements that should be iterated.
+     ** Функция должна возвращать значение true для элементов, которые должны быть итерированы.
      */
     this(Обходчик!(З) исток, бул function(ref З) фн)
     {
@@ -424,19 +424,19 @@ class ФильтрОбходчик(З) : Обходчик!(З)
     }
 
     /**
-     * Returns ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ
+     * Возвращает ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ
      */
     бцел длина()
     {
         //
-        // cannot know what the filter delegate/function will decide.
+        //неизвестно, что решит делегат/функция фильтр.
         //
         return ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ;
     }
 	alias длина length;
     /**
-     * Iterate through the исток iterator, only accepting elements where the
-     * delegate/function returns true.
+     * итерировать через итератор исходника, принимающий только элементы, где
+     * делегат/функция возвращает да.
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -462,8 +462,8 @@ class ФильтрОбходчик(З) : Обходчик!(З)
 }
 
 /**
- * A Filter iterator filters out unwanted elements based on a function or
- * delegate.  This version filters on a keyed iterator.
+ * Итератор Фильтр отфильтровывает нежелательные элементы, основанные на функции или
+ * делегате.  * Эта версия фильтрует у итератора с ключами.
  */
 class ФильтрКлючник(К, З) : Ключник!(К, З)
 {
@@ -472,10 +472,10 @@ class ФильтрКлючник(К, З) : Ключник!(К, З)
     private бул function(ref К, ref З) _фн;
 
     /**
-     * Construct a filter iterator with the given delegate deciding whether a
-     * ключ/значение pair will be iterated or not.
+     * Конструирует итератор-фильтр с указанным делегатом, решая, будет ли
+     * пара ключ/значение итерирована, либо нет.
      *
-     * The delegate should return true for elements that should be iterated.
+     * Делегат должен возвращать значение true для элементов, которые должны быть итерированы.
      */
     this(Ключник!(К, З) исток, бул delegate(ref К, ref З) дг)
     {
@@ -484,10 +484,10 @@ class ФильтрКлючник(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Construct a filter iterator with the given function deciding whether a
-     * ключ/значение pair will be iterated or not.
+     * Построить итератор-фильтр с указанной функцией, решающей, будет ли
+     * пара ключ/значение итерирована, либо нет.
      *
-     * the function should return true for elements that should be iterated.
+     ** Функция должна возвращать значение true для элементов, которые должны быть итерированы.
      */
     this(Ключник!(К, З) исток, бул function(ref К, ref З) фн)
     {
@@ -496,19 +496,19 @@ class ФильтрКлючник(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Returns ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ
+     * Возвращает ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ
      */
     бцел длина()
     {
         //
-        // cannot know what the filter delegate/function will decide.
+        //неизвестно, что решит делегат/функция фильтр.
         //
         return ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ;
     }
 	alias длина length;
     /**
-     * Iterate through the исток iterator, only iterating elements where the
-     * delegate/function returns true.
+     * * итерировать через итератор исходника, итерирующий только элементы, где
+     * делегат/функция возвращает да.
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -533,8 +533,8 @@ class ФильтрКлючник(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Iterate through the исток iterator, only iterating elements where the
-     * delegate/function returns true.
+     * * итерировать через итератор исходника, итерирующий только элементы, где
+     * делегат/функция возвращает да.
      */
     цел opApply(цел delegate(ref К к, ref З з) дг)
     {
@@ -560,14 +560,14 @@ class ФильтрКлючник(К, З) : Ключник!(К, З)
 }
 
 /**
- * Simple iterator wrapper for an массив.
+ * Простая обёртка итератора для массива
  */
 class ОбходчикМассива(З) : Обходчик!(З)
 {
     private З[] _массив;
 
     /**
-     * Wrap a given массив.  Note that this does not make a copy.
+     * Обернуть данный массив.  * Обратите внимание, что это не создаёт копии.
      */
     this(З[] массив)
     {
@@ -575,7 +575,7 @@ class ОбходчикМассива(З) : Обходчик!(З)
     }
 	
     /**
-     * Returns the массив длина
+     * Возвращает длину массива
      */
     бцел длина()
     {
@@ -584,7 +584,7 @@ class ОбходчикМассива(З) : Обходчик!(З)
 	alias длина length;
 	
     /**
-     * Iterate over the массив.
+     * Итерирует через массив.
      */
     цел opApply(цел delegate(ref З) дг)
     {
@@ -597,14 +597,14 @@ class ОбходчикМассива(З) : Обходчик!(З)
 }
 
 /**
- * Wrapper iterator for an associative массив
+ * Итератор-обёртка для ассоциативного массива
  */
 class ОбходчикАМ(К, З) : Ключник!(К, З)
 {
     private З[К] _массив;
 
     /**
-     * Construct an iterator wrapper for the given массив
+     * Конструирует обёртку итератора для данного массива
      */
     this(З[К] массив)
     {
@@ -612,7 +612,7 @@ class ОбходчикАМ(К, З) : Ключник!(К, З)
     }
 
     /**
-     * Returns the длина of the wrapped AA
+     * Возвращает длину обёрнутого AA
      */
     бцел длина()
     {
@@ -621,7 +621,7 @@ class ОбходчикАМ(К, З) : Ключник!(К, З)
 
 	alias длина length;
     /**
-     * Iterate over the AA
+     * Итерирует через AA
      */
     цел opApply(цел delegate(ref К, ref З) дг)
     {
@@ -634,9 +634,9 @@ class ОбходчикАМ(К, З) : Ключник!(К, З)
 }
 
 /**
- * Function that converts an iterator to an массив.
+ * Функция, конвертирующая итератор в массив.
  *
- * More optimized for iterators that support a длина.
+ *Более оптимизирована под итераторы, поддерживающие длина.
  */
 З[] вМассив(З)(Обходчик!(З) обх)
 {
@@ -645,7 +645,7 @@ class ОбходчикАМ(К, З) : Ключник!(К, З)
     if(длин != ДЛИНА_НЕ_ПОДДЕРЖИВАЕТСЯ)
     {
         //
-        // can optimize a bit
+        // можно немного оптимизировать
         //
         рез.length = длин;
         цел i = 0;
@@ -661,7 +661,7 @@ class ОбходчикАМ(К, З) : Ключник!(К, З)
 }
 
 /**
- * Convert a keyed iterator to an associative массив.
+ *Преобразовать ключный итератор в ассоциативный массив.
  */
 З[К] вАМ(К, З)(Ключник!(К, З) обх)
 {

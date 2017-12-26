@@ -1,8 +1,8 @@
-﻿/*********************************************************
-   Copyright: (C) 2008 by Steven Schveighoffer.
-              All rights reserved
+/*********************************************************
+   Авторское право: (C) 2008 принадлежит Steven Schveighoffer.
+              Все права защищены
 
-   License: $(LICENSE)
+   Лицензия: $(LICENSE)
 
 **********************************************************/
 module col.model.List;
@@ -18,32 +18,32 @@ public import col.model.Collection,
 interface Список(З) : Коллекция!(З), Добавляемый!(З), Мульти!(З)
 {
     /**
-     * Concatenate two lists together.  The резing list type is of the type
-     * of the лево hand side.
+     * Конкатенировать два списка вместе.  Тип результирующего списка как у
+     * элемента слева.
      */
     Список!(З) opCat(Список!(З) rhs);
 
     /**
-     * Concatenate this list and an массив together.
+     * Конкатенировать список this и массив.
      *
-     * The резing list is the same type as this list.
+     * Результирующий список того же типа, что и список this.
      */
     Список!(З) opCat(З[] массив);
 
     /**
-     * Concatenate an массив and this list together.
+     * Конкатенировать массив и список this.
      *
-     * The резing list is the same type as this list.
+     * Результирующий список того же типа, что и список this.
      */
     Список!(З) opCat_r(З[] массив);
 
     /**
-     * поставь the given list to this list.  Returns 'this'.
+     * Поставить данный список в список this.  Возвращает 'this'.
      */
     Список!(З) opCatAssign(Список!(З) rhs);
 
     /**
-     * поставь the given массив to this list.  Returns 'this'.
+     * Поставить  данный массив в список this.  Возвращает 'this'.
      */
     Список!(З) opCatAssign(З[] массив);
 
@@ -114,46 +114,46 @@ interface Список(З) : Коллекция!(З), Добавляемый!(З
     Список!(З) сортируй();
 
     /**
-     * сортируй this list according to the comparison routine given.  Returns a
-     * ссылка to the list after обх is sorted.
+     * Сортировать список this согласно заданной функции сравнивания.  Возвращает
+     * ссылку на список после сортировки обходчика.
      */
     Список!(З) сортируй(цел delegate(ref З v1, ref З v2) comp);
 
     /**
-     * сортируй this list according to the comparison routine given.  Returns a
-     * ссылка to the list after обх is sorted.
+     * Сортировать список this согласно заданной функции сравнивания.  Возвращает
+     * ссылку на список после сортировки обходчика.
      */
     Список!(З) сортируй(цел function(ref З v1, ref З v2) comp);
 
     /**
-     * compare this list to another list.  Returns true if they have the same
-     * number of elements and all the elements are equal.
+     * Сравнить список this с другим списком.  Возвращает да, если у них одинаковое
+     * число элементов и все элементы равны.
      *
-     * If o is not a list, then 0 is returned.
+     * Если o не есть список, то возвращается 0.
      */
     цел opEquals(Объект o);
 
     /**
-     * Returns the элемент at the фронт of the list, or the oldest элемент
-     * добавленный.  If the list is empty, calling фронт is undefined.
+     * Возвращает элемент в начале списка, или более старый элемент
+     * добавленный.  Если список пуст, вызов фронт неопределён.
      */
     З фронт();
 
     /**
-     * Returns the элемент at the конец of the list, or the most recent элемент
-     * добавленный.  If the list is empty, calling тыл is undefined.
+     * Возвращает элемент в конце списка, или самый последний элемент
+     * добавленный.  Если список пуст, вызов тыл неопределён.
      */
     З тыл();
 
     /**
-     * Takes the элемент at the фронт of the list, and return its значение.  This
-     * operation can be as high as O(n).
+     * Принимает элемент на фронте списка, возвращая его значение.  Эта
+     * операция может быть O(n).
      */
     З возьмиФронт();
 
     /**
-     * Takes the элемент at the конец of the list, and return its значение.  This
-     * operation can be as high as O(n).
+     * Берёт элемент на конце спискаt, возвращая его значение.  Эта
+     * операция может быть O(n).
      */
     З возьмиТыл();
 }

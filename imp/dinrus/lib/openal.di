@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2004-2009 Derelict Developers
  * All rights reserved.
  *
@@ -30,7 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 module lib.openal;
-import dinrus;
+import stdrus;
 
 private
 {
@@ -234,30 +234,30 @@ enum : ALenum
 	// AL_LOKI_IMA_ADPCM_format
 	AL_FORMAT_IMA_ADPCM_MONO16_EXT			= 0x10000,
 	AL_FORMAT_IMA_ADPCM_STEREO16_EXT		= 0x10001,
-	
+
 	// AL_LOKI_WAVE_format
 	AL_FORMAT_WAVE_EXT						= 0x10002,
-	
+
 	// AL_EXT_vorbis
 	AL_FORMAT_VORBIS_EXT					= 0x10003,
-	
+
 	// AL_LOKI_quadriphonic
 	AL_FORMAT_QUAD8_LOKI					= 0x10004,
 	AL_FORMAT_QUAD16_LOKI					= 0x10005,
-	
+
 	// AL_EXT_float32
 	AL_FORMAT_MONO_FLOAT32					= 0x10010,
 	AL_FORMAT_STEREO_FLOAT32				= 0x10011,
-	
+
 	// ALC_LOKI_audio_channel
 	ALC_CHAN_MAIN_LOKI						= 0x500001,
 	ALC_CHAN_PCM_LOKI						= 0x500002,
 	ALC_CHAN_CD_LOKI						= 0x500003,
-	
+
 	// ALC_ENUMERATE_ALL_EXT
 	ALC_DEFAULT_ALL_DEVICES_SPECIFIER		= 0x1012,
 	ALC_ALL_DEVICES_SPECIFIER				= 0x1013,
-	
+
 	// AL_EXT_MCFORMATS
 	AL_FORMAT_QUAD8							= 0x1204,
 	AL_FORMAT_QUAD16                   		= 0x1205,
@@ -274,7 +274,7 @@ enum : ALenum
 	AL_FORMAT_71CHN8                   		= 0x1210,
 	AL_FORMAT_71CHN16                  		= 0x1211,
 	AL_FORMAT_71CHN32                  		= 0x1212,
-	
+
 	// AL_EXT_IMA4
 	AL_FORMAT_MONO_IMA4						= 0x1300,
 	AL_FORMAT_STEREO_IMA4					= 0x1301,

@@ -1,4 +1,4 @@
-﻿module mesh.Status;
+module mesh.Status;
 
 /** Статус биты использован by the Статус class. 
  *  See_Also: auxd.OpenMesh.Атрибуты.ИнфОСтатусе

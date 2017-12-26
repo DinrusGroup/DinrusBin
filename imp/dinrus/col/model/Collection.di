@@ -1,8 +1,8 @@
-﻿/*********************************************************
-   Copyright: (C) 2008 by Steven Schveighoffer.
-              All rights reserved
+/*********************************************************
+   Авторское право: (C) 2008 принадлежит Steven Schveighoffer.
+              Все права защищены
 
-   License: $(LICENSE)
+   Лицензия: $(LICENSE)
 
 **********************************************************/
 module col.model.Collection;
@@ -25,33 +25,33 @@ interface Коллекция(З) : Обходчик!(З), Чистящий!(З)
     Коллекция!(З) очисти();
 
     /**
-     * удали an элемент with the specific значение.  This may be an O(n)
-     * operation.  If the collection is keyed, the первый элемент whose значение
-     * matches will be removed.
+     * удалить элемент со специфичным значением.  " Это может быть какая-н. O(n)
+     * операция.  Если колекция с ключами,  первый элемент, чьё значение
+     * совпадает, будет удалён.
      *
-     * returns this.
+     * возвращает this.
      */
     Коллекция!(З) удали(З з);
 
     /**
-     * удали an элемент with the specific значение.  This may be an O(n)
-     * operation.  If the collection is keyed, the первый элемент whose значение
-     * matches will be removed.
+     * удалить элемент со специфичным значением.  " Это может быть какая-н. O(n)
+     * операция.  Если колекция с ключами,  первый элемент, чьё значение
+     * совпадает, будет удалён.
      *
-     * returns this.
+     * возвращает this.
      *
-     * sets был_Удалён to true if the элемент existed and was removed.
+     * Устанавливает был_Удалён в да, если элемент существовал и был удалён.
      */
     Коллекция!(З) удали(З з, ref бул был_Удалён);
 
     /**
-     * returns true if the collection содержит the значение.  can be O(n).
+     * возвращает да, если коллекция содержит значение.  Может быть O(n).
      */
     бул содержит(З з);
 
     /**
-     * make a copy of this collection.  This does not do a deep copy of the
-     * elements if they are ссылка or pointer types.
+     * Сделать копию коллекции this.  Это не делает "глубокую" копию
+     * элементов, если они ссылочного или указательного типа.
      */
     Коллекция!(З) dup();
 }

@@ -1,4 +1,4 @@
-﻿/* zlib.d: modified from zlib.h by Walter Bright */
+/* zlib.d: modified from zlib.h by Walter Bright */
 /* updated from 1.2.1 to 1.2.3 by Thomas Kuehne */
 
 module lib.zlib;
@@ -35,47 +35,47 @@ module lib.zlib;
 
 extern (C):
 
-char[] ZLIB_VERSION = "1.2.3";
-const ZLIB_VERNUM = 0x1230;
+    char[] ZLIB_VERSION = "1.2.3";
+    const ZLIB_VERNUM = 0x1230;
 
-/*
-     The 'zlib' compression library provides in-memory compression and
-  decompression functions, including integrity checks of the uncompressed
-  data.  This version of the library supports only one compression method
-  (deflation) but other algorithms will be added later and will have the same
-  stream interface.
+    /*
+         The 'zlib' compression library provides in-memory compression and
+      decompression functions, including integrity checks of the uncompressed
+      data.  This version of the library supports only one compression method
+      (deflation) but other algorithms will be added later and will have the same
+      stream interface.
 
-     Compression can be done in a single step if the buffers are large
-  enough (for example if an input file is mmap'ed), or can be done by
-  repeated calls of the compression function.  In the latter case, the
-  application must provide more input and/or consume the output
-  (providing more output space) before each call.
+         Compression can be done in a single step if the buffers are large
+      enough (for example if an input file is mmap'ed), or can be done by
+      repeated calls of the compression function.  In the latter case, the
+      application must provide more input and/or consume the output
+      (providing more output space) before each call.
 
-     The compressed data format used by default by the in-memory functions is
-  the zlib format, which is a zlib wrapper documented in RFC 1950, wrapped
-  around a deflate stream, which is itself documented in RFC 1951.
+         The compressed data format used by default by the in-memory functions is
+      the zlib format, which is a zlib wrapper documented in RFC 1950, wrapped
+      around a deflate stream, which is itself documented in RFC 1951.
 
-     The library also supports reading and writing files in gzip (.gz) format
-  with an interface similar to that of stdio using the functions that start
-  with "gz".  The gzip format is different from the zlib format.  gzip is a
-  gzip wrapper, documented in RFC 1952, wrapped around a deflate stream.
+         The library also supports reading and writing files in gzip (.gz) format
+      with an interface similar to that of stdio using the functions that start
+      with "gz".  The gzip format is different from the zlib format.  gzip is a
+      gzip wrapper, documented in RFC 1952, wrapped around a deflate stream.
 
-     This library can optionally read and write gzip streams in memory as well.
+         This library can optionally read and write gzip streams in memory as well.
 
-     The zlib format was designed to be compact and fast for use in memory
-  and on communications channels.  The gzip format was designed for single-
-  file compression on file systems, has a larger header than zlib to maintain
-  directory information, and uses a different, slower check method than zlib.
+         The zlib format was designed to be compact and fast for use in memory
+      and on communications channels.  The gzip format was designed for single-
+      file compression on file systems, has a larger header than zlib to maintain
+      directory information, and uses a different, slower check method than zlib.
 
-     The library does not install any signal handler. The decoder checks
-  the consistency of the compressed data, so the library should never
-  crash even in case of corrupted input.
-*/
+         The library does not install any signal handler. The decoder checks
+      the consistency of the compressed data, so the library should never
+      crash even in case of corrupted input.
+    */
 
-alias void* (*alloc_func) (void* opaque, uint items, uint size);
-alias void   (*free_func)  (void* opaque, void* address);
+    alias void* (*alloc_func) (void* opaque, uint items, uint size);
+    alias void   (*free_func)  (void* opaque, void* address);
 
-struct z_stream
+    struct z_stream
 {
     ubyte    *next_in;  /* next input byte */
     uint     avail_in;  /* number of bytes available at next_in */
@@ -103,7 +103,8 @@ alias z_stream* z_streamp;
      gzip header information passed to and from zlib routines.  See RFC 1952
   for more details on the meanings of these fields.
 */
-struct gz_header {
+struct gz_header
+{
     int     text;       /* true if compressed data believed to be text */
     ulong   time;       /* modification time */
     int     xflags;     /* extra flags (not used when writing a gzip file) */
@@ -154,30 +155,30 @@ alias gz_header* gz_headerp;
    a single step).
 */
 
-                        /* constants */
+/* constants */
 
 enum
 {
-	Z_NO_FLUSH      = 0,
-	Z_PARTIAL_FLUSH = 1, /* will be removed, use Z_SYNC_FLUSH instead */
-	Z_SYNC_FLUSH    = 2,
-	Z_FULL_FLUSH    = 3,
-	Z_FINISH        = 4,
-	Z_BLOCK         = 5
+    Z_NO_FLUSH      = 0,
+    Z_PARTIAL_FLUSH = 1, /* will be removed, use Z_SYNC_FLUSH instead */
+    Z_SYNC_FLUSH    = 2,
+    Z_FULL_FLUSH    = 3,
+    Z_FINISH        = 4,
+    Z_BLOCK         = 5
 }
 /* Allowed flush values; see deflate() and inflate() below for details */
 
 enum
 {
-	Z_OK            = 0,
-	Z_STREAM_END    = 1,
-	Z_NEED_DICT     = 2,
-	Z_ERRNO         = -1,
-	Z_STREAM_ERROR  = -2,
-	Z_DATA_ERROR    = -3,
-	Z_MEM_ERROR     = -4,
-	Z_BUF_ERROR     = -5,
-	Z_VERSION_ERROR = -6,
+    Z_OK            = 0,
+    Z_STREAM_END    = 1,
+    Z_NEED_DICT     = 2,
+    Z_ERRNO         = -1,
+    Z_STREAM_ERROR  = -2,
+    Z_DATA_ERROR    = -3,
+    Z_MEM_ERROR     = -4,
+    Z_BUF_ERROR     = -5,
+    Z_VERSION_ERROR = -6,
 }
 /* Return codes for the compression/decompression functions. Negative
  * values are errors, positive values are used for special but normal events.
@@ -185,42 +186,42 @@ enum
 
 enum
 {
-	Z_NO_COMPRESSION         = 0,
-	Z_BEST_SPEED             = 1,
-	Z_BEST_COMPRESSION       = 9,
-	Z_DEFAULT_COMPRESSION    = -1,
+    Z_NO_COMPRESSION         = 0,
+    Z_BEST_SPEED             = 1,
+    Z_BEST_COMPRESSION       = 9,
+    Z_DEFAULT_COMPRESSION    = -1,
 }
 /* compression levels */
 
 enum
 {
-	Z_FILTERED            = 1,
-	Z_HUFFMAN_ONLY        = 2,
-	Z_RLE                 = 3,
-	Z_FIXED               = 4,
-	Z_DEFAULT_STRATEGY    = 0,
+    Z_FILTERED            = 1,
+    Z_HUFFMAN_ONLY        = 2,
+    Z_RLE                 = 3,
+    Z_FIXED               = 4,
+    Z_DEFAULT_STRATEGY    = 0,
 }
 /* compression strategy; see deflateInit2() below for details */
 
 enum
 {
-	Z_BINARY   = 0,
-	Z_TEXT     = 1,
-	Z_UNKNOWN  = 2,
+    Z_BINARY   = 0,
+    Z_TEXT     = 1,
+    Z_UNKNOWN  = 2,
 
-	Z_ASCII    = Z_TEXT
+    Z_ASCII    = Z_TEXT
 }
 /* Possible values of the data_type field (though see inflate()) */
 
 enum
 {
-	Z_DEFLATED   = 8,
+    Z_DEFLATED   = 8,
 }
 /* The deflate compression method (the only one supported in this version) */
 
 const int Z_NULL = 0;  /* for initializing zalloc, zfree, opaque */
 
-                        /* basic functions */
+/* basic functions */
 
 char* zlibVersion();
 /* The application can compare zlibVersion and ZLIB_VERSION for consistency.
@@ -233,7 +234,7 @@ int deflateInit(z_streamp strm, int level)
 {
     return deflateInit_(strm, level, ZLIB_VERSION.ptr, z_stream.sizeof);
 }
-/* 
+/*
      Initializes the internal stream state for compression. The fields
    zalloc, zfree and opaque must be initialized before by the caller.
    If zalloc and zfree are set to Z_NULL, deflateInit updates them to
@@ -358,7 +359,7 @@ int inflateInit(z_streamp strm)
 {
     return inflateInit_(strm, ZLIB_VERSION.ptr, z_stream.sizeof);
 }
-/* 
+/*
      Initializes the internal stream state for decompression. The fields
    next_in, avail_in, zalloc, zfree and opaque must be initialized before by
    the caller. If next_in is not Z_NULL and avail_in is large enough (the exact
@@ -487,7 +488,7 @@ int inflateEnd(z_streamp strm);
    static string (which must not be deallocated).
 */
 
-                        /* Advanced functions */
+/* Advanced functions */
 
 /*
     The following functions are needed only in some special applications.
@@ -554,7 +555,7 @@ int deflateInit2(z_streamp strm,
    method). msg is set to null if there is no error message.  deflateInit2 does
    not perform any compression: this will be done by deflate().
 */
-                            
+
 int deflateSetDictionary(z_streamp strm, ubyte* dictionary, uint  dictLength);
 /*
      Initializes the compression dictionary from the given byte sequence
@@ -676,7 +677,7 @@ int inflateGetHeader(z_streamp strm, gz_headerp head);
 int deflateParams(z_streamp strm, int level, int strategy);
 /*
      Dynamically update the compression level and compression strategy.  The
-   interpretation of level and strategy is as in deflateInit2.  This can be
+   interpretation of level and strategy is as in deflateInit2.  Может быть
    used to switch between compression and straight copy of the input data, or
    to switch to a different kind of input data requiring a different
    strategy. If the compression level is changed, the input available so far
@@ -693,7 +694,7 @@ int deflateParams(z_streamp strm, int level, int strategy);
 */
 
 int deflateTune(z_streamp strm, int good_length, int max_lazy, int nice_length,
-	int max_chain);
+                int max_chain);
 /*
      Fine tune deflate's internal compression parameters.  This should only be
    used by someone who understands the algorithm used by zlib's deflate for
@@ -755,7 +756,7 @@ int inflateInit2(z_streamp strm, int windowBits)
 {
     return inflateInit2_(strm, windowBits, ZLIB_VERSION.ptr, z_stream.sizeof);
 }
-/*   
+/*
      This is another version of inflateInit with an extra parameter. The
    fields next_in, avail_in, zalloc, zfree and opaque must be initialized
    before by the caller.
@@ -772,7 +773,7 @@ int inflateInit2(z_streamp strm, int windowBits)
      windowBits can also be -8..-15 for raw inflate. In this case, -windowBits
    determines the window size. inflate() will then process raw deflate data,
    not looking for a zlib or gzip header, not generating a check value, and not
-   looking for any check values for comparison at the end of the stream. This
+   looking for any check values for comparison at the end of the stream. Эта
    is for use with other formats that use the deflate compressed data format
    such as zip.  Those formats provide their own check values. If a custom
    format is developed using the raw deflate format for compressed data, it is
@@ -816,7 +817,7 @@ int inflateSetDictionary(z_streamp strm, ubyte* dictionary, uint  dictLength);
 */
 
 int inflateSync(z_streamp strm);
-/* 
+/*
     Skips invalid compressed data until a full flush point (see above the
   description of deflate with Z_FULL_FLUSH) can be found, or until all
   available input is skipped. No output is provided.
@@ -858,7 +859,7 @@ int inflateReset(z_streamp strm);
 
 int inflateBackInit(z_stream* strm, int windowBits, ubyte* window)
 {
-    return inflateBackInit_(strm, windowBits, window, ZLIB_VERSION.ptr, z_stream.sizeof);   
+    return inflateBackInit_(strm, windowBits, window, ZLIB_VERSION.ptr, z_stream.sizeof);
 }
 /*
      Initialize the internal stream state for decompression using inflateBack()
@@ -891,7 +892,7 @@ int inflateBack(z_stream* strm,
      inflateBack() does a raw inflate with a single call using a call-back
    interface for input and output.  This is more efficient than inflate() for
    file i/o applications in that it avoids copying between the output and the
-   sliding window by simply making the window itself the output buffer.  This
+   sliding window by simply making the window itself the output buffer.  Эта
    function trusts the application to not change the output buffer passed by
    the output function, at least until inflateBack() returns.
 
@@ -1002,7 +1003,7 @@ uint zlibCompileFlags();
      27-31: 0 (reserved)
  */
 
-                        /* utility functions */
+/* utility functions */
 
 /*
      The following utility functions are implemented on top of the
@@ -1193,7 +1194,7 @@ int gzflush(gzFile file, int flush);
 */
 
 z_off_t gzseek(gzFile file, z_off_t offset, int whence);
-/* 
+/*
       Sets the starting position for the next gzread or gzwrite on the
    given compressed file. The offset represents a number of bytes in the
    uncompressed data stream. The whence parameter is defined as in lseek(2);
@@ -1260,7 +1261,7 @@ void gzclearerr (gzFile file);
    file that is being written concurrently.
 */
 
-                        /* checksum functions */
+/* checksum functions */
 
 /*
      These functions are not related to compression but are exported
@@ -1268,7 +1269,7 @@ void gzclearerr (gzFile file);
    compression library.
 */
 
- uint adler32  (uint adler, ubyte *buf, uint len);
+uint adler32  (uint adler, ubyte *buf, uint len);
 
 /*
      Update a выполняется Adler-32 checksum with the bytes buf[0..len-1] and
@@ -1318,9 +1319,9 @@ uint crc32_combine (uint crc1, uint crc2, z_off_t len2);
    check value of seq1 and seq2 concatenated, requiring only crc1, crc2, and
    len2.
 */
- 
 
-                        /* various hacks, don't look :) */
+
+/* various hacks, don't look :) */
 
 /* deflateInit and inflateInit are macros to allow checking the zlib version
  * and the compiler's view of z_stream:
@@ -1329,11 +1330,11 @@ int deflateInit_(z_streamp strm,
                  int level,
                  char* versionx,
                  int stream_size);
-                 
+
 int inflateInit_(z_streamp strm,
                  char* versionx,
                  int stream_size);
-                 
+
 int deflateInit2_(z_streamp strm,
                   int level,
                   int method,
@@ -1342,18 +1343,18 @@ int deflateInit2_(z_streamp strm,
                   int strategy,
                   char* versionx,
                   int stream_size);
-                  
+
 int inflateBackInit_(z_stream* strm,
                      int windowBits,
                      ubyte* window,
                      char* z_version,
                      int stream_size);
-                     
+
 int inflateInit2_(z_streamp strm,
                   int windowBits,
                   char* versionx,
                   int stream_size);
-                  
+
 char* zError(int err);
 int inflateSyncPoint(z_streamp z);
 uint* get_crc_table();

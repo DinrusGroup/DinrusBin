@@ -1,9 +1,9 @@
-﻿module mesh.Handles;
-import tpl.Handles, stdrus: фм, скажинс;
+module mesh.Handles;
+import tpl.handles, stdrus;
 
 //-----------------------------------------------------------------------------
 
-// Original код использован struct inheritance и trivially derived 
+// Original код использован struct inheritance и trivially derived
 // the handle types from BaseHandle.
 // Here we make them distinct types by using a mixin for the guts.
 // TODO: could we use a typedef here instead?

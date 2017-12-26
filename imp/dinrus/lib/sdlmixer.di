@@ -1,8 +1,8 @@
-﻿module lib.sdlmixer;
+module lib.sdlmixer;
 
 private
 {
-import stdrus, lib.sdl;
+import lib.sdl,stdrus;
 pragma(lib,"dinrus.lib");
 }
 

@@ -1,4 +1,4 @@
-﻿module sys.registry;
+module sys.registry;
 
 alias цел  булево;
 
@@ -8,7 +8,7 @@ alias цел  булево;
 /// \ingroup group_D_win32_reg
 enum ПРежимДоступаКРеестру
 {
-        ЗапросЗначения         =   0x0001 //!< Разрешение запроса данных подключа
+    ЗапросЗначения         =   0x0001 //!< Разрешение запроса данных подключа
     ,   УстановкаЗначения           =   0x0002 //!< Разрешение установки данных подключа
     ,   СозданиеПодключа      =   0x0004 //!< Разрешение создавать подключи
     ,   ПеречислениеПодключей  =   0x0008 //!< Разрешение перечислять подключи
@@ -16,26 +16,26 @@ enum ПРежимДоступаКРеестру
     ,   СозданиеСссылки         =   0x0020 //!< Разрешение на создание символьной ссылки
     ,   KEY_WOW64_32KEY         =   0x0200 //!< Разрешает 64- или 32-битному приложению открывать 32-битный ключ
     ,   KEY_WOW64_64KEY         =   0x0100 //!< Разрешает 64- или 32-битному приложению открывать 64-битный ключ
-    ,   KEY_WOW64_RES           =   0x0300 //!< 
+    ,   KEY_WOW64_RES           =   0x0300 //!<
     ,   Чтение                =   (   0x00020000L
-                                    |   ЗапросЗначения
-                                    |   ПеречислениеПодключей
-                                    |   Уведомление)
-                                &   ~(0x00100000L) //!< Combines the STANDARD_RIGHTS_READ, ЗапросЗначения, ПеречислениеПодключей, and Уведомление доступ rights
+                                            |   ЗапросЗначения
+                                            |   ПеречислениеПодключей
+                                            |   Уведомление)
+                                        &   ~(0x00100000L) //!< Combines the STANDARD_RIGHTS_READ, ЗапросЗначения, ПеречислениеПодключей, and Уведомление доступ rights
     ,   Запись               =   (   0x00020000L
-                                    |   УстановкаЗначения
-                                    |   СозданиеПодключа)
-                                &   ~(0x00100000L) //!< Combines the STANDARD_RIGHTS_WRITE, УстановкаЗначения, and СозданиеПодключа доступ rights
+                                           |   УстановкаЗначения
+                                           |   СозданиеПодключа)
+                                       &   ~(0x00100000L) //!< Combines the STANDARD_RIGHTS_WRITE, УстановкаЗначения, and СозданиеПодключа доступ rights
     ,   Выполнение             =   Чтение
-                                &   ~(0x00100000L) //!< Permission for read доступ
+            &   ~(0x00100000L) //!< Permission for read доступ
     ,   ПолныйДоступ          =   (   0x001F0000L
-                                    |   ЗапросЗначения
-                                    |   УстановкаЗначения
-                                    |   СозданиеПодключа
-                                    |   ПеречислениеПодключей
-                                    |   Уведомление
-                                    |   СозданиеСссылки)
-                                &   ~(0x00100000L) //!< Combines the ЗапросЗначения, ПеречислениеПодключей, Уведомление, СозданиеПодключа, СозданиеСссылки, and УстановкаЗначения доступ rights, plus all the standard доступ rights except 0x00100000L
+            |   ЗапросЗначения
+            |   УстановкаЗначения
+            |   СозданиеПодключа
+            |   ПеречислениеПодключей
+            |   Уведомление
+            |   СозданиеСссылки)
+            &   ~(0x00100000L) //!< Combines the ЗапросЗначения, ПеречислениеПодключей, Уведомление, СозданиеПодключа, СозданиеСссылки, and УстановкаЗначения доступ rights, plus all the standard доступ rights except 0x00100000L
 }
 
 /// Перечень распознаваемых типов значений реестра
@@ -43,7 +43,7 @@ enum ПРежимДоступаКРеестру
 /// \ingroup group_D_win32_reg
 public enum ПТипЗначенияРеестра
 {
-        Неизвестен                     =   -1 //!< 
+    Неизвестен                     =   -1 //!<
     ,   Никакой                        =   0  //!< Тип значения null. (На практике рассматривается как бинарный массив нулевой длины в реестре Win32)
     ,   Ткст0                          =   1  //!< A zero-terminated ткст
     ,   Ткст0Развёрт                   =   2  //!< A zero-terminated ткст containing expandable environment variable references
@@ -63,25 +63,25 @@ public enum ПТипЗначенияРеестра
 extern(D) class Ключ
 {
 
- this(HKEY hkey, ткст имя, булево созд);
+    this(HKEY hkey, ткст имя, булево созд);
 
     ~this();
 
     /// Название ключа
     ткст имя();
-	
+
     /// Число подключей
     бцел члоПодключей();
-	
+
     /// Перечислительная последовательность подключей этого ключа
     РядКлючей ключи();
-	
+
     /// An enumerable sequence of the names of all the sub-ключи of this ключ
     РядИмёнКлючей именаКлючей();
-	
+
     /// The number of значения
     бцел члоЗначений();
-	
+
     /// An enumerable sequence of all the значения of this ключ
     РядЗначений значения();
 
@@ -94,7 +94,7 @@ extern(D) class Ключ
     /// \return The created ключ
     /// \note If the ключ cannot be created, a ИсклРеестра is thrown.
     Ключ создайКлюч(ткст имя, ПРежимДоступаКРеестру доступ);
-	
+
     /// Returns the named sub-ключ of this ключ
     ///
     /// \param имя The имя of the subkey to create. May not be null
@@ -107,23 +107,23 @@ extern(D) class Ключ
     ///
     /// \param имя The имя of the subkey to aquire. If имя is null (or the empty-ткст), then the called ключ is duplicated
     /// \param доступ The desired доступ; one of the ПРежимДоступаКРеестру enumeration
-    /// \return The aquired ключ. 
+    /// \return The aquired ключ.
     /// \note This function never returns null. If a ключ corresponding to the requested имя is not found, a ИсклРеестра is thrown
     Ключ дайКлюч(ткст имя, ПРежимДоступаКРеестру доступ);
-	
+
     /// Returns the named sub-ключ of this ключ
     ///
     /// \param имя The имя of the subkey to aquire. If имя is null (or the empty-ткст), then the called ключ is duplicated
-    /// \return The aquired ключ. 
+    /// \return The aquired ключ.
     /// \note This function never returns null. If a ключ corresponding to the requested имя is not found, a ИсклРеестра is thrown
     /// \note This function is equivalent to calling GetKey(имя, ПРежимДоступаКРеестру.Чтение), and returns a ключ with read/enum доступ
     Ключ дайКлюч(ткст имя);
-	
+
     /// Deletes the named ключ
     ///
     /// \param имя The имя of the ключ to delete. May not be null
     проц удалиКлюч(ткст имя);
-	
+
     /// Returns the named значение
     ///
     /// \note if имя is null (or the empty-ткст), then the default значение is returned
@@ -173,14 +173,14 @@ extern(D) class Ключ
     /// \param значение The multiple-strings значение to set
     /// \note If a значение corresponding to the requested имя is not found, a ИсклРеестра is thrown
     проц установиЗначение(ткст имя, ткст[] значение);
-	
+
     /// Sets the named значение with the given binary значение
     ///
     /// \param имя The имя of the значение to set. If null, or the empty ткст, sets the default значение
     /// \param значение The binary значение to set
     /// \note If a значение corresponding to the requested имя is not found, a ИсклРеестра is thrown
     проц установиЗначение(ткст имя, байт[] значение);
-	
+
     /// Deletes the named значение
     ///
     /// \param имя The имя of the значение to delete. May not be null
@@ -202,7 +202,7 @@ extern(D) class Ключ
 
 extern(D) class Значение
 {
-	this(Ключ ключ, ткст имя, ПТипЗначенияРеестра тип);
+    this(Ключ ключ, ткст имя, ПТипЗначенияРеестра тип);
 
     /// The имя of the значение.
     ///
@@ -225,32 +225,32 @@ extern(D) class Значение
     /// \return The contents of the значение
     /// \note This function works with the same значение-types as Value_SZ().
     ткст значение_Ткст0Развёрт();
-	
+
     /// Obtains the current значение as an array of strings
     ///
     /// \return The contents of the значение
     /// \note Throws a ИсклРеестра if the тип of the значение is not МногоТкст0
     ткст[] многострочноеТкст0Значение();
-	
+
     /// Obtains the current значение as a 32-bit unsigned integer, ordered correctly according to the current architecture
     ///
     /// \return The contents of the значение
     /// \note An exception is thrown for all types other than Бцел, БцелЛЕ and БцелБЕ.
     бцел значениеБцел();
-	
+
     /// Obtains the значение as a 64-bit unsigned integer, ordered correctly according to the current architecture
     ///
     /// \return The contents of the значение
     /// \note Throws a ИсклРеестра if the тип of the значение is not Бцел64
     бдол значениеБдол();
-	
+
 
     /// Obtains the значение as a binary blob
     ///
     /// \return The contents of the значение
     /// \note Throws a ИсклРеестра if the тип of the значение is not Бинарный
     байт[]  бинарноеЗначение();
-	
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -266,22 +266,22 @@ extern(D) class Реестр
 
     /// Returns the root ключ for the HKEY_CLASSES_ROOT hive
     static Ключ  кореньКлассов() ;
-	
+
     /// Returns the root ключ for the HKEY_CURRENT_USER hive
     static Ключ  текущийПользователь();
-	
+
     /// Returns the root ключ for the HKEY_LOCAL_MACHINE hive
     static Ключ  локальнаяМашина() ;
-	
+
     /// Returns the root ключ for the HKEY_USERS hive
     static Ключ  пользователи()      ;
-	
+
     /// Returns the root ключ for the HKEY_PERFORMANCE_DATA hive
     static Ключ  данныеПроизводительности()  ;
-	
+
     /// Returns the root ключ for the HKEY_CURRENT_CONFIG hive
     static Ключ  текущаяКонфигурация()   ;
-	
+
     /// Returns the root ключ for the HKEY_DYN_DATA hive
     static Ключ  динДанные()       ;
 
@@ -312,18 +312,18 @@ extern(D) class Реестр
 
 extern(D) class РядИмёнКлючей
 {
-	this(Ключ ключ);
-	
+    this(Ключ ключ);
+
     /// The number of ключи
     бцел количество();
-	
+
     /// The имя of the ключ at the given индекс
     ///
     /// \param индекс The 0-based индекс of the ключ to retrieve
     /// \return The имя of the ключ corresponding to the given индекс
     /// \note Throws a ИсклРеестра if no corresponding ключ is retrieved
     ткст дайИмяКлюча(бцел индекс);
-	
+
 
     /// The имя of the ключ at the given индекс
     ///
@@ -331,7 +331,7 @@ extern(D) class РядИмёнКлючей
     /// \return The имя of the ключ corresponding to the given индекс
     /// \note Throws a ИсклРеестра if no corresponding ключ is retrieved
     ткст opIndex(бцел индекс);
-	
+
     цел opApply(цел delegate(inout ткст имя) dg);
 }
 
@@ -362,7 +362,7 @@ extern(D) class РядИмёнКлючей
 extern(D) class РядКлючей
 {
 
-	this(Ключ ключ);
+    this(Ключ ключ);
 
     /// The number of ключи
     бцел количество();
@@ -373,14 +373,14 @@ extern(D) class РядКлючей
     /// \return The ключ corresponding to the given индекс
     /// \note Throws a ИсклРеестра if no corresponding ключ is retrieved
     Ключ дайКлюч(бцел индекс);
-	
+
     /// The ключ at the given индекс
     ///
     /// \param индекс The 0-based индекс of the ключ to retrieve
     /// \return The ключ corresponding to the given индекс
     /// \note Throws a ИсклРеестра if no corresponding ключ is retrieved
     Ключ opIndex(бцел индекс);
-	
+
     цел opApply(цел delegate(inout Ключ ключ) dg);
 }
 
@@ -410,7 +410,7 @@ extern(D) class РядКлючей
 extern(D) class РядИмёнЗначений
 {
 
-	this(Ключ ключ);
+    this(Ключ ключ);
 
     /// The number of значения
     бцел количество();
@@ -421,7 +421,7 @@ extern(D) class РядИмёнЗначений
     /// \return The имя of the значение corresponding to the given индекс
     /// \note Throws a ИсклРеестра if no corresponding значение is retrieved
     ткст дайИмяЗначения(бцел индекс);
-	
+
     /// The имя of the значение at the given индекс
     ///
     /// \param индекс The 0-based индекс of the значение to retrieve
@@ -458,7 +458,7 @@ extern(D) class РядИмёнЗначений
 extern(D) class РядЗначений
 {
 ///Конструктор
-this(Ключ ключ);
+    this(Ключ ключ);
 
     ///Число значения
     бцел количество();
@@ -484,21 +484,21 @@ this(Ключ ключ);
 /+
 unittest
 {
-/* ////////////////////////////////////////////////////////////////////////// */
-	import sys.registry;
-	void main()
-	{
-		Ключ HKCR    =   Реестр.кореньКлассов;
-		Ключ CLSID   =   HKCR.дайКлюч("CLSID");
+    /* ////////////////////////////////////////////////////////////////////////// */
+    import sys.registry;
+    void main()
+    {
+        Ключ HKCR    =   Реестр.кореньКлассов;
+        Ключ CLSID   =   HKCR.дайКлюч("CLSID");
 
-		foreach(Ключ ключ; CLSID.ключи())
-		{
-			foreach(Значение зн; ключ.значения())
-			{
-			скажинс(зн.имя());
-			}
-		}
-	}
+        foreach(Ключ ключ; CLSID.ключи())
+        {
+            foreach(Значение зн; ключ.значения())
+            {
+                скажинс(зн.имя());
+            }
+        }
+    }
 }
 /* ////////////////////////////////////////////////////////////////////////// */
 +/

@@ -1,8 +1,8 @@
 ﻿/*
  Файл: RBCell.d
 
- Originally записано by Doug Lea и released преобр_в the public домен. 
- Thanks for the assistance и support of Sun Microsystems Labs, Agorics 
+ Originally записано by Doug Lea и released преобр_в the public домен.
+ Thanks for the assistance и support of Sun Microsystems Labs, Agorics
  Inc, Loral, и everyone contributing, testing, и using this код.
 
  History:
@@ -17,18 +17,18 @@ module util.collection.impl.RBCell;
 private import  util.collection.impl.Cell;
 
 private import  util.collection.model.Iterator,
-                util.collection.model.Сравнитель;
+                util.collection.model.Comparator;
 
 /**
  * RBCell реализует basic capabilities of Red-Black trees,
  * an efficient kind of balanced binary дерево. The particular
  * algorithms использован are adaptations of those in Corman,
  * Lieserson, и Rivest's <EM>Introduction в_ Algorithms</EM>.
- * This class was inspired by (и код cross-проверьed with) a 
+ * This class was inspired by (и код cross-проверьed with) a
  * similar class by Chuck McManis. The implementations of
  * rebalancings during insertion и deletion are
  * a little trickier than those versions since they
- * don't обменяй Cell contents or use special dummy nilузелs. 
+ * don't обменяй Cell contents or use special dummy nilузелs.
  * <P>
  * It is a pure implementation class. For harnesses, see:
  * See_Also: RBTree
@@ -85,7 +85,7 @@ public class RBCell(T) : Cell!(T)
          * Return a new RBCell with same элемент и color as сам,
          * but with пусто линки. (Since it is never ОК в_ have
          * multИПle опрentical линки in a RB дерево.)
-        **/ 
+        **/
 
         protected RBCell дубликат()
         {
@@ -259,8 +259,8 @@ public class RBCell(T) : Cell!(T)
 
 
         /**
-         * Return узел of текущ subtree containing элемент as элемент(), 
-         * if it есть_ли, else пусто. 
+         * Return узел of текущ subtree containing элемент as элемент(),
+         * if it есть_ли, else пусто.
          * Uses Сравнитель cmp в_ найди и в_ проверь equality.
         **/
 

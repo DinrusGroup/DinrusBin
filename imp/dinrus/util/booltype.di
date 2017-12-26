@@ -1,4 +1,4 @@
-﻿module util.booltype;
+module util.booltype;
 
 class Бул
 {

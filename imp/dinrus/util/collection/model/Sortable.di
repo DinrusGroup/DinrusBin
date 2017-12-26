@@ -1,8 +1,8 @@
 ﻿/*
  Файл: Sortable.d
 
- Originally записано by Doug Lea и released преобр_в the public домен. 
- Thanks for the assistance и support of Sun Microsystems Labs, Agorics 
+ Originally записано by Doug Lea и released преобр_в the public домен.
+ Thanks for the assistance и support of Sun Microsystems Labs, Agorics
  Inc, Loral, и everyone contributing, testing, и using this код.
 
  History:
@@ -15,7 +15,7 @@
 module util.collection.model.Sortable;
 
 private import  util.collection.model.Dispenser,
-                util.collection.model.Сравнитель;
+                util.collection.model.Comparator;
 
 
 /**
@@ -30,11 +30,11 @@ private import  util.collection.model.Dispenser,
  * After sorting, but in the absence of другой mutative operations,
  * Sortable Collections guarantee that enumerations
  * appear in sorted order;  that is if a и b are two элементы
- * obtained in succession из_ nextElement(), that 
+ * obtained in succession из_ nextElement(), that
  * <PRE>
  * сравнитель(a, b) <= 0.
  * </PRE>
- * 
+ *
         author: Doug Lea
  * @version 0.93
  *

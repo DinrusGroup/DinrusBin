@@ -1,4 +1,4 @@
-﻿/**
+/**
 В модуле содержатся основные числовые процедуры, часто используемые
 в прочих модулях, либо применияемые в проектах, где используется линейная алгебра.
 
@@ -6,8 +6,6 @@ Authors:
     Victor Nakoryakov, nail-mail[at]mail.ru
 */
 module linalg.basic;
-
-//import stdrus;
 import linalg.config;
 
 /**

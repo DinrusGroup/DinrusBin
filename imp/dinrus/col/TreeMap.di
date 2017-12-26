@@ -1,8 +1,8 @@
-﻿/*********************************************************
-   Copyright: (C) 2008 by Steven Schveighoffer.
-              All rights reserved
+/*********************************************************
+   Авторское право: (C) 2008 принадлежит Steven Schveighoffer.
+              Все права защищены
 
-   License: $(LICENSE)
+   Лицензия: $(LICENSE)
 
 **********************************************************/
 module col.TreeMap;
@@ -104,7 +104,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
  * O(lg(n)) insertion, removal, and lookup times.  It also creates a sorted
  * установи of ключи.  К must be comparable.
  *
- * Adding an элемент does not invalidate any cursors.
+ * Добавление элемента не влияет на валидность ни одно из курсоров.
  *
  * Removing an элемент only invalidates the cursors that were pointing at
  * that элемент.
@@ -112,12 +112,12 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
  * You can replace the Tree implementation with a custom implementation, the
  * implementation must be a struct template which can be instantiated with a
  * single template argument З, and must implement the following members
- * (non-function members can be properties unless otherwise specified):
+ * (члены-нефункции могут быть свойствами, если не задано иное):
  *
- * parameters -> must be a struct with at least the following members:
+ * параметры -> должны быть структорой как минимум со следущими членами
  *   функцСравнения -> the compare function to use (should be a
  *                      ФункцСравнения!(З))
- *   обновлФункц -> the update function to use (should be an
+ *   обновлФункц -> используемая функция обновления (должна быть вроде
  *                     ФункцОбновления!(З))
  * 
  * проц установка(parameters p) -> initializes the tree with the given parameters.
@@ -126,7 +126,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
  *
  * Узел -> must be a struct/class with the following members:
  *   З значение -> the значение which is pointed to by this позиция (cannot be a
- *                property)
+ *  каким-либо свойством)
  *   Узел следщ -> the следщ Узел in the tree as defined by the compare
  *                function, or конец if no other nodes exist.
  *   Узел предш -> the previous Узел in the tree as defined by the compare
@@ -141,10 +141,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
  * элемент in the tree, or конец if no elements exist.
  *
  * Узел конец -> must be a Узел that points to just past the very последн
- * valid элемент.
+ *валидного элемента.
  *
  * Узел найди(З з) -> returns a Узел that points to the элемент that
- * содержит з, or конец if the элемент doesn'т exist.
+ * содержит з, или на конец , если его не существует.
  *
  * Узел удали(Узел p) -> removes the given элемент from the tree,
  * returns the следщ valid элемент or конец if p was последн in the tree.
@@ -222,8 +222,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         }
 
         /**
-         * increment this курсор, returns what the курсор was перед
-         * incrementing.
+         * Увеличивает этот курсор, возвращая то значение, которое было до
+         * этого.
          */
         курсор opPostInc()
         {
@@ -233,8 +233,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         }
 
         /**
-         * decrement this курсор, returns what the курсор was перед
-         * decrementing.
+         * Уменьшает этот курсор, возращая значение, которое было до
+         * декрементации.
          */
         курсор opPostDec()
         {
@@ -244,10 +244,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         }
 
         /**
-         * increment the курсор by the given amount.
+         * Увеличивает курсор на указанное количество.
          *
-         * This is an O(прир) operation!  You should only use this operator in
-         * the form:
+         * Это операция O(прир)!  * Следует лишь использовать этот оператор в 
+         * такой форме:
          *
          * ++i;
          */
@@ -261,10 +261,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         }
 
         /**
-         * decrement the курсор by the given amount.
+         * Уменьшает курсор на заданное значение.
          *
-         * This is an O(прир) operation!  You should only use this operator in
-         * the form:
+         * Это операция O(прир)!  * Следует лишь использовать этот оператор в 
+         * такой форме:
          *
          * --i;
          */
@@ -278,7 +278,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         }
 
         /**
-         * compare two cursors for equality
+         * Сравнивает два курсора на равенство
          */
         бул opEquals(курсор обх)
         {
@@ -324,14 +324,14 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         курсор обх = начало;
         бул чистить_ли;
         цел возврдг = 0;
-        курсор _конец = конец; // cache конец so обх isn'т always being generated
+        курсор _конец = конец; //  ***
         while(!возврдг && обх != _конец)
         {
             //
-            // don'т allow user to change ключ
+            // не позволяет пользователю изменить ключ
             //
             К врмключ = обх.ключ;
-            чистить_ли = false;
+            чистить_ли = нет;
             if((возврдг = дг(чистить_ли, врмключ, обх.ptr.значение.знач)) != 0)
                 break;
             if(чистить_ли)
@@ -343,7 +343,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * iterate over the collection's ключ/значение pairs
+     * Итерировать по парам ключ/значение коллекции
      */
     цел opApply(цел delegate(ref К к, ref З з) дг)
     {
@@ -356,7 +356,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * iterate over the collection's values
+     * Итерирует по значениям коллекции
      */
     цел opApply(цел delegate(ref З з) дг)
     {
@@ -385,7 +385,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     //
-    // private constructor for dup
+    // Приватный конструктор для dup
     //
     private this(ref Реализ дубИз)
     {
@@ -394,7 +394,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Clear the collection of all elements
+     *Очистить все элементы коллекции
      */
     ДеревоКарта очисти()
     {
@@ -403,7 +403,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * returns number of elements in the collection
+     * Возвращает число элементов в коллекции
      */
     бцел длина()
     {
@@ -412,7 +412,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
 	alias длина length;
 
     /**
-     * returns a курсор to the первый элемент in the collection.
+     * Возвращает курсор на первый элемент в коллекции.
      */
     курсор начало()
     {
@@ -422,8 +422,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * returns a курсор that points just past the последн элемент in the
-     * collection.
+     * Возвращает курсор, который указывает сразу после последнего элемента
+     * коллекции.
      */
     курсор конец()
     {
@@ -433,8 +433,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * удали the элемент pointed at by the given курсор, returning an
-     * курсор that points to the следщ элемент in the collection.
+     * Удаляет элемент, на который указывает данный курсор, возвращая
+     * курсор, указывающий на следующий элемент в коллекции.
      *
      * Runs in O(lg(n)) time.
      */
@@ -445,10 +445,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * найди a given значение in the collection starting at a given курсор.
-     * This is useful to iterate over all elements that have the same значение.
+     * Найти указанное значение в коллекции, начиная с данного курсора.
+     * Это полезно для итерации по всем элементам с одинаковыми значениями.
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     курсор найдиЗначение(курсор обх, З з)
     {
@@ -456,10 +456,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * найди an instance of a значение in the collection.  Equivalent to
+     * Найти экземпляр  значения  в коллекции.  Эквивалентно
      * найдиЗначение(начало, з);
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     курсор найдиЗначение(З з)
     {
@@ -474,8 +474,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * найди the instance of a ключ in the collection.  Returns конец if the ключ
-     * is not present.
+     * Найти экземпляр  ключа в коллекции.  Возвращает конец, если ключ
+     * отсутствует.
      *
      * Runs in O(lg(n)) time.
      */
@@ -489,9 +489,9 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Returns true if the given значение exists in the collection.
+     *Возвращает да, если данное значение есть в коллекции.
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     бул содержит(З з)
     {
@@ -499,10 +499,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Removes the первый элемент that has the значение з.  Returns true if the
-     * значение was present and was removed.
+     *Удаляет первый элемент, у которого значение з.  Возвращает да, если
+     * значение имелось и было удалено.
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     ДеревоКарта удали(З з)
     {
@@ -511,29 +511,29 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Removes the первый элемент that has the значение з.  Returns true if the
-     * значение was present and was removed.
+     *Удаляет первый элемент, у которого значение з.  Возвращает да, если
+     * значение имелось и было удалено.
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     ДеревоКарта удали(З з, ref бул был_Удалён)
     {
         курсор обх = найдиЗначение(з);
         if(обх == конец)
         {
-            был_Удалён = false;
+            был_Удалён = нет;
         }
         else
         {
-            был_Удалён = true;
+            был_Удалён = да;
             удали(обх);
         }
         return this;
     }
 
     /**
-     * Removes the элемент that has the given ключ.  Returns true if the
-     * элемент was present and was removed.
+     * Удаляет элемент, у которого указанный ключ.  Возвращает да, если
+     * элемент был, но удалён.
      *
      * Runs in O(lg(n)) time.
      */
@@ -546,8 +546,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Removes the элемент that has the given ключ.  Returns true if the
-     * элемент was present and was removed.
+     * Удаляет элемент, у которого указанный ключ.  Возвращает да, если
+     * элемент был, но удалён.
      *
      * Runs in O(lg(n)) time.
      */
@@ -556,11 +556,11 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         курсор обх = найди(ключ);
         if(обх == конец)
         {
-            был_Удалён = false;
+            был_Удалён = нет;
         }
         else
         {
-            был_Удалён = true;
+            был_Удалён = да;
             удали(обх);
         }
         return this;
@@ -569,7 +569,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     /**
      * Removes all the elements whose ключи are in the поднабор.
      * 
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта удали(Обходчик!(К) поднабор)
     {
@@ -579,10 +579,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Removes all the elements whose ключи are in the поднабор.  Sets чло_Удалённых
+     * Removes all the elements whose ключи are in the поднабор.  * Устанавливает чло_Удалённых
      * to the number of ключ/значение pairs removed.
      * 
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта удали(Обходчик!(К) поднабор, ref бцел чло_Удалённых)
     {
@@ -595,7 +595,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     /**
      * removes all elements in the map whose ключи are NOT in поднабор.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта накладка(Обходчик!(К) поднабор, ref бцел чло_Удалённых)
     {
@@ -603,7 +603,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
         // create a wrapper iterator that generates elements from ключи.  Then
         // defer the intersection operation to the implementation.
         //
-        // scope allocates on the stack.
+        //масштаб (scope) размещается на стеке.
         //
         scope w = new ТрансформОбходчик!(элемент, К)(поднабор, function проц(ref К к, ref элемент e) { e.ключ = к;});
 
@@ -615,7 +615,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
      * removes all elements in the map whose ключи are NOT in поднабор.  Sets
      * чло_Удалённых to the number of elements removed.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта накладка(Обходчик!(К) поднабор)
     {
@@ -630,8 +630,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Returns the значение that is stored at the элемент which has the given
-     * ключ.  Throws an exception if the ключ is not in the collection.
+     * Возвращаает значение, которое хранится у элемента, у которого указанный
+     * ключ.  Выводит исключение, если ключа в коллекции нет.
      *
      * Runs in O(lg(n)) time.
      */
@@ -644,8 +644,8 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * assign the given значение to the элемент with the given ключ.  If the ключ
-     * does not exist, adds the ключ and значение to the collection.
+     * Присваивает указанное значение элементу с указанным ключом.  Если ключ
+     * не существует, добавляет ключ и значение в коллекцию.
      *
      * Runs in O(lg(n)) time.
      */
@@ -658,7 +658,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     /**
      * установи a ключ and значение pair.  If the pair didn'т already exist, добавь обх.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта установи(К ключ, З значение)
     {
@@ -670,7 +670,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
      * установи a ключ and значение pair.  If the pair didn'т already exist, добавь обх.
      * был_добавлен is установи to true if the pair was добавленный.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта установи(К ключ, З значение, ref бул был_добавлен)
     {
@@ -685,7 +685,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
      * установи all the elements from the given keyed iterator in the map.  Any ключ
      * that already exists will be overridden.
      *
-     * Returns this.
+     *Возвращает this.
      */
     ДеревоКарта установи(Ключник!(К, З) исток)
     {
@@ -699,7 +699,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
      * that already exists will be overridden.  чло_добавленных is установи to the number
      * of ключ/значение pairs that were добавленный.
      *
-     * Returns this.
+     *Возвращает this.
      */
     ДеревоКарта установи(Ключник!(К, З) исток, ref бцел чло_добавленных)
     {
@@ -710,7 +710,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Returns true if the given ключ is in the collection.
+     * Возвращает да, если указанный ключ есть в коллекции.
      *
      * Runs in O(lg(n)) time.
      */
@@ -720,9 +720,9 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Returns the number of elements that contain the значение з
+     * Возвращает число элементов, содержащих значение з
      *
-     * Runs in O(n) time.
+     * Выполняется за O(n) раз.
      */
     бцел счёт(З з)
     {
@@ -734,7 +734,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the elements that contain the значение з.
+     * Удалить все элементы, содержащие значение з.
      *
      * Runs in O(n + m lg(n)) time, where m is the number of elements removed.
      */
@@ -746,7 +746,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the elements that contain the значение з.
+     * Удалить все элементы, содержащие значение з.
      *
      * Runs in O(n + m lg(n)) time, where m is the number of elements removed.
      */
@@ -770,17 +770,17 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
      * Compare this ДеревоКарта with another Карта
      *
      * Returns 0 if o is not a Карта object, is null, or the ДеревоКарта does not
-     * contain the same ключ/значение pairs as the given map.
-     * Returns 1 if exactly the ключ/значение pairs contained in the given map are
+     * содержит одинаковых пар ключ/значение, как заданная карта.
+     * Возвращает 1, если ровное число пар ключ/значение, имеющихся в данной карте,
      * in this ДеревоКарта.
      */
     цел opEquals(Объект o)
     {
         //
-        // try casting to map, otherwise, don'т compare
+        // пробуем кастинг карты, иначе не сравнивается
         //
         auto m = cast(Карта!(К, З))o;
-        if(m !is null && m.length == длина)
+        if(m !is пусто && m.length == длина)
         {
             auto _конец = конец;
             auto tm = cast(ДеревоКарта)o;
@@ -813,10 +813,10 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Набор all the elements from the given associative массив in the map.  Any
-     * ключ that already exists will be overridden.
+     * Установить все элементы из данного ассоциативного массива в карту.  Любой
+     * ключ, уже существующий, будет переписан.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта установи(З[К] исток)
     {
@@ -826,12 +826,12 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Набор all the elements from the given associative массив in the map.  Any
-     * ключ that already exists will be overridden.
+     * Установить все элементы из данного ассоциативного массива в карту.  Любой
+     * ключ, уже существующий, будет переписан.
      *
-     * sets чло_добавленных to the number of ключ значение pairs that were добавленный.
+     * Устаавливает чло_добавленных  в число добавленных пар  ключ/значение.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта установи(З[К] исток, ref бцел чло_добавленных)
     {
@@ -842,7 +842,7 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the given ключи from the map.
+     * Удалить все заданные ключи из карты.
      *
      * return this.
      */
@@ -854,11 +854,11 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the given ключи from the map.
+     * Удалить все заданные ключи из карты.
      *
      * return this.
      *
-     * чло_Удалённых is установи to the number of elements removed.
+     * чло_Удалённых устанавливается в число удалённых элементов.
      */
     ДеревоКарта удали(К[] поднабор, ref бцел чло_Удалённых)
     {
@@ -869,9 +869,9 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the ключи that are not in the given массив.
+     * Удалить все ключи, не входящие в данный массив.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта накладка(К[] поднабор)
     {
@@ -880,11 +880,11 @@ class ДеревоКарта(К, З, alias ШаблРеализац=КЧДере
     }
 
     /**
-     * Remove all the ключи that are not in the given массив.
+     * Удалить все ключи, не входящие в данный массив.
      *
-     * sets чло_Удалённых to the number of elements removed.
+     * Устанавливает чло_Удалённых в число удалённых элементов.
      *
-     * returns this.
+     * возвращает this.
      */
     ДеревоКарта накладка(К[] поднабор, ref бцел чло_Удалённых)
     {

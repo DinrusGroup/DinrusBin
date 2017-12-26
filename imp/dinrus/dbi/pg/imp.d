@@ -29,14 +29,14 @@ version (Windows) {
 }
 
 /**
- * This тип is used with PQprint because C doesn't have a _true булean тип.
+ * This type is used with PQprint because C doesn't have a _true boolean type.
  */
-alias байт pqбул;
+alias byte pqbool;
 
 /**
- * Объект ID is a fundamental тип in PostgreSQL.
+ * Object ID is a fundamental type in PostgreSQL.
  */
-typedef бцел Oid;
+typedef uint Oid;
 
 /**
  * InvalidOid indicates that something went wrong.  Try checking for errors.
@@ -50,14 +50,14 @@ const Oid InvalidOid			= 0;
 deprecated const Oid OID_MAX		= Oid.max;
 
 /**
- * This is the max length for system identifiers.  It must be a multiple of цел.sizeof.
+ * This is the max length for system identifiers.  It must be a multiple of int.sizeof.
  *
- * Databases with different NAMEDATALEN значения cannot interoperate!
+ * Databases with different NAMEDATALEN values cannot interoperate!
  */
-const бцел NAMEDATALEN			= 64;
+const uint NAMEDATALEN			= 64;
 
 /**
- * Identifiers of ошибка message поля.
+ * Identifiers of error message fields.
  */
 const char PG_DIAG_SEVERITY		= 'S';
 const char PG_DIAG_SQLSTATE		= 'C';
@@ -73,16 +73,16 @@ const char PG_DIAG_SOURCE_LINE		= 'L';
 const char PG_DIAG_SOURCE_FUNCTION	= 'R';
 
 /**
- * Read/write mode флаги for inversion (large object) calls.
+ * Read/write mode flags for inversion (large object) calls.
  */
-const бцел INV_WRITE			= 0x20000;
-const бцел INV_READ			= 0x40000;
+const uint INV_WRITE			= 0x20000;
+const uint INV_READ			= 0x40000;
 
 
 /**
- * Define the текст so all uses are consistent.
+ * Define the string so all uses are consistent.
  */
-const ткст PQnoPasswordSupplied	= "fe_sendauth: no пароль supplied\n";
+const char[] PQnoPasswordSupplied	= "fe_sendauth: no password supplied\n";
 
 
 /**
@@ -96,29 +96,29 @@ enum {
 
 /**
  * ConnStatusType is the structure that describes the current status of the
- * подключение to the server.
+ * connection to the server.
  */
 enum ConnStatusType {
 	/*
-	 * Although it is okay to add to this list, значения which become unused
+	 * Although it is okay to add to this list, values which become unused
 	 * should never be removed, nor should constants be redefined - that would
 	 * break compatibility with existing code.
 	 */
 	CONNECTION_OK,			/// Everything is working.
-	CONNECTION_BAD,			/// Error in the подключение.
+	CONNECTION_BAD,			/// Error in the connection.
 	/* Non-blocking mode only below here. */
 
 	/*
 	 * The existence of these should never be relied upon - they should only
-	 * be used for пользователь feedback or similar purposes.
+	 * be used for user feedback or similar purposes.
 	 */
-	CONNECTION_STARTED,		/// Waiting for подключение to be made.
+	CONNECTION_STARTED,		/// Waiting for connection to be made.
 	CONNECTION_MADE,		/// Connection OK; waiting to send.
 	CONNECTION_AWAITING_RESPONSE,	/// Waiting for a response from the postmaster.
 	CONNECTION_AUTH_OK,		/// Received authentication; waiting for backend startup.
 	CONNECTION_SETENV,		/// Negotiating environment.
 	CONNECTION_SSL_STARTUP,		/// Negotiating SSL.
-	CONNECTION_NEEDED		/// Internal state: подключись() needed.
+	CONNECTION_NEEDED		/// Internal state: connect() needed.
 }
 
 /**
@@ -133,12 +133,12 @@ enum PostgresPollingStatusType {
 }
 
 /**
- * ExecStatusType is the structure that describes the результаты.
+ * ExecStatusType is the structure that describes the results.
  */
 enum ExecStatusType {
-	PGRES_EMPTY_QUERY = 0,		/// Empty запрос текст was выполниd.
-	PGRES_COMMAND_OK,		/// A запрос command that doesn't return anything was выполниd properly by the backend.
-	PGRES_TUPLES_OK,		/// A запрос command that returns tuples was выполниd properly by the backend, PGresult contains the результат tuples.
+	PGRES_EMPTY_QUERY = 0,		/// Empty query string was executed.
+	PGRES_COMMAND_OK,		/// A query command that doesn't return anything was executed properly by the backend.
+	PGRES_TUPLES_OK,		/// A query command that returns tuples was executed properly by the backend, PGresult contains the result tuples.
 	PGRES_COPY_OUT,			/// Copy Out data transfer in progress.
 	PGRES_COPY_IN,			/// Copy In data transfer in progress.
 	PGRES_BAD_RESPONSE,		/// An unexpected response was received from the backend.
@@ -158,16 +158,16 @@ enum PGTransactionStatusType {
 }
 
 /**
- * PGVerbosity is the structure that describes how verbose ошибка message should be.
+ * PGVerbosity is the structure that describes how verbose error message should be.
  */
 enum PGVerbosity {
-	PQERRORS_TERSE,			/// Single-line ошибка messages.
+	PQERRORS_TERSE,			/// Single-line error messages.
 	PQERRORS_DEFAULT,		/// Recommended style.
 	PQERRORS_VERBOSE		/// All the facts.
 }
 
 /**
- * PGconn encapsulates a подключение to the backend.
+ * PGconn encapsulates a connection to the backend.
  *
  * The contents of this struct are not supposed to be known to applications.
  */
@@ -175,8 +175,8 @@ struct PGconn {
 }
 
 /**
- * PGresult encapsulates the результат of a запрос (or ещё precisely, of a single
- * SQL command --- a запрос текст given to PQsendQuery can contain multiple
+ * PGresult encapsulates the result of a query (or more precisely, of a single
+ * SQL command --- a query string given to PQsendQuery can contain multiple
  * commands and thus return multiple PGresult objects).
  *
  * The contents of this struct are not supposed to be known to applications.
@@ -186,7 +186,7 @@ struct PGresult {
 
 /**
  * PGcancel encapsulates the information needed to cancel a running
- * запрос on an existing подключение.
+ * query on an existing connection.
  *
  * The contents of this struct are not supposed to be known to applications.
  */
@@ -204,52 +204,52 @@ struct PGcancel {
  * whereas in earlier versions it was always your own backend's PID.
  */
 struct pgNotify {
-	char* relимя;			/// Notification condition имя.
-	цел be_pid;			/// Process ID of notifying server process.
+	char* relname;			/// Notification condition name.
+	int be_pid;			/// Process ID of notifying server process.
 	char* extra;			/// Notification parameter.
 	/* Fields below here are private to libpq; apps should not use 'em */
-	pgNotify* следщ;			/// List link.
+	pgNotify* next;			/// List link.
 }
 alias pgNotify PGnotify;
 
 /**
  * Function types for notice-handling callbacks.
  */
-alias проц function(ук arg, PGresult* рез) PQnoticeReceiver;
-alias проц function(ук arg, char* message) PQnoticeProcessor;
+alias void function(void* arg, PGresult* res) PQnoticeReceiver;
+alias void function(void* arg, char* message) PQnoticeProcessor;
 
 /**
  * Print options for PQprint().
  */
 struct _PQprintOpt {
-	pqбул header;			/// Print output field headings and ряд счёт.
-	pqбул alignment;		/// Fill align the поля.
-	pqбул standard;		/// Old brain dead format.
-	pqбул html3;			/// Output html таблицы.
-	pqбул expanded;		/// Expand таблицы.
-	pqбул pager;			/// Use pager for output if needed.
+	pqbool header;			/// Print output field headings and row count.
+	pqbool alignment;		/// Fill align the fields.
+	pqbool standard;		/// Old brain dead format.
+	pqbool html3;			/// Output html tables.
+	pqbool expanded;		/// Expand tables.
+	pqbool pager;			/// Use pager for output if needed.
 	char* fieldSep;			/// Field separator.
-	char* tableOpt;			/// Insert a таблица in HTML.
+	char* tableOpt;			/// Insert a table in HTML.
 	char* caption;			/// Insert a caption in HTML.
-	char** fieldName;		/// Пусто terminated array of replacement field имяs.
+	char** fieldName;		/// Null terminated array of replacement field names.
 }
 alias _PQprintOpt PQprintOpt;
 
 /**
  * Structure for the conninfo parameter definitions returned by PQconndefaults
  *
- * All поля except "val" point at static strings which must not be altered.
- * "val" is either NULL or a malloc'd current-значение текст.  PQconninfoFree()
+ * All fields except "val" point at static strings which must not be altered.
+ * "val" is either NULL or a malloc'd current-value string.  PQconninfoFree()
  * will release both the val strings and the PQconninfoOption array itself.
  */
 struct _PQconninfoOption {
 	char* keyword;			/// The keyword of the option.
-	char* envvar;			/// Fallback environment variable имя.
-	char* compiled;			/// Fallback compiled in default значение.
-	char* val;			/// Option's current значение, or пусто.
-	char* label;			/// Label for field in подключись dialog.
-	char* dispchar;			/// Character to display for this field in a подключись dialog. Values are: "" Display entered значение as is "*" Password field - hide значение "D"  Debug option - don't show by default.
-	цел dispsize;			/// Field size in characters for dialog.
+	char* envvar;			/// Fallback environment variable name.
+	char* compiled;			/// Fallback compiled in default value.
+	char* val;			/// Option's current value, or null.
+	char* label;			/// Label for field in connect dialog.
+	char* dispchar;			/// Character to display for this field in a connect dialog. Values are: "" Display entered value as is "*" Password field - hide value "D"  Debug option - don't show by default.
+	int dispsize;			/// Field size in characters for dialog.
 }
 alias _PQconninfoOption PQconninfoOption;
 
@@ -260,108 +260,108 @@ alias _PQconninfoOption PQconninfoOption;
  *	This is only used for PQfn and that is deprecated.
  */
 deprecated struct PQArgBlock {
-	цел len;
-	цел isint;
+	int len;
+	int isint;
 	union u {
-		ук ptr;
-		цел integer;
+		void* ptr;
+		int integer;
 	}
 }
 
 extern (C):
 
 /**
- * Make a new подключение to the бд server in a nonblocking manner.
+ * Make a new connection to the database server in a nonblocking manner.
  *
  * Params:
- *	conninfo = Parameters to use when подключисьing.
+ *	conninfo = Parameters to use when connecting.
  *
  * Returns:
- *	A PostgreSQL подключение that is inactive.
+ *	A PostgreSQL connection that is inactive.
  *
  * See_Also:
  *	The online PostgreSQL documentation describes what you can use in conninfo.
  */
-PGconn* PQподключисьStart (char* conninfo);
+PGconn* PQconnectStart (char* conninfo);
 
 /**
- * Get the current status of the nonblocking PostgreSQL подключение.
+ * Get the current status of the nonblocking PostgreSQL connection.
  *
  * Params:
- *	conn = The nonblocking PostgreSQL подключение.
+ *	conn = The nonblocking PostgreSQL connection.
  *
  * Returns:
- *	A PostgrePollingStatusType describing the current condition of the подключение.
+ *	A PostgrePollingStatusType describing the current condition of the connection.
  */
-PostgresPollingStatusType PQподключисьPoll (PGconn* conn);
+PostgresPollingStatusType PQconnectPoll (PGconn* conn);
 
 /**
- * Make a new подключение to the бд server in a blocking manner.
+ * Make a new connection to the database server in a blocking manner.
  *
  * Params:
- *	conninfo = Parameters to use when подключисьing.
+ *	conninfo = Parameters to use when connecting.
  *
  * Returns:
- *	The PostgreSQL подключение.
+ *	The PostgreSQL connection.
  *
  * See_Also:
  *	The online PostgreSQL documentation describes what you can use in conninfo.
  */
-PGconn* PQподключисьdb (char* conninfo);
+PGconn* PQconnectdb (char* conninfo);
 
 /**
- * Make a new подключение to the бд server in a blocking manner.
+ * Make a new connection to the database server in a blocking manner.
  *
  * Deprecated:
- *	Although this isn't actually deprecated, it is preferred that you use PQподключисьdb.
+ *	Although this isn't actually deprecated, it is preferred that you use PQconnectdb.
  *
  * Params:
- *	pghost = Name of the host to подключись to.  Defaults to either a Unix socket or localhost.
- *	pgport = Port number to подключись to the server with.  Defaults to nothing.
+ *	pghost = Name of the host to connect to.  Defaults to either a Unix socket or localhost.
+ *	pgport = Port number to connect to the server with.  Defaults to nothing.
  *	pgoptions = Command line options to send to the server.  Defaults to nothing.
  *	pgtty = Currently ignored.
- *	dbName = The имя of the бд to use.  Defaults to login.
- *	login = Userимя to authenticate with.  Defaults to the current OS имя_пользователя.
+ *	dbName = The name of the database to use.  Defaults to login.
+ *	login = Username to authenticate with.  Defaults to the current OS username.
  *	pwd = Password to authenticate with.
  *
  * Returns:
- *	The PostgreSQL подключение.
+ *	The PostgreSQL connection.
  */
-PGconn* PQустановиdbLogin (char* pghost, char* pgport, char* pgoptions, char* pgtty, char* dbName, char* login, char* pwd);
+PGconn* PQsetdbLogin (char* pghost, char* pgport, char* pgoptions, char* pgtty, char* dbName, char* login, char* pwd);
 
 /**
- * Make a new подключение to the бд server in a blocking manner.
+ * Make a new connection to the database server in a blocking manner.
  *
  * Deprecated:
- *	This is deprecated in favor of PQустановиdbLogin, but PQподключисьdb is an even better choice.
+ *	This is deprecated in favor of PQsetdbLogin, but PQconnectdb is an even better choice.
  *
  * Params:
- *	pghost = Name of the host to подключись to.  Defaults to either a Unix socket or localhost.
- *	pgport = Port number to подключись to the server with.  Defaults to nothing.
+ *	pghost = Name of the host to connect to.  Defaults to either a Unix socket or localhost.
+ *	pgport = Port number to connect to the server with.  Defaults to nothing.
  *	pgoptions = Command line options to send to the server.  Defaults to nothing.
  *	pgtty = Currently ignored.
- *	dbName = The имя of the бд to use.  Defaults to the login имя_пользователя.
+ *	dbName = The name of the database to use.  Defaults to the login username.
  *
  * Returns:
- *	The PostgreSQL подключение.
+ *	The PostgreSQL connection.
  */
-deprecated проц PQустановиdb (char* M_PGHOST, char* M_PGPORT, char* M_PGOPT, char* M_PGTTY, char* M_DBNAME) {
-	PQустановиdbLogin(M_PGHOST, M_PGPORT, M_PGOPT, M_PGTTY, M_DBNAME, пусто, пусто);
+deprecated void PQsetdb (char* M_PGHOST, char* M_PGPORT, char* M_PGOPT, char* M_PGTTY, char* M_DBNAME) {
+	PQsetdbLogin(M_PGHOST, M_PGPORT, M_PGOPT, M_PGTTY, M_DBNAME, null, null);
 }
 
 /**
- * Close the PostgreSQL подключение and free the memory it used.
+ * Close the PostgreSQL connection and free the memory it used.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  */
-проц PQфиниш (PGconn* conn);
+void PQfinish (PGconn* conn);
 
 /**
- * Get the default подключение options.
+ * Get the default connection options.
  *
  * Returns:
- *	A PQconninfoOption structure with all of the default значения filled in.
+ *	A PQconninfoOption structure with all of the default values filled in.
  */
 PQconninfoOption* PQconndefaults ();
 
@@ -371,46 +371,46 @@ PQconninfoOption* PQconndefaults ();
  * Params:
  *	connOptions = The PQconnifoOption structure to erase.
  */
-проц PQconninfoFree (PQconninfoOption* connOptions);
+void PQconninfoFree (PQconninfoOption* connOptions);
 
 /**
- * Reустанови the подключение to PostgreSQL in a nonblocking manner.
+ * Reset the connection to PostgreSQL in a nonblocking manner.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	1 on success and 0 on failure.
  */
-цел PQresetStart (PGconn* conn);
+int PQresetStart (PGconn* conn);
 
 /**
- * Get the current status of the nonblocking сбрось of the PostgreSQL подключение.
+ * Get the current status of the nonblocking reset of the PostgreSQL connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	A PostgrePollingStatusType describing the current condition of the подключение.
+ *	A PostgrePollingStatusType describing the current condition of the connection.
  */
 PostgresPollingStatusType PQresetPoll (PGconn* conn);
 
 /**
- * Reустанови the подключение to PostgreSQL in a blocking manner.
+ * Reset the connection to PostgreSQL in a blocking manner.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  */
-проц PQreset (PGconn* conn);
+void PQreset (PGconn* conn);
 
 /**
  * Create the structure used to cancel commands.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The PGcancel structure on success or пусто on failure.
+ *	The PGcancel structure on success or null on failure.
  */
 PGcancel* PQgetCancel (PGconn* conn);
 
@@ -420,20 +420,20 @@ PGcancel* PQgetCancel (PGconn* conn);
  * Params:
  *	cancel = The PGcancel structure to erase.
  */
-проц PQfreeCancel (PGcancel* cancel);
+void PQfreeCancel (PGcancel* cancel);
 
 /**
  * Request that the server stops processing the current command.
  *
  * Params:
  *	cancel = The PGcancel structure returned by PQgetCancel.
- *	errbuf = A буфер to place the reason PQcancel failed in.
+ *	errbuf = A buffer to place the reason PQcancel failed in.
  *	errbufsize = The size of errbuf.  The recommended size is 256.
  *
  * Returns:
  *	1 on success and 0 on failure.
  */
-цел PQcancel (PGcancel* cancel, char* errbuf, цел errbufsize);
+int PQcancel (PGcancel* cancel, char* errbuf, int errbufsize);
 
 /**
  * Request that the server stops processing the current command.
@@ -442,62 +442,62 @@ PGcancel* PQgetCancel (PGconn* conn);
  *	PQcancel should be used instead because it is thread-safe.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  */
-deprecated цел PQrequestCancel (PGconn* conn);
+deprecated int PQrequestCancel (PGconn* conn);
 
 /**
- * Get the имя of the бд used in the подключение.
+ * Get the name of the database used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The бд имя.
+ *	The database name.
  */
 char* PQdb (PGconn* conn);
 
 /**
- * Get the имя_пользователя used in the подключение.
+ * Get the username used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The имя_пользователя.
+ *	The username.
  */
 char* PQuser (PGconn* conn);
 
 /**
- * Get the пароль used in the подключение.
+ * Get the password used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The пароль.
+ *	The password.
  */
 char* PQpass (PGconn* conn);
 
 /**
- * Get the server host имя used in the подключение.
+ * Get the server host name used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The server host имя.
+ *	The server host name.
  */
 char* PQhost (PGconn* conn);
 
 /**
- * Get the порт used in the подключение.
+ * Get the port used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The порт.
+ *	The port.
  */
 char* PQport (PGconn* conn);
 
@@ -508,10 +508,10 @@ char* PQport (PGconn* conn);
 deprecated char* PQtty (PGconn* conn);
 
 /**
- * Get the command line options used in the подключение.
+ * Get the command line options used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The command line options.
@@ -519,13 +519,13 @@ deprecated char* PQtty (PGconn* conn);
 char* PQoptions (PGconn* conn);
 
 /**
- * Get the status of the подключение.
+ * Get the status of the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	A ConnStatusType значение describing the current подключение.
+ *	A ConnStatusType value describing the current connection.
  */
 ConnStatusType PQstatus (PGconn* conn);
 
@@ -533,115 +533,115 @@ ConnStatusType PQstatus (PGconn* conn);
  * Get the current in-transaction status of the server.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	A PGTransactionStatusType значение describing the status of the transaction.
+ *	A PGTransactionStatusType value describing the status of the transaction.
  */
 PGTransactionStatusType PQtransactionStatus (PGconn* conn);
 
 /**
- * Get the current parameter установиtings of the server.
+ * Get the current parameter settings of the server.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	A текст containing various parameter установиtings of the server.
+ *	A string containing various parameter settings of the server.
  *
  * See_Also:
- *	The online PostgreSQL documentation describes what is in the returned текст.
+ *	The online PostgreSQL documentation describes what is in the returned string.
  */
 char* PQparameterStatus (PGconn* conn, char* paramName);
 
 /**
- * Get the version of the protocol used in the подключение.
+ * Get the version of the protocol used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The protocol version.
  */
-цел PQprotocolVersion (PGconn* conn);
+int PQprotocolVersion (PGconn* conn);
 
 /**
  * Get the version of PostgreSQL used by the server..
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The version of PostgreSQL.
  */
-цел PQserverVersion (PGconn* conn);
+int PQserverVersion (PGconn* conn);
 
 /**
- * Get the most recent ошибка message from the подключение.
+ * Get the most recent error message from the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The most recent ошибка message.
+ *	The most recent error message.
  */
 char* PQerrorMessage (PGconn* conn);
 
 /**
- * Get the socket used in the подключение.
+ * Get the socket used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The number that represents the socket.  A negative number is returned if no подключение is open.
+ *	The number that represents the socket.  A negative number is returned if no connection is open.
  */
-цел PQsocket (PGconn* conn);
+int PQsocket (PGconn* conn);
 
 /**
  * Get the PID of PostgreSQL on the server..
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The PID.
  */
-цел PQbackendPID (PGconn* conn);
+int PQbackendPID (PGconn* conn);
 
 /**
  * Get the character encoding currently being used.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The integer representation of the character encoding.
  */
-цел PQclientEncoding (PGconn* conn);
+int PQclientEncoding (PGconn* conn);
 
 /**
- * Change the character encoding used in the подключение.
+ * Change the character encoding used in the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	encoding = The текст representation of the desired character _encoding.
+ *	conn = The PostgreSQL connection.
+ *	encoding = The string representation of the desired character _encoding.
  *
  * Returns:
  *	0 on success and -1 on failure.
  */
-цел PQустановиClientEncoding (PGconn* conn, char* encoding);
+int PQsetClientEncoding (PGconn* conn, char* encoding);
 
 /**
- * Get the OpenSSL structure associated with a подключение.
+ * Get the OpenSSL structure associated with a connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	The SSL structure used in the подключение or пусто if SSL is not in use.
+ *	The SSL structure used in the connection or null if SSL is not in use.
  */
-ук PQgetssl (PGconn* conn);
+void* PQgetssl (PGconn* conn);
 
 /**
  * Tell the interface that SSL has already been initialized within your application.
@@ -649,71 +649,71 @@ char* PQerrorMessage (PGconn* conn);
  * Params:
  *	do_init = Set to 1 if you use SSL within your application and 0 otherwise.
  */
-проц PQinitSSL (цел do_init);
+void PQinitSSL (int do_init);
 
 /**
- * Set how verbose the ошибка messages should be.
+ * Set how verbose the error messages should be.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	verbosity = A PGVerbosity значение of the desired установиting.
+ *	conn = The PostgreSQL connection.
+ *	verbosity = A PGVerbosity value of the desired setting.
  *
  * Returns:
- *	A PGVerbosity значение with the previous установиting.
+ *	A PGVerbosity value with the previous setting.
  */
-PGVerbosity PQустановиErrorVerbosity (PGconn* conn, PGVerbosity verbosity);
+PGVerbosity PQsetErrorVerbosity (PGconn* conn, PGVerbosity verbosity);
 
 /**
  * Start copying all of the communications with the server to a stream.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	debug_port = The CStream to send the data to.
  */
-проц PQtrace (PGconn* conn, FILE* debug_port);
+void PQtrace (PGconn* conn, FILE* debug_port);
 
 /**
  * Stop copying all of the communications with the server to a stream.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  */
-проц PQuntrace (PGconn* conn);
+void PQuntrace (PGconn* conn);
 
 /**
  * Change the function that formats the notices.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	proc = The new function.
  *	arg = Arguments to pass to the function whenever it is called.
  *
  * Returns:
  *	The previous function.
  */
-PQnoticeReceiver PQустановиNoticeReceiver (PGconn* conn, PQnoticeReceiver proc, ук arg);
+PQnoticeReceiver PQsetNoticeReceiver (PGconn* conn, PQnoticeReceiver proc, void* arg);
 
 /**
  * Change the function that handles the notices.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	proc = The new function.
  *	arg = Arguments to pass to the function whenever it is called.
  *
  * Returns:
  *	The previous function.
  */
-PQnoticeProcessor PQустановиNoticeProcessor (PGconn* conn, PQnoticeProcessor proc, ук arg);
+PQnoticeProcessor PQsetNoticeProcessor (PGconn* conn, PQnoticeProcessor proc, void* arg);
 
 /**
- * Used to установи callback that prevents concurrent access to
+ * Used to set callback that prevents concurrent access to
  * non-thread safe functions that libpq needs.
  * The default implementation uses a libpq internal mutex.
  * Only required for multithreaded apps that use kerberos
- * both within their app and for postgresql подключисьions.
+ * both within their app and for postgresql connections.
  */
-alias проц function(цел acquire) pgthreadlock_t;
+alias void function(int acquire) pgthreadlock_t;
 
 /**
  *
@@ -721,167 +721,167 @@ alias проц function(цел acquire) pgthreadlock_t;
 pgthreadlock_t PQregisterThreadLock (pgthreadlock_t newhandler);
 
 /**
- * Submit a command to the server and wait for the результаты.
+ * Submit a command to the server and wait for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	запрос = The SQL command(s) to выполни.
+ *	conn = The PostgreSQL connection.
+ *	query = The SQL command(s) to execute.
  *
- * Результатs:
- *	A PGresult structure containing the результаты or пусто on a serious ошибка.
+ * Results:
+ *	A PGresult structure containing the results or null on a serious error.
  */
-PGresult* PQexec (PGconn* conn, char* запрос);
+PGresult* PQexec (PGconn* conn, char* query);
 
 /**
- * Submit a command to the server and wait for the результаты.
+ * Submit a command to the server and wait for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	command = The SQL _command to выполни.
+ *	conn = The PostgreSQL connection.
+ *	command = The SQL _command to execute.
  *	nParams = The number of parameters.
- *	типыПарамов = An array of types specified using Oid.  Use пусто or 0 to have the server guess.
+ *	paramTypes = An array of types specified using Oid.  Use null or 0 to have the server guess.
  *	paramValues = The parameters themselves in the expected format.
- *	paramLengths = An array of lengths of the parameters.  This is ignored for non-бинар data.
- *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for бинар.
- *	resultFormat = Use 0 to obtain the результаты in text format and 1 for бинар.
+ *	paramLengths = An array of lengths of the parameters.  This is ignored for non-binary data.
+ *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for binary.
+ *	resultFormat = Use 0 to obtain the results in text format and 1 for binary.
  *
  * Returns:
- *	A PGresult structure containing the результаты or пусто on a serious ошибка.
+ *	A PGresult structure containing the results or null on a serious error.
  */
-PGresult* PQexecParams (PGconn* conn, char* command, цел nParams, Oid* типыПарамов, char** paramValues, цел* paramLengths, цел* paramFormats, цел resultFormat);
+PGresult* PQexecParams (PGconn* conn, char* command, int nParams, Oid* paramTypes, char** paramValues, int* paramLengths, int* paramFormats, int resultFormat);
 
 /**
- * Create a подготовьd statement and wait for completion.
+ * Create a prepared statement and wait for completion.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	stmtName = The имя to assign to the подготовьd statement.
- *	запрос = The SQL command to подготовь.
+ *	conn = The PostgreSQL connection.
+ *	stmtName = The name to assign to the prepared statement.
+ *	query = The SQL command to prepare.
  *	nParams = The number of parameters.
- *	типыПарамов = An array of types specified using Oid.  Use пусто or 0 to have the server guess.
+ *	paramTypes = An array of types specified using Oid.  Use null or 0 to have the server guess.
  *
- * Результатs:
- *	A PGresult structure containing the результаты or пусто on a serious ошибка.
+ * Results:
+ *	A PGresult structure containing the results or null on a serious error.
  */
-PGresult* PQподготовь (PGconn* conn, char* stmtName, char* запрос, цел nParams, Oid* типыПарамов);
+PGresult* PQprepare (PGconn* conn, char* stmtName, char* query, int nParams, Oid* paramTypes);
 
 /**
- * Execute a подготовьd statement and wait for the результаты.
+ * Execute a prepared statement and wait for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	stmtName = The имя of the подготовьd statement to выполни.
+ *	conn = The PostgreSQL connection.
+ *	stmtName = The name of the prepared statement to execute.
  *	nParams = The number of parameters.
  *	paramValues = The parameters themselves in the expected format.
- *	paramLengths = An array of lengths of the parameters.  This is ignored for non-бинар data.
- *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for бинар.
- *	resultFormat = Use 0 to obtain the результаты in text format and 1 for бинар.
+ *	paramLengths = An array of lengths of the parameters.  This is ignored for non-binary data.
+ *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for binary.
+ *	resultFormat = Use 0 to obtain the results in text format and 1 for binary.
  *
- * Результатs:
- *	A PGresult structure containing the результаты or пусто on a serious ошибка.
+ * Results:
+ *	A PGresult structure containing the results or null on a serious error.
  */
-PGresult* PQexecPrepared (PGconn* conn, char* stmtName, цел nParams, char** paramValues, цел* paramLengths, цел* paramFormats, цел resultFormat);
+PGresult* PQexecPrepared (PGconn* conn, char* stmtName, int nParams, char** paramValues, int* paramLengths, int* paramFormats, int resultFormat);
 
 /**
- * Submit a command to the server without waiting for the результаты.
+ * Submit a command to the server without waiting for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	запрос = The SQL command(s) to выполни.
+ *	conn = The PostgreSQL connection.
+ *	query = The SQL command(s) to execute.
  *
  * Returns:
  *	1 on success or 0 on failure.
  */
-цел PQsendQuery (PGconn* conn, char* запрос);
+int PQsendQuery (PGconn* conn, char* query);
 
 /**
- * Submit a _command to the server without waiting for the результаты.
+ * Submit a _command to the server without waiting for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	command = The SQL _command to выполни.
+ *	conn = The PostgreSQL connection.
+ *	command = The SQL _command to execute.
  *	nParams = The number of parameters.
- *	типыПарамов = An array of types specified using Oid.  Use пусто or 0 to have the server guess.
+ *	paramTypes = An array of types specified using Oid.  Use null or 0 to have the server guess.
  *	paramValues = The parameters themselves in the expected format.
- *	paramLengths = An array of lengths of the parameters.  This is ignored for non-бинар data.
- *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for бинар.
- *	resultFormat = Use 0 to obtain the результаты in text format and 1 for бинар.
+ *	paramLengths = An array of lengths of the parameters.  This is ignored for non-binary data.
+ *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for binary.
+ *	resultFormat = Use 0 to obtain the results in text format and 1 for binary.
  *
  * Returns:
  *	1 on success or 0 on failure.
  */
-цел PQsendQueryParams (PGconn* conn, char* command, цел nParams, Oid* типыПарамов, char** paramValues, цел* paramLengths, цел* paramFormats, цел resultFormat);
+int PQsendQueryParams (PGconn* conn, char* command, int nParams, Oid* paramTypes, char** paramValues, int* paramLengths, int* paramFormats, int resultFormat);
 
 /**
- * Create a подготовьd statement without waiting for completion.
+ * Create a prepared statement without waiting for completion.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	stmtName = The имя to assign to the подготовьd statement.
- *	запрос = The SQL command to подготовь.
+ *	conn = The PostgreSQL connection.
+ *	stmtName = The name to assign to the prepared statement.
+ *	query = The SQL command to prepare.
  *	nParams = The number of parameters.
- *	типыПарамов = An array of types specified using Oid.  Use пусто or 0 to have the server guess.
+ *	paramTypes = An array of types specified using Oid.  Use null or 0 to have the server guess.
  *
  * Returns:
  *	1 on success or 0 on failure.
  */
-цел PQsendPrepare (PGconn* conn, char* stmtName, char* запрос, цел nParams, Oid* типыПарамов);
+int PQsendPrepare (PGconn* conn, char* stmtName, char* query, int nParams, Oid* paramTypes);
 
 /**
- * Execute a подготовьd statement without waiting for the результаты.
+ * Execute a prepared statement without waiting for the results.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	stmtName = The имя of the подготовьd statement to выполни.
+ *	conn = The PostgreSQL connection.
+ *	stmtName = The name of the prepared statement to execute.
  *	nParams = The number of parameters.
  *	paramValues = The parameters themselves in the expected format.
- *	paramLengths = An array of lengths of the parameters.  This is ignored for non-бинар data.
- *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for бинар.
- *	resultFormat = Use 0 to obtain the результаты in text format and 1 for бинар.
+ *	paramLengths = An array of lengths of the parameters.  This is ignored for non-binary data.
+ *	paramFormats = An array of formats of the parameters.  Use 0 for text and 1 for binary.
+ *	resultFormat = Use 0 to obtain the results in text format and 1 for binary.
  *
  * Returns:
  *	1 on success or 0 on failure.
  */
-цел PQsendQueryPrepared (PGconn* conn, char* stmtName, цел nParams, char** paramValues, цел* paramLengths, цел* paramFormats, цел resultFormat);
+int PQsendQueryPrepared (PGconn* conn, char* stmtName, int nParams, char** paramValues, int* paramLengths, int* paramFormats, int resultFormat);
 
 /**
- * Get the current результат установи.
+ * Get the current result set.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	A PGresult structure describing the current status or пусто if no command is being processed.
+ *	A PGresult structure describing the current status or null if no command is being processed.
  */
-PGresult* PQgetРезультат (PGconn* conn);
+PGresult* PQgetResult (PGconn* conn);
 
 /**
  * Determine if the server is currently busy with a command.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	1 if a command is busy and 0 if it is safe to call PQgetРезультат.
+ *	1 if a command is busy and 0 if it is safe to call PQgetResult.
  */
-цел PQisBusy (PGconn* conn);
+int PQisBusy (PGconn* conn);
 
 /**
  * Get any input from the server.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	1 on success and 0 on failure.
  */
-цел PQconsumeInput (PGconn* conn);
+int PQconsumeInput (PGconn* conn);
 
 /**
- * Get the следщ unhandled notification event.
+ * Get the next unhandled notification event.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	The PGnotify structure representing the notification event.
@@ -891,109 +891,109 @@ PGnotify* PQnotifies (PGconn* conn);
 /**
  * Send data to the server after a copy command.
  *
- * This function will only be unable to send the data if nonblocking is установи.
+ * This function will only be unable to send the data if nonblocking is set.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	буфер = The data to send to the server.
- *	nbytes = The length of буфер.
+ *	conn = The PostgreSQL connection.
+ *	buffer = The data to send to the server.
+ *	nbytes = The length of buffer.
  *
  * Returns:
  *	1 on success, -1 on failure, or 0 if the data wasn't sent.
  */
-цел PQputCopyData (PGconn* conn, char* буфер, цел nbytes);
+int PQputCopyData (PGconn* conn, char* buffer, int nbytes);
 
 /**
- * Tell the server that no ещё data needs to be copied.
+ * Tell the server that no more data needs to be copied.
  *
- * This function will only be unable to send the data if nonblocking is установи.
+ * This function will only be unable to send the data if nonblocking is set.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	errormsg = пусто on success and the ошибка message on failure.
+ *	conn = The PostgreSQL connection.
+ *	errormsg = null on success and the error message on failure.
  *
  * Returns:
  *	1 on success, -1 on failure, or 0 if the data wasn't sent.
  */
-цел PQputCopyEnd (PGconn* conn, char* errormsg);
+int PQputCopyEnd (PGconn* conn, char* errormsg);
 
 /**
  * Get the data from the server after a copy command.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	буфер = A pointer to the _buffer.  The memory will be allocated by PostgreSQL.
+ *	conn = The PostgreSQL connection.
+ *	buffer = A pointer to the _buffer.  The memory will be allocated by PostgreSQL.
  *	async = Use 0 for nonblocking and any other number for blocking.
  *
  * Returns:
  *	-1 on success, -2 on failure, or 0 if the command is still in progress.
  */
-цел PQgetCopyData (PGconn* conn, char** буфер, цел async);
+int PQgetCopyData (PGconn* conn, char** buffer, int async);
 
 /**
  * Deprecated:
- *	These functions have poor ошибка handling, nonblocking transfers, бинар data,
+ *	These functions have poor error handling, nonblocking transfers, binary data,
  *	or easy end of data detection.  Use PQputCopyData, PQputCopyEnd, and PQgetCopyData instead.
  */
-deprecated цел PQgetline (PGconn* conn, char* текст, цел length);
-deprecated цел PQputline (PGconn* conn, char* текст); /// ditto
-deprecated цел PQgetlineAsync (PGconn* conn, char* буфер, цел bufsize); /// ditto
-deprecated цел PQputnbytes (PGconn* conn, char* буфер, цел nbytes); /// ditto
-deprecated цел PQendcopy (PGconn* conn); /// ditto
+deprecated int PQgetline (PGconn* conn, char* string, int length);
+deprecated int PQputline (PGconn* conn, char* string); /// ditto
+deprecated int PQgetlineAsync (PGconn* conn, char* buffer, int bufsize); /// ditto
+deprecated int PQputnbytes (PGconn* conn, char* buffer, int nbytes); /// ditto
+deprecated int PQendcopy (PGconn* conn); /// ditto
 
 /**
- * Set the nonblocking status of the подключение.
+ * Set the nonblocking status of the connection.
  *
- * PQexec will ignore this установиting.
+ * PQexec will ignore this setting.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	arg = 1 for nonblocking and 0 for blocking.
  *
  * Returns:
  *	0 on success and -1 on failure.
  */
-цел PQустановиnonblocking (PGconn* conn, цел arg);
+int PQsetnonblocking (PGconn* conn, int arg);
 
 /**
- * Get the current nonblocking status of the подключение.
+ * Get the current nonblocking status of the connection.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
- *	1 if the подключение is nonblocking and 0 if it is blocking.
+ *	1 if the connection is nonblocking and 0 if it is blocking.
  */
-цел PQisnonblocking (PGconn* conn);
+int PQisnonblocking (PGconn* conn);
 
 /**
  * todo
  */
-цел PQisthreadsafe ();
+int PQisthreadsafe ();
 
 /**
  * Attempt to send all queries to the server immediately.
  *
- * This function will only be unable to send the data if nonblocking is установи.
+ * This function will only be unable to send the data if nonblocking is set.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *
  * Returns:
  *	0 on success, -1 on failure, or 1 if not all of the data was sent.
  */
-цел PQflush (PGconn* conn);
+int PQflush (PGconn* conn);
 
 /**
- * Send a simple command to the запрос very quickly.
+ * Send a simple command to the query very quickly.
  *
  * Deprecated:
- *	Prepared functions are just as fast and ещё powerful.  Use them instead.
+ *	Prepared functions are just as fast and more powerful.  Use them instead.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	fnid = The Oid of the function to выполни.
- *	result_buf = The буфер the return значение will be placed in.
+ *	conn = The PostgreSQL connection.
+ *	fnid = The Oid of the function to execute.
+ *	result_buf = The buffer the return value will be placed in.
  *	result_len = The length of result_buf.
  *	result_is_int = This is 1 if an integer of 4 bytes or less is to be returned.  Use 0 otherwise.
  *	args = An array of PQArgBlock structures.
@@ -1002,285 +1002,285 @@ deprecated цел PQendcopy (PGconn* conn); /// ditto
  * Returns:
  *	A PGresult structure describing the current status.
  */
-deprecated PGresult* PQfn (PGconn* conn, цел fnid, цел* result_buf, цел* result_len, цел result_is_int, PQArgBlock* args, цел nargs) ;
+deprecated PGresult* PQfn (PGconn* conn, int fnid, int* result_buf, int* result_len, int result_is_int, PQArgBlock* args, int nargs) ;
 
 /**
- * Get the результат status of a command.
+ * Get the result status of a command.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	An ExecStatusType значение describing the результат status.
+ *	An ExecStatusType value describing the result status.
  */
-ExecStatusType PQresultStatus (PGresult* рез);
+ExecStatusType PQresultStatus (PGresult* res);
 
 /**
- * Get the текст representing an ExecStatusType значение.
+ * Get the string representing an ExecStatusType value.
  *
  * Params:
- *	status = The ExecStatusType значение.
+ *	status = The ExecStatusType value.
  *
  * Returns:
- *	The representative текст.
+ *	The representative string.
  */
 char* PQresStatus (ExecStatusType status);
 
 /**
- * Get the ошибка message associated with a command.
+ * Get the error message associated with a command.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	The текст form of the ошибка if there is one or an empty текст otherwise.
+ *	The string form of the error if there is one or an empty string otherwise.
  */
-char* PQresultErrorMessage (PGresult* рез);
+char* PQresultErrorMessage (PGresult* res);
 
 /**
- * Get an individual field of an ошибка report.
+ * Get an individual field of an error report.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	fieldcode = The ошибка filed to return.  Accepted значения start with PG_DIAG_
+ *	res = The PGresult structure returned by the server.
+ *	fieldcode = The error filed to return.  Accepted values start with PG_DIAG_
  *
  * Returns:
- *	The текст form of the ошибка if there is one or пусто otherwise.
+ *	The string form of the error if there is one or null otherwise.
  *
  * See_Also:
  *	The online PostgreSQL documentation describes what you can use in fieldcode.
  */
-char* PQresultErrorField (PGresult* рез, char fieldcode);
+char* PQresultErrorField (PGresult* res, char fieldcode);
 
 /**
- * Get the number of tuples in a запрос результат.
+ * Get the number of tuples in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
  *	The number of tuples.
  */
-цел PQntuples (PGresult* рез);
+int PQntuples (PGresult* res);
 
 /**
- * Get the number of поля in a запрос результат.
+ * Get the number of fields in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	The number of поля.
+ *	The number of fields.
  */
-цел PQnfields (PGresult* рез);
+int PQnfields (PGresult* res);
 
 /**
- * Get whether a запрос результат contains бинар data or not.
+ * Get whether a query result contains binary data or not.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	1 if the результат установи contains бинар data and 0 otherwise.
+ *	1 if the result set contains binary data and 0 otherwise.
  */
-цел PQbinaryTuples (PGresult* рез);
+int PQbinaryTuples (PGresult* res);
 
 /**
- * Get the column имя associated with a column number in a запрос результат.
+ * Get the column name associated with a column number in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
- *	The имя of the column if it есть or пусто otherwise.
+ *	The name of the column if it exists or null otherwise.
  */
-char* PQfимя (PGresult* рез, цел field_num);
+char* PQfname (PGresult* res, int field_num);
 
 /**
- * Get the column number associated with a column имя in a запрос результат.
+ * Get the column number associated with a column name in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	field_имя = The имя of the column.
+ *	res = The PGresult structure returned by the server.
+ *	field_name = The name of the column.
  *
  * Returns:
- *	The number of the column if it есть or -1 otherwise.
+ *	The number of the column if it exists or -1 otherwise.
  */
-цел PQfnumber (PGresult* рез, char* field_имя);
+int PQfnumber (PGresult* res, char* field_name);
 
 /**
- * Get the Oid of the таблица from which a column in a запрос результат was fetched.
+ * Get the Oid of the table from which a column in a query result was fetched.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
- *	The Oid of the таблица if it есть or InvalidOid otherwise.
+ *	The Oid of the table if it exists or InvalidOid otherwise.
  */
-Oid PQftable (PGresult* рез, цел field_num);
+Oid PQftable (PGresult* res, int field_num);
 
 /**
- * Get the number of a column in its таблица from its number in a запрос результат.
+ * Get the number of a column in its table from its number in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	field_num = The number of the column within the запрос результат.
+ *	res = The PGresult structure returned by the server.
+ *	field_num = The number of the column within the query result.
  *
  * Returns:
- *	The column number if it есть or 0 otherwise.
+ *	The column number if it exists or 0 otherwise.
  */
-цел PQftablecol (PGresult* рез, цел field_num);
+int PQftablecol (PGresult* res, int field_num);
 
 /**
- * Get the format code of a column in a запрос результат.
+ * Get the format code of a column in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
- *	0 if the format is text and 1 if it is бинар.
+ *	0 if the format is text and 1 if it is binary.
  */
-цел PQfformat (PGresult* рез, цел field_num);
+int PQfformat (PGresult* res, int field_num);
 
 /**
- * Get the data тип of a column in a запрос результат.
+ * Get the data type of a column in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
- *	The Oid representing the data тип.
+ *	The Oid representing the data type.
  */
-Oid PQftype (PGresult* рез, цел field_num);
+Oid PQftype (PGresult* res, int field_num);
 
 /**
- * Get the number of bytes4/17/2006 in a column in a запрос результат.
+ * Get the number of bytes4/17/2006 in a column in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
  *	The number of bytes.
  */
-цел PQfsize (PGresult* рез, цел field_num);
+int PQfsize (PGresult* res, int field_num);
 
 /**
- * Get the тип modifier of a column in a запрос результат.
+ * Get the type modifier of a column in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	field_num = The number of the column.
  *
  * Returns:
- *	The тип modifier if it есть or -1 otherwise.
+ *	The type modifier if it exists or -1 otherwise.
  */
-цел PQfmod (PGresult* рез, цел field_num);
+int PQfmod (PGresult* res, int field_num);
 
 /**
- * Get the command status tag from a запрос результат.
+ * Get the command status tag from a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
  *	The command status tag.
  */
-char* PQcmdStatus (PGresult* рез);
+char* PQcmdStatus (PGresult* res);
 
 /**
- * Get the Oid in текст format of a действителен insert in a запрос результат.
+ * Get the Oid in string format of a valid insert in a query result.
  *
  * Deprecated:
  *	Use PQoidValue instead.  It is thread-safe.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	The Oid if it есть and is действителен. "0" or "" is returned otherwise.
+ *	The Oid if it exists and is valid. "0" or "" is returned otherwise.
  */
-deprecated char* PQoidStatus (PGresult* рез);
+deprecated char* PQoidStatus (PGresult* res);
 
 /**
- * Get the Oid of a действителен insert in a запрос результат.
+ * Get the Oid of a valid insert in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
- *	The Oid if it есть and is действителен or InvalidOid if it isn't.
+ *	The Oid if it exists and is valid or InvalidOid if it isn't.
  */
-Oid PQoidValue (PGresult* рез);
+Oid PQoidValue (PGresult* res);
 
 /**
- * Get the number of tuples affected by a запрос.
+ * Get the number of tuples affected by a query.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *
  * Returns:
  *	The number of affected tuples.
  */
-char* PQcmdTuples (PGresult* рез);
+char* PQcmdTuples (PGresult* res);
 
 /**
- * Get the значение of a single field in a запрос результат.
+ * Get the value of a single field in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	tup_num = The number of the ряд.
+ *	res = The PGresult structure returned by the server.
+ *	tup_num = The number of the row.
  *	field_num = The number of the column.
  *
  * Returns:
- *	The значение of the field.
+ *	The value of the field.
  */
-char* PQgetvalue (PGresult* рез, цел tup_num, цел field_num);
+char* PQgetvalue (PGresult* res, int tup_num, int field_num);
 
 /**
- * Get the number of bytes in the length of a single field in a запрос результат.
+ * Get the number of bytes in the length of a single field in a query result.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	tup_num = The number of the ряд.
+ *	res = The PGresult structure returned by the server.
+ *	tup_num = The number of the row.
  *	field_num = The number of the column.
  *
  * Returns:
  *	The number of bytes in the length of the field.
  */
-цел PQgetlength (PGresult* рез, цел tup_num, цел field_num);
+int PQgetlength (PGresult* res, int tup_num, int field_num);
 
 /**
- * Get whether or not a single field in a запрос результат is пусто.
+ * Get whether or not a single field in a query result is null.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
- *	tup_num = The number of the ряд.
+ *	res = The PGresult structure returned by the server.
+ *	tup_num = The number of the row.
  *	field_num = The number of the column.
  *
  * Returns:
- *	1 if it is пусто or 0 otherwise.
+ *	1 if it is null or 0 otherwise.
  */
-цел PQgetisпусто (PGresult* рез, цел tup_num, цел field_num);
+int PQgetisnull (PGresult* res, int tup_num, int field_num);
 
 /**
  * todo
  */
-цел PQnпарамы (PGresult* рез);
+int PQnparams (PGresult* res);
 
 /**
  * todo
  */
-Oid PQparamtype (PGresult* рез, цел param_num);
+Oid PQparamtype (PGresult* res, int param_num);
 
 /**
  * todo
  */
-PGresult* PQdescribePrepared (PGconn* conn, char* инстр);
+PGresult* PQdescribePrepared (PGconn* conn, char* stmt);
 
 /**
  * todo
@@ -1290,20 +1290,20 @@ PGresult* PQdescribePortal (PGconn* conn, char* portal);
 /**
  * todo
  */
-цел PQsendDescribePrepared (PGconn* conn, char* инстр);
+int PQsendDescribePrepared (PGconn* conn, char* stmt);
 
 /**
  * todo
  */
-цел PQsendDescribePortal (PGconn* conn, char* portal);
+int PQsendDescribePortal (PGconn* conn, char* portal);
 
 /**
- * Free all memory associated with a результат.  This includes all returned strings.
+ * Free all memory associated with a result.  This includes all returned strings.
  *
  * Params:
- *	рез = The PGresult structure to erase.
+ *	res = The PGresult structure to erase.
  */
-проц PQclear (PGresult* рез);
+void PQclear (PGresult* res);
 
 /**
  * Free memory allocated by the the interface library.
@@ -1313,7 +1313,7 @@ PGresult* PQdescribePortal (PGconn* conn, char* portal);
  * Params:
  *	ptr = A pointer to the memory to free.
  */
-проц PQfreemem (ук ptr);
+void PQfreemem (void* ptr);
 
 /**
  * Deprecated:
@@ -1324,11 +1324,11 @@ deprecated alias PQfreemem PQfreeNotify;
 /**
  * Make an empty PGresult structure with a given _status.
  *
- * Note that anything from the PostgreSQL подключение will be added in.
+ * Note that anything from the PostgreSQL connection will be added in.
  *
  * Params:
- *	conn = The PostgreSQL подключение.  This can be пусто.
- *	status = The ошибка message to add to the PGresult structure.
+ *	conn = The PostgreSQL connection.  This can be null.
+ *	status = The error message to add to the PGresult structure.
  *
  * Returns:
  *	The created PGresult structure.
@@ -1336,131 +1336,131 @@ deprecated alias PQfreemem PQfreeNotify;
 PGresult* PQmakeEmptyPGresult (PGconn* conn, ExecStatusType status);
 
 /**
- * Escape a текст for use within a SQL command.
+ * Escape a string for use within a SQL command.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	to = The буфер the результаты will be put in.  Must be at least 2 * length + 1 chars дол.
- *	from = The текст _to convert.
- *	length = The number of chars _to искейп.  The terminating 0 should not be included.
- *	ошибка = 0 on success and nonzero on failure.  Can be пусто.
+ *	conn = The PostgreSQL connection.
+ *	to = The buffer the results will be put in.  Must be at least 2 * length + 1 chars long.
+ *	from = The string _to convert.
+ *	length = The number of chars _to escape.  The terminating 0 should not be included.
+ *	error = 0 on success and nonzero on failure.  Can be null.
  *
  * Returns:
  *	The number of characters in to.  This doesn't include the terminating 0.
  */
-т_мера PQescapeStringConn (PGconn* conn, char* to, char* from, т_мера length, цел* ошибка);
+size_t PQescapeStringConn (PGconn* conn, char* to, char* from, size_t length, int* error);
 
 /**
- * Escape бинар data for use within a SQL command.
+ * Escape binary data for use within a SQL command.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	from = A pointer to the first байт to искейп.
- *	from_length = The number of bytes to искейп.  The terminating 0 should not be included.
- *	to_length = A pointer to a variable that will hold the length of the escaped текст.
+ *	conn = The PostgreSQL connection.
+ *	from = A pointer to the first byte to escape.
+ *	from_length = The number of bytes to escape.  The terminating 0 should not be included.
+ *	to_length = A pointer to a variable that will hold the length of the escaped string.
  *
  * Returns:
- *	The escaped version of bintext on success and пусто on failure.
+ *	The escaped version of bintext on success and null on failure.
  */
-char* PQescapeByteaConn (PGconn* conn, ббайт* from, т_мера from_length, т_мера* to_length);
+char* PQescapeByteaConn (PGconn* conn, ubyte* from, size_t from_length, size_t* to_length);
 
 /**
- * Escape a текст for use within a SQL command.
+ * Escape a string for use within a SQL command.
  *
  * Deprecated:
  *	Replaced by PQescapeStringConn in PostgreSQL 8.1.4.
  *
  * Params:
- *	to = The буфер the результаты will be put in.  Must be at least 2 * length + 1 chars дол.
- *	from = The текст _to convert.
- *	length = The number of chars _to искейп.  The terminating 0 should not be included.
+ *	to = The buffer the results will be put in.  Must be at least 2 * length + 1 chars long.
+ *	from = The string _to convert.
+ *	length = The number of chars _to escape.  The terminating 0 should not be included.
  *
  * Returns:
  *	The number of characters in to.
  */
-deprecated т_мера PQescapeString (char* to, char* from, т_мера length);
+deprecated size_t PQescapeString (char* to, char* from, size_t length);
 
 /**
- * Escape бинар data for use within a SQL command.
+ * Escape binary data for use within a SQL command.
  *
  * Deprecated:
  *	Replaced by PQescapeByteaConn in PostgreSQL 8.1.4.
  *
  * Params:
- *	bintext = A pointer to the first байт to искейп.
- *	binlen = The number of bytes to искейп.  The terminating 0 should not be included.
- *	bytealen = A pointer to a variable that will hold the length of the escaped текст.
+ *	bintext = A pointer to the first byte to escape.
+ *	binlen = The number of bytes to escape.  The terminating 0 should not be included.
+ *	bytealen = A pointer to a variable that will hold the length of the escaped string.
  *
  * Returns:
  *	The escaped version of bintext.
  */
-deprecated char* PQescapeBytea (ббайт* bintext, т_мера binlen, т_мера* bytealen);
+deprecated char* PQescapeBytea (ubyte* bintext, size_t binlen, size_t* bytealen);
 
 /**
- * Unescape бинар data.
+ * Unescape binary data.
  *
  * Params:
- *	strtext = The escaped бинар data.
- *	retbuflen = A pointer to a variable that will hold the length of the escaped текст.
+ *	strtext = The escaped binary data.
+ *	retbuflen = A pointer to a variable that will hold the length of the escaped string.
  *
  * Returns:
  *	The unescaped version of strtext.
  */
-ббайт* PQunescapeBytea (char* strtext, т_мера* retbuflen);
+ubyte* PQunescapeBytea (char* strtext, size_t* retbuflen);
 
 /**
- * Print all of the ряды to a stream.
+ * Print all of the rows to a stream.
  *
  * Params:
  *	fout = The CStream to output the information to.
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	ps = A PQprintOpt structure containing your printing options.
  */
-проц PQprint (FILE* fout, PGresult* рез, PQprintOpt* ps);
+void PQprint (FILE* fout, PGresult* res, PQprintOpt* ps);
 
 /**
- * Print all of the ряды to a stream.
+ * Print all of the rows to a stream.
  *
  * Deprecated:
  *	Use PQprint instead.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	fp = The CStream to output the information to.
  *	fillAlign = Space fill to align columns.
  *	fieldSep = The character to use as a field seperator.
  *	printHeader = Use 1 to display headers and 0 not to.
- *	quiet = Use 0 to show ряд счёт at the end and 1 not to.
+ *	quiet = Use 0 to show row count at the end and 1 not to.
  */
-deprecated проц PQdisplayTuples (PGresult* рез, FILE* fp, цел fillAlign, char* fieldSep, цел printHeader, цел quiet);
+deprecated void PQdisplayTuples (PGresult* res, FILE* fp, int fillAlign, char* fieldSep, int printHeader, int quiet);
 
 /**
- * Print all of the ряды to a stream.
+ * Print all of the rows to a stream.
  *
  * Deprecated:
  *	Use PQprint instead.
  *
  * Params:
- *	рез = The PGresult structure returned by the server.
+ *	res = The PGresult structure returned by the server.
  *	fout = The CStream to output the information to.
- *	printAttName = Use 1 to print attribute имяs and 0 not to.
+ *	printAttName = Use 1 to print attribute names and 0 not to.
  *	terseOutput = Use 1 to show delimiter bars and 0 not to.
  *	width = The _width of the columns.  Use 0 for variable _width.
  */
-deprecated проц PQprintTuples (PGresult* рез, FILE* fout, цел printAttName, цел terseOutput, цел width);
+deprecated void PQprintTuples (PGresult* res, FILE* fout, int printAttName, int terseOutput, int width);
 
 /**
  * Open an existing large object.
  *
  * Params:
- *	conn = PostgreSQL подключение.
+ *	conn = PostgreSQL connection.
  *	lobjId = Oid of the large object to open.
  *	mode = Whether to make it readonly or not.  Uses INV_READ and INV_WRITE.
  *
  * Returns:
  *	An integer for use with other large object functions on success or -1 on failure.
  */
-цел lo_open (PGconn* conn, Oid lobjId, цел mode);
+int lo_open (PGconn* conn, Oid lobjId, int mode);
 
 /**
  * Close an opened large object.
@@ -1468,73 +1468,73 @@ deprecated проц PQprintTuples (PGresult* рез, FILE* fout, цел printAtt
  * This is done automatically to any large objects that are open at the end of a transaction.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	fd = The integer returned when the large object was opened.
  *
  * Returns:
  *	0 on success or -1 on failure.
  */
-цел lo_закрой (PGconn* conn, цел fd);
+int lo_close (PGconn* conn, int fd);
 
 /**
  * Read from an open large object.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	fd = The integer returned when the large object was opened;
- *	buf = The буфер that that data will be written to.
+ *	buf = The buffer that that data will be written to.
  *	len = The number of bytes to copy to buf.
  *
  * Returns:
  *	The number of bytes read on success or a negative number on failure.
  */
-цел lo_read (PGconn* conn, цел fd, байт* buf, т_мера len);
+int lo_read (PGconn* conn, int fd, byte* buf, size_t len);
 
 /**
  * Writes to an open large object.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	fd = The integer returned when the large object was opened.
- *	buf = The буфер that the data will be read from.
+ *	buf = The buffer that the data will be read from.
  *	len = The number of bytes to copy from buf.
  *
  * Returns:
  *	The number of bytes read on success or a negative number on failure.
  */
-цел lo_write (PGconn* conn, цел fd, байт* buf, т_мера len);
+int lo_write (PGconn* conn, int fd, byte* buf, size_t len);
 
 /**
  * Change the location of reading and writing in an open large object.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	fd = The integer returned when the large object was opened.
- *	offустанови = How far to move.
+ *	offset = How far to move.
  *	whence = Where to start counting.  Uses SEEK_SET, SEEK_CUR, and SEEK_END.
  *
  * Returns:
  *	The new location pointer on success or -1 on failure.
  */
-цел lo_lseek (PGconn* conn, цел fd, цел offустанови, цел whence);
+int lo_lseek (PGconn* conn, int fd, int offset, int whence);
 
 /**
  * Create a new large object.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	mode = Ignored as of PostgreSQL version 8.1.
  *
  * Returns:
  *	The Oid of the large object on success or InvalidOid on failure.
  */
-Oid lo_creat (PGconn* conn, цел mode);
+Oid lo_creat (PGconn* conn, int mode);
 
 /**
  * Create a new large object.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	lobjId = Requested Oid to assign the large object to.
  *
  * Returns:
@@ -1546,67 +1546,67 @@ Oid lo_create (PGconn* conn, Oid lobjId);
  * Get the location pointer of an open large object.
  *
  * Params:
- *	conn =  The PostgreSQL подключение.
+ *	conn =  The PostgreSQL connection.
  *	fd = The integer returned when the large object was opened.
  *
  * Returns:
  *	The location pointer or a negative number on failure.
  */
-цел lo_tell (PGconn* conn, цел fd);
+int lo_tell (PGconn* conn, int fd);
 
 /**
- * Remove a large object from the бд.
+ * Remove a large object from the database.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	lobjOid = the Oid of the large object to remove.
  *
  * Returns:
  *	1 on success or -1 on failure.
  */
-цел lo_unlink (PGconn* conn, Oid lobjId);
+int lo_unlink (PGconn* conn, Oid lobjId);
 
 /**
  * Load a large object from a file.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
- *	fileимя = Name of the file to load.
+ *	conn = The PostgreSQL connection.
+ *	filename = Name of the file to load.
  *
  * Returns:
  *	The Oid of the large object or InvalidOid on failure.
  */
-Oid lo_import (PGconn* conn, char* fileимя);
+Oid lo_import (PGconn* conn, char* filename);
 
 /**
  * Save a large object to a file.
  *
  * Params:
- *	conn = The PostgreSQL подключение.
+ *	conn = The PostgreSQL connection.
  *	lobjOid = Oid of the large object to save.
- *	fileимя = Name of the file to save to.
+ *	filename = Name of the file to save to.
  *
  * Returns:
  *	1 on success or -1 on failure.
  */
-цел lo_export (PGconn* conn, Oid lobjId, char* fileимя);
+int lo_export (PGconn* conn, Oid lobjId, char* filename);
 
 /**
  * todo
  */
-цел PQmblen (char* s, цел encoding);
+int PQmblen (char* s, int encoding);
 
 /**
  * todo
  */
-цел PQdsplen (char* s, цел encoding);
+int PQdsplen (char* s, int encoding);
 
 /**
  * todo
  */
-цел PQenv2encoding ();
+int PQenv2encoding ();
 
 /**
  * todo
  */
-char* PQencryptPassword (char* passwd, char* пользователь);
+char* PQencryptPassword (char* passwd, char* user);

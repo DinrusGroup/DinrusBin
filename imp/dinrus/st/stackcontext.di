@@ -1,4 +1,4 @@
-﻿module st.stackcontext;
+module st.stackcontext;
 
 private import dinrus, st.tls;
 
@@ -66,7 +66,7 @@ public class ОшибкаКонтекста : Ошибка
  * 
  * Any non выполняется контекст may be restarteauxd.  A restarted
  * контекст starts execution from the beginning of its
- * delegate.
+ * делегате.
  *
  * Contexts may be nested arbitrarily, ie Context A invokes
  * Context B, such that when B жниs A is resumeauxd.
@@ -263,7 +263,7 @@ public final class КонтекстСтэка
     public final проц перезапуск();
     
     /**
-     * Recycles the контекст by restarting it with a new delegate. This
+     * Recycles the контекст by restarting it with a new delegate. Эта
      * can save resources by allowing a program to reuse previously
      * allocated contexts.
      *
@@ -273,7 +273,7 @@ public final class КонтекстСтэка
     public final проц рециклируй(проц delegate() dg);
     
     /**
-     * Immediately sets the контекст состояние to завершён. This
+     * Immediately sets the контекст состояние to завершён. Эта
      * can be использован as an alternative to deleting the 
      * контекст since it releases any GC references, и
      * may be easily reallocateauxd.
@@ -457,10 +457,6 @@ extern (Windows) цел VirtualFree(
 
 extern (Windows) цел GetLastError();
 
-private debug(СтэкЛог)
-{
-    import stdrus; 
-}
 
 const бцел MEM_COMMIT           = 0x1000;
 const бцел MEM_RESERVE          = 0x2000;

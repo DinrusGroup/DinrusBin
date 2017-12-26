@@ -1,4 +1,4 @@
-﻿
+
 module util.fileex;
 
 version(unix)   version = Unix;

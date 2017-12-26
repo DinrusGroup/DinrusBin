@@ -4587,7 +4587,7 @@ ubyte FOURTH_IPADDRESS(LPARAM x) {
 
 HWND Animate_Create(HWND hwndP, UINT id, DWORD dwStyle,
 	  HINSTANCE hInstance) {
-	return CreateWindow(cast(TCHAR*)ANIMATE_CLASS.ptr, null, dwStyle, 0, 0, 0, 0, hwndP,
+	return CreateWindowW(cast(TCHAR*)ANIMATE_CLASS.ptr, null, dwStyle, 0, 0, 0, 0, hwndP,
 	  cast(HMENU) id, hInstance, null);
 }
 
@@ -4854,7 +4854,7 @@ HICON ImageList_ExtractIcon(HINSTANCE hi, HIMAGELIST himl, int i) {
 
 HIMAGELIST ImageList_LoadBitmap(HINSTANCE hi, LPCTSTR lpbmp, int cx,
 	  int cGrow, COLORREF crMask) {
-	return ImageList_LoadImage(hi, lpbmp, cx, cGrow, crMask, IMAGE_BITMAP, 0);
+	return ImageList_LoadImageW(hi, lpbmp, cx, cGrow, crMask, IMAGE_BITMAP, 0);
 }
 
 BOOL ImageList_RemoveAll(HIMAGELIST himl) {
@@ -5047,14 +5047,14 @@ void ListView_GetItemText(HWND w, int i, int iS, LPTSTR s, int n) {
 	LV_ITEM _lvi;
 	_lvi.iSubItem = iS;
 	_lvi.cchTextMax = n;
-	_lvi.pszText = s;
+	_lvi.pszText = cast(char*)s;
 	SendMessage(w, LVM_GETITEMTEXT, i, cast(LPARAM) &_lvi);
 }
 
 void ListView_SetItemText(HWND w, int i, int iS, LPTSTR s) {
 	LV_ITEM _lvi;
 	_lvi.iSubItem = iS;
-	_lvi.pszText = s;
+	_lvi.pszText = cast(char*) s;
 	SendMessage(w, LVM_SETITEMTEXT, i, cast(LPARAM) &_lvi);
 }
 

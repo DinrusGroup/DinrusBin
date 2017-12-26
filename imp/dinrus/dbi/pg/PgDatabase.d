@@ -125,7 +125,7 @@ class ПгБД : БазаДанных {
 	 * Thряды:
 	 *	ИсклДБИ if the SQL code couldn't be выполниd.
 	 */
-	override PgРезультат запрос (ткст эскюэл) ;
+	override ПгРезультат запрос (ткст эскюэл) ;
 
 	/**
 	 * Get the ошибка code.

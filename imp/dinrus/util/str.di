@@ -1,4 +1,4 @@
-﻿// Miscellaneous routines and symbols used when working with character strings
+// Miscellaneous routines and symbols used when working with character strings
 
 module util.str;
 

@@ -1,3 +1,3 @@
-﻿module sys.COM.all;
+module sys.COM.all;
 
 public import sys.COM.shell32;

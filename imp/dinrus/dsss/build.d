@@ -1,22 +1,22 @@
 ﻿/**
  * DSSS команда "постройка"
- * 
+ *
  * Authors:
  *  Gregor Richards
- * 
+ *
  * License:
  *  Copyright (c) 2006, 2007  Gregor Richards
- *  
+ *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated докumentation файлы (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to исп, copy, modify, merge, publish, distribute, sublicense,
  *  and/or sell copies of the Software, and to permit persons to whom the
  *  Software is furnished to do so, subject to the following conditions:
- *  
+ *
  *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,7 +27,7 @@
  */
 
 module dsss.build;
-import stdrus, cidrus, sys.DProcess;
+import stdrus, cidrus, sys.WinProcess;
 
 import dsss.conf;
 import dsss.system;
@@ -37,16 +37,16 @@ import dsss.system;
     // get the configuration
     if (конф is null)
         конф = читайКонфиг(стройЭлты);
-    
+
     // стройЭлты are by either soure or цель, so we need one by исток only
     ткст[] стройИсходники;
-    
+
     // get the sources
     стройИсходники = исходникиПоЭлтам(стройЭлты, конф);
-    
+
     // also get a complete список, since some steps need it
     ткст[] всеИсходники = исходникиПоЭлтам(null, конф);
-    
+
     /* building is fairly complicated, involves these steps:
      * 1) Make .di файлы
      *    (so that you link against your own libraries)
@@ -55,34 +55,34 @@ import dsss.system;
      * 3) Make real совместная libraries
      * 4) Make binaries
      */
-    
+
     // make the basic постройка строка
     ткст bl = ребилд ~ форсФлаги ~ " ";
-    
+
     // add -oq if we don't have such a настройка
     if (найди(форсФлаги, "-o") == -1) {
         сделпапР("dsss_objs" ~ РАЗДПАП ~ краткоОКомпиляторе());
         bl ~= "-oqdsss_objs" ~ РАЗДПАП ~ краткоОКомпиляторе() ~ " ";
     }
-    
+
     // 1) Make .di файлы for everything
     foreach (постройка; всеИсходники) {
         ткст[ткст] настройки = конф.настройки[постройка];
-        
+
         // basic info
         ткст тип = настройки["type"];
         ткст цель = настройки["target"];
-        
+
         if (тип == "library" && бибсБезоп_ли()) {
-                        
+
             // do the предиген
             if ("predigen" in настройки) {
                 шагСценарияДссс(конф, настройки["predigen"]);
             }
-            
+
             // this is a библиотека, so make .di файлы
             ткст[] исхФайлы = цельКФайлам(постройка, конф);
-            
+
             // generate .di файлы
             foreach (файл; исхФайлы) {
                 ткст ifile = "dsss_imports" ~ РАЗДПАП ~ файл ~ "i";
@@ -92,9 +92,9 @@ import dsss.system;
                      * .di файлы do NOT включить interfaces! So, we need to just
                      * cast .d файлы as .di until that's fixed */
                     сделпапР(извлекиПапку(ifile));
-                    
+
                     // now edit the .di файл to reference the appropriate библиотека
-                    
+
                     // usname = name_with_underscores
                     ткст usname = замени(постройка, "\\\\", "_");
 
@@ -102,7 +102,7 @@ import dsss.system;
                     ткст отладПрефикс = null;
                     if (строитьОтлад)
                         отладПрефикс = "debug-";
-                    
+
                     /* generate the pragmas (FIXME: this should be done in a
                      * nicer way) */
                     ткст имяДефБиблиотеки = имяБиблиотеки(постройка);
@@ -141,38 +141,38 @@ version(build) {
                     }
                 }
             }
-            
+
             // do the постдиген
             if ("postdigen" in настройки) {
                 шагСценарияДссс(конф, настройки["postdigen"]);
             }
-            
+
             скажифнс("");
-            
+
         }
     }
-    
+
     // 2) Make fake совместная libraries
     if (поддержкаСовмБиб()) {
         foreach (постройка; всеИсходники) {
             ткст[ткст] настройки = конф.настройки[постройка];
-            
+
             // ignore this if we're not building a совместная библиотека
             if (!("shared" in настройки)) continue;
-        
+
             // basic info
             ткст тип = настройки["type"];
             ткст цель = настройки["target"];
-        
+
             if (тип == "library" && бибсБезоп_ли()) {
                 ткст имяСовмБиб = дайИмяСовмБиб(настройки);
                 ткст[] краткиеИменаСовмБиб = дайКраткиеИменаСовмБиб(настройки);
                 ткст флагСовмБиб = дайФлагСовмБиб(настройки);
 
                 if (естьФайл(имяСовмБиб)) continue;
-                
+
                 скажифнс("Постройка стержня совместной библиотеки для %s", цель);
-                
+
                 // make the stub
                 if (цельГНУИлиПосикс()) {
                     ткст stubbl = bl ~ "-fPIC -shlib " ~ стабДРасп ~ " -of" ~ имяСовмБиб ~
@@ -186,7 +186,7 @@ version(build) {
                 } else {
                     assert(0);
                 }
-                
+
                 скажифнс("");
             }
         }
@@ -201,17 +201,17 @@ version(build) {
             ткст папдок = "dsss_docs" ~ РАЗДПАП ~ постройка;
             сделпапР(папдок);
             докбл ~= "-full -Dq" ~ папдок ~ " -candydoc ";
-        
+
             // now extract candydoc there
             ткст исхтрп = дайтекпап();
             сменипап(папдок);
-        
+
             version(Windows) {
                 пСкажиИСис("bsdtar -xf " ~ префиксКандиДок);
             } else {
                 пСкажиИСис("gunzip -c " ~ префиксКандиДок ~ " | tar -xf -");
             }
-        
+
             сменипап(исхтрп);
         }
     }
@@ -219,17 +219,17 @@ version(build) {
     // 3) Make real libraries and do особый steps and subdirs
     foreach (постройка; стройИсходники) {
         ткст[ткст] настройки = конф.настройки[постройка];
-        
+
         // basic info
         ткст тип = настройки["type"];
         ткст цель = настройки["target"];
-        
+
         if (тип == "library" || тип == "sourcelibrary") {
             ткст dotname = замени(постройка, "\\\\", ".");
-            
+
             // get the список of файлы
             ткст[] файлы = цельКФайлам(постройка, конф);
-            
+
             // and other necessary data
             ткст бфлаги, отладфлаги, релизфлаги;
             if ("buildflags" in настройки) {
@@ -243,7 +243,7 @@ version(build) {
             if ("releaseflags" in настройки) {
                 релизфлаги = настройки["releaseflags"] ~ " ";
             }
-            
+
             // output what we're building
             скажифнс("%s => %s", постройка, цель);
             if (файлы.length == 0) {
@@ -253,68 +253,68 @@ version(build) {
 
             // prepare to do докumentation
             приготовьДоки(постройка, делДоки);
-        
+
             // do the предпостройка
             if ("prebuild" in настройки) {
                 шагСценарияДссс(конф, настройки["prebuild"]);
             }
-            
+
             // get the файл список
             ткст списокФайлов = объедини(цельКФайлам(постройка, конф), " ");
-            
+
             // if we should, постройка the библиотека
             if ((тип == "library" && бибсБезоп_ли()) ||
                 делДоки /* need to постройка the библиотека to get докs */ ||
                 тестБибс /* need to постройка the ilbrary to тест it */) {
-                
+
                 if (строитьОтлад)
                     стройБиб("debug-" ~ цель, bl, бфлаги ~ отладфлаги, докбл, списокФайлов, настройки);
                 стройБиб(цель, bl, бфлаги ~ релизфлаги, докбл, списокФайлов, настройки);
             }
-        
+
             // do the постпостройка
             if ("postbuild" in настройки) {
                 шагСценарияДссс(конф, настройки["postbuild"]);
             }
-            
+
             // an extra строка for clarity
             скажифнс("");
-            
+
         } else if (тип == "special") {
             // особый тип, do pre/post
             скажифнс("%s", цель);
             if ("prebuild" in настройки) {
                 шагСценарияДссс(конф, настройки["prebuild"]);
             }
-            
+
             if ("postbuild" in настройки) {
                 шагСценарияДссс(конф, настройки["postbuild"]);
             }
             скажифнс("");
-            
+
         } else if (тип == "subdir") {
             // recurse
             ткст исхтрп = дайтекпап();
             сменипап(постройка);
-            
+
             // the one thing that's passed in is постройка flags
             ткст ориг_ребилд = ребилд.dup;
             if ("buildflags" in настройки) {
                 ребилд ~= настройки["buildflags"] ~ " ";
             }
-            
+
             цел резпостроя = dsss.build.строй(null);
             сменипап(исхтрп);
-            
+
             ребилд = ориг_ребилд;
-            
-        }         
+
+        }
     }
-    
+
     // 4) Binaries
     foreach (постройка; стройИсходники) {
         ткст[ткст] настройки = конф.настройки[постройка];
-        
+
         // basic info
         ткст бфайл = постройка;
         ткст тип = настройки["type"];
@@ -323,7 +323,7 @@ version(build) {
         if (бфайлплюс != -1) {
             бфайл = бфайл[0..бфайлплюс];
         }
-        
+
         if (тип == "binary") {
             // our бинарный постройка строка
             ткст бфлаги;
@@ -341,21 +341,21 @@ version(build) {
                     бфлаги ~= " " ~ настройки["releaseflags"];
                 }
             }
-            
+
             ткст bbl = bl ~ бфлаги ~ " ";
-            
+
             // output what we're building
             скажифнс("%s => %s", бфайл, цель);
 
             // prepare for докumentation
             приготовьДоки(постройка, делДоки && делДокБинари);
             bbl ~= докбл;
-            
+
             // do the предпостройка
             if ("prebuild" in настройки) {
                 шагСценарияДссс(конф, настройки["prebuild"]);
             }
-            
+
             // постройка a постройка строка
             ткст ext = stdrus.впроп(извлекиРасш(бфайл));
             if (ext == "d") {
@@ -366,21 +366,21 @@ version(build) {
                 скажифнс("ОШИБКА: нет сведений о построении файлов с расширением %s", ext);
                 return 1;
             }
-            
+
             // then do it
             пСкажиСисРАборт(bbl, "-rf", цель ~ ".rf", удалитьРФайлы);
-            
+
             // do the постпостройка
             if ("postbuild" in настройки) {
                 шагСценарияДссс(конф, настройки["postbuild"]);
             }
-            
+
             // an extra строка for clarity
             скажифнс("");
-            
+
         }
     }
-    
+
     return 0;
 }
 
@@ -417,18 +417,18 @@ version(build) {
                         пСкажиСисРАборт(tbl, "-rf", цель ~ "_test.rf", удалитьРФайлы);
                         пСкажиСисАборт("test_" ~ цель);
                     }
-                    
+
                     if (поддержкаСовмБиб() &&
                         ("shared" in настройки)) {
                         // then make the совместная библиотека
                         if (естьФайл(имяСовмБиб)) удалиФайл(имяСовмБиб);
                         ткст shbl = bl ~ бфлаги ~ " -fPIC -explicit -shlib -full " ~ списокФайлов ~ " -of" ~ имяСовмБиб ~
                         " " ~ флагСовмБиб;
-                        
+
                         // finally, the совместная compile
                         пСкажиСисРАборт(shbl, "-rf", цель ~ "_static.rf", удалитьРФайлы);
                     }
-                    
+
                 } else if (целеваяВерсия("Windows")) {
                     // for the moment, only do a static библиотека
                     if (естьФайл(цель ~ ".lib")) удалиФайл(цель ~ ".lib");

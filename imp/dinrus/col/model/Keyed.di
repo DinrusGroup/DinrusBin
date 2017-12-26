@@ -1,8 +1,8 @@
-﻿/*********************************************************
-   Copyright: (C) 2008 by Steven Schveighoffer.
-              All rights reserved
+/*********************************************************
+   Авторское право: (C) 2008 принадлежит Steven Schveighoffer.
+              Все права защищены
 
-   License: $(LICENSE)
+   Лицензия: $(LICENSE)
 
 **********************************************************/
 module col.model.Keyed;
@@ -10,55 +10,55 @@ module col.model.Keyed;
 public import col.model.Iterator;
 
 /**
- * Interface defining an object that accesses values by ключ.
+ * Интерфейс, определяющий объект, который получает доступ к объекту по ключу.
  */
 interface СКлючом(К, З) : Ключник!(К, З), ЧистящийКлючи!(К, З)
 {
     /**
-     * удали the значение at the given ключ location
+     * Удаляет значение по положению заданного ключа
      *
-     * Returns this.
+     *Возвращает this.
      */
     СКлючом!(К, З) удалиПо(К ключ);
 
     /**
-     * удали the значение at the given ключ location
+     * Удаляет значение по положению заданного ключа
      *
-     * Returns this.
+     *Возвращает this.
      *
-     * был_Удалён is установи to true if the элемент existed and was removed.
+     * был_Удалён устанавливается в да if the элемент существовал, но был удалён.
      */
     СКлючом!(К, З) удалиПо(К ключ, ref бул был_Удалён);
 
     /**
-     * access a значение based on the ключ
+     * Доступ к значению по ключу
      */
     З opIndex(К ключ);
 
     /**
-     * assign a значение based on the ключ
+     * Присвоить значение по ключу
      *
-     * Use this to вставь a ключ/значение pair into the collection.
+     * Использовать его для вставки пары a ключ/значениев коллекцию.
      *
-     * Note that some containers do not use user-specified ключи.  For those
-     * containers, the ключ must already have existed перед setting.
+     * Прим.: некоторые контейнеры не использует пользовательские ключи.  Для таких
+     * контейнеров, ключ должен уже существовать до установки.
      */
     З opIndexAssign(З значение, К ключ);
 
     /**
-     * установи the ключ/значение pair.  This is similar to opIndexAssign, but returns
-     * this, so the function can be chained.
+     * Установить пару ключ/значение.  Это подобно opIndexAssign, но возвращает
+     * this, поэтому функция может добавляться в цекпочку.
      */
     СКлючом!(К, З) установи(К ключ, З значение);
 
     /**
-     * Same as установи, but has a был_добавлен boolean to tell the caller whether the
-     * значение was добавленный or not.
+     * То же что установи, но имеет булево значение был_добавлен, чтобы сообщить вызывающему, было ли
+     * значение добавлено или нет
      */
     СКлючом!(К, З) установи(К ключ, З значение, ref бул был_добавлен);
 
     /**
-     * returns true if the collection содержит the ключ
+     * Возвращает да, если коллекция содержит ключ
      */
     бул имеетКлюч(К ключ);
 }

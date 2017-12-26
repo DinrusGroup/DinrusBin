@@ -1,9 +1,9 @@
-﻿//============================================================================
+//============================================================================
 // Вектор.d - 
 // Written in the D Programming Language (http://www.digitalmars.com/d)
 module linalg.Vector;
 
-import stdrus, tpl.metastrings;
+import tpl.metastrings;
 
 // ----------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ private ткст _gen_member_aliases(цел N)(ткст буквы) {
     return (a<b)? -1 : 1;
 } 
 
-//== CLASS DEFINITION =========================================================
+//== ОПРЕДЕЛЕНИЕ КЛАССА =========================================================
 
 
 /** Значения N шаблонного типа Скаляр - единственные члены данных
@@ -271,7 +271,7 @@ public:
         Скаляр квнорм()  ;
         /// Return the one-нормаль of the вектор (sum of elements' absolute values)
         Скаляр норм1() ;
-        /// Return the infinity-нормаль of the вектор (макс element std.math.absolute value)
+        /// Return the infinity-нормаль of the вектор (макс element stdrus.absolute value)
         Скаляр бескнорм();
         /** нормализуй вектор in place, return original length
          */

@@ -1,17 +1,17 @@
-﻿//============================================================================
-// Список.d -  Linked список данные structure 
+//============================================================================
+// Список.d - Структура данных линкованного списка 
 //
-// Written in the D Programming Language (http://www.digitalmars.com/d)
+// Написано на языке программирования Динрус (http://github.com/DinrusGroup)
 /*****************************************************************************
- * A Linked List данные structure.
+ * Структура данных линкованного списка.
  * 
- *  A doubly linked список данные structure based originally on the one in 
- *  ArcLib.  The interface has been modified to mimic the STL std.список
- *  type more closely, and a few new members have been added.
+ * Структура данных дважды линкованного списка изначально основана на таковой в 
+ *  ArcLib.  Интерфейс был изменён в подражание STL std.list
+ * тип уплотнён, добавлено несколько новых членов.
  *
- *  Author:  William З. Baxter III, OLM Digital, Inc.
- *  Date: 04 Sep 2007
- *  License:       zlib/libpng
+ *  Автор:  William З. Baxter III, OLM Digital, Inc.
+ *  Дата: 04 Sep 2007
+ *  Лицензия:       zlib/libpng
  */
 //============================================================================
 module col.List;
@@ -125,10 +125,10 @@ struct ОбходСписка(Т, бул резерв_ли = нет) {
         } return M;
     }
 
-    /// Return the value referred to by the обходчик
+    /// Вернуть значение, на которое ссылается обходчик
     Т знач() { assert(укз_ !is пусто); return укз_.данные; }
 
-    /// Return a указатель to the value referred to by the обходчик
+    ///Вернуть указатель на значение, к которому ссылается обходчик
     Т* укз() { assert(укз_ !is пусто); return &укз_.данные; }
     
     цел opEquals(ref ОбходСписка other) {
@@ -197,9 +197,9 @@ template обходчик_списка_рев(Т) {
 }
 
 
-/**  Linked-список данные structure
+/** Структура данных линкованного списка
  *
- *   Uses a doubly-linked список structure internally.
+ *  Использует структура данных дважды линкованного списка внутренне.
  */
 struct Список(Т)
 {
@@ -211,16 +211,16 @@ public:
     alias обходчик_списка!(Т) обходчик;
     alias обходчик_списка_рев!(Т) реверсОбходчик;
 
-    /// приставь an элт to the список
+    /// Приставить  элт в список
     обходчик приставь(ref Т новДанные)
     {
         return вставь_узел_перед(&якорь_, новДанные);
     }
 
-    /// Also приставь an элт to the список using L ~= элт syntax.
+    /// Также приставить элт к списку, используя синтаксис L ~= элт.
     проц opCatAssign(/*const*/ ref Т новДанные) { приставь(новДанные); }
 
-    /// предпоставь an элт onto the голова of список
+    /// Предпоставить элт в голову списка
     обходчик предпоставь(ref Т новДанные)
     {
         if (пуст() && голова is пусто) {
@@ -234,19 +234,19 @@ public:
     }
 
 
-    /// Insert an element перед обход
+    /// Вставить элемент перед обход
     обходчик вставь(обходчик обход, ref Т новДанные)
     {
         return вставь_узел_перед(обход.укз_, новДанные);
     }
 
-    // Does all insertions
+    // Выполняет все вставки
     private обходчик вставь_узел_перед(Узел* перед, ref Т новДанные)
     {
         Узел* элт = new Узел;
         элт.данные = новДанные;
       
-        if (пуст()) // first элт in список
+        if (пуст()) // первый элт в списке
         {
             assert (перед is &якорь_);
             элт.следщ = &якорь_;
@@ -255,7 +255,7 @@ public:
             якорь_.предш = элт;
         } 
 
-        else // add перед 'перед'
+        else // добавить перед 'перед'
         {
             Узел* предш = перед.предш;
             assert(предш !is пусто);
@@ -271,8 +271,8 @@ public:
         return ОбходСписка!(Т)(элт);
     }
 
-    /// remove node pointed to by обход from the список
-    /// returns the обходчик to the node following the removed node.
+    /// Удалить узел, на к-й указывает обход, из списка
+    /// возвращает обходчик к узлу, следующему за удалённым узлом.
     обходчик удали(обходчик обход)
     {
         Узел* curr = обход.укз_;
@@ -281,7 +281,7 @@ public:
             throw new неверный_обходчик("Список.удали: неверный обходчик");
         }
         debug {
-            // make sure this node is actually in our список??
+            //Правда ли этот узел в нашем списке??
         }
         обходчик next_iter = обход; ++next_iter;
 
@@ -296,19 +296,19 @@ public:
     }
 
 
-    /// Returns the длина of the список
+    /// Возвращает длина списка
     цел длина() { return размерСписка_; }
 
-    /// Returns the размер of the список, same as длина()
+    /// Возвращает размер списка, так же как и длина()
     цел размер() { return размерСписка_; }
    
-    /// Simple function to tell if список is пуст or not
+    /// Простая функция для определения, пуст ли список или нет
     бул пуст() 
     {
         return (размерСписка_ == 0);
     }
 
-    /// Clear all данные from the список
+    ///Очистить все данные из списка
     проц сотри()
     {
         auto it = начало();
@@ -318,7 +318,7 @@ public:
             удали(it);
     }
 
-	/// 'элт in список' implementation.  O(N) performance.
+	/// 'элт в реализации списка.  Производительность O(N).
 	бул opIn_r(Т данные)
 	{
 		foreach(Т d; *this)
@@ -328,8 +328,8 @@ public:
 		return нет; 
 	}
 
-	/// Find элт список, return an обходчик.  O(N) performance.
-    /// If not found returns this.конец()
+	/// Найти элт список, return обходчик.  Производительность O(N).
+    /// Если не найдено, возвращает this.конец()
 	обходчик найди(Т данные)
 	{
         обходчик it = начало(), _конец=конец();
@@ -345,7 +345,7 @@ public:
 	цел opApply(цел delegate(ref Т) dg)
 	{
 		Узел* curr=голова;
-        if (curr is пусто) return 0; // special case for unitialized список
+        if (curr is пусто) return 0; // особый случай для инициализированного списка
 		while (curr !is &якорь_)
 		{
             Узел* следщ = curr.следщ;
@@ -360,7 +360,7 @@ public:
 	цел opApplyReverse(цел delegate(ref Т) dg)
 	{
 		Узел* curr = хвост;
-        if (curr is пусто) return 0; // special case for unitialized список
+        if (curr is пусто) return 0; // особый случай для инициализированного списка
 		while (curr !is &якорь_)
 		{
             Узел* предш = curr.предш;
@@ -374,7 +374,7 @@ public:
 
     /*******************************************************************************
    
-      Returns the current данные from the список
+      Возвращает текущие данные из списка
    
     *******************************************************************************/
 
@@ -391,14 +391,14 @@ public:
         return ОбходСписка!(Т,да)(&якорь_);
     }
 
-	/// return the first element in the список
+	/// Вернуть первый элемент в списке
     Т первый()
     {
         assert(!пуст(), "первый: список пуст!"); 
         return голова.данные;
     }
 
-	/// return the last element in the список 
+	/// Возвращает последний элемент в списке 
     Т последний()
     {
         assert(!пуст(), "последний: список пуст!"); 
@@ -407,7 +407,7 @@ public:
 
 /+
 	// http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
-	/// perform merge sort on this linked список 
+	/// Выполнить маржную сортировку над данным линкованым списком 
 	проц sort()
 	{
 		Узел* p;
@@ -418,8 +418,8 @@ public:
 		цел insize, nmerges, psize, qsize, i;
 
 		/*
-		 * Silly special case: if `список' was passed in as пусто, return
-		 * пусто immediately.
+		 * Тупо особый случай: если `список' передан как пусто, return
+		 * пусто сразу же.
 		 */
 		if (голова is пусто)
 			return;
@@ -433,12 +433,12 @@ public:
 			голова = пусто;
 			хвост = пусто;
 
-			nmerges = 0;  /* count number of merges we do in this pass */
+			nmerges = 0;  /* считанное число маржей делается в этой проходке */
 
 			while (p !is пусто) 
 			{
-				nmerges++;  /* there exists a merge to be done */
-				/* step `insize' places along from p */
+				nmerges++;  /* сужествует маржа, которую нужно выплнить */
+				/* шаг `insize' места along from p */
 				q = p;
 				psize = 0;
 				
@@ -451,14 +451,14 @@ public:
 					if (q is пусто) break;
 				}
 
-				/* if q hasn'т fallen off конец, we have two lists to merge */
+				/* если q не выпало из конец, у нас два маржируемых списка */
 				qsize = insize;
 
-				/* now we have two lists; merge them */
+				/* теперь у нас два списка; маржируем их */
 				while (psize > 0 || (qsize > 0 && q !is пусто)) 
 				{
 
-					/* decide whether следщ element of merge comes from p or q */
+					/* определить, идёт ли следщ элемент маржи от p или q */
 					if (psize == 0) 
 					{
 						/* p is пуст; e must come from q. */
@@ -472,11 +472,11 @@ public:
 						 * e must come from p. */
 						e = p; p = p.следщ; psize--;
 					} else {
-						/* First element of q is lower; e must come from q. */
+						/* Первый элемент из q ниже; e должно идти от q. */
 						e = q; q = q.следщ; qsize--;
 					}
 
-                    /* add the следщ element to the merged список */
+                    /* добавить следщ элемент в маржированный список */
 					if (хвост !is пусто) 
 					{
 						хвост.следщ = e;
@@ -490,17 +490,17 @@ public:
 					хвост = e;
 				}
 
-				/* now p has stepped `insize' places along, and q has too */
+				/*теперь p вступило `insize' places along, а q должно тоже */
 				p = q;
 			}
 		
 			хвост.следщ = пусто;
 
-			/* If we have done only one merge, we're finished. */
-			if (nmerges <= 1)   /* allow for nmerges==0, the пуст список case */
+			/* Если выполнена только одна маржа, мы окончили. */
+			if (nmerges <= 1)   /* allow for nmerges==0, t случай с пустым списком*/
 				return;
 
-			/* Otherwise repeat, merging lists twice the размер */
+			/* Иначе повторить, маржируя списки на удвоенной размер */
 			insize *= 2;
 		}
 	}
@@ -615,7 +615,7 @@ unittest {
             assert(*it.укз == i);
         }
     }
-    // вставь tests //
+    //тесты вставки //
     {
         auto it = ilist.найди(3);
         ilist.вставь(it, 9);
@@ -626,7 +626,7 @@ unittest {
         assert( checkeq(ilist, "81293457") );
     }
 
-    // удали tests //
+    // тесты удаления //
     {
         auto it = ilist.найди(3);
         ilist.удали(it);
@@ -650,7 +650,7 @@ unittest {
 
         assert(ilist.найди(1) == ilist.конец());
         
-        // Try inserting into a previously non-пуст список
+        // Попытаемся вставить в ранее не пустой список
         assert(ilist.пуст());
         ilist ~= 9;
         assert(!ilist.пуст());
@@ -662,9 +662,9 @@ unittest {
         assert(ilist.длина == 1);
     }
 
-    скажинс("----список tests complete ----");
+    скажинс("----тесты списка завершены ----");
     }
     else {
-        assert(нет, "список.d module unittest requires -version=Unittest");
+        assert(нет, "List.d module unittest requires -version=Unittest");
     }
 }

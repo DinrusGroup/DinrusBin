@@ -1,4 +1,4 @@
-﻿
+
 module util.linetoken;
 
 ткст[] разбериСтроку(ткст pSource,

@@ -1,4 +1,4 @@
-﻿
+
 module geom.LoopSchemeMask;
 
 import tpl.singleton;

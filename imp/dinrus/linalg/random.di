@@ -1,4 +1,4 @@
-﻿module linalg.random;
+module linalg.random;
 
 private import linalg.basic;
 

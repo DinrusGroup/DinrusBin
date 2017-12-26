@@ -1,8 +1,8 @@
 ﻿/*
  Файл: LLCell.d
 
- Originally записано by Doug Lea и released преобр_в the public домен. 
- Thanks for the assistance и support of Sun Microsystems Labs, Agorics 
+ Originally записано by Doug Lea и released преобр_в the public домен.
+ Thanks for the assistance и support of Sun Microsystems Labs, Agorics
  Inc, Loral, и everyone contributing, testing, и using this код.
 
  History:
@@ -16,7 +16,7 @@ module util.collection.impl.LLCell;
 
 private import util.collection.impl.Cell;
 
-private import util.collection.model.Сравнитель;
+private import util.collection.model.Comparator;
 
 /**
  *
@@ -30,7 +30,7 @@ private import util.collection.model.Сравнитель;
  * Still, the class is made `public' so that you can use them в_
  * build другой kinds of собериions or whatever, not just the ones
  * currently supported.
- * 
+ *
         author: Doug Lea
  * @version 0.93
  *
@@ -81,7 +81,7 @@ public class LLCell(T) : Cell!(T)
 
 
         /**
-         * Splice in p between текущ ячейка и whatever it was previously 
+         * Splice in p between текущ ячейка и whatever it was previously
          * pointing в_
          * @param p, the ячейка в_ splice
         **/
@@ -94,7 +94,7 @@ public class LLCell(T) : Cell!(T)
         }
 
         /**
-         * Cause текущ ячейка в_ пропусти over the текущ следщ() one, 
+         * Cause текущ ячейка в_ пропусти over the текущ следщ() one,
          * effectively removing the следщ элемент из_ the список
         **/
 

@@ -7,13 +7,6 @@
  */
 module dbi.mssql.MssqlResult;
 
-version(Rulada) {
-	private import stdrus : toDString = вТкст, toCString = вТкст0, locate = найди;
-} else {
-	private import stdrus : toDString = вТкст, toCString = вТкст0;
-	private import text.Util : locate;
-	private static import text.convert.Float, text.convert.Integer;
-}
 import dbi.DBIException, dbi.Result, dbi.Row;
 import dbi.mssql.imp, dbi.mssql.MssqlDate;
 
@@ -23,7 +16,9 @@ import dbi.mssql.imp, dbi.mssql.MssqlDate;
  * See_Also:
  *	Результат is the interface of which this provides an implementation.
  */
-class MssqlResult : Результат ;
+class MssqlResult : Результат
+ {
+
 
 	/**
 	 * Get the следщ ряд from a результат установи.
@@ -57,5 +52,5 @@ class MssqlResult : Результат ;
 	проц установиЧлоПолей() ;
 
 	проц установиПоля() ;
-	
+
 }

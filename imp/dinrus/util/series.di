@@ -1,4 +1,4 @@
-﻿module util.series;
+module util.series;
 
 struct Серии
 {

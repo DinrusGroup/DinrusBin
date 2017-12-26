@@ -1,6 +1,5 @@
-﻿module lib.sdl;
-import stdrus, cidrus;
-pragma(lib,"dinrus.lib");
+module lib.sdl;
+import dinrus;
 
 alias char* CCPTR;
 alias шим* CWCPTR;
@@ -243,7 +242,7 @@ extern(C)
 цел зумПоверхностиКЗСА (ПоверхностьСДЛ * src, ПоверхностьСДЛ * dst, цел smooth);
 цел зумПоверхностиВ (ПоверхностьСДЛ * src, ПоверхностьСДЛ * dst);
 проц трансформПоверхностиКЗСА (ПоверхностьСДЛ * src, ПоверхностьСДЛ * dst, цел cx, цел cy, цел isin, цел icos, цел smooth);
-проц трансформПоверхностиВ (ПоверхностьСДЛ * src, ПоверхностьСДЛ * dst, цел cx, цел cy, цел isin, цел icos);		 
+проц трансформПоверхностиВ (ПоверхностьСДЛ * src, ПоверхностьСДЛ * dst, цел cx, цел cy, цел isin, цел icos);
 ПоверхностьСДЛ *ротозумПоверхности (ПоверхностьСДЛ * src, double angle, double zoom, int smooth);
 ПоверхностьСДЛ *зумПоверхности (ПоверхностьСДЛ * src, double zoomx, double zoomy, int smooth);
 проц ЗумКартинки (ПоверхностьСДЛ * экран, ПоверхностьСДЛ * картинка, int smooth);
@@ -1473,7 +1472,7 @@ const бцел SDL_COMPILEDVERSION =  SDL_MAJOR_VERSION * 1000 +
 // SDL_syswm.h
 version(Windows)
 {
-    
+
 
     struct SDL_SysWMmsg
     {

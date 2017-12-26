@@ -12,7 +12,7 @@ module dbi.odbc.OdbcResult;
 // WindowsAPI should also include odbc32.lib itself.
 
 version(Dinrus) {
-	private import stdrus : убери = strip;
+	private import stdrus : убери;
 } else {
 	private import text.Util : убери;
 }
@@ -34,27 +34,27 @@ private бул SQL_SUCCEEDED (SQLRETURN ret);
  */
 class РезультатОДБЦ : Результат {
 	public:
-	
+
 	this (SQLHSTMT инстр);
-	
+
 	/**
 	 * Get the следщ ряд from a результат установи.
 	 *
 	 * Returns:
 	 *	A Ряд object with the queried information or пусто for an empty установи.
 	 */
-	 
+
 	override Ряд получиРяд () ;
-	
+
 	/**
 	 * Free all бд resources used by a результат установи.
 	 *
 	 * Thряды:
 	 *	ИсклДБИ if an ODBC statement couldn't be destroyed.
 	 */
-	 
+
 	override проц финиш () ;
-	
+
 	private:
 	SQLHSTMT инстр;
 	SQLSMALLINT numColumns;

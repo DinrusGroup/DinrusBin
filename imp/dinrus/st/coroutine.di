@@ -1,4 +1,4 @@
-﻿module st.coroutine;
+module st.coroutine;
 
 
 private

@@ -1,3 +1,4 @@
+rulada
 dmd -ofhello.pyd hello.d .\template\python_dll_windows_boilerplate.d hello.def
 pause
 hello.py
@@ -11,3 +12,4 @@ pause
 testdll.py
 pause
 del *.obj *.map
+dinrusex

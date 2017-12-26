@@ -19,36 +19,30 @@ private import dbi.msql.imp, dbi.msql.MsqlResult;
  * See_Also:
  *	БазаДанных is the interface that this provides an implementation of.
  */
-class MsqlDatabase : БазаДанных {
+class ЭмЭсКюЭлБД : БазаДанных {
 	public:
 	/**
-	 * Create a new instance of MsqlDatabase, but don't подключись.
+	 * Create a new instance of ЭмЭсКюЭлБД, but don't подключись.
 	 */
-	this () {
-	}
+	this ();
 
 	/**
-	 * Create a new instance of MsqlDatabase and подключись to a server.
+	 * Create a new instance of ЭмЭсКюЭлБД and подключись to a server.
 	 *
 	 * See_Also:
 	 *	подключись
 	 */
-	this (ткст парамы, ткст имя_пользователя = пусто, ткст пароль = пусто) {
-		this();
-		подключись(парамы, имя_пользователя, пароль);
-	}
+	this (ткст парамы, ткст имя_пользователя = пусто, ткст пароль = пусто) ;
 
 	/**
 	 *
 	 */
-	override проц подключись (ткст парамы, ткст имя_пользователя = пусто, ткст пароль = пусто) {
-	}
+	override проц подключись (ткст парамы, ткст имя_пользователя = пусто, ткст пароль = пусто) ;
 
 	/**
 	 * Close the current подключение to the бд.
 	 */
-	override проц закрой () {
-	}
+	override проц закрой () ;
 
 	/**
 	 * Execute a SQL statement that returns no результаты.
@@ -56,8 +50,7 @@ class MsqlDatabase : БазаДанных {
 	 * Params:
 	 *	эскюэл = The SQL statement to выполни.
 	 */
-	override проц выполни (ткст эскюэл) {
-	}
+	override проц выполни (ткст эскюэл);
 
 	/**
 	 * Query the бд.
@@ -68,9 +61,7 @@ class MsqlDatabase : БазаДанных {
 	 * Returns:
 	 *	A Результат object with the queried information.
 	 */
-	override РезультатМЭсКюЭл запрос (ткст эскюэл) {
-		return пусто;
-	}
+	override РезультатМЭсКюЭл запрос (ткст эскюэл) ;
 
 	/**
 	 * Get the ошибка code.
@@ -82,9 +73,7 @@ class MsqlDatabase : БазаДанных {
 	 * Returns:
 	 *	The бд specific ошибка code.
 	 */
-	deprecated override цел дайКодОшибки () {
-		return 0;
-	}
+	deprecated override цел дайКодОшибки ();
 
 	/**
 	 * Get the ошибка message.
@@ -96,10 +85,8 @@ class MsqlDatabase : БазаДанных {
 	 * Returns:
 	 *	The бд specific ошибка message.
 	 */
-	deprecated override ткст дайСообОшибки () {
-		return "";
-	}
+	deprecated override ткст дайСообОшибки () ;
 
-	private:
+	
 
 }

@@ -1,4 +1,4 @@
-﻿module lib.ode;
+module lib.ode;
 import stdrus, cidrus: фук;
 
 // odeconfig.h
