@@ -1,2 +1,0 @@
-dmd -run compile
-pause

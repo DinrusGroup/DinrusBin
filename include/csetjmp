@@ -1,8 +1,0 @@
-
-#pragma once
-
-#ifndef __SETJMP_H
-#include <setjmp.h>
-#endif
-
-

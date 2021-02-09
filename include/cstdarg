@@ -1,9 +1,0 @@
-
-#pragma once
-
-#ifndef __STDARG_H
-#include <stdarg.h>
-#endif
-
-
-

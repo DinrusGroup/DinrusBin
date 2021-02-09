@@ -1,8 +1,0 @@
-
-#pragma once
-
-#ifndef __MATH_H
-#include <math.h>
-#endif
-
-

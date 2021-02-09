@@ -1,7 +1,0 @@
-
-#pragma once
-
-#ifndef __CTYPE_H
-#include <ctype.h>
-#endif
-

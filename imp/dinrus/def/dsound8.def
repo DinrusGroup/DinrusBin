@@ -1,2 +1,0 @@
-﻿IMPORTS
-_DirectSoundCreate8@12 = dsound.DirectSoundCreate8
